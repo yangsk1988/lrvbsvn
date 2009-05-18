@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "V3.Common", "V3.Common\V3.Common.vcproj", "{C8EFCBB5-10C0-4B8E-9DF4-5E4E425797CD}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "V3.Ide", "V3.Ide\V3.Ide.vbproj", "{66CE3C8D-2A86-40AF-90DB-AE9397EBC566}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,16 @@ Global
 		{C8EFCBB5-10C0-4B8E-9DF4-5E4E425797CD}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{C8EFCBB5-10C0-4B8E-9DF4-5E4E425797CD}.Release|Win32.ActiveCfg = Release|Win32
 		{C8EFCBB5-10C0-4B8E-9DF4-5E4E425797CD}.Release|Win32.Build.0 = Release|Win32
+		{66CE3C8D-2A86-40AF-90DB-AE9397EBC566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66CE3C8D-2A86-40AF-90DB-AE9397EBC566}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66CE3C8D-2A86-40AF-90DB-AE9397EBC566}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{66CE3C8D-2A86-40AF-90DB-AE9397EBC566}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{66CE3C8D-2A86-40AF-90DB-AE9397EBC566}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{66CE3C8D-2A86-40AF-90DB-AE9397EBC566}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66CE3C8D-2A86-40AF-90DB-AE9397EBC566}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66CE3C8D-2A86-40AF-90DB-AE9397EBC566}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{66CE3C8D-2A86-40AF-90DB-AE9397EBC566}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{66CE3C8D-2A86-40AF-90DB-AE9397EBC566}.Release|Win32.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,5 +94,6 @@ Global
 		{959485AE-7F9B-4651-BEAB-FB95187621BA} = {9CB324DE-A1DA-4E07-A825-F3664741B50E}
 		{90BFC567-8228-4923-81BF-37DDB4353193} = {9CB324DE-A1DA-4E07-A825-F3664741B50E}
 		{C8EFCBB5-10C0-4B8E-9DF4-5E4E425797CD} = {9CB324DE-A1DA-4E07-A825-F3664741B50E}
+		{66CE3C8D-2A86-40AF-90DB-AE9397EBC566} = {9CB324DE-A1DA-4E07-A825-F3664741B50E}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,9 @@
+
+
+class SceneIsland
+{
+private:
+	
+public:
+
+}
