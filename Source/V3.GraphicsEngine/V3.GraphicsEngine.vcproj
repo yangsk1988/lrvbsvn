@@ -6,7 +6,7 @@
 	ProjectGUID="{90BFC567-8228-4923-81BF-37DDB4353193}"
 	RootNamespace="V3GraphicsEngine"
 	Keyword="ManagedCProj"
-	TargetFrameworkVersion="196613"
+	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -42,9 +42,10 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\Include"
 				PreprocessorDefinitions="WIN32;_DEBUG"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -59,8 +60,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(NoInherit)"
+				AdditionalDependencies="user32.lib gdi32.lib dxguid.lib d3d9.lib d3dx9.lib dxgi.lib d3d10.lib d3dx10.lib d3d10_1.lib dinput8.lib xinput.lib dxerr.lib ole32.lib x3daudio.lib xapobase.lib winmm.lib dsound.lib $(NOINHERIT)"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\Lib\x86"
 				GenerateDebugInformation="true"
 				AssemblyDebug="1"
 				TargetMachine="1"
@@ -113,9 +115,10 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\Include"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -130,8 +133,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(NoInherit)"
+				AdditionalDependencies="user32.lib gdi32.lib dxguid.lib d3d9.lib d3dx9.lib dxgi.lib d3d10.lib d3dx10.lib d3d10_1.lib dinput8.lib xinput.lib dxerr.lib ole32.lib x3daudio.lib xapobase.lib winmm.lib dsound.lib $(NOINHERIT)"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\Lib\x86"
 				GenerateDebugInformation="true"
 				TargetMachine="1"
 			/>
@@ -174,6 +178,11 @@
 			AssemblyName="System.Xml, Version=2.0.0.0, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
 			MinFrameworkVersion="131072"
 		/>
+		<AssemblyReference
+			RelativePath="System.Drawing.dll"
+			AssemblyName="System.Drawing, Version=2.0.0.0, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+			MinFrameworkVersion="131072"
+		/>
 	</References>
 	<Files>
 		<Filter
@@ -183,6 +192,10 @@
 			>
 			<File
 				RelativePath=".\AssemblyInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Scene\SceneIsland.cpp"
 				>
 			</File>
 			<File
@@ -205,10 +218,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath=".\V3.GraphicsEngine.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Í·ÎÄ¼þ"
@@ -220,11 +229,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Stdafx.h"
+				RelativePath=".\Scene\SceneIsland.h"
 				>
 			</File>
 			<File
-				RelativePath=".\V3.GraphicsEngine.h"
+				RelativePath=".\Stdafx.h"
 				>
 			</File>
 		</Filter>
