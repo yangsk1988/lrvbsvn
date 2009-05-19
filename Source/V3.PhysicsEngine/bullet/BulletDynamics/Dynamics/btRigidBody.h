@@ -140,6 +140,12 @@ public:
 	btRigidBody(	btScalar mass, btMotionState* motionState, btCollisionShape* collisionShape, const btVector3& localInertia=btVector3(0,0,0));
 
 
+	btRigidBody()
+	{
+		btRigidBodyConstructionInfo cinfo(0,0,0,btVector3(0,0,0));
+		setupRigidBody(cinfo);
+	}
+
 	virtual ~btRigidBody()
         { 
                 //No constraints should point to this rigidbody

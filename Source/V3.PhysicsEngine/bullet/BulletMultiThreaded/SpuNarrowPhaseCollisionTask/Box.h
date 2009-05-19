@@ -23,7 +23,7 @@ subject to the following restrictions:
 #endif
 
 #include <math.h>
-#include <vectormath_aos.h>
+#include <BulletMultiThreaded\vectormath\scalar\cpp\vectormath_aos.h>
 
 using namespace Vectormath::Aos;
 

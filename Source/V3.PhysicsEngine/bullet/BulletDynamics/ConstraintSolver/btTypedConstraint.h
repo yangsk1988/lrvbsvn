@@ -16,11 +16,12 @@ subject to the following restrictions:
 #ifndef TYPED_CONSTRAINT_H
 #define TYPED_CONSTRAINT_H
 
+static int initiailzed = 0;
+
 class btRigidBody;
 #include "LinearMath/btScalar.h"
 #include "btSolverConstraint.h"
 struct  btSolverBody;
-
 
 
 
@@ -33,9 +34,11 @@ enum btTypedConstraintType
 	SLIDER_CONSTRAINT_TYPE
 };
 
+
 ///TypedConstraint is the baseclass for Bullet constraints and vehicles
 class btTypedConstraint
 {
+
 	int	m_userConstraintType;
 	int	m_userConstraintId;
 

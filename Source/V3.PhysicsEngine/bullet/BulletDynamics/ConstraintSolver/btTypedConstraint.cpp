@@ -17,7 +17,7 @@ subject to the following restrictions:
 #include "btTypedConstraint.h"
 #include "BulletDynamics/Dynamics/btRigidBody.h"
 
-static btRigidBody s_fixed(0, 0,0);
+static btRigidBody s_fixed(0,0,0);
 
 #define DEFAULT_DEBUGDRAW_SIZE btScalar(0.3f)
 
