@@ -17,7 +17,8 @@ subject to the following restrictions:
 #include "btTypedConstraint.h"
 #include "BulletDynamics/Dynamics/btRigidBody.h"
 
-static btRigidBody s_fixed(0,0,0);
+static btRigidBody s_fixed;
+static int initialized = 0;
 
 #define DEFAULT_DEBUGDRAW_SIZE btScalar(0.3f)
 
@@ -30,6 +31,11 @@ m_rbB(s_fixed),
 m_appliedImpulse(btScalar(0.)),
 m_dbgDrawSize(DEFAULT_DEBUGDRAW_SIZE)
 {
+	if (!initialized)
+	{
+		s_fixed = btRigidBody(0,0,0);
+		initialized=1;
+	}
 	s_fixed.setMassProps(btScalar(0.),btVector3(btScalar(0.),btScalar(0.),btScalar(0.)));
 }
 btTypedConstraint::btTypedConstraint(btTypedConstraintType type, btRigidBody& rbA)
@@ -41,8 +47,13 @@ m_rbB(s_fixed),
 m_appliedImpulse(btScalar(0.)),
 m_dbgDrawSize(DEFAULT_DEBUGDRAW_SIZE)
 {
-		s_fixed.setMassProps(btScalar(0.),btVector3(btScalar(0.),btScalar(0.),btScalar(0.)));
+	if (!initialized)
+	{
+		s_fixed = btRigidBody(0,0,0);
+		initialized=1;
+	}
 
+	s_fixed.setMassProps(btScalar(0.),btVector3(btScalar(0.),btScalar(0.),btScalar(0.)));
 }
 
 
@@ -55,8 +66,12 @@ m_rbB(rbB),
 m_appliedImpulse(btScalar(0.)),
 m_dbgDrawSize(DEFAULT_DEBUGDRAW_SIZE)
 {
-		s_fixed.setMassProps(btScalar(0.),btVector3(btScalar(0.),btScalar(0.),btScalar(0.)));
-
+	if (!initialized)
+	{
+		s_fixed = btRigidBody(0,0,0);
+		initialized=1;
+	}
+	s_fixed.setMassProps(btScalar(0.),btVector3(btScalar(0.),btScalar(0.),btScalar(0.)));
 }
 
 

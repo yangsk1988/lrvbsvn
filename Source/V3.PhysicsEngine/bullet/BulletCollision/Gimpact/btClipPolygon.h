@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef BT_CLIP_POLYGON_H_INCLUDED
 #define BT_CLIP_POLYGON_H_INCLUDED
 

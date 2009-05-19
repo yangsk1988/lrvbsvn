@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef GIM_GEOM_TYPES_H_INCLUDED
 #define GIM_GEOM_TYPES_H_INCLUDED
 

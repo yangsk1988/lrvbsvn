@@ -1,3 +1,4 @@
+#pragma unmanaged
 /*
 Bullet Continuous Collision Detection and Physics Library, Copyright (c) 2007 Erwin Coumans
 

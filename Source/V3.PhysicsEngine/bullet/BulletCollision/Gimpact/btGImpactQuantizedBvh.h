@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef GIM_QUANTIZED_SET_H_INCLUDED
 #define GIM_QUANTIZED_SET_H_INCLUDED
 

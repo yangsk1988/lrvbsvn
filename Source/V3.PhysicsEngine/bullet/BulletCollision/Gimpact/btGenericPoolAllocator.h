@@ -1,3 +1,4 @@
+#pragma unmanaged
 /*! \file btGenericPoolAllocator.h
 \author Francisco Len Nßjera. email projectileman@yahoo.com
 

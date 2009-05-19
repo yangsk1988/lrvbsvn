@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef GIM_LINEAR_H_INCLUDED
 #define GIM_LINEAR_H_INCLUDED
 

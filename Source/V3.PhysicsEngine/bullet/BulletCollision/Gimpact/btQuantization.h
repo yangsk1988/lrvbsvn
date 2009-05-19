@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef BT_QUANTIZATION_H_INCLUDED
 #define BT_QUANTIZATION_H_INCLUDED
 

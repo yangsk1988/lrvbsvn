@@ -1,3 +1,4 @@
+#pragma unmanaged
 /*
 btShapeHull implemented by John McCutchan.
 

@@ -187,6 +187,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\AssemblyInfo.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\bullet\BulletMultiThreaded\SpuNarrowPhaseCollisionTask\boxBoxDistance.cpp"
 				>
 			</File>
@@ -778,6 +782,14 @@
 			</File>
 			<File
 				RelativePath=".\bullet\BulletMultiThreaded\SpuNarrowPhaseCollisionTask\boxBoxDistance.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Collision\BroadphaseCollision\BroadphaseInterface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Collision\BroadphaseCollision\BroadphaseProxy.h"
 				>
 			</File>
 			<File
@@ -1406,6 +1418,14 @@
 			</File>
 			<File
 				RelativePath=".\bullet\Bullet-C-Api.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Dynamics\CollisionWorld.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Dynamics\DynamicsWorld.h"
 				>
 			</File>
 			<File

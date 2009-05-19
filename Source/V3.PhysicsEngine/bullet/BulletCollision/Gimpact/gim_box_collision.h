@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef GIM_BOX_COLLISION_H_INCLUDED
 #define GIM_BOX_COLLISION_H_INCLUDED
 

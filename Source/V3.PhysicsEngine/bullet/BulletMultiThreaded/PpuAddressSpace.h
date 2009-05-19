@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef __PPU_ADDRESS_SPACE_H
 #define __PPU_ADDRESS_SPACE_H
 

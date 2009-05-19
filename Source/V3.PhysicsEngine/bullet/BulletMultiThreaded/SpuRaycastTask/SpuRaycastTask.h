@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef __SPU_RAYCAST_TASK_H
 #define __SPU_RAYCAST_TASK_H
 

@@ -1,3 +1,4 @@
+#pragma unmanaged
 /*
 Bullet Continuous Collision Detection and Physics Library
 btConeTwistConstraint is Copyright (c) 2007 Starbreeze Studios
