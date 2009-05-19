@@ -22,7 +22,6 @@ subject to the following restrictions:
 #include "LinearMath/btDefaultMotionState.h"
 #include "btKinematicCharacterController.h"
 
-static btVector3 upAxisDirection[3] = { btVector3(1.0f, 0.0f, 0.0f), btVector3(0.0f, 1.0f, 0.0f), btVector3(0.0f, 0.0f, 1.0f) };
 
 ///@todo Interact with dynamic objects,
 ///Ride kinematicly animated platforms properly
@@ -171,6 +170,8 @@ bool btKinematicCharacterController::recoverFromPenetration ( btCollisionWorld* 
 
 void btKinematicCharacterController::stepUp ( btCollisionWorld* world)
 {
+	static btVector3 upAxisDirection[3] = { btVector3(1.0f, 0.0f, 0.0f), btVector3(0.0f, 1.0f, 0.0f), btVector3(0.0f, 0.0f, 1.0f) };
+
 	// phase 1: up
 	btTransform start, end;
 	m_targetPosition = m_currentPosition + upAxisDirection[m_upAxis] * m_stepHeight;
@@ -341,6 +342,8 @@ void btKinematicCharacterController::stepForwardAndStrafe ( btCollisionWorld* co
 
 void btKinematicCharacterController::stepDown ( btCollisionWorld* collisionWorld, btScalar dt)
 {
+	static btVector3 upAxisDirection[3] = { btVector3(1.0f, 0.0f, 0.0f), btVector3(0.0f, 1.0f, 0.0f), btVector3(0.0f, 0.0f, 1.0f) };
+
 	btTransform start, end;
 
 	// phase 3: down

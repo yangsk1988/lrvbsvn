@@ -52,7 +52,7 @@ void supportPoints (const btTransform& xformRay,
 {
 	btVector3 saUnit = seperatingAxis;
 	saUnit.normalize();
-	btVector3 SupportPellet = xformRay(0.0001 * -saUnit);
+	btVector3 SupportPellet = xformRay(0.0001f * -saUnit);
 	btVector3 rotatedSeperatingAxis = seperatingAxis * xformB.getBasis();
 	btVector3 SupportShape = xformB(localGetSupportingVertexWithoutMargin(shapeType, (void*)shape, rotatedSeperatingAxis, convexVertexData));
 	SupportShape += saUnit * marginB;

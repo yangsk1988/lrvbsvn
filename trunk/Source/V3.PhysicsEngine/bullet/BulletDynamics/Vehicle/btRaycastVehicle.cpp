@@ -22,7 +22,6 @@
 #include "LinearMath/btIDebugDraw.h"
 #include "BulletDynamics/ConstraintSolver/btContactConstraint.h"
 
-static btRigidBody s_fixedObject( 0,0,0);
 
 btRaycastVehicle::btRaycastVehicle(const btVehicleTuning& tuning,btRigidBody* chassis,	btVehicleRaycaster* raycaster )
 :m_vehicleRaycaster(raycaster),
@@ -185,7 +184,10 @@ btScalar btRaycastVehicle::rayCast(btWheelInfo& wheel)
 		depth = raylen * rayResults.m_distFraction;
 		wheel.m_raycastInfo.m_contactNormalWS  = rayResults.m_hitNormalInWorld;
 		wheel.m_raycastInfo.m_isInContact = true;
-		
+
+
+		static btRigidBody s_fixedObject( 0,0,0);
+
 		wheel.m_raycastInfo.m_groundObject = &s_fixedObject;///@todo for driving on dynamic/movable objects!;
 		//wheel.m_raycastInfo.m_groundObject = object;
 

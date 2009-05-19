@@ -208,7 +208,7 @@ SIMD_FORCE_INLINE void small_cache_read(void* buffer, ppu_address_t ea, size_t s
 #endif
 }
 
-SIMD_FORCE_INLINE void small_cache_read_triple(	void* ls0, ppu_address_t ea0,
+SIMD_FORCE_INLINE void small_cache_read_triple2(	void* ls0, ppu_address_t ea0,
 												void* ls1, ppu_address_t ea1,
 												void* ls2, ppu_address_t ea2,
 												size_t size)
@@ -297,7 +297,7 @@ public:
 			unsigned short int* indexBasePtr = (unsigned short int*)(m_lsMemPtr->bvhShapeData.gIndexMesh.m_triangleIndexBase+triangleIndex*m_lsMemPtr->bvhShapeData.gIndexMesh.m_triangleIndexStride);
 			ATTRIBUTE_ALIGNED16(unsigned short int tmpIndices[3]);
 
-			small_cache_read_triple(&tmpIndices[0],(ppu_address_t)&indexBasePtr[0],
+			small_cache_read_triple2(&tmpIndices[0],(ppu_address_t)&indexBasePtr[0],
 									&tmpIndices[1],(ppu_address_t)&indexBasePtr[1],
 									&tmpIndices[2],(ppu_address_t)&indexBasePtr[2],
 									sizeof(unsigned short int));
@@ -309,7 +309,7 @@ public:
 		{
 			unsigned int* indexBasePtr = (unsigned int*)(m_lsMemPtr->bvhShapeData.gIndexMesh.m_triangleIndexBase+triangleIndex*m_lsMemPtr->bvhShapeData.gIndexMesh.m_triangleIndexStride);
 
-			small_cache_read_triple(&m_lsMemPtr->spuIndices[0],(ppu_address_t)&indexBasePtr[0],
+			small_cache_read_triple2(&m_lsMemPtr->spuIndices[0],(ppu_address_t)&indexBasePtr[0],
 								&m_lsMemPtr->spuIndices[1],(ppu_address_t)&indexBasePtr[1],
 								&m_lsMemPtr->spuIndices[2],(ppu_address_t)&indexBasePtr[2],
 								sizeof(int));
@@ -333,7 +333,7 @@ public:
 			///handle un-aligned vertices...
 
 			//another DMA for each vertex
-			small_cache_read_triple(&spuUnscaledVertex[0],(ppu_address_t)&graphicsbasePtr[0],
+			small_cache_read_triple2(&spuUnscaledVertex[0],(ppu_address_t)&graphicsbasePtr[0],
 									&spuUnscaledVertex[1],(ppu_address_t)&graphicsbasePtr[1],
 									&spuUnscaledVertex[2],(ppu_address_t)&graphicsbasePtr[2],
 									sizeof(btScalar));
