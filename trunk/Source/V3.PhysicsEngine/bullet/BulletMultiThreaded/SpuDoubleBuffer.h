@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef DOUBLE_BUFFER_H
 #define DOUBLE_BUFFER_H
 

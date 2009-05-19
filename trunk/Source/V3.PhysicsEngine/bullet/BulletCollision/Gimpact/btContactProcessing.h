@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef BT_CONTACT_H_INCLUDED
 #define BT_CONTACT_H_INCLUDED
 

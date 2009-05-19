@@ -1,3 +1,4 @@
+#pragma unmanaged
 /*! \file btGImpactShape.h
 \author Francisco Len Nßjera
 */

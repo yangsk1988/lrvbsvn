@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef GIM_CLIP_POLYGON_H_INCLUDED
 #define GIM_CLIP_POLYGON_H_INCLUDED
 

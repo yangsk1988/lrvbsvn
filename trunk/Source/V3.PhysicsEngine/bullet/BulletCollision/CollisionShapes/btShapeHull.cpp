@@ -20,6 +20,25 @@ subject to the following restrictions:
 
 #define NUM_UNITSPHERE_POINTS 42
 
+
+
+btShapeHull::btShapeHull (const btConvexShape* shape)
+{
+	m_shape = shape;
+	m_vertices.clear ();
+	m_indices.clear();
+	m_numIndices = 0;
+}
+
+btShapeHull::~btShapeHull ()
+{
+	m_indices.clear();	
+	m_vertices.clear ();
+}
+
+bool
+btShapeHull::buildHull (btScalar /*margin*/)
+{
 	static btVector3 btUnitSpherePoints[NUM_UNITSPHERE_POINTS+MAX_PREFERRED_PENETRATION_DIRECTIONS*2] = 
 	{
 		btVector3(btScalar(0.000000) , btScalar(-0.000000),btScalar(-1.000000)),
@@ -65,25 +84,6 @@ subject to the following restrictions:
 		btVector3(btScalar(-0.425323) , btScalar(0.309011),btScalar(0.850654)),
 		btVector3(btScalar(0.162456) , btScalar(0.499995),btScalar(0.850654))
 	};
-
-btShapeHull::btShapeHull (const btConvexShape* shape)
-{
-	m_shape = shape;
-	m_vertices.clear ();
-	m_indices.clear();
-	m_numIndices = 0;
-}
-
-btShapeHull::~btShapeHull ()
-{
-	m_indices.clear();	
-	m_vertices.clear ();
-}
-
-bool
-btShapeHull::buildHull (btScalar /*margin*/)
-{
-
 	int numSampleDirections = NUM_UNITSPHERE_POINTS;
 	{
 		int numPDA = m_shape->getNumPreferredPenetrationDirections();

@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef CONVEX_TRIANGLEMESH_SHAPE_H
 #define CONVEX_TRIANGLEMESH_SHAPE_H
 

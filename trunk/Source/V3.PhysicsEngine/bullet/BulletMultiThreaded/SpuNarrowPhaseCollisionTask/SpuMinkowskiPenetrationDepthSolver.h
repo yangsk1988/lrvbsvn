@@ -1,3 +1,4 @@
+#pragma unmanaged
 
 /*
 Bullet Continuous Collision Detection and Physics Library

@@ -1,3 +1,4 @@
+#pragma unmanaged
 /*
    Copyright (C) 2006, 2007 Sony Computer Entertainment Inc.
    All rights reserved.

@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef _68DA1F85_90B7_4bb0_A705_83B4040A75C6_
 #define _68DA1F85_90B7_4bb0_A705_83B4040A75C6_
 #include "BulletCollision/CollisionShapes/btConvexShape.h"

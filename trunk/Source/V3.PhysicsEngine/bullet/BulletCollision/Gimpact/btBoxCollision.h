@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef BT_BOX_COLLISION_H_INCLUDED
 #define BT_BOX_COLLISION_H_INCLUDED
 

@@ -1,3 +1,4 @@
+#pragma unmanaged
 
 /*
 Stan Melax Convex Hull Computation

@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef DEFAULT_MOTION_STATE_H
 #define DEFAULT_MOTION_STATE_H
 

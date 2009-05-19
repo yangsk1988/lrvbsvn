@@ -1,3 +1,4 @@
+#pragma unmanaged
 
 #ifndef BT_CONVEX_INTERNAL_SHAPE_H
 #define BT_CONVEX_INTERNAL_SHAPE_H

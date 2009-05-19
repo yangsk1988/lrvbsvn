@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef BT_HASH_MAP_H
 #define BT_HASH_MAP_H
 

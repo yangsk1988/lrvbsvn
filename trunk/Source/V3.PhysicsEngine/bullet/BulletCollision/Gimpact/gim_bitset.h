@@ -1,3 +1,4 @@
+#pragma unmanaged
 #ifndef GIM_BITSET_H_INCLUDED
 #define GIM_BITSET_H_INCLUDED
 /*! \file gim_bitset.h
