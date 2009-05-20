@@ -1421,10 +1421,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Dynamics\CollisionWorld.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Dynamics\DynamicsWorld.h"
 				>
 			</File>
