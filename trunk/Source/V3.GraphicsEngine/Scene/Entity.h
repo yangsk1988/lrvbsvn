@@ -1,11 +1,10 @@
+#pragma once
 
 namespace V3.GraphicsEngine.Scene
 {
-	class SceneIsland
+	ref class Entity
 	{
-	private:
-		
 	public:
-
-	}
+		Entity(void);
+	};
 }

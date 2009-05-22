@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Game")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Lenovo")]
+[assembly: AssemblyCompany("LifeForRide Software Team")]
 [assembly: AssemblyProduct("Game")]
-[assembly: AssemblyCopyright("Copyright © Lenovo 2009")]
+[assembly: AssemblyCopyright("Copyright © LifeForRide Software Team 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

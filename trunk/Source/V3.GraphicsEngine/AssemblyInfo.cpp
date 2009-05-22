@@ -11,12 +11,12 @@ using namespace System::Security::Permissions;
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
 //
-[assembly:AssemblyTitleAttribute("V3GraphicsEngine")];
+[assembly:AssemblyTitleAttribute("V3.GraphicsEngine")];
 [assembly:AssemblyDescriptionAttribute("")];
 [assembly:AssemblyConfigurationAttribute("")];
-[assembly:AssemblyCompanyAttribute("Lenovo")];
-[assembly:AssemblyProductAttribute("V3GraphicsEngine")];
-[assembly:AssemblyCopyrightAttribute("Copyright (c) Lenovo 2009")];
+[assembly:AssemblyCompanyAttribute("LifeForRide Software Team")];
+[assembly:AssemblyProductAttribute("V3.GraphicsEngine")];
+[assembly:AssemblyCopyrightAttribute("Copyright (c) LifeForRide Software Team 2009")];
 [assembly:AssemblyTrademarkAttribute("")];
 [assembly:AssemblyCultureAttribute("")];
 
