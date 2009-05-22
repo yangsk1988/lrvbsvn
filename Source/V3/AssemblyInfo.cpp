@@ -14,9 +14,9 @@ using namespace System::Security::Permissions;
 [assembly:AssemblyTitleAttribute("V3")];
 [assembly:AssemblyDescriptionAttribute("")];
 [assembly:AssemblyConfigurationAttribute("")];
-[assembly:AssemblyCompanyAttribute("Lenovo")];
+[assembly:AssemblyCompanyAttribute("LifeForRide Software Team")];
 [assembly:AssemblyProductAttribute("V3")];
-[assembly:AssemblyCopyrightAttribute("Copyright (c) Lenovo 2009")];
+[assembly:AssemblyCopyrightAttribute("Copyright (c) LifeForRide Software Team 2009")];
 [assembly:AssemblyTrademarkAttribute("")];
 [assembly:AssemblyCultureAttribute("")];
 

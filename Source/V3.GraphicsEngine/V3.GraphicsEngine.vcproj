@@ -198,7 +198,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Scene\Entity.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Scene\SceneIsland.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Scene\SceneObject.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Scene\SceneRootNode.cpp"
 				>
 			</File>
 			<File
@@ -228,11 +240,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\Scene\Entity.h"
+				>
+			</File>
+			<File
 				RelativePath=".\resource.h"
 				>
 			</File>
 			<File
 				RelativePath=".\Scene\SceneIsland.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Scene\SceneObject.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Scene\SceneRootNode.h"
 				>
 			</File>
 			<File
