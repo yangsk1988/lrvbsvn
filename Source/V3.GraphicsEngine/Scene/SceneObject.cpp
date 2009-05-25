@@ -1,9 +1,15 @@
 
 #include "SceneObject.h"
 
-namespace V3.GraphicsEngine.Scene
+namespace V3
 {
-	SceneObject::SceneObject(void)
+	namespace GraphicsEngine
 	{
+		namespace Scene
+		{
+			SceneObject::SceneObject(void)
+			{
+			}
+		}
 	}
 }

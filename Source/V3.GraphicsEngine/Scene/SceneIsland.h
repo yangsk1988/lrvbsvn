@@ -1,11 +1,18 @@
 
-namespace V3.GraphicsEngine.Scene
+namespace V3
 {
-	class SceneIsland
+	namespace GraphicsEngine
 	{
-	private:
-		
-	public:
-
+		namespace Scene
+		{
+			class SceneIsland
+			{
+			private:
+				
+			public:
+				SceneIsland(void);
+				~SceneIsland(void);
+			}
+		}
 	}
 }

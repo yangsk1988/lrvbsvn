@@ -1,5 +1,5 @@
 
-#include "Entity.h"
+#include "Terrain.h"
 
 namespace V3
 {
@@ -7,7 +7,7 @@ namespace V3
 	{
 		namespace Scene
 		{
-			Entity::Entity(void)
+			Terrain::Terrain(void)
 			{
 			}
 		}

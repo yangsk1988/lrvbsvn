@@ -1,5 +1,4 @@
-
-#include "Entity.h"
+#pragma once
 
 namespace V3
 {
@@ -7,9 +6,11 @@ namespace V3
 	{
 		namespace Scene
 		{
-			Entity::Entity(void)
+			public ref class GameScene
 			{
-			}
+			public:
+				GameScene(void);
+			};
 		}
 	}
 }

@@ -6,10 +6,11 @@ namespace V3
 	{
 		namespace Scene
 		{
-			public ref class SceneObject
+			class SceneNode
 			{
 			public:
-				SceneObject(void);
+				SceneNode(void);
+				~SceneNode(void);
 			};
 		}
 	}

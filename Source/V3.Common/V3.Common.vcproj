@@ -194,7 +194,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\IO\Archive.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\AssemblyInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Core\AsyncLoader.cpp"
 				>
 			</File>
 			<File
@@ -211,6 +219,14 @@
 			</File>
 			<File
 				RelativePath=".\design\BoundingSphereConverter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Core\Cache.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Core\CacheMemoryTable.cpp"
 				>
 			</File>
 			<File
@@ -239,6 +255,10 @@
 			</File>
 			<File
 				RelativePath=".\design\FieldPropertyDescriptor.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\IO\FileSystem.cpp"
 				>
 			</File>
 			<File
@@ -314,6 +334,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Core\Resource.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Core\ResourceEntity.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Core\ResourceManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Result.cpp"
 				>
 			</File>
@@ -380,6 +412,14 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\IO\Archive.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Core\AsyncLoader.h"
+				>
+			</File>
+			<File
 				RelativePath=".\math\BoundingBox.h"
 				>
 			</File>
@@ -393,6 +433,18 @@
 			</File>
 			<File
 				RelativePath=".\design\BoundingSphereConverter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Core\Cache.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Core\CacheMemory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Core\CacheMemoryTable.h"
 				>
 			</File>
 			<File
@@ -420,15 +472,23 @@
 				>
 			</File>
 			<File
-				RelativePath=".\math\Enums.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Enums.h"
 				>
 			</File>
 			<File
+				RelativePath=".\math\Enums.h"
+				>
+			</File>
+			<File
 				RelativePath=".\design\FieldPropertyDescriptor.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FileBase.h"
+				>
+			</File>
+			<File
+				RelativePath=".\IO\FileSystem.h"
 				>
 			</File>
 			<File
@@ -509,6 +569,18 @@
 			</File>
 			<File
 				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Core\Resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Core\ResourceEntity.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Core\ResourceManager.h"
 				>
 			</File>
 			<File

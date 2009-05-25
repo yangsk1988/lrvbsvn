@@ -1,5 +1,5 @@
 
-#include "Entity.h"
+#include "SimpleSceneManager.h"
 
 namespace V3
 {
@@ -7,7 +7,7 @@ namespace V3
 	{
 		namespace Scene
 		{
-			Entity::Entity(void)
+			SimpleSceneManager::SimpleSceneManager(void)
 			{
 			}
 		}

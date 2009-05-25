@@ -1,4 +1,5 @@
-#include "SceneIsland.h"
+
+#include "SceneNode.h"
 
 namespace V3
 {
@@ -6,14 +7,12 @@ namespace V3
 	{
 		namespace Scene
 		{
-			SceneIsland::SceneIsland(void)
+			SceneNode::SceneNode(void)
 			{
-
 			}
 
-			SceneIsland::~SceneIsland(void)
+			SceneNode::~SceneNode(void)
 			{
-
 			}
 		}
 	}
