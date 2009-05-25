@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="V3.PhysicsEngine"
+	Name="VirtualBicycle.PhysicsEngine"
 	ProjectGUID="{959485AE-7F9B-4651-BEAB-FB95187621BA}"
-	RootNamespace="V3PhysicsEngine"
+	RootNamespace="VirtualBicycle.PhysicsEngine"
 	Keyword="ManagedCProj"
 	TargetFrameworkVersion="131072"
 	>
