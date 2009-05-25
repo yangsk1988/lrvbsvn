@@ -1,10 +1,17 @@
 #pragma once
 
-namespace V3.GraphicsEngine.Scene
+namespace V3
 {
-	ref class Entity
+	namespace GraphicsEngine
 	{
-	public:
-		Entity(void);
-	};
+		namespace Scene
+		{
+			public ref class Entity : SceneObject
+			{
+			public:
+				Entity(void);
+				
+			};
+		}
+	}
 }

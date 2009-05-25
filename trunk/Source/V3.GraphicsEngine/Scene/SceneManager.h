@@ -6,10 +6,16 @@ namespace V3
 	{
 		namespace Scene
 		{
-			public ref class SceneObject
+			public ref class SceneManager
 			{
 			public:
-				SceneObject(void);
+				SceneManager(void);
+
+
+				void BuildSceneManager()
+				{
+
+				}
 			};
 		}
 	}
