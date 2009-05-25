@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "V3.PhysicsEngine", "V3.PhysicsEngine\V3.PhysicsEngine.vcproj", "{959485AE-7F9B-4651-BEAB-FB95187621BA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirtualBicycle.Physics", "VirtualBicycle.Physics\VirtualBicycle.Physics.vcproj", "{959485AE-7F9B-4651-BEAB-FB95187621BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
