@@ -1,8 +1,0 @@
-﻿<Window x:Class="MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="MainWindow" Height="301" Width="591" Name="MainWindow">
-    <Grid>
-        
-    </Grid>
-</Window>
