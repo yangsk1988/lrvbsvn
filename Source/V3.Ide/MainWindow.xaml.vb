@@ -1,6 +1,0 @@
-﻿Class MainWindow
-
-
-
-
-End Class
