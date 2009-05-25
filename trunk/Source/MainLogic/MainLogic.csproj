@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D0B4E6C5-76E0-49F6-83C5-4A6D3EA4C89A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VirtualBicycle</RootNamespace>
+    <AssemblyName>MainLogic</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SlimDX, Version=2.0.7.41, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SlimDX.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Logic\BicycleManager.cs" />
+    <Compile Include="Logic\Competition\BaseCompetition.cs" />
+    <Compile Include="Logic\Competition\BicyclePassedPointsMgr.cs" />
+    <Compile Include="Logic\Competition\RacingCompetition.cs" />
+    <Compile Include="Logic\Competition\TestCompetition.cs" />
+    <Compile Include="Logic\Goal\BicycleToPointPart.cs" />
+    <Compile Include="Logic\SmallBox.cs" />
+    <Compile Include="Logic\SmallBoxFactory.cs" />
+    <Compile Include="UI\DrawGrid.cs" />
+    <Compile Include="UI\DrawTextBox.cs" />
+    <Compile Include="UI\FontManager.cs" />
+    <Compile Include="UI\MenuItemList.cs" />
+    <Compile Include="UI\Report.cs" />
+    <Compile Include="ViewManager.cs" />
+    <Compile Include="GameMainLogic.cs" />
+    <Compile Include="GameMainLogicFactory.cs" />
+    <Compile Include="LogicConponment.cs" />
+    <Compile Include="Logic\Bicycle.cs" />
+    <Compile Include="Logic\BicycleFactory.cs" />
+    <Compile Include="Logic\BicyclePart.cs" />
+    <Compile Include="Logic\Goal\BaseGoal.cs" />
+    <Compile Include="Logic\Goal\BicycleBrake.cs" />
+    <Compile Include="Logic\Goal\BicycleThinkGoal.cs" />
+    <Compile Include="Logic\Goal\BicycleToPorts.cs" />
+    <Compile Include="Logic\Goal\BicycleToSinglePoint.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logic\Goal\BicylceToPoints.cs" />
+    <Compile Include="Logic\Goal\GoalManager.cs" />
+    <Compile Include="Logic\LogicArea.cs" />
+    <Compile Include="Logic\LogicAreaFactory.cs" />
+    <Compile Include="Logic\MiniMap.cs" />
+    <Compile Include="Logic\PathWay\AITrafficComponet.cs" />
+    <Compile Include="Logic\PathWay\AIEdge.cs" />
+    <Compile Include="Logic\PathWay\AIJunction.cs" />
+    <Compile Include="Logic\PathWay\AIPathManager.cs" />
+    <Compile Include="Logic\PathWay\AIPort.cs" />
+    <Compile Include="Logic\PathWay\AIRoad.cs" />
+    <Compile Include="Logic\PathWay\AIPathFinder.cs" />
+    <Compile Include="Logic\Vehicle.cs" />
+    <Compile Include="Logic\VehicleFactory.cs" />
+    <Compile Include="Logic\VehicleType.cs" />
+    <Compile Include="ObjectMgr\ObjectCreator.cs" />
+    <Compile Include="ObjectMgr\ObjectMgr.cs" />
+    <Compile Include="UILogic.cs" />
+    <Compile Include="UI\MenuPic.cs" />
+    <Compile Include="UI\OptionScreen.cs" />
+    <Compile Include="UI\StartScreen.cs" />
+    <Compile Include="UI\IngameUI.cs" />
+    <Compile Include="UI\MapSelectScreen.cs" />
+    <Compile Include="UI\LoadingScreen.cs" />
+    <Compile Include="UI\MainMenu.cs" />
+    <Compile Include="Plugin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VirtualBicycle\VirtualBicycle.csproj">
+      <Project>{1DA1C1E6-DDD6-4F45-9CF4-7465F4931F2F}</Project>
+      <Name>VirtualBicycle</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Logic\Competition\比赛相关说明.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>Copy $(TargetPath) $(SolutionDir)VirtualBicycle\bin\$(TargetName).lgc
+Copy $(TargetDir)$(TargetName).pdb $(SolutionDir)VirtualBicycle\bin\$(TargetName).pdb
+
+Copy $(TargetPath) $(SolutionDir)VBIDE\bin\$(TargetName).lgc
+Copy $(TargetDir)$(TargetName).pdb $(SolutionDir)VBIDE\bin\$(TargetName).pdb</PostBuildEvent>
+  </PropertyGroup>
+</Project>
