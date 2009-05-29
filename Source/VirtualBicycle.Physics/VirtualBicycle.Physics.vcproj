@@ -785,11 +785,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Collision\BroadphaseCollision\BroadphaseInterface.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Collision\BroadphaseCollision\BroadphaseProxy.h"
+				RelativePath=".\Collision\BoxShape.h"
 				>
 			</File>
 			<File
@@ -1421,6 +1417,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Collision\CollisionShapeBase.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Dynamics\DynamicsWorld.h"
 				>
 			</File>
@@ -1506,6 +1506,10 @@
 			</File>
 			<File
 				RelativePath=".\resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Dynamics\RigidBody.h"
 				>
 			</File>
 			<File

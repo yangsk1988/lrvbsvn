@@ -8,27 +8,33 @@
 
 using namespace System;
 
-namespace V3.PhysicsEngine.Dynamics
+namespace V3
 {
-	public ref class DynamicsWorld
+	namespace PhysicsEngine
 	{
-	private:
-		btDiscreteDynamicsWorld* world;
-		btDispatcher* dispatcher;
-		btAxisSweep3* broadPhase;
-		btSequentialImpulseConstraintSolver* conSolver;
+		namespace Dynamics
+		{
+			public ref class DynamicsWorld
+			{
+			private:
+				btDiscreteDynamicsWorld* world;
+				btDispatcher* dispatcher;
+				btAxisSweep3* broadPhase;
+				btSequentialImpulseConstraintSolver* conSolver;
 
-	public:
+			public:
 
-		DynamicsWorld(void)
-		{			
-			dispatcher = new btDispatcher();
-			broadPhase = new btAxisSweep3(
-				btVector3(btScalar(-10000), btScalar(-10000), btScalar(-10000)),
-				btVector3(btScalar( 10000), btScalar( 10000), btScalar( 10000)), 1024);
-			conSolver = new btSequentialImpulseConstraintSolver();
+				DynamicsWorld(void)
+				{			
+					dispatcher = new btDispatcher();
+					broadPhase = new btAxisSweep3(
+						btVector3(btScalar(-10000), btScalar(-10000), btScalar(-10000)),
+						btVector3(btScalar( 10000), btScalar( 10000), btScalar( 10000)), 1024);
+					conSolver = new btSequentialImpulseConstraintSolver();
 
-			world = new btDiscreteDynamicsWorld(dispatcher, broadPhase, conSolver, 0); 
+					world = new btDiscreteDynamicsWorld(dispatcher, broadPhase, conSolver, 0); 
+				}
+			};
 		}
-	};
+	}
 }
