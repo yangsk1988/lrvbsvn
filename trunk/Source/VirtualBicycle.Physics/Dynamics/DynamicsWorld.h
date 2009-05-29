@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "RigidBody.h"
 
 #pragma managed
 
@@ -17,22 +18,42 @@ namespace V3
 			public ref class DynamicsWorld
 			{
 			private:
-				btDiscreteDynamicsWorld* world;
-				btDispatcher* dispatcher;
-				btAxisSweep3* broadPhase;
-				btSequentialImpulseConstraintSolver* conSolver;
+				btDiscreteDynamicsWorld* m_world;
+				btDispatcher* m_dispatcher;
+				btAxisSweep3* m_broadPhase;
+				btSequentialImpulseConstraintSolver* m_conSolver;
 
 			public:
 
 				DynamicsWorld(void)
 				{			
-					dispatcher = new btDispatcher();
-					broadPhase = new btAxisSweep3(
+					m_dispatcher = new btDispatcher();
+					m_broadPhase = new btAxisSweep3(
 						btVector3(btScalar(-10000), btScalar(-10000), btScalar(-10000)),
 						btVector3(btScalar( 10000), btScalar( 10000), btScalar( 10000)), 1024);
-					conSolver = new btSequentialImpulseConstraintSolver();
+					m_conSolver = new btSequentialImpulseConstraintSolver();
 
-					world = new btDiscreteDynamicsWorld(dispatcher, broadPhase, conSolver, 0); 
+					m_world = new btDiscreteDynamicsWorld(m_dispatcher, m_broadPhase, m_conSolver, 0); 
+				}
+
+				void AddRigidBody(RigidBody* body)
+				{
+					m_world->addRigidBody(body->m_rigidBody);					
+				}
+
+				void RemoveRigidBody(RigidBody* body)
+				{
+					m_world->removeRigodBody(body->m_rigidBody);
+				}
+
+				void AddConstraint()
+				{
+					
+				}
+
+				void RemoveConstraint()
+				{
+
 				}
 			};
 		}
