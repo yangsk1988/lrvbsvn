@@ -10,7 +10,7 @@ namespace V3
 		{
 			public ref class CollisionShapeBase abstract
 			{
-			private:
+			internal:
 				btCollisionShape* m_shape;
 
 			public:
