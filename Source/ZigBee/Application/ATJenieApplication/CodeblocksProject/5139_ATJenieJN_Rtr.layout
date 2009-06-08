@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="" />
-	<File name="..\Source\ATJExtensionCmds.c" open="1" top="0" tabpos="5">
+	<ActiveTarget name="Release" />
+	<File name="..\Source\ATJExtensionCmds.c" open="0" top="0" tabpos="5">
 		<Cursor position="7111" topLine="156" />
 	</File>
-	<File name="..\Source\ATJPlatformCmds.c" open="1" top="0" tabpos="6">
-		<Cursor position="15281" topLine="414" />
+	<File name="..\Source\ATJPlatformCmds.c" open="0" top="0" tabpos="6">
+		<Cursor position="14275" topLine="459" />
 	</File>
-	<File name="..\Source\ATJenie_App.c" open="1" top="0" tabpos="1">
+	<File name="..\Source\ATJenie_App.c" open="0" top="0" tabpos="1">
 		<Cursor position="14663" topLine="211" />
 	</File>
 	<File name="..\Source\Interrupt.h" open="0" top="0" tabpos="0">
 		<Cursor position="0" topLine="56" />
 	</File>
-	<File name="..\Source\interrupt.c" open="1" top="0" tabpos="2">
-		<Cursor position="326" topLine="141" />
+	<File name="..\Source\interrupt.c" open="1" top="0" tabpos="1">
+		<Cursor position="326" topLine="0" />
 	</File>
-	<File name="..\Source\queue.c" open="1" top="0" tabpos="3">
+	<File name="..\Source\queue.c" open="0" top="0" tabpos="3">
 		<Cursor position="0" topLine="108" />
 	</File>
 	<File name="..\Source\serial.c" open="0" top="0" tabpos="0">
 		<Cursor position="0" topLine="147" />
 	</File>
-	<File name="..\..\..\Common\Source\AppQueueApi.c" open="1" top="0" tabpos="4">
+	<File name="..\..\..\Common\Source\AppQueueApi.c" open="0" top="0" tabpos="4">
 		<Cursor position="18153" topLine="83" />
 	</File>
 </CodeBlocks_layout_file>

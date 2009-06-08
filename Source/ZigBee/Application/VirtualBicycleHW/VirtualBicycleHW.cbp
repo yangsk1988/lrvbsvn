@@ -37,7 +37,10 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-fexpensive-optimizations" />
+			<Add option="-O3" />
 			<Add option="-Wall" />
+			<Add option="-g" />
 			<Add option="-I." />
 			<Add option="-Wstrict-prototypes" />
 			<Add option="-Werror-implicit-function-declaration" />
@@ -67,6 +70,14 @@
 			<Add option="-DEMBEDDED" />
 			<Add option="-DLEAN_N_MEAN" />
 			<Add option="-DSINGLE_CONTEXT" />
+			<Add option="-DJN513x" />
+			<Add option="-DHOST_IS_BIG_ENDIAN" />
+			<Add option="-DGATEWAY" />
+			<Add option="-DUART=0" />
+			<Add option="-DATJ_ROUTER" />
+			<Add option="-DATJ_TUNNELING" />
+			<Add option="-DATJ_MAX_INPUT_STRING_SIZE=384" />
+			<Add option="-DATJ_MAX_OUTPUT_STRING_SIZE=384" />
 			<Add directory="..\..\..\SDK\Common\Include" />
 			<Add directory="..\..\..\SDK\Chip\Common\Include" />
 			<Add directory="..\..\..\SDK\Common\Source" />
@@ -88,17 +99,45 @@
 			<Add library="..\..\ATJenie\Library\ATJenie.a" />
 			<Add library="..\..\..\SDK\Chip\JN513xR1\Library\ChipLib.a" />
 			<Add library="..\..\..\SDK\Platform\DK2\Library\BoardLib_JN513xR1.a" />
+			<Add library="..\..\Chip\JN513x\Library\OADLib_JN513x.a" />
 			<Add directory="..\..\..\SDK\Chip\JN513xR1\Build" />
 		</Linker>
-		<Unit filename="Source\Router.c">
+		<Unit filename="Source\ATJExtensionCmds.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="Source\ATJExtensionCmds.h" />
+		<Unit filename="Source\ATJPlatformCmds.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Source\ATJPlatformCmds.h" />
+		<Unit filename="Source\Application.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Source\Interrupt.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Source\Interrupt.h" />
 		<Unit filename="Source\Utils.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Source\Utils.h" />
 		<Unit filename="Source\config.h" />
+		<Unit filename="Source\queue.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Source\queue.h" />
+		<Unit filename="Source\serial.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Source\serial.h" />
 		<Unit filename="Source\services.h" />
+		<Unit filename="Source\uart.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Source\uart.h" />
+		<Unit filename="..\..\Common\Source\AppQueueApi.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 		</Extensions>
