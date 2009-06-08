@@ -1,0 +1,146 @@
+# depslib dependency file v1.0
+1237296670 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\atjplatformcmds.c
+	<string.h>
+	"jendefs.h"
+	"atjparser.h"
+	"ledcontrol.h"
+	"alsdriver.h"
+	"button.h"
+	"MCP9803.h"
+	"htsdriver.h"
+	"lcddriver.h"
+
+1224677382 c:\jennic\cygwin\jennic\sdk\common\include\jendefs.h
+	<stdarg.h>
+	<stdio.h>
+	<cyg/infra/cyg_type.h>
+
+1237296290 c:\jennic\cygwin\jennic\sdk\atjenie\include\atjparser.h
+
+1224678494 c:\jennic\cygwin\jennic\sdk\platform\dk2\include\ledcontrol.h
+	"jendefs.h"
+	"AppHardwareApi.h"
+
+1231162076 c:\jennic\cygwin\jennic\sdk\chip\jn513xr1\include\apphardwareapi.h
+	<jendefs.h>
+
+1224678494 c:\jennic\cygwin\jennic\sdk\platform\dk2\include\alsdriver.h
+	"jendefs.h"
+	"TSL2550.h"
+
+1204308042 c:\jennic\cygwin\jennic\sdk\platform\common\include\tsl2550.h
+
+1224678494 c:\jennic\cygwin\jennic\sdk\platform\dk2\include\button.h
+	"jendefs.h"
+	"AppHardwareApi.h"
+
+1204308042 c:\jennic\cygwin\jennic\sdk\platform\common\include\mcp9803.h
+
+1224678494 c:\jennic\cygwin\jennic\sdk\platform\dk2\include\htsdriver.h
+	"jendefs.h"
+
+1224678494 c:\jennic\cygwin\jennic\sdk\platform\dk2\include\lcddriver.h
+	"jendefs.h"
+
+1237296624 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\application.c
+	<string.h>
+	<jendefs.h>
+	"gdb.h"
+	"Jenie.h"
+	"ATJParser.h"
+	"ATJCommands.h"
+	"ATJPlatformCmds.h"
+	"ATJTunnel.h"
+	"JPI.h"
+	"ledcontrol.h"
+	"Serial.h"
+	"uart.h"
+	"AppHardwareApi.h"
+	"JPDM.h"
+	"ATJExtensionCmds.h"
+
+1224677382 c:\jennic\cygwin\jennic\sdk\common\include\gdb.h
+
+1238601014 c:\jennic\cygwin\jennic\sdk\jenie\include\jenie.h
+	<jendefs.h>
+	<mac_sap.h>
+
+1224677382 c:\jennic\cygwin\jennic\sdk\common\include\mac_sap.h
+	"jendefs.h"
+
+1237295804 c:\jennic\cygwin\jennic\sdk\atjenie\include\atjcommands.h
+
+1237296680 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\atjplatformcmds.h
+
+1237296302 c:\jennic\cygwin\jennic\sdk\atjenie\include\atjtunnel.h
+
+1238601086 c:\jennic\cygwin\jennic\sdk\jenie\include\jpi.h
+	"AppHardwareApi.h"
+
+1237296722 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\serial.h
+
+1237296736 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\uart.h
+
+1238601062 c:\jennic\cygwin\jennic\sdk\jenie\include\jpdm.h
+	"jenie.h"
+	"AppHardwareApi.h"
+
+1237296664 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\atjextensioncmds.h
+
+1237296690 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\interrupt.c
+	<jendefs.h>
+	"interrupt.h"
+
+1237296696 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\interrupt.h
+
+1237296744 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\utils.c
+	"jendefs.h"
+	"AppHardwareApi.h"
+	"utils.h"
+	"AppApi.h"
+
+1237296752 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\utils.h
+
+1224671658 c:\jennic\cygwin\jennic\sdk\chip\jn513xr1\include\appapi.h
+	<jendefs.h>
+	<mac_sap.h>
+
+1237296702 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\queue.c
+	<jendefs.h>
+	"interrupt.h"
+	"queue.h"
+
+1237296708 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\queue.h
+
+1237296716 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\serial.c
+	<jendefs.h>
+	<AppHardwareApi.h>
+	"interrupt.h"
+	"uart.h"
+	"queue.h"
+	"serial.h"
+
+1237296728 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\uart.c
+	<jendefs.h>
+	"AppHardwareApi.h"
+	"uart.h"
+
+1237296632 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclehw\source\atjextensioncmds.c
+	<string.h>
+	"jendefs.h"
+	"atjparser.h"
+	"ledcontrol.h"
+	"Button.h"
+
+1227805038 source:c:\jennic\cygwin\jennic\sdk\common\source\appqueueapi.c
+	"jendefs.h"
+	"mac_sap.h"
+	"AppHardwareApi.h"
+	"AppQueueApi.h"
+	"AppApi.h"
+
+1224677382 c:\jennic\cygwin\jennic\sdk\common\include\appqueueapi.h
+	<jendefs.h>
+	<mac_sap.h>
+	<AppApi.h>
+
