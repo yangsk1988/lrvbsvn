@@ -10,8 +10,8 @@
 
 #define Button1Id E_JPI_DIO9_INT
 #define Button2Id E_JPI_DIO10_INT
-#define Button3Id E_JPI_DIO2_INT
-#define Button4Id E_JPI_DIO3_INT
+#define Button3Id E_JPI_DIO0_INT
+#define Button4Id E_JPI_DIO1_INT
 
 #define Led1 E_JPI_DIO16_INT
 #define Led2 E_JPI_DIO17_INT

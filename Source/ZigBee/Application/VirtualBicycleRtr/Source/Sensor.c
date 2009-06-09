@@ -96,7 +96,7 @@ PUBLIC void vSensor_CbStackDataEvent(teEventType eEventType, void *pvEventPrim)
 {
     static uint32 sendBuferAll[4] = {
         ('S' << 24) | ('W' << 16) | ('H' << 8) | 'L' , 0,
-        ('S' << 24) | ('A' << 16) | ('N' << 8) | 'G' ,0};
+        ('S' << 24) | ('A' << 16) | ('N' << 8) | 'G' , 0};
     static uint32 sendBuferWheel[2] = { ('S' << 24) | ('W' << 16) | ('H' << 8) | 'L' , 0};
     static uint32 sendBuferHandlebar[2] = { ('S' << 24) | ('A' << 16) | ('N' << 8) | 'G' , 0};
 
