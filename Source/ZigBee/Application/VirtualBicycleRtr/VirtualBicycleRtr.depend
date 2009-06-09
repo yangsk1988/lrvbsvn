@@ -1,0 +1,79 @@
+# depslib dependency file v1.0
+1244526702 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\utils.c
+	"jendefs.h"
+	<AppHardwareApi.h>
+	"Utils.h"
+	"config.h"
+
+1224677382 c:\jennic\cygwin\jennic\sdk\common\include\jendefs.h
+	<stdarg.h>
+	<stdio.h>
+	<cyg/infra/cyg_type.h>
+
+1231162076 c:\jennic\cygwin\jennic\sdk\chip\jn513xr1\include\apphardwareapi.h
+	<jendefs.h>
+
+1244530651 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\utils.h
+
+1244534190 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\config.h
+	<jendefs.h>
+	"services.h"
+
+1225992540 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\services.h
+
+1225992540 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\router.c
+	<jendefs.h>
+	<gdb.h>
+	<string.h>
+	<Jenie.h>
+	<JPI.h>
+	"Utils.h"
+	"config.h"
+
+1224677382 c:\jennic\cygwin\jennic\sdk\common\include\gdb.h
+
+1238601014 c:\jennic\cygwin\jennic\sdk\jenie\include\jenie.h
+	<jendefs.h>
+	<mac_sap.h>
+
+1224677382 c:\jennic\cygwin\jennic\sdk\common\include\mac_sap.h
+	"jendefs.h"
+
+1238601086 c:\jennic\cygwin\jennic\sdk\jenie\include\jpi.h
+	"AppHardwareApi.h"
+
+1244536924 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\sensor.c
+	<gdb.h>
+	<string.h>
+	<Jenie.h>
+	<JPI.h>
+	"Utils.h"
+	"config.h"
+	"Sensor.h"
+
+1244535596 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\sensor.h
+	<jendefs.h>
+
+1244543680 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\application.c
+	<jendefs.h>
+	<gdb.h>
+	<string.h>
+	<Jenie.h>
+	<JPI.h>
+	"Utils.h"
+	"config.h"
+	"UI.h"
+	"Sensor.h"
+
+1244532699 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\ui.h
+	<jendefs.h>
+
+1244543277 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\ui.c
+	<gdb.h>
+	<string.h>
+	<Jenie.h>
+	<JPI.h>
+	"Utils.h"
+	"config.h"
+	"UI.h"
+
