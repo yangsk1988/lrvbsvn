@@ -108,8 +108,7 @@ PUBLIC void vSensor_CbStackDataEvent(teEventType eEventType, void *pvEventPrim)
     {
         tsData* data = (tsData*)pvEventPrim;
 
-
-        char* str = (char*)data->pau8Data;
+        uint8* str = data->pau8Data;
 
         if (memcmp(str, strAll, 4))
         {
@@ -127,7 +126,5 @@ PUBLIC void vSensor_CbStackDataEvent(teEventType eEventType, void *pvEventPrim)
             sendBuferHandlebar[1] = u32ConvertAngle(angle);
             eJenie_SendData(0, (uint8*)&sendBuferHandlebar, sizeof(sendBuferHandlebar), TXOPTION_ACKREQ);
         }
-
-
     }
 }

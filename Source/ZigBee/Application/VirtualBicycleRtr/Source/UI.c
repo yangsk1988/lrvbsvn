@@ -16,12 +16,9 @@
 #define Led1 E_JPI_DIO16_INT
 #define Led2 E_JPI_DIO17_INT
 
-PRIVATE uint32 buttonStates;
-
 PUBLIC void vUI_CbStackMgmtEvent(teEventType eEventType, void *pvEventPrim)
 {
-    bool netLedStat = FALSE;
-
+    static bool netLedStat = FALSE;
     if (eEventType == E_JENIE_PACKET_SENT ||
         eEventType == E_JENIE_PACKET_FAILED)
     {
@@ -62,16 +59,14 @@ PUBLIC void vUI_CbHwEvent(uint32 u32DeviceId,uint32 u32ItemBitmap)
             break;
         case E_JPI_DEVICE_SYSCTRL:
             newState = u32ItemBitmap & (Button1Id | Button2Id | Button3Id | Button4Id);
-            if (newState != buttonStates)
-            {
-                // 向网关发送数据: buttonStates & newState
-                sendBufer[1] = buttonStates & newState;
 
-                eJenie_SendData(0, (uint8*)&sendBufer[0], sizeof(sendBufer), TXOPTION_ACKREQ);
-                vUtils_Debug("Button Pressed");
+            // 向网关发送数据: buttonStates & newState
+            sendBufer[1] = newState;
 
-                buttonStates = newState;
-            }
+            eJenie_SendData(0, (uint8*)&sendBufer[0], sizeof(sendBufer), TXOPTION_ACKREQ);
+            vUtils_Debug("Button Pressed");
+
+
             break;
     }
 }
@@ -94,8 +89,6 @@ PUBLIC void vUI_CbInit(bool_t warmStart)
     vJPI_DioSetPullup(!Led1, Led1);
     vJPI_DioSetPullup(!Led2, Led2);
     vJPI_DioSetOutput(0, Led2);
-
-    buttonStates = 0;
 }
 
 PUBLIC void vUI_CbMain(void)

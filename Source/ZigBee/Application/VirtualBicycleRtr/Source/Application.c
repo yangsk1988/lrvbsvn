@@ -237,27 +237,27 @@ PUBLIC void vJenie_CbStackMgmtEvent(teEventType eEventType, void *pvEventPrim)
         break;
 
     case E_JENIE_PACKET_SENT:
-        vUtils_Debug("Packet sent");
+        vUtils_Debug("PKS");
         break;
 
     case E_JENIE_PACKET_FAILED:
-        vUtils_Debug("Packet failed");
+        vUtils_Debug("PKF");
         break;
 
     case E_JENIE_CHILD_JOINED:
-        vUtils_Debug("Child Joined");
+
         break;
 
     case E_JENIE_CHILD_LEAVE:
-        vUtils_Debug("Child Leave");
+
         break;
 
     case E_JENIE_CHILD_REJECTED:
-        vUtils_Debug("Child Rejected");
+
         break;
 
     case E_JENIE_STACK_RESET:
-        vUtils_Debug("Stack Reset");
+
         sAppData.eAppState = APP_STATE_WAITING_FOR_NETWORK;
         break;
 

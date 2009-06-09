@@ -90,7 +90,7 @@
 			<Add library="..\..\..\SDK\Platform\DK2\Library\BoardLib_JN513xR1.a" />
 			<Add directory="..\..\..\SDK\Chip\JN513xR1\Build" />
 		</Linker>
-		<Unit filename="Source\Coordinator.c">
+		<Unit filename="Source\Application.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Source\Utils.c">
