@@ -14,7 +14,7 @@
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
 /****************************************************************************/
-#define UARTBufferSize 256
+#define UARTBufferSize 4
 /****************************************************************************/
 /***        Type Definitions                                              ***/
 /****************************************************************************/
@@ -101,6 +101,7 @@ PUBLIC void vJenie_CbInit(bool_t bWarmStart)
     memset(&sAppData, 0, sizeof(sAppData));
     vUtils_Debug("VirtualBicycle Initializing");
 
+    eJenie_RadioPower(0, TRUE);
     vJPI_UartSetInterrupt(E_JPI_UART_0, FALSE, FALSE, FALSE, TRUE, E_JPI_UART_FIFO_LEVEL_4);
 
     deviceMAC = 0;
@@ -197,11 +198,11 @@ PUBLIC void vJenie_CbStackMgmtEvent(teEventType eEventType, void *pvEventPrim)
         break;
 
     case E_JENIE_PACKET_SENT:
-        vUtils_Debug("Packet sent");
+        vUtils_Debug("PKS");
         break;
 
     case E_JENIE_PACKET_FAILED:
-        vUtils_Debug("Packet failed");
+        vUtils_Debug("PKF");
         break;
 
     case E_JENIE_CHILD_JOINED:
@@ -264,7 +265,7 @@ PUBLIC void vJenie_CbStackDataEvent(teEventType eEventType, void *pvEventPrim)
         }
 
         break;
-
+/*
     case E_JENIE_DATA_TO_SERVICE:
         vUtils_Debug("Data to service event");
         break;
@@ -276,7 +277,7 @@ PUBLIC void vJenie_CbStackDataEvent(teEventType eEventType, void *pvEventPrim)
     case E_JENIE_DATA_TO_SERVICE_ACK:
         vUtils_Debug("Data to service ack");
         break;
-
+*/
     default:
         // Unknown data event type
         vUtils_DisplayMsg("!!Unknown Data Event!!", eEventType);
@@ -309,7 +310,7 @@ PUBLIC void vJenie_CbHwEvent(uint32 u32DeviceId, uint32 u32ItemBitmap)
             if (deviceMAC)
             {
                 int bufferSize = 0;
-                while ((u8AHI_UartReadLineStatus(E_JPI_UART_0) & E_JPI_UART_LS_THRE) == 0)
+                while ((u8AHI_UartReadLineStatus(E_JPI_UART_0) & E_JPI_UART_LS_THRE))
                 {
                     if (bufferSize < UARTBufferSize)
                     {
