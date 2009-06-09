@@ -100,35 +100,34 @@ PUBLIC void vSensor_CbStackDataEvent(teEventType eEventType, void *pvEventPrim)
     static uint32 sendBuferWheel[2] = { ('S' << 24) | ('W' << 16) | ('H' << 8) | 'L' , 0};
     static uint32 sendBuferHandlebar[2] = { ('S' << 24) | ('A' << 16) | ('N' << 8) | 'G' , 0};
 
-    static char* strAll = "All";
-    static char* strWheel = "Wheel";
-    static char* strHandlebar = "Handlebar";
+    static char* strAll = "SALL";
+    static char* strWheel = "SWHL";
+    static char* strHandlebar = "SAND";
 
     if (eEventType == E_JENIE_DATA && pvEventPrim)
     {
         tsData* data = (tsData*)pvEventPrim;
 
-        if (data->u16Length == 1)
+
+        char* str = (char*)data->pau8Data;
+
+        if (memcmp(str, strAll, 4))
         {
-            char* str = (char*)data->pau8Data;
-
-            if (memcmp(str, strAll, sizeof(*strAll)))
-            {
-                sendBuferAll[1] = wheel;
-                sendBuferAll[3] = u32ConvertAngle(angle);
-                eJenie_SendData(0, (uint8*)&sendBuferAll, sizeof(sendBuferAll), TXOPTION_ACKREQ);
-            }
-            else if (memcmp(str, strWheel, sizeof(*strWheel)))
-            {
-                sendBuferWheel[1] = wheel;
-                eJenie_SendData(0, (uint8*)&sendBuferWheel, sizeof(sendBuferWheel), TXOPTION_ACKREQ);
-            }
-            else if (memcmp(str, strHandlebar, sizeof(*strHandlebar)))
-            {
-                sendBuferHandlebar[1] = u32ConvertAngle(angle);
-                eJenie_SendData(0, (uint8*)&sendBuferHandlebar, sizeof(sendBuferHandlebar), TXOPTION_ACKREQ);
-            }
-
+            sendBuferAll[1] = wheel;
+            sendBuferAll[3] = u32ConvertAngle(angle);
+            eJenie_SendData(0, (uint8*)&sendBuferAll, sizeof(sendBuferAll), TXOPTION_ACKREQ);
         }
+        else if (memcmp(str, strWheel, 4))
+        {
+            sendBuferWheel[1] = wheel;
+            eJenie_SendData(0, (uint8*)&sendBuferWheel, sizeof(sendBuferWheel), TXOPTION_ACKREQ);
+        }
+        else if (memcmp(str, strHandlebar, 4))
+        {
+            sendBuferHandlebar[1] = u32ConvertAngle(angle);
+            eJenie_SendData(0, (uint8*)&sendBuferHandlebar, sizeof(sendBuferHandlebar), TXOPTION_ACKREQ);
+        }
+
+
     }
 }

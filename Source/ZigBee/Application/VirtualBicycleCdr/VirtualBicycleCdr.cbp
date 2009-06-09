@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="VirtualBicycleCdr" />
+		<Option pch_mode="2" />
+		<Option compiler="jn51xx_compiler" />
+		<Build>
+			<Target title="Release">
+				<Option output=".\JN5139_Build\Release\VirtualBicycleCdr.exe" prefix_auto="1" extension_auto="1" />
+				<Option working_dir=".\JN5139_Build\Release" />
+				<Option object_output=".\JN5139_Build\Release\.objs" />
+				<Option type="1" />
+				<Option compiler="jn51xx_compiler" />
+				<Compiler>
+					<Add option="-Os" />
+				</Compiler>
+				<ExtraCommands>
+					<Add after="cp .\JN5139_Build\Release\VirtualBicycleCdr.exe .\JN5139_Build\Release\VirtualBicycleCdr.ba" />
+					<Add after="ba-elf-objcopy -S -O binary .\JN5139_Build\Release\VirtualBicycleCdr.ba .\JN5139_Build\Release\VirtualBicycleCdr.bin" />
+				</ExtraCommands>
+			</Target>
+			<Target title="Debug">
+				<Option output=".\JN5139_Build\Debug\VirtualBicycleCdr.exe" prefix_auto="1" extension_auto="1" />
+				<Option working_dir=".\JN5139_Build\Debug" />
+				<Option object_output=".\JN5139_Build\Debug\.objs" />
+				<Option type="1" />
+				<Option compiler="jn51xx_compiler" />
+				<Compiler>
+					<Add option="-DGDB" />
+					<Add option="-o0" />
+				</Compiler>
+				<ExtraCommands>
+					<Add after="cp .\JN5139_Build\Debug\VirtualBicycleCdr.exe .\JN5139_Build\Debug\VirtualBicycleCdr.ba" />
+					<Add after="ba-elf-objcopy -S -O binary .\JN5139_Build\Debug\VirtualBicycleCdr.ba .\JN5139_Build\Debug\VirtualBicycleCdr.bin" />
+				</ExtraCommands>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-I." />
+			<Add option="-Wstrict-prototypes" />
+			<Add option="-Werror-implicit-function-declaration" />
+			<Add option="-fomit-frame-pointer" />
+			<Add option="-fno-strength-reduce" />
+			<Add option="-pipe" />
+			<Add option="-fno-builtin" />
+			<Add option="-nostdlib" />
+			<Add option="-msibcall" />
+			<Add option="-mno-entri" />
+			<Add option="-mno-multi" />
+			<Add option="-mno-setcc" />
+			<Add option="-mno-cmov" />
+			<Add option="-mno-carry" />
+			<Add option="-mno-subb" />
+			<Add option="-mno-sext" />
+			<Add option="-mno-ror" />
+			<Add option="-mno-ff1" />
+			<Add option="-mno-hard-div" />
+			<Add option="-mhard-mul" />
+			<Add option="-mbranch-cost=3" />
+			<Add option="-msimple-mul" />
+			<Add option="-mabi=1" />
+			<Add option="-march=ba1" />
+			<Add option="-mredzone-size=4" />
+			<Add option="-DOR1K" />
+			<Add option="-DEMBEDDED" />
+			<Add option="-DLEAN_N_MEAN" />
+			<Add option="-DSINGLE_CONTEXT" />
+			<Add directory="..\..\..\SDK\Common\Include" />
+			<Add directory="..\..\..\SDK\Chip\Common\Include" />
+			<Add directory="..\..\..\SDK\Common\Source" />
+			<Add directory="..\..\..\SDK\Chip\Common\Source" />
+			<Add directory="..\..\..\SDK\Platform\Common\Include" />
+			<Add directory="..\..\..\SDK\Platform\Common\Source" />
+			<Add directory="..\..\..\SDK\Chip\JN513xR1\Include" />
+			<Add directory="..\..\Jenie\Include" />
+			<Add directory="..\..\ATJenie\Include" />
+			<Add directory=".\Source" />
+			<Add directory="..\..\..\SDK\Platform\DK2\Include" />
+			<Add directory="..\..\..\SDK\Platform\DK2\Source" />
+		</Compiler>
+		<Linker>
+			<Add option="-TAppBuild_JN5139R1.ld" />
+			<Add library="..\..\Jenie\Library\Jenie_TreeCRLib.a" />
+			<Add library="..\..\..\..\ba-elf\lib\gcc\ba-elf\4.1.2\libgcc.a" />
+			<Add library="..\..\..\..\ba-elf\ba-elf\lib\libc.a" />
+			<Add library="..\..\ATJenie\Library\ATJenie.a" />
+			<Add library="..\..\..\SDK\Chip\JN513xR1\Library\ChipLib.a" />
+			<Add library="..\..\..\SDK\Platform\DK2\Library\BoardLib_JN513xR1.a" />
+			<Add directory="..\..\..\SDK\Chip\JN513xR1\Build" />
+		</Linker>
+		<Unit filename="Source\Coordinator.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Source\Utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Source\Utils.h" />
+		<Unit filename="Source\config.h" />
+		<Unit filename="Source\services.h" />
+		<Extensions>
+			<code_completion />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
