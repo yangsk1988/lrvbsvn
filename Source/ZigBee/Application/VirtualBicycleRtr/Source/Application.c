@@ -208,6 +208,7 @@ PUBLIC void vJenie_CbMain(void)
  ****************************************************************************/
 PUBLIC void vJenie_CbStackMgmtEvent(teEventType eEventType, void *pvEventPrim)
 {
+    vUI_CbStackMgmtEvent(eEventType, pvEventPrim);
     switch(eEventType)
     {
     case E_JENIE_NETWORK_UP:
@@ -282,8 +283,9 @@ PUBLIC void vJenie_CbStackMgmtEvent(teEventType eEventType, void *pvEventPrim)
  ****************************************************************************/
 PUBLIC void vJenie_CbStackDataEvent(teEventType eEventType, void *pvEventPrim)
 {
-    vUI_CbStackDataEvent(eEventType);
+    vSensor_CbStackDataEvent(eEventType, pvEventPrim);
 
+    /*
     switch(eEventType)
     {
     case E_JENIE_DATA:
@@ -307,6 +309,7 @@ PUBLIC void vJenie_CbStackDataEvent(teEventType eEventType, void *pvEventPrim)
         vUtils_DisplayMsg("!!Unknown Data Event!!", eEventType);
         break;
     }
+    */
 }
 
 /****************************************************************************

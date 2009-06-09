@@ -18,22 +18,31 @@
 
 PRIVATE uint32 buttonStates;
 
-PUBLIC void vUI_CbStackDataEvent(teEventType eEventType)
+PUBLIC void vUI_CbStackMgmtEvent(teEventType eEventType, void *pvEventPrim)
 {
-    switch (eEventType)
+    bool netLedStat = FALSE;
+
+    if (eEventType == E_JENIE_PACKET_SENT ||
+        eEventType == E_JENIE_PACKET_FAILED)
     {
-        case E_JENIE_DATA:
+        if (netLedStat)
+        {
             vJPI_DioSetOutput(Led2, 0);
-            break;
-        default:
+            netLedStat = FALSE;
+        }
+        else
+        {
             vJPI_DioSetOutput(0, Led2);
-            break;
+            netLedStat = TRUE;
+        }
     }
 }
+
 
 PUBLIC void vUI_CbHwEvent(uint32 u32DeviceId,uint32 u32ItemBitmap)
 {
     static int i = 0;
+    static uint32 sendBufer[2] = { ('U' << 24) | ('B' << 16) | ('T' << 8) | 'N' , 0};
     uint32 newState;
 
     switch (u32DeviceId)
@@ -56,7 +65,9 @@ PUBLIC void vUI_CbHwEvent(uint32 u32DeviceId,uint32 u32ItemBitmap)
             if (newState != buttonStates)
             {
                 // 向网关发送数据: buttonStates & newState
-                eJenie_SendData(0, (uint8*)&buttonStates, sizeof(buttonStates), TXOPTION_ACKREQ);
+                sendBufer[1] = buttonStates & newState;
+
+                eJenie_SendData(0, (uint8*)&sendBufer[0], sizeof(sendBufer), TXOPTION_ACKREQ);
                 vUtils_Debug("Button Pressed");
 
                 buttonStates = newState;
