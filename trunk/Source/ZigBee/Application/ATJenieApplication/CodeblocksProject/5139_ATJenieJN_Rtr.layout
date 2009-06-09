@@ -22,8 +22,8 @@
 	<File name="..\Source\serial.c" open="1" top="0" tabpos="2">
 		<Cursor position="5575" topLine="117" />
 	</File>
-	<File name="..\Source\uart.c" open="1" top="0" tabpos="3">
-		<Cursor position="5236" topLine="135" />
+	<File name="..\Source\uart.c" open="1" top="1" tabpos="3">
+		<Cursor position="5209" topLine="135" />
 	</File>
 	<File name="..\..\..\Common\Source\AppQueueApi.c" open="0" top="0" tabpos="4">
 		<Cursor position="18153" topLine="83" />
