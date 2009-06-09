@@ -1,3 +1,4 @@
+
 /****************************************************************************/
 /***        Include files                                                 ***/
 /****************************************************************************/
@@ -9,13 +10,11 @@
 #include <JPI.h>
 #include "Utils.h"
 #include "config.h"
-#include "UI.h"
-#include "Sensor.h"
 
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
 /****************************************************************************/
-
+#define UARTBufferSize 256
 /****************************************************************************/
 /***        Type Definitions                                              ***/
 /****************************************************************************/
@@ -24,16 +23,13 @@ typedef enum
 {
     APP_STATE_WAITING_FOR_NETWORK,
     APP_STATE_NETWORK_UP,
-    APP_STATE_SERVICE_REGISTERED,
-    APP_STATE_WAITING_FOR_REQUEST_SERVICE,
-    APP_STATE_SERVICE_REQUEST_RETURNED,
+    APP_STATE_REGISTERING_SERVICE,
     APP_STATE_RUNNING
 } teAppState;
 
 typedef struct
 {
     teAppState eAppState;
-    uint64     u64ServiceAddress;
 } tsAppData;
 
 /****************************************************************************/
@@ -53,7 +49,10 @@ PRIVATE tsAppData sAppData;
 /* Routing table storage */
 PRIVATE tsJenieRoutingTable asRoutingTable[25];
 
+PRIVATE uint64 deviceMAC;
+PRIVATE uint8 uartBuffer[UARTBufferSize];
 
+PRIVATE const uint32 HardwareId = (('H' << 24) | ('W' << 16) | ('I' << 8) | 'D');
 /****************************************************************************
  *
  * NAME: gJenie_CbNetworkApplicationID
@@ -70,14 +69,14 @@ PRIVATE tsJenieRoutingTable asRoutingTable[25];
 PUBLIC void vJenie_CbConfigureNetwork(void)
 {
     /* Change default network config */
-    gJenie_Channel          = CHANNEL;
+    gJenie_Channel              = CHANNEL;
     gJenie_NetworkApplicationID = SERVICE_PROFILE_ID;
-    gJenie_PanID            = PAN_ID;
+    gJenie_PanID                = PAN_ID;
 
     /* Configure stack with routing table data */
     gJenie_RoutingEnabled    = TRUE;
     gJenie_RoutingTableSize  = 25;
-    gJenie_RoutingTableSpace = (void *) asRoutingTable;
+    gJenie_RoutingTableSpace = (void *)asRoutingTable;
 
 }
 
@@ -100,17 +99,15 @@ PUBLIC void vJenie_CbInit(bool_t bWarmStart)
     vUtils_Init();
 
     memset(&sAppData, 0, sizeof(sAppData));
-    vUtils_Debug("Device Initializing");
+    vUtils_Debug("VirtualBicycle Initializing");
 
+    vJPI_UartSetInterrupt(E_JPI_UART_0, FALSE, FALSE, FALSE, TRUE, E_JPI_UART_FIFO_LEVEL_4);
 
-    vUI_CbInit(bWarmStart);
-    vSensor_CbInit(bWarmStart);
+    deviceMAC = 0;
 
-    eJenie_RadioPower(0, FALSE);
-
-    if(eJenie_Start(E_JENIE_ROUTER) != E_JENIE_SUCCESS)
+    if(eJenie_Start(E_JENIE_COORDINATOR) != E_JENIE_SUCCESS)
     {
-        vUtils_Debug("!!Failed to initiailze!!");
+        vUtils_Debug("!!Failed to initialize!!");
         while(1);
     }
 }
@@ -128,58 +125,27 @@ PUBLIC void vJenie_CbInit(bool_t bWarmStart)
  ****************************************************************************/
 PUBLIC void vJenie_CbMain(void)
 {
-    vUI_CbMain();
-
-    static int i = 0;
-
     switch(sAppData.eAppState)
     {
     case APP_STATE_WAITING_FOR_NETWORK:
+        /* nothing to do till network is up and running */
         break;
 
     case APP_STATE_NETWORK_UP:
-        /* as we are a router, allow nodes to associate with us */
+        /* as we are a coorinator, allow nodes to associate with us */
         vUtils_Debug("enabling association");
         eJenie_SetPermitJoin(TRUE);
 
-        /* we provide SECOND_SERVICE */
+        /* register services */
+        sAppData.eAppState = APP_STATE_REGISTERING_SERVICE;
+        break;
+
+    case APP_STATE_REGISTERING_SERVICE:
+        /* we provide FIRST_SERVICE */
         vUtils_Debug("registering service");
-        eJenie_RegisterServices(SECOND_SERVICE_MASK);
+        eJenie_RegisterServices(FIRST_SERVICE_MASK);
 
         /* go to the running state */
-        sAppData.eAppState = APP_STATE_RUNNING;
-
-        /* Or request services from coordinator */
-        //sAppData.eAppState = APP_STATE_SERVICE_REGISTERED;
-        break;
-
-    case APP_STATE_SERVICE_REGISTERED:
-        /* we use service FIRST_SERVICE on a remote node */
-        vUtils_Debug("requesting service");
-        eJenie_RequestServices(FIRST_SERVICE_MASK, TRUE);
-
-        sAppData.eAppState = APP_STATE_WAITING_FOR_REQUEST_SERVICE;
-        i = 40000;
-        break;
-
-    case APP_STATE_WAITING_FOR_REQUEST_SERVICE:
-        if(i == 0)
-        {
-            sAppData.eAppState = APP_STATE_SERVICE_REGISTERED;
-        }
-        i--;
-        break;
-
-    case APP_STATE_SERVICE_REQUEST_RETURNED:
-        /* bind local SECOND_SERVICE to remote FIRST_SERVICE */
-        vUtils_Debug("binding service");
-        if (eJenie_BindService(SECOND_SERVICE, sAppData.u64ServiceAddress, FIRST_SERVICE) == E_JENIE_SUCCESS)
-        {
-        	uint8 au8Data[] = "SECOND->FIRST";
-        	eJenie_SendDataToBoundService(SECOND_SERVICE, au8Data, 14, TXOPTION_ACKREQ);
-       	}
-
-
         sAppData.eAppState = APP_STATE_RUNNING;
         break;
 
@@ -199,8 +165,9 @@ PUBLIC void vJenie_CbMain(void)
  * DESCRIPTION:
  * Used to receive stack management events
  *
- * PARAMETERS:      Name                    RW  Usage
- *                  *psStackMgmtEvent       R   Pointer to event structure
+ * PARAMETERS:      Name            RW  Usage
+ *                  eEventType      R   Enumeration to indicate event type
+ *                  *pvEventPrim    R   Pointer to data structure containing
  *
  * RETURNS:
  * void
@@ -208,7 +175,8 @@ PUBLIC void vJenie_CbMain(void)
  ****************************************************************************/
 PUBLIC void vJenie_CbStackMgmtEvent(teEventType eEventType, void *pvEventPrim)
 {
-    vUI_CbStackMgmtEvent(eEventType, pvEventPrim);
+    tsChildJoined* childInfo;
+
     switch(eEventType)
     {
     case E_JENIE_NETWORK_UP:
@@ -220,20 +188,12 @@ PUBLIC void vJenie_CbStackMgmtEvent(teEventType eEventType, void *pvEventPrim)
         }
         break;
 
+    case E_JENIE_REG_SVC_RSP:
+        vUtils_Debug("Reg service response");
+        break;
+
     case E_JENIE_SVC_REQ_RSP:
         vUtils_Debug("Service req response");
-        if(sAppData.eAppState == APP_STATE_WAITING_FOR_REQUEST_SERVICE)
-        {
-            if(((tsSvcReqRsp *)pvEventPrim)->u32Services & FIRST_SERVICE_MASK)
-            {
-                sAppData.u64ServiceAddress = ((tsSvcReqRsp *)pvEventPrim)->u64SrcAddress;
-                sAppData.eAppState = APP_STATE_SERVICE_REQUEST_RETURNED;
-            }
-            else
-            {
-                vUtils_Debug("wrong service");
-            }
-        }
         break;
 
     case E_JENIE_PACKET_SENT:
@@ -245,7 +205,13 @@ PUBLIC void vJenie_CbStackMgmtEvent(teEventType eEventType, void *pvEventPrim)
         break;
 
     case E_JENIE_CHILD_JOINED:
-        vUtils_Debug("Child Joined");
+        childInfo = (tsChildJoined*)pvEventPrim;
+
+        deviceMAC = childInfo->u64SrcAddress;
+        vUtils_Debug("Child Jointed");
+        vUtils_DisplayHex((uint32)((deviceMAC >> 32) & 0xFFFFFFFFU), 0);
+        vUtils_DisplayHex((uint32)(deviceMAC & 0xFFFFFFFFU), 0);
+
         break;
 
     case E_JENIE_CHILD_LEAVE:
@@ -283,13 +249,20 @@ PUBLIC void vJenie_CbStackMgmtEvent(teEventType eEventType, void *pvEventPrim)
  ****************************************************************************/
 PUBLIC void vJenie_CbStackDataEvent(teEventType eEventType, void *pvEventPrim)
 {
-    vSensor_CbStackDataEvent(eEventType, pvEventPrim);
+    int i;
+    tsData* data;
 
-    /*
     switch(eEventType)
     {
     case E_JENIE_DATA:
-        vUtils_Debug("Data event");
+        data = (tsData*)pvEventPrim;
+
+        for (i = 0; i < data->u16Length; i++)
+        {
+            while ((u8AHI_UartReadLineStatus(E_JPI_UART_0) & E_JPI_UART_LS_THRE) == 0);
+            vAHI_UartWriteData(E_JPI_UART_0, data->pau8Data[i]);
+        }
+
         break;
 
     case E_JENIE_DATA_TO_SERVICE:
@@ -309,7 +282,6 @@ PUBLIC void vJenie_CbStackDataEvent(teEventType eEventType, void *pvEventPrim)
         vUtils_DisplayMsg("!!Unknown Data Event!!", eEventType);
         break;
     }
-    */
 }
 
 /****************************************************************************
@@ -327,22 +299,34 @@ PUBLIC void vJenie_CbStackDataEvent(teEventType eEventType, void *pvEventPrim)
  * void
  *
  ****************************************************************************/
-PUBLIC void vJenie_CbHwEvent(uint32 u32DeviceId,uint32 u32ItemBitmap)
+PUBLIC void vJenie_CbHwEvent(uint32 u32DeviceId, uint32 u32ItemBitmap)
 {
-    vUI_CbHwEvent(u32DeviceId, u32ItemBitmap);
-    vSensor_CbHwEvent(u32DeviceId, u32ItemBitmap);
-    /*switch (u32DeviceId)
+    if (u32DeviceId == E_JPI_DEVICE_UART0)
     {
-        case E_JPI_DEVICE_TICK_TIMER:
+        if (u32ItemBitmap & E_JPI_UART_RXDATA_MASK)
+        {
+            // 处理PC数据
+            if (deviceMAC)
+            {
+                int bufferSize = 0;
+                while ((u8AHI_UartReadLineStatus(E_JPI_UART_0) & E_JPI_UART_LS_THRE) == 0)
+                {
+                    if (bufferSize < UARTBufferSize)
+                    {
+                        uartBuffer[bufferSize++] = u8AHI_UartReadData(E_JPI_UART_0);
+                    }
+                }
 
-            break;
-        default:
-            vUtils_DisplayMsg("HWint: ", u32DeviceId);
-            break;
+                if (*((uint32*)&uartBuffer[0]) == HardwareId)
+                {
+                    vUtils_Debug("VirtualBicycle");
+                }
+                else
+                {
+                    eJenie_SendData(deviceMAC, (uint8*)&uartBuffer, (uint16)bufferSize, TXOPTION_ACKREQ);
+                }
+            }
+        }
     }
-    */
-}
 
-/****************************************************************************/
-/***        END OF FILE                                                   ***/
-/****************************************************************************/
+}

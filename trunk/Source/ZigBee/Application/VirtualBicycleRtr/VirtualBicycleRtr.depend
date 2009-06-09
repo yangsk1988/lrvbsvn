@@ -15,7 +15,7 @@
 
 1244530651 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\utils.h
 
-1244534190 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\config.h
+1244564078 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\config.h
 	<jendefs.h>
 	"services.h"
 
@@ -68,7 +68,7 @@
 1244561066 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\ui.h
 	<jendefs.h>
 
-1244563086 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\ui.c
+1244563299 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\ui.c
 	<gdb.h>
 	<string.h>
 	<Jenie.h>
