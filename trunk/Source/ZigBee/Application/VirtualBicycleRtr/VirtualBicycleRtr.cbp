@@ -95,14 +95,7 @@
 		<Unit filename="Source\Application.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Source\Sensor.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="Source\Sensor.h" />
-		<Unit filename="Source\UI.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Source\UI.h" />
 		<Unit filename="Source\Utils.c">
 			<Option compilerVar="CC" />
 		</Unit>
