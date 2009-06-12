@@ -14,7 +14,7 @@
 /****************************************************************************/
 /***        Macro Definitions                                             ***/
 /****************************************************************************/
-#define UARTBufferSize 4
+
 /****************************************************************************/
 /***        Type Definitions                                              ***/
 /****************************************************************************/
@@ -49,10 +49,26 @@ PRIVATE tsAppData sAppData;
 /* Routing table storage */
 PRIVATE tsJenieRoutingTable asRoutingTable[25];
 
-PRIVATE uint64 deviceMAC;
-PRIVATE uint8 uartBuffer[UARTBufferSize];
+PRIVATE bool isNetworkAvailable;
 
-PRIVATE const uint32 HardwareId = (('H' << 24) | ('W' << 16) | ('I' << 8) | 'D');
+PRIVATE uint32 numSccessfulPacket;
+PRIVATE uint32 numFailedPacket;
+
+PRIVATE uint64 deviceMAC;
+
+PRIVATE const uint8 HardwareId = (uint8)'V';
+PRIVATE const uint8 ForceToken = (uint8)'F';
+
+PRIVATE inline void vSendData(uint8* dataPtr, uint16 length)
+{
+    if (sAppData.eAppState == APP_STATE_RUNNING &&
+        isNetworkAvailable && deviceMAC)
+    {
+        eJenie_SendData(deviceMAC, dataPtr, length, TXOPTION_ACKREQ);
+        isNetworkAvailable = FALSE;
+    }
+}
+
 /****************************************************************************
  *
  * NAME: gJenie_CbNetworkApplicationID
@@ -101,8 +117,12 @@ PUBLIC void vJenie_CbInit(bool_t bWarmStart)
     memset(&sAppData, 0, sizeof(sAppData));
     vUtils_Debug("VirtualBicycle Initializing");
 
+    isNetworkAvailable = TRUE;
+    numSccessfulPacket = 0;
+    numFailedPacket = 0;
+
     eJenie_RadioPower(0, TRUE);
-    vJPI_UartSetInterrupt(E_JPI_UART_0, FALSE, FALSE, FALSE, TRUE, E_JPI_UART_FIFO_LEVEL_4);
+    vJPI_UartSetInterrupt(E_JPI_UART_0, FALSE, FALSE, FALSE, TRUE, E_JPI_UART_FIFO_LEVEL_1);
 
     deviceMAC = 0;
 
@@ -199,28 +219,31 @@ PUBLIC void vJenie_CbStackMgmtEvent(teEventType eEventType, void *pvEventPrim)
 
     case E_JENIE_PACKET_SENT:
         vUtils_Debug("PKS");
+        numSccessfulPacket++;
         break;
 
     case E_JENIE_PACKET_FAILED:
         vUtils_Debug("PKF");
+        numFailedPacket++;
+        isNetworkAvailable = TRUE;
         break;
 
     case E_JENIE_CHILD_JOINED:
         childInfo = (tsChildJoined*)pvEventPrim;
 
         deviceMAC = childInfo->u64SrcAddress;
-        vUtils_Debug("Child Jointed");
+        vUtils_Debug("HW Connected");
         vUtils_DisplayHex((uint32)((deviceMAC >> 32) & 0xFFFFFFFFU), 0);
         vUtils_DisplayHex((uint32)(deviceMAC & 0xFFFFFFFFU), 0);
 
         break;
 
     case E_JENIE_CHILD_LEAVE:
-        vUtils_Debug("Child Leave");
+        vUtils_Debug("HW Disconnected");
         break;
 
     case E_JENIE_CHILD_REJECTED:
-        vUtils_Debug("Child Rejected");
+        vUtils_Debug("HW Rejected");
         break;
 
     case E_JENIE_STACK_RESET:
@@ -265,25 +288,28 @@ PUBLIC void vJenie_CbStackDataEvent(teEventType eEventType, void *pvEventPrim)
         }
 
         break;
-/*
-    case E_JENIE_DATA_TO_SERVICE:
-        vUtils_Debug("Data to service event");
-        break;
 
     case E_JENIE_DATA_ACK:
-        vUtils_Debug("Data ack");
+        vUtils_Debug("ACK");
+
+        isNetworkAvailable = TRUE;
         break;
 
-    case E_JENIE_DATA_TO_SERVICE_ACK:
-        vUtils_Debug("Data to service ack");
+    case E_JENIE_DATA_TO_SERVICE:
+        //vUtils_Debug("Data to service event");
         break;
-*/
+    case E_JENIE_DATA_TO_SERVICE_ACK:
+        //vUtils_Debug("Data to service ack");
+        break;
+
     default:
         // Unknown data event type
         vUtils_DisplayMsg("!!Unknown Data Event!!", eEventType);
         break;
     }
 }
+
+
 
 /****************************************************************************
  *
@@ -302,31 +328,35 @@ PUBLIC void vJenie_CbStackDataEvent(teEventType eEventType, void *pvEventPrim)
  ****************************************************************************/
 PUBLIC void vJenie_CbHwEvent(uint32 u32DeviceId, uint32 u32ItemBitmap)
 {
+    uint8 byteA;
+    uint8 byteB;
+    uint16 data;
+
     if (u32DeviceId == E_JPI_DEVICE_UART0)
     {
-        if (u32ItemBitmap & E_JPI_UART_RXDATA_MASK)
+        if ((u32ItemBitmap & 0x000000FF) == E_AHI_UART_INT_RXDATA)
         {
             // 处理PC数据
-            if (deviceMAC)
-            {
-                int bufferSize = 0;
-                while ((u8AHI_UartReadLineStatus(E_JPI_UART_0) & E_JPI_UART_LS_THRE))
-                {
-                    if (bufferSize < UARTBufferSize)
-                    {
-                        uartBuffer[bufferSize++] = u8AHI_UartReadData(E_JPI_UART_0);
-                    }
-                }
+            byteA = u8AHI_UartReadData(E_JPI_UART_0);
 
-                if (*((uint32*)&uartBuffer[0]) == HardwareId)
+            if (byteA == HardwareId)
+            {
+                vUtils_Debug("VirtualBicycle");
+            }
+            else
+            {
+                if (byteA == ForceToken)
                 {
-                    vUtils_Debug("VirtualBicycle");
+                    byteB = u8AHI_UartReadData(E_JPI_UART_0);
+                    data = (byteA << 8) | byteB;
+                    vSendData((uint8*)&data, sizeof(data));
                 }
                 else
                 {
-                    eJenie_SendData(deviceMAC, (uint8*)&uartBuffer, (uint16)bufferSize, TXOPTION_ACKREQ);
+                    vSendData((uint8*)&byteA, sizeof(byteA));
                 }
             }
+
         }
     }
 

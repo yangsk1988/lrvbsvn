@@ -42,7 +42,7 @@
 1238601086 c:\jennic\cygwin\jennic\sdk\jenie\include\jpi.h
 	"AppHardwareApi.h"
 
-1244569865 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\sensor.c
+1244571488 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\sensor.c
 	<gdb.h>
 	<string.h>
 	<Jenie.h>
@@ -54,7 +54,7 @@
 1244560980 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\sensor.h
 	<jendefs.h>
 
-1244569492 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\application.c
+1244828797 source:c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\application.c
 	<jendefs.h>
 	<gdb.h>
 	<string.h>
@@ -62,8 +62,6 @@
 	<JPI.h>
 	"Utils.h"
 	"config.h"
-	"UI.h"
-	"Sensor.h"
 
 1244561066 c:\jennic\cygwin\jennic\sdk\application\virtualbicyclertr\source\ui.h
 	<jendefs.h>
