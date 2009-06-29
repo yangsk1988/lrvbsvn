@@ -6,9 +6,9 @@ namespace VirtualBicycle.Input
 {
     public class WirelessInputProcessor : InputProcessor, IDisposable
     {
-        const char HandlebarDataTagC = 'H';
-        const char WheelDataTagC = 'W';
-        const char ResetDataTagC = 'R';
+        const char HandlebarDataTagC = 'A';
+        const char WheelDataTagC = 'B';
+        const char ResetDataTagC = 'C';
         const char ButtonDataTagC = 'S';
         const char DataRequestTagC = 'D';
         const char IdentifierTagC = 'V';
