@@ -221,7 +221,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Resource.cs" />
+    <Compile Include="Core\Resource.cs" />
     <Compile Include="Graphics\Atmosphere.cs" />
     <Compile Include="Graphics\IRenderable.cs" />
     <Compile Include="Graphics\Mesh.cs" />
@@ -374,12 +374,14 @@
     <Compile Include="CollisionModel\Shapes\TriangleMeshShape.cs" />
     <Compile Include="CollisionModel\Shapes\TriangleShape.cs" />
     <Compile Include="CollisionModel\Shapes\HeightFieldTerrainShape.cs" />
+    <Compile Include="Core\AsyncLoader.cs" />
     <Compile Include="Core\GameBase.cs" />
     <Compile Include="Core\GameClock.cs" />
     <Compile Include="Core\GameTime.cs" />
     <Compile Include="Core\GameWindow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Core\ResourceManager.cs" />
     <Compile Include="DataStructure\Heap.cs" />
     <Compile Include="DataStructure\PriorityQueue.cs" />
     <Compile Include="DeviceSettings\ConversionMethods.cs" />

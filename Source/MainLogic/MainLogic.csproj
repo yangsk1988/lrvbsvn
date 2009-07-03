@@ -121,7 +121,7 @@
     <PostBuildEvent>Copy $(TargetPath) $(SolutionDir)VirtualBicycle\bin\$(TargetName).lgc
 Copy $(TargetDir)$(TargetName).pdb $(SolutionDir)VirtualBicycle\bin\$(TargetName).pdb
 
-Copy $(TargetPath) $(SolutionDir)VBIDE\bin\$(TargetName).lgc
-Copy $(TargetDir)$(TargetName).pdb $(SolutionDir)VBIDE\bin\$(TargetName).pdb</PostBuildEvent>
+Copy $(TargetPath) $(SolutionDir)VirtualBicycle.Ide\bin\$(TargetName).lgc
+Copy $(TargetDir)$(TargetName).pdb $(SolutionDir)VirtualBicycle.Ide\bin\$(TargetName).pdb</PostBuildEvent>
   </PropertyGroup>
 </Project>
