@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace VBIDE.Converters
+namespace VirtualBicycle.Ide.Converters
 {
     public partial class ProgressDlg : Form
     {

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Designers;
 using VirtualBicycle.Logic.Traffic;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.Scene;
 
-namespace VBIDE.Editors.EditableObjects
+namespace VirtualBicycle.Ide.Editors.EditableObjects
 {
     public class EditableCluster : Cluster
     {

@@ -8,8 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Editors.EditableObjects;
-using VBIDE.Tools;
+using VirtualBicycle.Ide.Editors.EditableObjects;
+using VirtualBicycle.Ide.Tools;
 using VirtualBicycle;
 using VirtualBicycle.CollisionModel.Broadphase;
 using VirtualBicycle.CollisionModel.Dispatch;
@@ -22,7 +22,7 @@ using VirtualBicycle.Physics.Dynamics;
 using VirtualBicycle.Scene;
 using VirtualBicycle.UI;
 
-namespace VBIDE.Designers.WorldBuilder
+namespace VirtualBicycle.Ide.Designers.WorldBuilder
 {
     public partial class WorldDesigner : GeneralDocumentBase
     {

@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Forms.Design;
 using SlimDX.Direct3D9;
 
-namespace VBIDE.Editors
+namespace VirtualBicycle.Ide.Editors
 {
     public class TextureEditor : UITypeEditor
     {

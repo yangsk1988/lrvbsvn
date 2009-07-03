@@ -5,14 +5,14 @@ using System.Text;
 using System.Xml;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Designers;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 using VirtualBicycle;
 using VirtualBicycle.Collections;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.Graphics.Animation;
 
-namespace VBIDE.Converters
+namespace VirtualBicycle.Ide.Converters
 {
     public struct Index3i
     {

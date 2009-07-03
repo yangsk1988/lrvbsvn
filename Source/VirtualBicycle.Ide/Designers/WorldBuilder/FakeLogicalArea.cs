@@ -9,7 +9,7 @@ using VirtualBicycle.Graphics.Effects;
 using VirtualBicycle.IO;
 using VirtualBicycle.Scene;
 
-namespace VBIDE.Designers.WorldBuilder
+namespace VirtualBicycle.Ide.Designers.WorldBuilder
 {
     public class FakeLogicalArea : SceneObject, IPositionedObject
     {

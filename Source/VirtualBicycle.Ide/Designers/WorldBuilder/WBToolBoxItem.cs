@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VBIDE.Tools;
+using VirtualBicycle.Ide.Tools;
 
-namespace VBIDE.Designers.WorldBuilder
+namespace VirtualBicycle.Ide.Designers.WorldBuilder
 {
     public abstract class WBToolBoxItem : ToolBoxItem
     {

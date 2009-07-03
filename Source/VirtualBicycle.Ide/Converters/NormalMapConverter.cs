@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using VirtualBicycle.IO;
 
-namespace VBIDE.Converters
+namespace VirtualBicycle.Ide.Converters
 {
     public unsafe class NormalMapConverter : ConverterBase
     {

@@ -6,11 +6,11 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using VBIDE.Designers;
-using VBIDE.Templates;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Templates;
 using VirtualBicycle.UI;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     public partial class NewFileForm : Form
     {

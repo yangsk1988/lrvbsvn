@@ -13,7 +13,7 @@ using VirtualBicycle.IO;
 using VirtualBicycle.UI;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace VBIDE.Designers
+namespace VirtualBicycle.Ide.Designers
 {
     public partial class CsfDesigner : GeneralDocumentBase
     {

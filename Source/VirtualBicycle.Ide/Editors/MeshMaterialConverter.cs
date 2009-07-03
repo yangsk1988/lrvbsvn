@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 
-namespace VBIDE.Editors
+namespace VirtualBicycle.Ide.Editors
 {
     public class MeshMaterialConverter : ExpandableObjectConverter
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VBIDE.Projects
+namespace VirtualBicycle.Ide.Projects
 {
     public abstract class ProjectBase
     {

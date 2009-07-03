@@ -4,8 +4,8 @@ using System.Drawing;
 using System.Text;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Designers;
-using VBIDE.Designers.WorldBuilder;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Designers.WorldBuilder;
 using VirtualBicycle;
 using VirtualBicycle.Collections;
 using VirtualBicycle.Graphics;
@@ -14,7 +14,7 @@ using VirtualBicycle.Logic.Traffic;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.Scene;
 
-namespace VBIDE.Editors.EditableObjects
+namespace VirtualBicycle.Ide.Editors.EditableObjects
 {
     public unsafe class EditableGameScene : GameSceneBase<EditableCluster, EditableSceneData>
     {

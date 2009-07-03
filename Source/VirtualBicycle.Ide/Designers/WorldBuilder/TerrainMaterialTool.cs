@@ -4,12 +4,12 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using SlimDX;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.Scene;
 using SlimDX.Direct3D9;
 
-namespace VBIDE.Designers.WorldBuilder
+namespace VirtualBicycle.Ide.Designers.WorldBuilder
 {
     class TerrainMaterialTool : WBTool
     {

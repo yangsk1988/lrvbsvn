@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     public static class PresetedPlatform
     {

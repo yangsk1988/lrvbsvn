@@ -22,7 +22,7 @@ namespace VirtualBicycle.Design
             if (ui == null)
             {
                 Assembly asm = Assembly.GetEntryAssembly();
-                Type tpe = asm.GetType("VBIDE.DevStringTable", true);
+                Type tpe = asm.GetType("VirtualBicycle.Ide.DevStringTable", true);
                 PropertyInfo stProp = tpe.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
 
                 ui = new MatrixEditControl((StringTable)stProp.GetValue(null, null));                

@@ -8,13 +8,13 @@ using System.Text;
 using System.Windows.Forms;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Designers;
 using VirtualBicycle;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.IO;
 using VirtualBicycle.Scene;
 
-namespace VBIDE.Converters
+namespace VirtualBicycle.Ide.Converters
 {
     public class DispMapConverter : ConverterBase
     {

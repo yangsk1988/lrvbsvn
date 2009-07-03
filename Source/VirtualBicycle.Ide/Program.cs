@@ -5,7 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using VirtualBicycle;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     class DevStringTable : Singleton
     {

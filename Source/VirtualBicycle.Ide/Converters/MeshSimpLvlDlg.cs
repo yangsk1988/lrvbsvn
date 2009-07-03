@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using SlimDX.Direct3D9;
 
-namespace VBIDE.Converters
+namespace VirtualBicycle.Ide.Converters
 {
     public partial class MeshSimpLvlDlg : Form
     {

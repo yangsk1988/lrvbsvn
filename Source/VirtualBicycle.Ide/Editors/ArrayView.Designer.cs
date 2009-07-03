@@ -1,4 +1,4 @@
-﻿namespace VBIDE.Editors
+﻿namespace VirtualBicycle.Ide.Editors
 {
     partial class ArrayView<T>
     {

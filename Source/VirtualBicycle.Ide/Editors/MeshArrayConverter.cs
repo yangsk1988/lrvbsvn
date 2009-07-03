@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Text;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 
-namespace VBIDE.Editors
+namespace VirtualBicycle.Ide.Editors
 {
     [Obsolete()]
     public class MeshArrayConverter : TypeConverter

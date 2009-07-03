@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VBIDE.Tools
+namespace VirtualBicycle.Ide.Tools
 {
     public class ExplorerWndFactory : IToolAbstractFactory
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Scene;
 
-namespace VBIDE.Editors.EditableObjects
+namespace VirtualBicycle.Ide.Editors.EditableObjects
 {
     public class EditableClusterTable : ClusterTableBase<EditableCluster>
     {

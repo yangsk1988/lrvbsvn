@@ -9,7 +9,7 @@ using System.Windows.Forms.Design;
 using SlimDX.Direct3D9;
 using VirtualBicycle.Design;
 
-namespace VBIDE.Editors
+namespace VirtualBicycle.Ide.Editors
 {
     public partial class VertexFormatEditorControl : UserControl, IEditControl<VertexFormat>
     {

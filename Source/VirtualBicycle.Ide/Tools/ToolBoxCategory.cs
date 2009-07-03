@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 
-namespace VBIDE.Tools
+namespace VirtualBicycle.Ide.Tools
 {
     public abstract class ToolBoxCategory
     {

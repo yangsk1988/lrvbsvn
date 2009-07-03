@@ -1,4 +1,4 @@
-﻿namespace VBIDE.Converters
+﻿namespace VirtualBicycle.Ide.Converters
 {
     partial class ProgressDlg
     {

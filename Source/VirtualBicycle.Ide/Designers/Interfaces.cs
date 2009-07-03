@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using VirtualBicycle.IO;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace VBIDE.Designers
+namespace VirtualBicycle.Ide.Designers
 {
     
     public interface IDocument

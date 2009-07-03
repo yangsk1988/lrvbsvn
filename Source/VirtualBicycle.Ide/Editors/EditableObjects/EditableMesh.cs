@@ -7,15 +7,15 @@ using System.IO;
 using System.Text;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Converters;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Converters;
+using VirtualBicycle.Ide.Designers;
 using VirtualBicycle;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.Graphics.Animation;
 using VirtualBicycle.IO;
 using VirtualBicycle.MathLib;
 
-namespace VBIDE.Editors.EditableObjects
+namespace VirtualBicycle.Ide.Editors.EditableObjects
 {
     public unsafe class EditableMesh : MeshData<EditableMeshMaterial>, IDisposable
     {

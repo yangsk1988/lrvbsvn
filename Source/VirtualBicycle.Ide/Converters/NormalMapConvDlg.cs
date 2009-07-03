@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using VirtualBicycle.UI;
 
-namespace VBIDE.Converters
+namespace VirtualBicycle.Ide.Converters
 {
     public partial class NormalMapConvDlg : Form
     {

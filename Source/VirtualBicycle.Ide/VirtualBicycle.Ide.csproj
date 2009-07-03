@@ -8,8 +8,8 @@
     <ProjectGuid>{AA72D449-B468-4698-A28D-926E2225FC5A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VBIDE</RootNamespace>
-    <AssemblyName>VBIDE</AssemblyName>
+    <RootNamespace>VirtualBicycle.Ide</RootNamespace>
+    <AssemblyName>VirtualBicycle.Ide</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>

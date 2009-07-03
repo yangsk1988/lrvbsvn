@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.IO;
 
-namespace VBIDE.Designers.WorldBuilder
+namespace VirtualBicycle.Ide.Designers.WorldBuilder
 {
     public class WorldDesignerFactory : DesignerAbstractFactory
     {

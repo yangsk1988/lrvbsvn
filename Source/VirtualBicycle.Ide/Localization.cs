@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     [AttributeUsage(AttributeTargets.All)]
     internal sealed class LocalizedDescriptionAttribute : DescriptionAttribute

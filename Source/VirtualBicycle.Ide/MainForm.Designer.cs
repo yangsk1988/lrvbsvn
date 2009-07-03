@@ -1,4 +1,4 @@
-﻿namespace VBIDE
+﻿namespace VirtualBicycle.Ide
 {
     partial class MainForm
     {
@@ -401,7 +401,7 @@
             this.newTool.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newProjToolMenuItem,
             this.newFileToolMenuItem});
-            this.newTool.Image = global::VBIDE.Properties.Resources.New;
+            this.newTool.Image = global::VirtualBicycle.Ide.Properties.Resources.New;
             this.newTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newTool.Name = "newTool";
             this.newTool.Size = new System.Drawing.Size(29, 22);
@@ -424,7 +424,7 @@
             // 
             this.insertTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.insertTool.Enabled = false;
-            this.insertTool.Image = global::VBIDE.Properties.Resources.NewItem;
+            this.insertTool.Image = global::VirtualBicycle.Ide.Properties.Resources.NewItem;
             this.insertTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.insertTool.Name = "insertTool";
             this.insertTool.Size = new System.Drawing.Size(29, 22);
@@ -433,7 +433,7 @@
             // openTool
             // 
             this.openTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openTool.Image = global::VBIDE.Properties.Resources.openHS;
+            this.openTool.Image = global::VirtualBicycle.Ide.Properties.Resources.openHS;
             this.openTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openTool.Name = "openTool";
             this.openTool.Size = new System.Drawing.Size(23, 22);
@@ -444,7 +444,7 @@
             // 
             this.saveTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.saveTool.Enabled = false;
-            this.saveTool.Image = global::VBIDE.Properties.Resources.saveHS;
+            this.saveTool.Image = global::VirtualBicycle.Ide.Properties.Resources.saveHS;
             this.saveTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveTool.Name = "saveTool";
             this.saveTool.Size = new System.Drawing.Size(23, 22);
@@ -454,7 +454,7 @@
             // saveAllTool
             // 
             this.saveAllTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveAllTool.Image = global::VBIDE.Properties.Resources.SaveAllHS;
+            this.saveAllTool.Image = global::VirtualBicycle.Ide.Properties.Resources.SaveAllHS;
             this.saveAllTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveAllTool.Name = "saveAllTool";
             this.saveAllTool.Size = new System.Drawing.Size(23, 22);
@@ -470,7 +470,7 @@
             // 
             this.runTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.runTool.Enabled = false;
-            this.runTool.Image = global::VBIDE.Properties.Resources.PlayHS;
+            this.runTool.Image = global::VirtualBicycle.Ide.Properties.Resources.PlayHS;
             this.runTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.runTool.Name = "runTool";
             this.runTool.Size = new System.Drawing.Size(23, 22);
@@ -480,7 +480,7 @@
             // 
             this.debugPauseTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.debugPauseTool.Enabled = false;
-            this.debugPauseTool.Image = global::VBIDE.Properties.Resources.PauseHS;
+            this.debugPauseTool.Image = global::VirtualBicycle.Ide.Properties.Resources.PauseHS;
             this.debugPauseTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.debugPauseTool.Name = "debugPauseTool";
             this.debugPauseTool.Size = new System.Drawing.Size(23, 22);
@@ -490,7 +490,7 @@
             // 
             this.stopDebugTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.stopDebugTool.Enabled = false;
-            this.stopDebugTool.Image = global::VBIDE.Properties.Resources.StopHS;
+            this.stopDebugTool.Image = global::VirtualBicycle.Ide.Properties.Resources.StopHS;
             this.stopDebugTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.stopDebugTool.Name = "stopDebugTool";
             this.stopDebugTool.Size = new System.Drawing.Size(23, 22);

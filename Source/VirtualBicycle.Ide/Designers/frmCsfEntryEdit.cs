@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using VirtualBicycle;
 using VirtualBicycle.UI;
 
-namespace VBIDE.Designers
+namespace VirtualBicycle.Ide.Designers
 {
     public partial class frmCsfEntryEdit : Form
     {

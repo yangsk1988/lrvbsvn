@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
-using VBIDE.Designers;
-using VBIDE.Projects;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Projects;
 
-namespace VBIDE.Templates
+namespace VirtualBicycle.Ide.Templates
 {
     /// <summary>
     /// 模板控制着文档和项目的创建。Factory method

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using VirtualBicycle.UI;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace VBIDE.Tools
+namespace VirtualBicycle.Ide.Tools
 {
     public partial class PropertyWindow : DockContent, ITool
     {

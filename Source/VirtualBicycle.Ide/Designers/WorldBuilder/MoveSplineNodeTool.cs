@@ -4,14 +4,14 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using SlimDX;
-using VBIDE.Editors.EditableObjects;
-using VBIDE.Properties;
+using VirtualBicycle.Ide.Editors.EditableObjects;
+using VirtualBicycle.Ide.Properties;
 using VirtualBicycle.IO;
 using VirtualBicycle.Logic.Traffic;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.Scene;
 
-namespace VBIDE.Designers.WorldBuilder
+namespace VirtualBicycle.Ide.Designers.WorldBuilder
 {
     class MoveSplineNodeTool : WBTool
     {       

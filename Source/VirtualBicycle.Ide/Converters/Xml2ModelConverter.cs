@@ -6,16 +6,16 @@ using System.Windows.Forms;
 using System.Xml;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE;
-using VBIDE.Converters;
-using VBIDE.Designers;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Converters;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 using VirtualBicycle.Collections;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.Graphics.Animation;
 using VirtualBicycle.IO;
 
-namespace VBIDE.Converters
+namespace VirtualBicycle.Ide.Converters
 {
     public unsafe class Xml2ModelConverter : ConverterBase
     {

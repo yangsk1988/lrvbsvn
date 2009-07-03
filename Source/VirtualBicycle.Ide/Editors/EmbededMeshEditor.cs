@@ -5,10 +5,10 @@ using System.Drawing.Design;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using VBIDE.Designers;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 
-namespace VBIDE.Editors
+namespace VirtualBicycle.Ide.Editors
 {
     public class EmbededMeshEditor : UITypeEditor
     {

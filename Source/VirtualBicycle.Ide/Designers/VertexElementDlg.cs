@@ -6,9 +6,9 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using SlimDX.Direct3D9;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 
-namespace VBIDE.Designers
+namespace VirtualBicycle.Ide.Designers
 {
     public partial class VertexElementDlg : Form
     {

@@ -4,7 +4,7 @@ using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace VBIDE.Tools
+namespace VirtualBicycle.Ide.Tools
 {
     public delegate void ToolBoxItemActivatedHandler();
 

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VBIDE.Templates;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Templates;
+using VirtualBicycle.Ide.Designers;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     public class TemplateManager
     {

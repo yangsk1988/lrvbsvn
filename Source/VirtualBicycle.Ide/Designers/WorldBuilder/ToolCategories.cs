@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
-using VBIDE.Properties;
-using VBIDE.Tools;
+using VirtualBicycle.Ide.Properties;
+using VirtualBicycle.Ide.Tools;
 
-namespace VBIDE.Designers.WorldBuilder
+namespace VirtualBicycle.Ide.Designers.WorldBuilder
 {
     public class RoadCategory : ToolBoxCategory
     {

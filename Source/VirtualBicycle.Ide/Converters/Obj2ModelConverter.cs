@@ -4,15 +4,15 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 using SlimDX;
 using SlimDX.Direct3D9;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.IO;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Designers;
 
-namespace VBIDE.Converters
+namespace VirtualBicycle.Ide.Converters
 {
     [Obsolete ()]
     class Obj2ModelConverter : ConverterBase

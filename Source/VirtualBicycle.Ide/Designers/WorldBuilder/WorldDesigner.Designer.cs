@@ -1,4 +1,4 @@
-﻿namespace VBIDE.Designers.WorldBuilder
+﻿namespace VirtualBicycle.Ide.Designers.WorldBuilder
 {
     partial class WorldDesigner
     {
@@ -105,7 +105,7 @@
             // moveForwardBtn
             // 
             this.moveForwardBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveForwardBtn.Image = global::VBIDE.Properties.Resources.GoToPreviousMessage;
+            this.moveForwardBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.GoToPreviousMessage;
             this.moveForwardBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.moveForwardBtn.Name = "moveForwardBtn";
             this.moveForwardBtn.Size = new System.Drawing.Size(23, 22);
@@ -115,7 +115,7 @@
             // moveBackwardBtn
             // 
             this.moveBackwardBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveBackwardBtn.Image = global::VBIDE.Properties.Resources.GoToNextMessage;
+            this.moveBackwardBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.GoToNextMessage;
             this.moveBackwardBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.moveBackwardBtn.Name = "moveBackwardBtn";
             this.moveBackwardBtn.Size = new System.Drawing.Size(23, 22);
@@ -125,7 +125,7 @@
             // moveLeftBtn
             // 
             this.moveLeftBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveLeftBtn.Image = global::VBIDE.Properties.Resources.GoToPrevious;
+            this.moveLeftBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.GoToPrevious;
             this.moveLeftBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.moveLeftBtn.Name = "moveLeftBtn";
             this.moveLeftBtn.Size = new System.Drawing.Size(23, 22);
@@ -135,7 +135,7 @@
             // moveRightBtn
             // 
             this.moveRightBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveRightBtn.Image = global::VBIDE.Properties.Resources.GoToNextHS;
+            this.moveRightBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.GoToNextHS;
             this.moveRightBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.moveRightBtn.Name = "moveRightBtn";
             this.moveRightBtn.Size = new System.Drawing.Size(23, 22);
@@ -145,7 +145,7 @@
             // turnLeftBtn
             // 
             this.turnLeftBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.turnLeftBtn.Image = global::VBIDE.Properties.Resources.Edit_UndoHS;
+            this.turnLeftBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.Edit_UndoHS;
             this.turnLeftBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.turnLeftBtn.Name = "turnLeftBtn";
             this.turnLeftBtn.Size = new System.Drawing.Size(23, 22);
@@ -155,7 +155,7 @@
             // turnRightBtn
             // 
             this.turnRightBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.turnRightBtn.Image = global::VBIDE.Properties.Resources.Edit_RedoHS;
+            this.turnRightBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.Edit_RedoHS;
             this.turnRightBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.turnRightBtn.Name = "turnRightBtn";
             this.turnRightBtn.Size = new System.Drawing.Size(23, 22);
@@ -222,7 +222,7 @@
             // 
             this.selectToolBtn.CheckOnClick = true;
             this.selectToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.selectToolBtn.Image = global::VBIDE.Properties.Resources.PointerHS;
+            this.selectToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.PointerHS;
             this.selectToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.selectToolBtn.Name = "selectToolBtn";
             this.selectToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -233,7 +233,7 @@
             // 
             this.rotateToolBtn.CheckOnClick = true;
             this.rotateToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.rotateToolBtn.Image = global::VBIDE.Properties.Resources.rotateTool;
+            this.rotateToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.rotateTool;
             this.rotateToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rotateToolBtn.Name = "rotateToolBtn";
             this.rotateToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -244,7 +244,7 @@
             // 
             this.moveToolBtn.CheckOnClick = true;
             this.moveToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveToolBtn.Image = global::VBIDE.Properties.Resources.moveTool;
+            this.moveToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.moveTool;
             this.moveToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.moveToolBtn.Name = "moveToolBtn";
             this.moveToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -254,7 +254,7 @@
             // deleteToolBtn
             // 
             this.deleteToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteToolBtn.Image = global::VBIDE.Properties.Resources.DeleteHS1;
+            this.deleteToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.DeleteHS1;
             this.deleteToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deleteToolBtn.Name = "deleteToolBtn";
             this.deleteToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -270,7 +270,7 @@
             // 
             this.higherTerrainToolBtn.CheckOnClick = true;
             this.higherTerrainToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.higherTerrainToolBtn.Image = global::VBIDE.Properties.Resources.raiseTerrain;
+            this.higherTerrainToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.raiseTerrain;
             this.higherTerrainToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.higherTerrainToolBtn.Name = "higherTerrainToolBtn";
             this.higherTerrainToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -281,7 +281,7 @@
             // 
             this.lowerTerrainToolBtn.CheckOnClick = true;
             this.lowerTerrainToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.lowerTerrainToolBtn.Image = global::VBIDE.Properties.Resources.lowerTerrain;
+            this.lowerTerrainToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.lowerTerrain;
             this.lowerTerrainToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.lowerTerrainToolBtn.Name = "lowerTerrainToolBtn";
             this.lowerTerrainToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -292,7 +292,7 @@
             // 
             this.paintMaterialBtn.CheckOnClick = true;
             this.paintMaterialBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.paintMaterialBtn.Image = global::VBIDE.Properties.Resources.LineColorHS;
+            this.paintMaterialBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.LineColorHS;
             this.paintMaterialBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.paintMaterialBtn.Name = "paintMaterialBtn";
             this.paintMaterialBtn.Size = new System.Drawing.Size(23, 22);
@@ -303,7 +303,7 @@
             // 
             this.smoothenToolBtn.CheckOnClick = true;
             this.smoothenToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.smoothenToolBtn.Image = global::VBIDE.Properties.Resources.smoothTerrain;
+            this.smoothenToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.smoothTerrain;
             this.smoothenToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.smoothenToolBtn.Name = "smoothenToolBtn";
             this.smoothenToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -319,7 +319,7 @@
             // changeMaterialsBtn
             // 
             this.changeMaterialsBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.changeMaterialsBtn.Image = global::VBIDE.Properties.Resources.DisplayInColorHS;
+            this.changeMaterialsBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.DisplayInColorHS;
             this.changeMaterialsBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.changeMaterialsBtn.Name = "changeMaterialsBtn";
             this.changeMaterialsBtn.Size = new System.Drawing.Size(23, 22);
@@ -369,7 +369,7 @@
             // scenePropBtn
             // 
             this.scenePropBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.scenePropBtn.Image = global::VBIDE.Properties.Resources.PropertiesHS;
+            this.scenePropBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.PropertiesHS;
             this.scenePropBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.scenePropBtn.Name = "scenePropBtn";
             this.scenePropBtn.Size = new System.Drawing.Size(23, 22);
@@ -403,7 +403,7 @@
             // importColorMapToolBtn
             // 
             this.importColorMapToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.importColorMapToolBtn.Image = global::VBIDE.Properties.Resources.importColorMap;
+            this.importColorMapToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.importColorMap;
             this.importColorMapToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.importColorMapToolBtn.Name = "importColorMapToolBtn";
             this.importColorMapToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -413,7 +413,7 @@
             // importNormalMapToolBtn
             // 
             this.importNormalMapToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.importNormalMapToolBtn.Image = global::VBIDE.Properties.Resources.importNrmMap;
+            this.importNormalMapToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.importNrmMap;
             this.importNormalMapToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.importNormalMapToolBtn.Name = "importNormalMapToolBtn";
             this.importNormalMapToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -423,7 +423,7 @@
             // importIndexMapToolBtn
             // 
             this.importIndexMapToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.importIndexMapToolBtn.Image = global::VBIDE.Properties.Resources.importIndexMap;
+            this.importIndexMapToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.importIndexMap;
             this.importIndexMapToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.importIndexMapToolBtn.Name = "importIndexMapToolBtn";
             this.importIndexMapToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -460,7 +460,7 @@
             // 
             this.selectNodeToolBtn.CheckOnClick = true;
             this.selectNodeToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.selectNodeToolBtn.Image = global::VBIDE.Properties.Resources.SelectRoadNode;
+            this.selectNodeToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.SelectRoadNode;
             this.selectNodeToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.selectNodeToolBtn.Name = "selectNodeToolBtn";
             this.selectNodeToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -471,7 +471,7 @@
             // 
             this.moveNodeToolBtn.CheckOnClick = true;
             this.moveNodeToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.moveNodeToolBtn.Image = global::VBIDE.Properties.Resources.moveNodeTool;
+            this.moveNodeToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.moveNodeTool;
             this.moveNodeToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.moveNodeToolBtn.Name = "moveNodeToolBtn";
             this.moveNodeToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -481,7 +481,7 @@
             // newNodeToolBtn
             // 
             this.newNodeToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newNodeToolBtn.Image = global::VBIDE.Properties.Resources.newNode;
+            this.newNodeToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.newNode;
             this.newNodeToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newNodeToolBtn.Name = "newNodeToolBtn";
             this.newNodeToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -491,7 +491,7 @@
             // deleteNodeToolBtn
             // 
             this.deleteNodeToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.deleteNodeToolBtn.Image = global::VBIDE.Properties.Resources.DeleteNodeTool;
+            this.deleteNodeToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.DeleteNodeTool;
             this.deleteNodeToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.deleteNodeToolBtn.Name = "deleteNodeToolBtn";
             this.deleteNodeToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -506,7 +506,7 @@
             // fitRoadToolBtn
             // 
             this.fitRoadToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.fitRoadToolBtn.Image = global::VBIDE.Properties.Resources.fitRoad;
+            this.fitRoadToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.fitRoad;
             this.fitRoadToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.fitRoadToolBtn.Name = "fitRoadToolBtn";
             this.fitRoadToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -516,7 +516,7 @@
             // straightenRoadToolBtn
             // 
             this.straightenRoadToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.straightenRoadToolBtn.Image = global::VBIDE.Properties.Resources.streightenTool;
+            this.straightenRoadToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.streightenTool;
             this.straightenRoadToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.straightenRoadToolBtn.Name = "straightenRoadToolBtn";
             this.straightenRoadToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -538,7 +538,7 @@
             // 
             this.portSelectToolBtn.CheckOnClick = true;
             this.portSelectToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.portSelectToolBtn.Image = global::VBIDE.Properties.Resources.selectPort;
+            this.portSelectToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.selectPort;
             this.portSelectToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.portSelectToolBtn.Name = "portSelectToolBtn";
             this.portSelectToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -548,7 +548,7 @@
             // connectPortToolBtn
             // 
             this.connectPortToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.connectPortToolBtn.Image = global::VBIDE.Properties.Resources.ConflictHS;
+            this.connectPortToolBtn.Image = global::VirtualBicycle.Ide.Properties.Resources.ConflictHS;
             this.connectPortToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.connectPortToolBtn.Name = "connectPortToolBtn";
             this.connectPortToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -558,7 +558,7 @@
             // disConnectTool
             // 
             this.disConnectTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.disConnectTool.Image = global::VBIDE.Properties.Resources.ConflictHS1;
+            this.disConnectTool.Image = global::VirtualBicycle.Ide.Properties.Resources.ConflictHS1;
             this.disConnectTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.disConnectTool.Name = "disConnectTool";
             this.disConnectTool.Size = new System.Drawing.Size(23, 22);

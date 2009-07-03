@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using SlimDX.Direct3D9;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 using VirtualBicycle.IO;
 using VirtualBicycle.Logic;
 using VirtualBicycle.Scene;
 
-namespace VBIDE.Designers.WorldBuilder
+namespace VirtualBicycle.Ide.Designers.WorldBuilder
 {
     class EditableTerrainFactory : TerrainFactory
     {

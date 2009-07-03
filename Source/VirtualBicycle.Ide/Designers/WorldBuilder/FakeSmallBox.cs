@@ -10,7 +10,7 @@ using VirtualBicycle.IO;
 using VirtualBicycle.Scene;
 using VirtualBicycle.MathLib;
 
-namespace VBIDE.Designers.WorldBuilder
+namespace VirtualBicycle.Ide.Designers.WorldBuilder
 {
     [TestOnly()]
     class FakeSmallBox : StaticObject
