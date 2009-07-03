@@ -505,22 +505,10 @@ namespace VirtualBicycle.Scene
 
         void ISceneRenderer.RenderScenePost(Surface target)
         {
-            device.SetRenderTarget(0, target); //EffectParams.CurrentCamera.RenderTarget);
+            device.SetRenderTarget(0, target);
 
             device.Clear(ClearFlags.ZBuffer | ClearFlags.Target, 0, 1, 0);
-            //const float camDist = 200f;
-            //const float rotHoz = 0;
-            //const float rotVert = (float)Math.PI / 6f;
 
-            //Vector3 camPos = new Vector3(-camDist * (float)Math.Cos(rotHoz), camDist * (float)Math.Sin(rotVert), camDist * (float)Math.Sin(rotHoz));
-
-            //Matrix world = Matrix.Translation(-Length / 2, 0, -Length / 2);
-            //Matrix view = Matrix.LookAtRH(camPos, new Vector3(0, 0, 0), Vector3.UnitY);
-            //Matrix proj = Matrix.PerspectiveFovRH((float)Math.PI / 4f, 1, 1, 1000);
-
-            //device.SetTransform(TransformState.Projection, proj);
-            //device.SetTransform(TransformState.World, Matrix.Identity);
-            //device.SetTransform(TransformState.View, view);
 
             device.SetTransform(TransformState.Projection, EffectParams.CurrentCamera.ProjectionMatrix);
             device.SetTransform(TransformState.World, Matrix.Identity);
@@ -529,16 +517,9 @@ namespace VirtualBicycle.Scene
 
             Atmosphere.Render();
 
-
-
             device.PixelShader = null;
             device.VertexShader = null;
 
-            //device.SetTexture(0, shadowMap.ShadowColorMap);
-            //device.VertexFormat = PicInPicVtx.Format;
-            //device.DrawUserPrimitives<PicInPicVtx>(PrimitiveType.TriangleStrip, 0, 2, testQuad);
-            //device.SetRenderState(RenderState.DepthBias, 0.0002f);
-            //device.SetRenderState(RenderState.SlopeScaleDepthBias, 2f);
 
             device.SetRenderState(RenderState.AlphaBlendEnable, false);
             device.SetRenderState(RenderState.Lighting, false);
@@ -566,77 +547,83 @@ namespace VirtualBicycle.Scene
                     foreach (KeyValuePair<GeomentryData, FastList<RenderOperation>> e4 in geoTable)
                     {
                         FastList<RenderOperation> opList = e4.Value;
+                        GeomentryData gm = e4.Key;
 
-                        if (opList.Count > 500)
+                        if (gm != null)
                         {
-                            device.PixelShader = null;
-                            device.VertexShader = null;
-                            ModelEffect effect = effects[e2.Key];
-
-                            if (effect == null)
+                            if (opList.Count < 50 || gm.VertexCount > 20)
                             {
-                                effect = EffectManager.Instance.GetModelEffect(StandardEffectFactory.Name);
+                                RenderList(e2.Key, opList);
                             }
-
-                            MeshMaterial mate = e3.Key;
-                            if (mate == null)
-                                mate = MeshMaterial.DefaultMaterial;
-                            GeomentryData gm = e4.Key;
-
-                            if (gm.VertexCount == 0)
-                                continue;
-
-                            device.SetRenderState(RenderState.AlphaTestEnable, mate.IsTransparent);
-                            device.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
-
-                            int passCount = effect.BeginInst();
-
-                            for (int p = 0; p < passCount; p++)
+                            else
                             {
-                                effect.BeginPassInst(p);
+                                device.PixelShader = null;
+                                device.VertexShader = null;
+                                ModelEffect effect = effects[e2.Key];
 
-                                int remainingInst = opList.Count;
-                                int index = 0;
-                                while (remainingInst > 0)
+                                if (effect == null)
                                 {
-                                    BatchCount++;
-                                    PrimitiveCount += gm.PrimCount;
-                                    VertexCount += gm.VertexCount;
-
-                                    //device.SetRenderState(RenderState.ZWriteEnable, !mate.IsTransparent);
-
-                                    effect.SetupInstancing(mate);
-
-                                    device.VertexFormat = gm.Format;
-                                    device.VertexDeclaration = instancing.GetInstancingDecl(gm.VertexDeclaration);
-
-                                    int rendered = instancing.Setup(opList, index);
-                                    device.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
-                                    device.SetStreamSourceFrequency(0, rendered, StreamSource.IndexedData);
-
-                                    remainingInst -= rendered;
-                                    index += rendered;
-
-                                    device.Indices = gm.IndexBuffer;
-                                    device.DrawIndexedPrimitives(gm.PrimitiveType,
-                                        gm.BaseVertex, 0,
-                                        gm.VertexCount, gm.BaseIndexStart,
-                                        gm.PrimCount);
-
+                                    effect = EffectManager.Instance.GetModelEffect(StandardEffectFactory.Name);
                                 }
 
-                                effect.EndPassInst();
-                            }
-                            effect.EndInst();
-                        } // if (opList.Count > 10)
-                        else
-                        {
-                            RenderList(e2.Key, opList);
+                                MeshMaterial mate = e3.Key;
+                                if (mate == null)
+                                    mate = MeshMaterial.DefaultMaterial;
+                                GeomentryData gm = e4.Key;
+
+                                if (gm.VertexCount == 0)
+                                    continue;
+
+                                device.SetRenderState(RenderState.AlphaTestEnable, mate.IsTransparent);
+                                device.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
+
+                                int passCount = effect.BeginInst();
+
+                                for (int p = 0; p < passCount; p++)
+                                {
+                                    effect.BeginPassInst(p);
+
+                                    int remainingInst = opList.Count;
+                                    int index = 0;
+                                    while (remainingInst > 0)
+                                    {
+                                        BatchCount++;
+                                        PrimitiveCount += gm.PrimCount;
+                                        VertexCount += gm.VertexCount;
+
+                                        //device.SetRenderState(RenderState.ZWriteEnable, !mate.IsTransparent);
+
+                                        effect.SetupInstancing(mate);
+
+                                        device.VertexFormat = gm.Format;
+                                        device.VertexDeclaration = instancing.GetInstancingDecl(gm.VertexDeclaration);
+
+                                        int rendered = instancing.Setup(opList, index);
+                                        device.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
+                                        device.SetStreamSourceFrequency(0, rendered, StreamSource.IndexedData);
+
+                                        remainingInst -= rendered;
+                                        index += rendered;
+
+                                        device.Indices = gm.IndexBuffer;
+                                        device.DrawIndexedPrimitives(gm.PrimitiveType,
+                                            gm.BaseVertex, 0,
+                                            gm.VertexCount, gm.BaseIndexStart,
+                                            gm.PrimCount);
+
+                                    }
+
+                                    effect.EndPassInst();
+                                }
+                                effect.EndInst();
+                            } // if (opList.Count > 10)
+
                         }
                     }
                 }
             }
             #endregion
+
             Dictionary<string, FastList<RenderOperation>>.ValueCollection vals = batchTable.Values;
             foreach (FastList<RenderOperation> opList in vals)
             {
@@ -657,6 +644,7 @@ namespace VirtualBicycle.Scene
             }
             effects.Clear();
         }
+
         void RenderList(string name, FastList<RenderOperation> opList)
         {
             device.PixelShader = null;
@@ -716,7 +704,6 @@ namespace VirtualBicycle.Scene
             }
             effect.End();
         }
-
 
         void RenderSMList(string name, FastList<RenderOperation> opList) 
         {
@@ -819,63 +806,68 @@ namespace VirtualBicycle.Scene
                         Dictionary<GeomentryData, FastList<RenderOperation>> geoTable = e3.Value;
                         foreach (KeyValuePair<GeomentryData, FastList<RenderOperation>> e4 in geoTable)
                         {
+                            GeomentryData gm = e4.Key;
+
                             FastList<RenderOperation> opList = e4.Value;
-                            if (opList.Count > 0)
+
+                            if (gm != null)
                             {
-                                RenderSMList(e2.Key, opList);
+                                if (opList.Count < 50 || gm.VertexCount > 20)
+                                {
+                                    RenderSMList(e2.Key, opList);
+                                }
+                                else
+                                {
+                                    ModelEffect effect = effects[e2.Key];
+
+                                    if (effect == null)
+                                        effect = shadowMap.DefaultSMGen;
+
+                                    MeshMaterial mate = e3.Key;
+                                    if (mate == null)
+                                        mate = MeshMaterial.DefaultMaterial;
+
+
+                                    if (gm.VertexCount == 0)
+                                        continue;
+
+                                    device.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
+
+                                    effect.BeginShadowPass();
+
+                                    int remainingInst = opList.Count;
+                                    int index = 0;
+                                    while (remainingInst > 0)
+                                    {
+                                        BatchCount++;
+                                        PrimitiveCount += gm.PrimCount;
+                                        VertexCount += gm.VertexCount;
+
+                                        //device.SetRenderState(RenderState.ZWriteEnable, !mate.IsTransparent);
+                                        RenderOperation op = new RenderOperation();
+                                        effect.Setup(mate, ref op);
+
+                                        device.VertexFormat = gm.Format;
+                                        device.VertexDeclaration = instancing.GetInstancingDecl(gm.VertexDeclaration);
+
+                                        int rendered = instancing.Setup(opList, index);
+
+                                        device.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
+                                        device.SetStreamSourceFrequency(0, rendered, StreamSource.IndexedData);
+
+                                        remainingInst -= rendered;
+                                        index += rendered;
+
+                                        device.Indices = gm.IndexBuffer;
+                                        device.DrawIndexedPrimitives(gm.PrimitiveType,
+                                            gm.BaseVertex, 0,
+                                            gm.VertexCount, gm.BaseIndexStart,
+                                            gm.PrimCount);
+
+                                    }
+                                    effect.EndShadowPass();
+                                } // if (opList.Count > 0)
                             }
-                            //if (opList.Count > 1000)
-                            //{
-                            //    ModelEffect effect = effects[e2.Key];
-
-                            //    if (effect == null)
-                            //        effect = shadowMap.DefaultSMGen;
-
-                            //    MeshMaterial mate = e3.Key;
-                            //    if (mate == null)
-                            //        mate = MeshMaterial.DefaultMaterial;
-
-                            //    GeomentryData gm = e4.Key;
-
-                            //    if (gm.VertexCount == 0)
-                            //        continue;
-
-                            //    device.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
-
-                            //    effect.BeginShadowPass();
-
-                            //    int remainingInst = opList.Count;
-                            //    int index = 0;
-                            //    while (remainingInst > 0)
-                            //    {
-                            //        BatchCount++;
-                            //        PrimitiveCount += gm.PrimCount;
-                            //        VertexCount += gm.VertexCount;
-
-                            //        //device.SetRenderState(RenderState.ZWriteEnable, !mate.IsTransparent);
-                            //        RenderOperation op = new RenderOperation();
-                            //        effect.Setup(mate, ref op);
-
-                            //        device.VertexFormat = gm.Format;
-                            //        device.VertexDeclaration = instancing.GetInstancingDecl(gm.VertexDeclaration);
-
-                            //        int rendered = instancing.Setup(opList, index);
-
-                            //        device.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
-                            //        device.SetStreamSourceFrequency(0, rendered, StreamSource.IndexedData);
-
-                            //        remainingInst -= rendered;
-                            //        index += rendered;
-
-                            //        device.Indices = gm.IndexBuffer;
-                            //        device.DrawIndexedPrimitives(gm.PrimitiveType,
-                            //            gm.BaseVertex, 0,
-                            //            gm.VertexCount, gm.BaseIndexStart,
-                            //            gm.PrimCount);
-
-                            //    }
-                            //    effect.EndShadowPass();
-                            //} // if (opList.Count > 0)
                         }
                     }
                 }

@@ -19,7 +19,9 @@ namespace VirtualBicycle.Graphics
     public class AtmosphereInfo : IConfigurable
     {
         Color4 ambientColor;
+
         Color4 diffuseColor;
+
         Color4 specularColor;
 
 
@@ -136,11 +138,13 @@ namespace VirtualBicycle.Graphics
         {
             get { return fogMode != FogMode.None; }
         }
+
         [Browsable(false)]
         public bool HasSky
         {
             get { return !string.IsNullOrEmpty(skyName); }
         }
+
         [Browsable(false)]
         public bool HasDayNight
         {
@@ -185,17 +189,29 @@ namespace VirtualBicycle.Graphics
 
 
         static readonly string DayLengthTag = "DayLength";
+
         static readonly string StartRealtimeTag = "StartWithRealTime";
+
         static readonly string WeatherTypeTag = "WeatherType";
+
         static readonly string SkyTag = "Sky";
+
         static readonly string AmbientTag = "Ambient";
+
         static readonly string DiffuseTag = "Diffuse";
+
         static readonly string SpecularTag = "Specular";
+
         static readonly string FogModeTag = "FogMode";
+
         static readonly string FogDensityTag = "FogDensity";
+
         static readonly string FogStartTag = "FogStart";
+
         static readonly string FogEndTag = "FogEnd";
+
         static readonly string FogColorTag = "FogColor";
+
 
         public void ReadData(BinaryDataReader data)
         {
@@ -236,6 +252,7 @@ namespace VirtualBicycle.Graphics
             fogEnd = data.GetDataSingle(FogEndTag);
             fogColor = data.GetDataInt32(FogColorTag);
         }
+
         public BinaryDataWriter WriteData()
         {
             BinaryDataWriter data = new BinaryDataWriter();
