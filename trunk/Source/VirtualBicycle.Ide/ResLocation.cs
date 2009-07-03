@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Designers;
 using VirtualBicycle.IO;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     public unsafe class DevFileLocation : FileLocation
     {

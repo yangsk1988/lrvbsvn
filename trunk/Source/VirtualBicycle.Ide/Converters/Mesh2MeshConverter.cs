@@ -5,9 +5,9 @@ using VirtualBicycle.IO;
 using System.IO;
 using System.Windows.Forms;
 using VirtualBicycle.Graphics;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Designers;
 
-namespace VBIDE.Converters
+namespace VirtualBicycle.Ide.Converters
 {
     public class Mesh2MeshConverter : ConverterBase
     {

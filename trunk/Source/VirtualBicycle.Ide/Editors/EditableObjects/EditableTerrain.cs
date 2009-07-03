@@ -9,7 +9,7 @@ using VirtualBicycle.Graphics.Effects;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.Scene;
 
-namespace VBIDE.Editors.EditableObjects
+namespace VirtualBicycle.Ide.Editors.EditableObjects
 {
     public unsafe class EditableTerrain : Terrain
     {

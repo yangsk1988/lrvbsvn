@@ -11,7 +11,7 @@ using SlimDX;
 using VirtualBicycle.Design;
 using VirtualBicycle.UI;
 
-namespace VBIDE.Editors
+namespace VirtualBicycle.Ide.Editors
 {
     public partial class Color4EditControl : UserControl, IEditControl<Color4>
     {
@@ -56,13 +56,13 @@ namespace VBIDE.Editors
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            Graphics g = e.Graphics;
+            System.Drawing.Graphics g = e.Graphics;
 
             g.Clear(Color.White);
 
 
             Size cs = pictureBox1.ClientSize;
-            Bitmap bmp = VBIDE.Properties.Resources.gird;
+            Bitmap bmp = VirtualBicycle.Ide.Properties.Resources.gird;
 
             for (int y = 0; y < cs.Height; y += bmp.Height)
             {

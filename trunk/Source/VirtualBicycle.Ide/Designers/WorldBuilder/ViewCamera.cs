@@ -6,7 +6,7 @@ using SlimDX;
 using VirtualBicycle;
 using VirtualBicycle.MathLib;
 
-namespace VBIDE.Designers.WorldBuilder
+namespace VirtualBicycle.Ide.Designers.WorldBuilder
 {
     public class ViewCamera : Camera
     {

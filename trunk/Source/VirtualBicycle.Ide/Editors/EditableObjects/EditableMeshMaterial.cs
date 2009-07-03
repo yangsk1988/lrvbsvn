@@ -6,14 +6,14 @@ using System.IO;
 using System.Text;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Designers;
 using VirtualBicycle;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.Graphics.Effects;
 using VirtualBicycle.IO;
 using System.Windows.Forms;
 
-namespace VBIDE.Editors.EditableObjects
+namespace VirtualBicycle.Ide.Editors.EditableObjects
 {
     public delegate void EditObjChangedHandler();
     [TypeConverter(typeof(MeshMaterialConverter))]

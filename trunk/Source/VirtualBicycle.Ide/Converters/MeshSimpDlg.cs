@@ -8,14 +8,14 @@ using System.Text;
 using System.Windows.Forms;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Designers;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.UI;
 using VirtualBicycle;
 
-namespace VBIDE.Converters
+namespace VirtualBicycle.Ide.Converters
 {
     public partial class MeshSimpDlg : Form
     {

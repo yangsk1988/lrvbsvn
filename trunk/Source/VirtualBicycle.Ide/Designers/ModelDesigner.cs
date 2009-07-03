@@ -7,14 +7,14 @@ using System.Text;
 using System.Windows.Forms;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Converters;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Converters;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 using VirtualBicycle.IO;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.UI;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace VBIDE.Designers
+namespace VirtualBicycle.Ide.Designers
 {
     public partial class ModelDesigner : GeneralDocumentBase
     {

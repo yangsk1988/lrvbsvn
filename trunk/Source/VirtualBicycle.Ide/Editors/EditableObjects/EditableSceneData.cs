@@ -6,15 +6,15 @@ using System.IO;
 using System.Text;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Designers;
-using VBIDE.Designers.WorldBuilder;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Designers.WorldBuilder;
 using VirtualBicycle;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.IO;
 using VirtualBicycle.Logic;
 using VirtualBicycle.Scene;
 
-namespace VBIDE.Editors.EditableObjects
+namespace VirtualBicycle.Ide.Editors.EditableObjects
 {
     public class EditableSceneData : SceneDataBase
     {

@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Forms.Design;
 using SlimDX;
 
-namespace VBIDE.Editors
+namespace VirtualBicycle.Ide.Editors
 {
     public class Color4Editor : UITypeEditor
     {

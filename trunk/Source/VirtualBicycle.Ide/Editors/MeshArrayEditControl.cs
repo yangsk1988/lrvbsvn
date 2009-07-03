@@ -6,12 +6,12 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using VBIDE.Designers;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 using VirtualBicycle.Design;
 using VirtualBicycle.UI;
 
-namespace VBIDE.Editors
+namespace VirtualBicycle.Ide.Editors
 {
     public partial class MeshArrayEditControl : UserControl, IEditControl<EditableMesh[]>
     {

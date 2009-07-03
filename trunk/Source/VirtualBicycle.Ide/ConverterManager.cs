@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using VBIDE.Converters;
+using VirtualBicycle.Ide.Converters;
 using VirtualBicycle;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     public class ConverterManager
     {

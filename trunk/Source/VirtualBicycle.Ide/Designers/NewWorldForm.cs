@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using VirtualBicycle.Scene;
 using VirtualBicycle.UI;
 
-namespace VBIDE.Designers
+namespace VirtualBicycle.Ide.Designers
 {
     public partial class NewWorldForm : Form
     {

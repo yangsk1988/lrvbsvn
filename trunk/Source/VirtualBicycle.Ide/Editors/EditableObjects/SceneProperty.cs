@@ -10,7 +10,7 @@ using VirtualBicycle.Graphics;
 using VirtualBicycle.Logic;
 using VirtualBicycle.Scene;
 
-namespace VBIDE.Editors.EditableObjects
+namespace VirtualBicycle.Ide.Editors.EditableObjects
 {
     public class SceneProperty
     {

@@ -6,12 +6,12 @@ using System.Text;
 using System.Windows.Forms;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Properties;
+using VirtualBicycle.Ide.Properties;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.Graphics.Animation;
 using VirtualBicycle.MathLib;
 
-namespace VBIDE.Designers
+namespace VirtualBicycle.Ide.Designers
 {
     public delegate void ViewChangedHandler();
 

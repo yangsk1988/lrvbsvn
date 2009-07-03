@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using VirtualBicycle.UI;
 
 
-namespace VBIDE.Editors
+namespace VirtualBicycle.Ide.Editors
 {
     public partial class ArrayView<T> : Form
     {

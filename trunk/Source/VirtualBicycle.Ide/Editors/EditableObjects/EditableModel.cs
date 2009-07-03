@@ -6,14 +6,14 @@ using System.IO;
 using System.Text;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Converters;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Converters;
+using VirtualBicycle.Ide.Designers;
 using VirtualBicycle.Design;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.Graphics.Animation;
 using VirtualBicycle.IO;
 
-namespace VBIDE.Editors.EditableObjects
+namespace VirtualBicycle.Ide.Editors.EditableObjects
 {
     [TypeConverter(typeof(ExpandableObjectConverter))]
     [Editor(typeof(ModelEditor), typeof(UITypeEditor))]

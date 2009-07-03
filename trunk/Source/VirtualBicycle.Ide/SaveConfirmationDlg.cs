@@ -5,11 +5,11 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Designers;
 using VirtualBicycle;
 using VirtualBicycle.UI;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     public partial class SaveConfirmationDlg : Form
     {

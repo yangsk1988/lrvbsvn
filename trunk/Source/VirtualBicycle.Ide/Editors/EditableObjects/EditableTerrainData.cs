@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using SlimDX;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Designers;
 using VirtualBicycle.Scene;
 
-namespace VBIDE.Editors.EditableObjects
+namespace VirtualBicycle.Ide.Editors.EditableObjects
 {
     public class EditableTerrainSettings : TerrainSettings
     {

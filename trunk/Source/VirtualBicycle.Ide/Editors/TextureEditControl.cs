@@ -9,12 +9,12 @@ using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Designers;
 using VirtualBicycle;
 using VirtualBicycle.Design;
 using VirtualBicycle.UI;
 
-namespace VBIDE.Editors
+namespace VirtualBicycle.Ide.Editors
 {
     public partial class TextureEditControl : UserControl, IEditControl<Texture>
     {

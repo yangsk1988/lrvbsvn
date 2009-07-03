@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using VBIDE.Designers;
-using VBIDE.Designers.WorldBuilder;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Designers.WorldBuilder;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 using VirtualBicycle.Scene;
 
-namespace VBIDE.Templates
+namespace VirtualBicycle.Ide.Templates
 {
     class WorldTemplate : FileTemplateBase
     {

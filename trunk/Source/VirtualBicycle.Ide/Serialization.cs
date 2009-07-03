@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     public static class Serialization
     {

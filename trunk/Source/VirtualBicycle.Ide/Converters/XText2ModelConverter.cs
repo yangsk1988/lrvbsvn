@@ -5,14 +5,14 @@ using System.Text;
 using System.Windows.Forms;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Converters;
-using VBIDE.Designers;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Converters;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 using VirtualBicycle.Graphics.Animation;
 using VirtualBicycle.IO;
 using VirtualBicycle.MathLib;
 
-namespace VBIDE.Converters
+namespace VirtualBicycle.Ide.Converters
 {
     public class XText2ModelConverter : ConverterBase
     {

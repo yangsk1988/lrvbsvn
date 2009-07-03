@@ -5,7 +5,7 @@ using System.Text;
 using SlimDX;
 using VirtualBicycle.MathLib;
 
-namespace VBIDE.Designers
+namespace VirtualBicycle.Ide.Designers
 {
     [Serializable()]
     public class ModelDesignerConfigs : DocumentConfigBase

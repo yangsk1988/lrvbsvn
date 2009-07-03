@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using VirtualBicycle.IO;
 
-namespace VBIDE.Designers
+namespace VirtualBicycle.Ide.Designers
 {
     public class GeneralDocumentBase : DocumentBase
     {

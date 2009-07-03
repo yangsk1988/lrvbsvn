@@ -1,4 +1,4 @@
-﻿namespace VBIDE.Designers
+﻿namespace VirtualBicycle.Ide.Designers
 {
     partial class ModelDesigner
     {

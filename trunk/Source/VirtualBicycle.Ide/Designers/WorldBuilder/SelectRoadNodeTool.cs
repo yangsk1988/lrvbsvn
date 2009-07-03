@@ -6,13 +6,13 @@ using System.Text;
 using System.Windows.Forms;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 using VirtualBicycle.Collections;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.Logic.Traffic;
 using VirtualBicycle.MathLib;
 
-namespace VBIDE.Designers.WorldBuilder
+namespace VirtualBicycle.Ide.Designers.WorldBuilder
 {
     class SelectRoadNodeTool : WBTool
     {

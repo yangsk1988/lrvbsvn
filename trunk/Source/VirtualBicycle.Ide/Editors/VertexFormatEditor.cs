@@ -12,7 +12,7 @@ using System.ComponentModel.Design.Serialization;
 using System.Reflection;
 using System.Globalization;
 
-namespace VBIDE.Editors
+namespace VirtualBicycle.Ide.Editors
 {
     public class VertexFormatEditor : UITypeEditor
     {

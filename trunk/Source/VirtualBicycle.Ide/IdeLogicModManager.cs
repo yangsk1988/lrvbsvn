@@ -7,7 +7,7 @@ using VirtualBicycle;
 using VirtualBicycle.IO;
 using System.Windows.Forms;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     class IdeLogicModManager : Singleton
     {

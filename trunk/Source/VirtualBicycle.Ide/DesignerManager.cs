@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Designers;
 using VirtualBicycle;
 using VirtualBicycle.IO;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     public class DesignerManager
     {

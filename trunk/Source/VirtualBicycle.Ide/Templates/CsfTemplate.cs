@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using VirtualBicycle;
-using VBIDE.Designers;
+using VirtualBicycle.Ide.Designers;
 
-namespace VBIDE.Templates
+namespace VirtualBicycle.Ide.Templates
 {
     public class CsfTemplate : FileTemplateBase
     {

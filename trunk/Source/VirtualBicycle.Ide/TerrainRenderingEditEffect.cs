@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VBIDE.Designers;
-using VBIDE.Designers.WorldBuilder;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Designers.WorldBuilder;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.Graphics.Effects;
 using VirtualBicycle.IO;
 using VirtualBicycle.Scene;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     public class TerrainRenderingEditEffectFactory : ModelEffectFactory
     {

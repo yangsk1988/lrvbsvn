@@ -5,13 +5,13 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using VBIDE.Designers.WorldBuilder;
+using VirtualBicycle.Ide.Designers.WorldBuilder;
 using VirtualBicycle;
 using VirtualBicycle.Scene;
 using VirtualBicycle.UI;
 using VirtualBicycle.Graphics;
 
-namespace VBIDE.Designers
+namespace VirtualBicycle.Ide.Designers
 {
     public partial class SelectDetailMapForm : Form
     {

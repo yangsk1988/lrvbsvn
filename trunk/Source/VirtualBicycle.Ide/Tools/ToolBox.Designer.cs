@@ -1,4 +1,4 @@
-﻿namespace VBIDE.Tools
+﻿namespace VirtualBicycle.Ide.Tools
 {
     partial class ToolBox
     {

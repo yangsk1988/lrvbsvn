@@ -5,7 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Reflection;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     public delegate void PluginErrorCallback(IPlugin plugin, Exception e);
 

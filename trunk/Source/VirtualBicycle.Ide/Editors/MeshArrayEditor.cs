@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Text;
 using System.Windows.Forms.Design;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 
-namespace VBIDE.Editors
+namespace VirtualBicycle.Ide.Editors
 {
     /// <summary>
     /// 编辑entities列表用

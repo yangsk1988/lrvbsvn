@@ -7,12 +7,12 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using VBIDE.Converters;
-using VBIDE.Designers;
-using VBIDE.Designers.WorldBuilder;
-using VBIDE.Projects;
-using VBIDE.Templates;
-using VBIDE.Tools;
+using VirtualBicycle.Ide.Converters;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Designers.WorldBuilder;
+using VirtualBicycle.Ide.Projects;
+using VirtualBicycle.Ide.Templates;
+using VirtualBicycle.Ide.Tools;
 using VirtualBicycle;
 using VirtualBicycle.Config;
 using VirtualBicycle.Graphics.Effects;
@@ -21,7 +21,7 @@ using VirtualBicycle.Media;
 using VirtualBicycle.UI;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     public partial class MainForm : Form
     {

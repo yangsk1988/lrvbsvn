@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using VBIDE.Tools;
+using VirtualBicycle.Ide.Tools;
 using VirtualBicycle.IO;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace VBIDE.Designers
+namespace VirtualBicycle.Ide.Designers
 {
     public delegate void PropertyUpdateHandler(object sender, object[] allObjects);
     public delegate void SaveStateChangedHandler(object sender);

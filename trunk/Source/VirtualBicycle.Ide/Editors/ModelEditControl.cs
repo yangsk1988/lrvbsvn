@@ -6,12 +6,12 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using VBIDE.Converters;
-using VBIDE.Editors.EditableObjects;
+using VirtualBicycle.Ide.Converters;
+using VirtualBicycle.Ide.Editors.EditableObjects;
 using VirtualBicycle.IO;
 using VirtualBicycle.Design;
 
-namespace VBIDE.Editors
+namespace VirtualBicycle.Ide.Editors
 {
     public partial class ModelEditControl : UserControl, IEditControl<EditableModel>
     {

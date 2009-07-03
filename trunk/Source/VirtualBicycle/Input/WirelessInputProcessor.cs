@@ -38,6 +38,12 @@ namespace VirtualBicycle.Input
             }
         }
 
+        public WirelessInputProcessor(InputManager mananger)
+            : base(mananger)
+        {
+
+        }
+
         public override void Update(float dt)
         {
             throw new NotImplementedException();

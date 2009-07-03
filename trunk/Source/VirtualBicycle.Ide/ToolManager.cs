@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VBIDE.Tools;
+using VirtualBicycle.Ide.Tools;
 
-namespace VBIDE
+namespace VirtualBicycle.Ide
 {
     public class ToolManager
     {

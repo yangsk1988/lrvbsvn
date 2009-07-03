@@ -1,4 +1,4 @@
-﻿namespace VBIDE
+﻿namespace VirtualBicycle.Ide
 {
     partial class SaveConfirmationDlg
     {
