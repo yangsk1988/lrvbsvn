@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using SlimDX.Direct3D9;
+using VirtualBicycle.Core;
 using VirtualBicycle.IO;
+using VBC = VirtualBicycle.Core;
 
 namespace VirtualBicycle.Graphics
 {
-    public class ModelManager : ResourceManager
+    public class ModelManager : VirtualBicycle.Core.ResourceManager
     {
         static ModelManager singleton;
 
@@ -34,7 +36,7 @@ namespace VirtualBicycle.Graphics
         }
         public Model CreateInstance(Device device, ResourceLocation rl)
         {
-            Resource retrived = base.Exists(rl.Name);
+            VBC.Resource retrived = base.Exists(rl.Name);
             if (retrived == null)
             {
                 Model mdl = new Model(device, rl);// Model.FromFile(device, rl);

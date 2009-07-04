@@ -8,7 +8,7 @@ using VirtualBicycle.Scene;
 
 namespace VirtualBicycle.CollisionModel
 {
-    public unsafe class HeightField : Resource
+    public unsafe class HeightField : VirtualBicycle.Core.Resource
     {
         HeightField refHF;
         GameTexture dispTexture;

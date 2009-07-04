@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using VirtualBicycle.Core;
 using VirtualBicycle.IO;
 
 namespace VirtualBicycle.Sound

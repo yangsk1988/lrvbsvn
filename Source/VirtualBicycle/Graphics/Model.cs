@@ -13,7 +13,7 @@ namespace VirtualBicycle.Graphics
     ///  定义3D模型提供基础结构
     /// </summary>
     /// <typeparam name="MeshType"></typeparam>
-    public abstract class ModelBase<MeshType> : Resource
+    public abstract class ModelBase<MeshType> : VirtualBicycle.Core.Resource
         where MeshType : class
     {
         public const int MdlId = 0;

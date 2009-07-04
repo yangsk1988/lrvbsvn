@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
+using VBC = VirtualBicycle.Core;
 
 namespace VirtualBicycle.IO
 {
@@ -25,7 +26,7 @@ namespace VirtualBicycle.IO
 
             public int GetHashCode(string obj)
             {
-                return Resource.GetHashCode(obj);
+                return VBC.Resource.GetHashCode(obj);
             }
 
             #endregion

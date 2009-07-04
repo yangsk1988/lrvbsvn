@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Graphics;
 using SlimDX;
+using VirtualBicycle.Core;
+using VirtualBicycle.Graphics;
+using VBC = VirtualBicycle.Core;
 
 namespace VirtualBicycle.CollisionModel
 {
-    public class CollisionMeshManager : ResourceManager
+    public class CollisionMeshManager : VBC.ResourceManager
     {
         static CollisionMeshManager singleton;
 
@@ -34,7 +36,7 @@ namespace VirtualBicycle.CollisionModel
         {
             string hashString = CollisionMesh.GetHashString(model, trans);
 
-            Resource retrived = base.Exists(hashString);
+            VBC.Resource retrived = base.Exists(hashString);
             if (retrived == null)
             {
                 CollisionMesh mdl = new CollisionMesh(model, trans);

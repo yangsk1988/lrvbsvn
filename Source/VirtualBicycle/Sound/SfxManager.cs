@@ -8,7 +8,7 @@ using VirtualBicycle.IO;
 
 namespace VirtualBicycle.Sound
 {
-    public class SfxManager : ResourceManager
+    public class SfxManager : VirtualBicycle.Core.ResourceManager
     {
         AudioConfigs audioCons;
         FMOD.System sndSys;

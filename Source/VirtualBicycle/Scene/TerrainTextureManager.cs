@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 using SlimDX.Direct3D9;
+using VirtualBicycle.Core;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.IO;
+using VBC = VirtualBicycle.Core;
 
 namespace VirtualBicycle.Scene
 {
     /// <summary>
     ///  负责管理DisplacementMap，ColorMap，NormalMap以及IndexMap
     /// </summary>
-    public class TerrainTextureManager : ResourceManager
+    public class TerrainTextureManager : VBC.ResourceManager
     {
         static int defaultCacheSize = 128 * 1048576;
 
@@ -84,7 +86,7 @@ namespace VirtualBicycle.Scene
         /// <returns></returns>
         public TerrainTexture CreateInstance(Device device, ResourceLocation rl, bool isDisp)
         {
-            Resource retrived = base.Exists(rl.Name);
+            VBC.Resource retrived = base.Exists(rl.Name);
             if (retrived == null)
             {
                 TerrainTexture tex = new TerrainTexture(this, device, rl, CreationUsage, CreationPool, isDisp);

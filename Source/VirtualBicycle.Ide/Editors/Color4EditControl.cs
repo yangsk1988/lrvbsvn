@@ -14,7 +14,9 @@ using VirtualBicycle.UI;
 namespace VirtualBicycle.Ide.Editors
 {
     public partial class Color4EditControl : UserControl, IEditControl<Color4>
-    {
+    {      
+        Color4 value;
+
         public Color4EditControl()
         {
             InitializeComponent();
@@ -26,8 +28,6 @@ namespace VirtualBicycle.Ide.Editors
             blueBar.ValueChanged += this.refreshPreview;
 
         }
-        Color4 value;
-        //IWindowsFormsEditorService service;
 
         #region IEditControl<Color4> 成员
 

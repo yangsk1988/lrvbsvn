@@ -11,7 +11,7 @@ using PM = VirtualBicycle.Physics.MathLib;
 
 namespace VirtualBicycle.CollisionModel
 {
-    public class CollisionMesh : Resource
+    public class CollisionMesh : VirtualBicycle.Core.Resource
     {
         OptimizedBvh bvhTree;
 

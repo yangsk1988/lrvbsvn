@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO.Ports;
 
 namespace VirtualBicycle.Input
 {
@@ -44,6 +45,41 @@ namespace VirtualBicycle.Input
 
         }
 
+        SerialPort SelectPort()
+        {
+            string[] ports = SerialPort.GetPortNames();
+            for (int i = 0; i < ports.Length; i++)
+            {
+                SerialPort p = new SerialPort(ports[i], 19200, Parity.None, 8, StopBits.One);
+
+                p.ReadTimeout = 50;
+                p.WriteTimeout = 50;
+                p.Encoding = Encoding.ASCII;
+
+                try
+                {
+                    p.Open();
+
+                    p.Write("R");
+
+                    try
+                    {
+                        string str = p.ReadLine();
+
+                        if (str == "VirtualBicycle")
+                        {
+                            return p;
+                        }
+                    }
+                    catch (TimeoutException) { }
+
+                    p.Close();
+                }
+                catch { }
+
+            }
+            return null;
+        }
         public override void Update(float dt)
         {
             throw new NotImplementedException();
