@@ -61,6 +61,8 @@ namespace VirtualBicycle.Core
 
         protected CacheMemory cacheMem;
 
+        object syncHelper = new object();
+
         /// <summary>
         /// 如果是资源实体，获取资源实体的引用计数
         /// </summary>
@@ -122,7 +124,16 @@ namespace VirtualBicycle.Core
         [Browsable(false)]
         public ResourceState State
         {
-            get { return resState; }
+            get
+            {
+                lock (syncHelper)
+                    return resState;
+            }
+            private set
+            {
+                lock (syncHelper)
+                    resState = value;
+            }
         }
 
         public override int GetHashCode()
@@ -293,9 +304,9 @@ namespace VirtualBicycle.Core
                     float seconds = (float)((lastAccessed - creationTime).TotalSeconds);
                     useFrequency = seconds < 1 ? float.MaxValue : ((float)accessTimes) / seconds;
 
-                    if (resState == ResourceState.Unloaded)
+                    if (State == ResourceState.Unloaded)
                     {
-                        //manager.Manage();
+                        manager.Manage();
                         Load();
                     }
                 }
@@ -306,15 +317,13 @@ namespace VirtualBicycle.Core
         ///  加载资源
         /// </summary>
         public void Load()
-        {
+        {            
             if (IsResourceEntity)
             {
                 if (!isUnmanaged)
                 {
                     creationTime = EngineTimer.TimeSpan;
-                    lastAccessed = creationTime;
-
-                    manager.Manage();
+                    State = ResourceState.Loading;
 
                     if (HasCache)
                     {
@@ -327,7 +336,7 @@ namespace VirtualBicycle.Core
                     }
 
                     manager.NotifyResourceLoaded(this);
-                    resState = ResourceState.Loaded;
+                    State = ResourceState.Loaded;
                 }
             }
         }
@@ -341,6 +350,8 @@ namespace VirtualBicycle.Core
             {
                 if (!isUnmanaged)
                 {
+                    State = ResourceState.Unloading;
+
                     if (HasCache)
                     {
                         Stream stream = cacheMem.ResourceLocation.GetStream;
@@ -352,8 +363,9 @@ namespace VirtualBicycle.Core
                     {
                         unload();
                     }
+
                     //manager.NotifyResourceUnloaded(this);
-                    resState = ResourceState.Unloaded;
+                    State = ResourceState.Unloaded;
                 }
             }
         }

@@ -45,19 +45,10 @@ namespace VirtualBicycle.Core
 
         public override void Process()
         {
-         
-        }
-    }
-    class ResourceLoaderCache : ResourceOperation
-    {
-        public ResourceLoaderCache(Resource resource)
-            : base(resource)
-        {
-        }
-
-        public override void Process()
-        {
-         
+            if (Resource != null)
+            {
+                Resource.Unload();
+            }
         }
     }
 

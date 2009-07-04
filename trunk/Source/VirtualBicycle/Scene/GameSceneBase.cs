@@ -569,7 +569,6 @@ namespace VirtualBicycle.Scene
                                 MeshMaterial mate = e3.Key;
                                 if (mate == null)
                                     mate = MeshMaterial.DefaultMaterial;
-                                GeomentryData gm = e4.Key;
 
                                 if (gm.VertexCount == 0)
                                     continue;

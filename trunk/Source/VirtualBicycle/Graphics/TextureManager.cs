@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using SlimDX.Direct3D9;
-using VirtualBicycle.IO;
+using VirtualBicycle.Core;
 using VirtualBicycle.Graphics;
-using System.Drawing;
+using VirtualBicycle.IO;
+using VBC = VirtualBicycle.Core;
 
 namespace VirtualBicycle.Graphics
 {
     /// <summary>
     ///  管理纹理资源，并实现动态加载/释放
     /// </summary>
-    public class TextureManager : ResourceManager
+    public class TextureManager : VBC.ResourceManager
     {
         static TextureManager singleton;
 
@@ -71,7 +73,7 @@ namespace VirtualBicycle.Graphics
         /// <returns></returns>
         public GameTexture CreateInstance(Device device, ResourceLocation rl)
         {
-            Resource retrived = base.Exists(rl.Name);
+            VBC.Resource retrived = base.Exists(rl.Name);
             if (retrived == null)
             {
                 GameTexture tex = new GameTexture(this, device, rl, CreationUsage, CreationPool);

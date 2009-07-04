@@ -4,7 +4,10 @@ using System.IO;
 using System.Text;
 using SlimDX;
 using SlimDX.Direct3D9;
+using VirtualBicycle.Core;
 using VirtualBicycle.IO;
+
+using VBC = VirtualBicycle.Core;
 
 namespace VirtualBicycle.Graphics
 {
@@ -12,7 +15,7 @@ namespace VirtualBicycle.Graphics
     ///  定义游戏中的纹理
     /// </summary>
     /// <remarks>和D3D纹理相比，该纹理受到资源管理</remarks>
-    public class GameTexture : Resource
+    public class GameTexture : VBC.Resource
     {
         protected Texture texture;
 
@@ -33,7 +36,7 @@ namespace VirtualBicycle.Graphics
             this.texture = texture;
         }
 
-        public GameTexture(ResourceManager mgr, Texture texture)
+        public GameTexture(VBC.ResourceManager mgr, Texture texture)
             : base(mgr, "RawTexture: " + texture.ComPointer.ToString() + texture.GetHashCode().ToString())
         {
             this.device = texture.Device;
@@ -45,14 +48,14 @@ namespace VirtualBicycle.Graphics
         ///  创建资源引用 
         /// </summary>
         /// <param name="texture"></param>
-        public GameTexture(ResourceManager mgr, GameTexture texture)
+        public GameTexture(VBC.ResourceManager mgr, GameTexture texture)
             : base(mgr, texture)
         {
             this.device = texture.device;
             this.refResource = texture;
         }
 
-        public GameTexture(ResourceManager mgr, Device device, ResourceLocation rl, Usage usage, Pool pool)
+        public GameTexture(VBC.ResourceManager mgr, Device device, ResourceLocation rl, Usage usage, Pool pool)
             : base(mgr, rl.Name)
         {
             this.device = device;

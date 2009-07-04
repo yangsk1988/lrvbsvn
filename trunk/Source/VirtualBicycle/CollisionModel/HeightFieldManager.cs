@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using SlimDX.Direct3D9;
+using VirtualBicycle.Core;
 using VirtualBicycle.Graphics;
+using VBC = VirtualBicycle.Core;
 
 namespace VirtualBicycle.CollisionModel
 {
-    public class HeightFieldManager : ResourceManager
+    public class HeightFieldManager : VBC.ResourceManager
     {
         static HeightFieldManager singleton;
 
@@ -33,7 +35,7 @@ namespace VirtualBicycle.CollisionModel
         {
             string hashString = dispTex.HashString;
 
-            Resource retrived = base.Exists(hashString);
+            VBC.Resource retrived = base.Exists(hashString);
             if (retrived == null)
             {
                 HeightField mdl = new HeightField(dispTex);
