@@ -317,7 +317,7 @@ namespace VirtualBicycle.Graphics
 
         public void SetData(void* data, int size)
         {
-            if (buffer == null)
+            if (buffer == null || buffer.Length != size)
             {
                 buffer = new byte[size];
             }
@@ -328,7 +328,7 @@ namespace VirtualBicycle.Graphics
         /// 从一个BinaryDataReader对象载入mesh数据
         /// </summary>
         /// <param name="data"></param>
-        public void Load(BinaryDataReader data)
+        public virtual void Load(BinaryDataReader data)
         {
             int materialCount = data.GetDataInt32(MaterialCountTag);
             Materials = new MType[materialCount][];
@@ -401,7 +401,7 @@ namespace VirtualBicycle.Graphics
         /// 保存mesh数据到一个BinaryDataWriter对象中
         /// </summary>
         /// <returns></returns>
-        public BinaryDataWriter Save()
+        public virtual BinaryDataWriter Save()
         {
             int materialCount = Materials.Length;
 
