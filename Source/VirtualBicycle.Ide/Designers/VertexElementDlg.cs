@@ -41,7 +41,8 @@ namespace VirtualBicycle.Ide.Designers
             CheckedListBox.CheckedIndexCollection c = checkedListBox1.CheckedIndices;
             for (int i = 0; i < c.Count; i++)
             {
-                newElements.Add(value[checkedListBox1.Items.Count - c[i] - 1]);
+//                newElements.Add(value[checkedListBox1.Items.Count - c[i] - 1]);
+                newElements.Add(value[c[i]]);
             }
             value = newElements.ToArray();
 

@@ -55,6 +55,41 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
             private set;
         }
 
+        private void UpdateVertexFormatInfo()
+        {
+            byte* srcData = (byte*)Data.ToPointer();
+
+            VertexElement[] newElems = D3DX.DeclaratorFromFVF(Format);
+            int newVtxSize = VirtualBicycle.Graphics.MeshData.ComputeVertexSize(VertexElements);
+
+            for (int i = 0; i < newElems.Length; i++)
+            {
+                if (newElems[i].Type != DeclarationType.Unused)
+                {
+                    switch (newElems[i].Usage)
+                    {
+                        case DeclarationUsage.Position:
+                            PositionOffset = newElems[i].Offset;
+                            if (newElems[i].Type == DeclarationType.Float3)
+                                PositionDemi = 3;
+                            else if (newElems[i].Type == DeclarationType.Float4)
+                                PositionDemi = 4;
+
+                            break;
+                        case DeclarationUsage.Normal:
+                            NormalOffset = newElems[i].Offset;
+                            break;
+                        case DeclarationUsage.TextureCoordinate:
+                            texCoordOffset[newElems[i].UsageIndex] = newElems[i].Offset;
+                            texCoordDemi[newElems[i].UsageIndex] = VirtualBicycle.Graphics.MeshData.GetVertexElementSize(newElems[i]) / sizeof(float);
+
+                            break;
+                    }
+                }
+            }
+            this.VertexSize = newVtxSize;
+            this.VertexElements = newElems;
+        }
 
         [Editor(typeof(VertexFormatEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VertexFormatConverter))]
@@ -68,7 +103,6 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
                     base.Format = value;
 
                     byte* srcData = (byte*)Data.ToPointer();
-
 
                     VertexElement[] newElems = D3DX.DeclaratorFromFVF(Format);
                     int newVtxSize = VirtualBicycle.Graphics.MeshData.ComputeVertexSize(VertexElements);
@@ -92,13 +126,12 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
                                     break;
                                 case DeclarationUsage.TextureCoordinate:
                                     texCoordOffset[newElems[i].UsageIndex] = newElems[i].Offset;
-                                    texCoordDemi[newElems[i].UsageIndex] = VirtualBicycle.Graphics.MeshData.GetVertexElementSize(newElems[i]);
+                                    texCoordDemi[newElems[i].UsageIndex] = VirtualBicycle.Graphics.MeshData.GetVertexElementSize(newElems[i]) / sizeof(float);
 
                                     break;
                             }
                         }
                     }
-
 
                     byte[] newBuffer = new byte[VertexCount * newVtxSize];
 
@@ -137,6 +170,7 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
                         }
 
                         this.SetData(dstData, newVtxSize * VertexCount);
+
                         this.VertexSize = newVtxSize;
                         this.VertexElements = newElems;
                     }
@@ -184,6 +218,13 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
             BuildFromMesh(mesh, this, mats);
             this.mesh = mesh;
         }
+
+        public override void Load(BinaryDataReader data)
+        {
+            base.Load(data);
+            UpdateVertexFormatInfo();
+        }
+
         protected override EditableMeshMaterial LoadMaterial(Device device, BinaryDataReader matData)
         {
             return EditableMeshMaterial.FromBinary(matData);
@@ -382,7 +423,7 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
 
             for (int i = 0; i < VertexCount; i++)
             {
-                *(Vector3*)(data + NormalOffset) = -(*(Vector3*)(data + NormalOffset));
+                *((Vector3*)(data + NormalOffset + i * VertexSize)) = -(*((Vector3*)(data + NormalOffset + i * VertexSize)));
             }
             MeshUpdate();
         }
@@ -397,7 +438,7 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
 
             for (int i = 0; i < VertexCount; i++)
             {
-                (*(Vector3*)(data + NormalOffset)).X = -(*(Vector3*)(data + NormalOffset)).X;
+                (*((Vector3*)(data + NormalOffset + i * VertexSize))).X = -(*((Vector3*)(data + NormalOffset + i * VertexSize))).X;
             }
             MeshUpdate();
         }
@@ -412,7 +453,7 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
 
             for (int i = 0; i < VertexCount; i++)
             {
-                (*(Vector3*)(data + NormalOffset)).Y = -(*(Vector3*)(data + NormalOffset)).Y;
+                (*((Vector3*)(data + NormalOffset + i * VertexSize))).Y = -(*((Vector3*)(data + NormalOffset + i * VertexSize))).Y;
             }
             MeshUpdate();
         }
@@ -427,7 +468,7 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
 
             for (int i = 0; i < VertexCount; i++)
             {
-                (*(Vector3*)(data + NormalOffset)).Z = -(*(Vector3*)(data + NormalOffset)).Z;
+                (*((Vector3*)(data + NormalOffset + i * VertexSize))).Z = -(*((Vector3*)(data + NormalOffset + i * VertexSize))).Z;
             }
             MeshUpdate();
         }
@@ -458,76 +499,76 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
 
             byte* data = (byte*)Data;
 
-            int idx = 0;
             for (int i = 0; i < Faces.Length; i++)
             {
                 int a = Faces[i].IndexA;
                 int b = Faces[i].IndexB;
                 int c = Faces[i].IndexC;
 
-                Vector3 pa = *(Vector3*)(data + a * VertexSize + PositionOffset);
-                Vector3 pb = *(Vector3*)(data + b * VertexSize + PositionOffset);
-                Vector3 pc = *(Vector3*)(data + c * VertexSize + PositionOffset);
+                byte* ptra = data + a * VertexSize;
+                byte* ptrb = data + b * VertexSize;
+                byte* ptrc = data + c * VertexSize;
 
+                Vector3 pa = *(Vector3*)(ptra + PositionOffset);
+                Vector3 pb = *(Vector3*)(ptrb + PositionOffset);
+                Vector3 pc = *(Vector3*)(ptrc + PositionOffset);
 
                 Vector3 n;
                 MathEx.ComputePlaneNormal(ref pa, ref pb, ref pc, out n);
 
+                *(Vector3*)(ptra + NormalOffset) = n;
+                *(Vector3*)(ptrb + NormalOffset) = n;
+                *(Vector3*)(ptrc + NormalOffset) = n;
+
+                int idx;
                 string desc = GetVertexDescription(a);
                 if (!table.TryGetValue(desc, out idx))
                 {
+                    idx = table.Count;
                     table.Add(desc, idx);
 
                     fixed (byte* vtxDataPtr = &vtxBuf[0])
                     {
-                        Memory.Copy(data + a * VertexSize, vtxDataPtr, VertexSize);
-
-                        *(Vector3*)(vtxDataPtr + NormalOffset) = n;
+                        Memory.Copy(ptra, vtxDataPtr, VertexSize);
                     }
                     bw.Write(vtxBuf);
-                    idx++;
                 }
                 Faces[i].IndexA = idx;
 
                 desc = GetVertexDescription(b);
                 if (!table.TryGetValue(desc, out idx))
                 {
+                    idx = table.Count;
                     table.Add(desc, idx);
+
                     fixed (byte* vtxDataPtr = &vtxBuf[0])
                     {
-                        Memory.Copy(data + a * VertexSize, vtxDataPtr, VertexSize);
-
-                        *(Vector3*)(vtxDataPtr + NormalOffset) = n;
+                        Memory.Copy(ptrb, vtxDataPtr, VertexSize);
                     }
                     bw.Write(vtxBuf);
-
-                    idx++;
                 }
                 Faces[i].IndexB = idx;
 
                 desc = GetVertexDescription(c);
                 if (!table.TryGetValue(desc, out idx))
                 {
+                    idx = table.Count;
                     table.Add(desc, idx);
+
                     fixed (byte* vtxDataPtr = &vtxBuf[0])
                     {
-                        Memory.Copy(data + a * VertexSize, vtxDataPtr, VertexSize);
-
-                        *(Vector3*)(vtxDataPtr + NormalOffset) = n;
+                        Memory.Copy(ptrc, vtxDataPtr, VertexSize);
                     }
                     bw.Write(vtxBuf);
-
-                    idx++;
                 }
                 Faces[i].IndexC = idx;
-
             }
 
             bw.Close();
 
-
             byte[] newBuffer = newData.ToArray();
 
+            VertexCount = table.Count;
             Debug.Assert(newBuffer.Length == VertexCount * VertexSize);
 
             fixed (byte* src = &newBuffer[0])
@@ -594,6 +635,7 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
             VertexElement[] elems = D3DX.DeclaratorFromFVF(VertexFormat.PositionNormal | VertexFormat.Texture1);
             WeldVertices(elems);
         }
+
         public void WeldVertices(VertexElement[] elem)
         {
             Dictionary<string, int> table = new Dictionary<string, int>(VertexCount);
