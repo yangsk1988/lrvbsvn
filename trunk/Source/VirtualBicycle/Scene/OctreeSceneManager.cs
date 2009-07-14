@@ -232,6 +232,73 @@ namespace VirtualBicycle.Scene
             return result;
         }
 
+        public override SceneObject FindObject(Ray ray, IObjectFilter cbk)
+        {
+            ray.Position.X -= OffsetX;
+            ray.Position.Y -= OffsetY;
+            ray.Position.Z -= OffsetZ;
+
+            SceneObject result = null;
+            float nearest = float.MaxValue;
+            if (queue.Count == 0)
+            {
+                queue.Enqueue(octRootNode);
+                while (queue.Count > 0)
+                {
+                    OctreeSceneNode node = queue.Dequeue();
+
+                    // if the node does't intersect the frustum we don't give a damn
+                    if (MathEx.BoundingSphereIntersects(ref  node.BoundingSphere, ref ray))
+                    {
+                        for (int i = 0; i < 2; i++)
+                            for (int j = 0; j < 2; j++)
+                                for (int k = 0; k < 2; k++)
+                                {
+                                    if (node[i, j, k] != null)
+                                    {
+                                        queue.Enqueue(node[i, j, k]);
+                                    }
+                                }
+
+                        for (int i = 0; i < node.AttchedObjects.Count; i++)
+                        {
+                            SceneObject curObj = node.AttchedObjects.Elements[i];
+
+                            if (cbk.Check(curObj) &&
+                                curObj.IntersectsSelectionRay(ref ray))// MathEx.BoundingSphereIntersects(ref curObj.BoundingSphere, ref ray))
+                            {
+                                float dist = MathEx.DistanceSquared(ref  curObj.BoundingSphere.Center, ref ray.Position);
+                                if (dist < nearest)
+                                {
+                                    nearest = dist;
+                                    result = curObj;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+
+            for (int i = 0; i < dynObjs.Count; i++)
+            {
+                if (cbk.Check(dynObjs[i]) && 
+                    dynObjs[i].IntersectsSelectionRay(ref ray))
+                {
+                    float dist = MathEx.DistanceSquared(ref  dynObjs[i].BoundingSphere.Center, ref ray.Position);
+                    if (dist < nearest)
+                    {
+                        nearest = dist;
+                        result = dynObjs[i];
+                    }
+                }
+            }
+            return result;
+        }
 
         public override void PrepareVisibleObjects(ICamera camera, PassInfo batchHelper)
         {

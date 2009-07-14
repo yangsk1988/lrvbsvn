@@ -319,6 +319,10 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
 
         public override SceneObject FindObject(LineSegment ray)
         {
+            return FindObject(ray, null);
+        }
+        public SceneObject FindObject(LineSegment ray, IObjectFilter callback)
+        {
             Vector3 direction = ray.End - ray.Start;
             direction.Normalize();
 
@@ -368,7 +372,17 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
 
                     if (cluster != null)
                     {
-                        SceneObject sceObj = cluster.SceneManager.FindObject(ra);
+                        SceneObject sceObj;
+
+                        if (callback != null)
+                        {
+                            sceObj = cluster.SceneManager.FindObject(ra, callback);
+                        }
+                        else
+                        {
+                            sceObj = cluster.SceneManager.FindObject(ra);
+                        }
+                        
                         if (sceObj != null && !(sceObj is Road))
                         {
                             Vector3 pos = sceObj.BoundingSphere.Center;
