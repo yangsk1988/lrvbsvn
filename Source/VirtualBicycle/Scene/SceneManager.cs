@@ -168,6 +168,34 @@ namespace VirtualBicycle.Scene
         public abstract SceneObject FindObject(Ray ray);
 
         /// <summary>
+        ///  在场景中查找和射线相交并符合回调的物体
+        /// </summary>
+        /// <param name="ray"></param>
+        /// <param name="cbk"></param>
+        /// <returns>找到的物体，如果没找到返回null</returns>
+        public virtual SceneObject FindObject(Ray ray, IObjectFilter callBack)
+        {
+            SceneObject result = null;
+            float nearest = float.MaxValue;
+
+            for (int i = 0; i < objects.Count; i++)
+            {
+                SceneObject curObj = objects[i];
+                if (callBack.Check(curObj) &&
+                    curObj.IntersectsSelectionRay(ref ray))
+                {
+                    float dist = MathEx.DistanceSquared(ref curObj.BoundingSphere.Center, ref ray.Position);
+                    if (dist < nearest)
+                    {
+                        nearest = dist;
+                        result = curObj;
+                    }
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
         /// 根据摄像机的视见体准备可见物体
         /// </summary>
         /// <param name="camera"></param>
@@ -353,6 +381,7 @@ namespace VirtualBicycle.Scene
 
         public override void AddObjectToScene(SceneObject obj)
         {
+            base.AddObjectToScene(obj);
             if (sceneNodes.Count > 0)
             {
                 sceneNodes[0].AttchedObjects.Add(obj);
@@ -384,6 +413,8 @@ namespace VirtualBicycle.Scene
             }
         }
 
+
+
         public override SceneObject FindObject(Ray ray)
         {
             SceneObject result = null;
@@ -394,7 +425,7 @@ namespace VirtualBicycle.Scene
                 for (int j = 0; j < node.AttchedObjects.Count; j++)
                 {
                     SceneObject curObj = node.AttchedObjects[j];
-                    if (MathEx.BoundingSphereIntersects(ref curObj.BoundingSphere, ref ray))
+                    if (curObj.IntersectsSelectionRay(ref ray))
                     {
                         float dist = MathEx.DistanceSquared(ref curObj.BoundingSphere.Center, ref ray.Position);
                         if (dist < nearest)

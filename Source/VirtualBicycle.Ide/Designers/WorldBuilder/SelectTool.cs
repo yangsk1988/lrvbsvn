@@ -53,6 +53,13 @@ namespace VirtualBicycle.Ide.Designers.WorldBuilder
             
         }
 
+        bool CheckSelection(SceneObject obj)
+        {
+            if (obj is Terrain)
+                return false;
+            return true;
+        }
+
         public override void NotifyMouseClick(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
