@@ -388,5 +388,12 @@ namespace VirtualBicycle.Ide.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap worldMap {
+            get {
+                object obj = ResourceManager.GetObject("worldMap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

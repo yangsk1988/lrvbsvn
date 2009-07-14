@@ -20,12 +20,27 @@ namespace VirtualBicycle.Ide.Designers.WorldBuilder
         }
     }
 
+
+    class SelectionCallBack : IObjectFilter
+    {
+
+        #region IObjectFilter 成员
+
+        public bool Check(SceneObject obj)
+        {
+            if (obj is Terrain)
+                return false;
+            return true;
+        }
+
+        #endregion
+    }
+
     class SelectTool : WBTool, ISelectableTool
     {
         EditableModel marker;
 
-        SceneObject selectedObject;
-
+        SceneObject selectedObject;        
 
         public SelectTool(WorldDesigner wb, EditableGameScene scene)
             : base(wb, scene)
@@ -53,20 +68,13 @@ namespace VirtualBicycle.Ide.Designers.WorldBuilder
             
         }
 
-        bool CheckSelection(SceneObject obj)
-        {
-            if (obj is Terrain)
-                return false;
-            return true;
-        }
-
         public override void NotifyMouseClick(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
                 LineSegment ray = WorldBuilder.GetPickRay(e.X, e.Y);
 
-                SceneObject sceObj = Scene.FindObject(ray);
+                SceneObject sceObj = Scene.FindObject(ray, new SelectionCallBack());
 
                 if (sceObj != null)
                 {

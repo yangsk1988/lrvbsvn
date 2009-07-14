@@ -18,7 +18,13 @@ namespace VirtualBicycle.MathLib
             this.Center.Y = this.Center.X;
             this.Center.Z = this.Center.X;
         }
-
+        public OctreeBox(float length, float posY)
+        {
+            this.Length = length;
+            this.Center.X = length * 0.5f;
+            this.Center.Y = posY;
+            this.Center.Z = this.Center.X;
+        }
         public OctreeBox(BoundingBox aabb)
         {
             Length = MathEx.Distance(ref aabb.Minimum, ref aabb.Maximum) / MathEx.Root3;

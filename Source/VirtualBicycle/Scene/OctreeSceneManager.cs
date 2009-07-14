@@ -37,6 +37,7 @@ namespace VirtualBicycle.Scene
             farObjects = new List<SceneObject>();
             farObjTable = new ExistTable<SceneObject>();
             queue = new Queue<OctreeSceneNode>();
+
             octRootNode.BoundingVolume = range;
             octRootNode.BoundingVolume.GetBoundingSphere(out octRootNode.BoundingSphere);
 
@@ -53,7 +54,7 @@ namespace VirtualBicycle.Scene
         public override void AddObjectToScene(SceneObject obj)
         {
             base.AddObjectToScene(obj);
-            //octRootNode.AddObject(obj);
+
             AddObject(obj);
 
             DynamicObject dynObj = obj as DynamicObject;
@@ -100,10 +101,22 @@ namespace VirtualBicycle.Scene
                 dynObjs.Remove(dynObj);
             }
 
-            octRootNode.RemoveObject(obj);
+            RemoveObject(obj);
 
             obj.OnRemovedFromScene(this, this);
         }
+
+        void RemoveObject(SceneObject obj)
+        {
+            octRootNode.RemoveObject(obj);
+
+            if (farObjTable.Exists(obj))
+            {
+                farObjTable.Remove(obj);
+                farObjects.Remove(obj);
+            }
+        }
+
 
         protected override void BuildSceneManager()
         {
@@ -229,6 +242,18 @@ namespace VirtualBicycle.Scene
                     }
                 }
             }
+            for (int i = 0; i < farObjects.Count; i++)
+            {
+                if (farObjects[i].IntersectsSelectionRay(ref ray))
+                {
+                    float dist = MathEx.DistanceSquared(ref  farObjects[i].BoundingSphere.Center, ref ray.Position);
+                    if (dist < nearest)
+                    {
+                        nearest = dist;
+                        result = farObjects[i];
+                    }
+                }
+            }
             return result;
         }
 
@@ -297,6 +322,19 @@ namespace VirtualBicycle.Scene
                     }
                 }
             }
+            for (int i = 0; i < farObjects.Count; i++)
+            {
+                if (cbk.Check(farObjects[i]) &&
+                  farObjects[i].IntersectsSelectionRay(ref ray))
+                {
+                    float dist = MathEx.DistanceSquared(ref  farObjects[i].BoundingSphere.Center, ref ray.Position);
+                    if (dist < nearest)
+                    {
+                        nearest = dist;
+                        result = farObjects[i];
+                    }
+                }
+            }
             return result;
         }
 
@@ -338,7 +376,7 @@ namespace VirtualBicycle.Scene
                         {
                             objs.Elements[i].PrepareVisibleObjects(camera);
                         }
-                        AddObject(objs.Elements[i], batchHelper);
+                        AddVisibleObject(objs.Elements[i], batchHelper);
                     }
                 }
 
@@ -346,7 +384,7 @@ namespace VirtualBicycle.Scene
 
             for (int i = 0; i < farObjects.Count; i++)
             {
-                AddObject(farObjects[i], batchHelper);
+                AddVisibleObject(farObjects[i], batchHelper);
             }
             //base.PrepareVisibleObjects(camera);
         }

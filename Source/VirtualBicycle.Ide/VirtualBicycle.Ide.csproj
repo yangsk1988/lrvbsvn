@@ -77,6 +77,12 @@
     <Compile Include="Converters\ConverterBase.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\DemConvDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Converters\DemConvDlg.Designer.cs">
+      <DependentUpon>DemConvDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Converters\DispMapConverter.cs" />
     <Compile Include="Converters\Mesh2MeshConverter.cs" />
     <Compile Include="Converters\MeshSimpDlg.cs">
@@ -301,6 +307,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Converters\ConvDlg.resx">
       <DependentUpon>ConvDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Converters\DemConvDlg.resx">
+      <DependentUpon>DemConvDlg.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Converters\MeshSimpDlg.resx">
@@ -551,6 +561,7 @@
     <None Include="Resources\selectPort.png" />
     <None Include="Resources\newNode.png" />
     <None Include="Resources\CheckGrammarHS.png" />
+    <None Include="Resources\worldMap.jpg" />
     <Content Include="WeifenLuo.WinFormsUI.Docking.dll" />
   </ItemGroup>
   <ItemGroup>

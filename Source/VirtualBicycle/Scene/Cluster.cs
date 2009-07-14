@@ -64,7 +64,7 @@ namespace VirtualBicycle.Scene
         {
             this.description.X = x;
             this.description.Y = y;
-            //this.sceneData = sceneData;
+
             this.device = device;
             this.CellUnit = cellUnit;
 
@@ -77,7 +77,7 @@ namespace VirtualBicycle.Scene
             this.WorldX = x == 0 ? 0 : (x - 1) * cellUnit;
             this.WorldZ = y == 0 ? 0 : (y - 1) * cellUnit;
 
-            this.sceneMgr = new OctreeSceneManager(this, device, new OctreeBox(ClusterLength), 10f);
+            this.sceneMgr = new OctreeSceneManager(this, device, new OctreeBox(ClusterLength, 0), 10f);
             this.GameScene = scene;
         }
 
