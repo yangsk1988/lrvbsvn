@@ -206,7 +206,7 @@ namespace VirtualBicycle.Scene
         /// </summary>
         /// <param name="obj">要添加的物体</param>
         /// <remarks>用于渲染批次优化</remarks>
-        protected void AddObject(SceneObject obj, PassInfo batchHelper)
+        protected void AddVisibleObject(SceneObject obj, PassInfo batchHelper)
         {
             batchHelper.RenderedObjectCount++;
 
@@ -386,6 +386,7 @@ namespace VirtualBicycle.Scene
             {
                 sceneNodes[0].AttchedObjects.Add(obj);
             }
+            //obj.OnAddedToScene(this, this);
         }
 
         public override void RemoveObjectFromScene(SceneObject obj)
@@ -395,6 +396,7 @@ namespace VirtualBicycle.Scene
             {
                 sceneNodes[0].RemoveObject(obj);
             }
+            //obj.OnRemovedFromScene(this, this);
         }
 
         public override void FindObjects(FastList<SceneObject> objects, Frustum frus)
@@ -452,7 +454,7 @@ namespace VirtualBicycle.Scene
                         objs[j].PrepareVisibleObjects(camera);
                     }
 
-                    AddObject(objs[j], batchHelper);
+                    AddVisibleObject(objs[j], batchHelper);
                 }
             }
         }
