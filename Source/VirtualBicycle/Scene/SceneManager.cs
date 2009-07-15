@@ -21,7 +21,7 @@ namespace VirtualBicycle.Scene
 
         Device device;
 
-        Cluster clusterInfo;
+        Cluster parentCluster;
 
         List<SceneObject> objects = new List<SceneObject>();
 
@@ -38,9 +38,9 @@ namespace VirtualBicycle.Scene
             private set;
         }
 
-        public Cluster ClusterInfo
+        public Cluster ParentCluster
         {
-            get { return clusterInfo; }
+            get { return parentCluster; }
         }
 
         public List<SceneObject> SceneObjects
@@ -68,44 +68,17 @@ namespace VirtualBicycle.Scene
         #endregion
 
         #region Constructor
-        protected SceneManagerBase(Device dev, Cluster info)
+        protected SceneManagerBase(Device dev, Cluster cluster)
         {
             this.device = dev;
 
-            this.OffsetX = info.WorldX;
-            this.OffsetY = info.WorldY;
-            this.OffsetZ = info.WorldZ;
+            this.OffsetX = cluster.WorldX;
+            this.OffsetY = cluster.WorldY;
+            this.OffsetZ = cluster.WorldZ;
 
-            this.clusterInfo = info;
-            //multiBatchBuffer = new Queue<SceneObject>();
-            //multiBatchBuffer2 = new Queue<SceneObject>();
-            //postEffects = new List<PostEffect>();
-
-            //renderQueue = new List<ISceneObject>();
-
-            //batchTable = new Dictionary<int, Dictionary<int, List<Pair<ISceneObject, int>>>>();
-            //effects = new Dictionary<int, EffectBase>();
-            //materials = new Dictionary<int, MeshMaterial>();
-
-            //effects.Add(0, null);
+            this.parentCluster = cluster;
 
             BuildSceneManager();
-
-            //testQuad = new PicInPicVtx[4];
-
-            //testQuad[0].pos = new Vector2(0, 0);
-            //testQuad[0].tex1 = new Vector2(0, 0);
-            ////testQuad[0].dummy = 1;
-            //testQuad[1].pos = new Vector2(256, 0);
-            //testQuad[1].tex1 = new Vector2(1, 0);
-            ////testQuad[1].dummy = 1;
-            //testQuad[2].pos = new Vector2(0, 256);
-            //testQuad[2].tex1 = new Vector2(0, 1);
-            ////testQuad[2].dummy = 1;
-            //testQuad[3].pos = new Vector2(256, 256);
-            //testQuad[3].tex1 = new Vector2(1, 1);
-            ////testQuad[3].dummy = 1;
-            ////testDecl = new VertexDeclaration(device, D3DX.DeclaratorFromFVF(PicInPicVtx.Format));
         }
         #endregion
 
@@ -126,7 +99,7 @@ namespace VirtualBicycle.Scene
             obj.OffsetY = OffsetY;
             obj.OffsetZ = OffsetZ;
 
-            obj.ParentCluster = clusterInfo;
+            obj.ParentCluster = parentCluster;
 
             objects.Add(obj);
         }

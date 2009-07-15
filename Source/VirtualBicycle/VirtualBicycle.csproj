@@ -460,6 +460,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="Scene\Instancing.cs" />
     <Compile Include="Scene\PostRenderer.cs" />
+    <Compile Include="Graphics\WaterSurface.cs" />
     <Compile Include="Sound\SfxType.cs" />
     <Compile Include="Sound\SfxManager.cs" />
     <Compile Include="Sound\Sfx.cs" />

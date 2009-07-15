@@ -10,14 +10,17 @@ namespace VirtualBicycle.Ide.Converters
 {
     public partial class DemConvDlg : Form
     {
-        public DemConvDlg()
+        DemConverter converter;
+        DemParameters conParams;
+
+        public DemConvDlg(DemConverter converter)
         {
             InitializeComponent();
+
+            this.converter = converter;
+            this.conParams = new DemParameters();
+            this.propertyGrid1.SelectedObject = conParams;
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

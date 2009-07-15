@@ -83,6 +83,7 @@
     <Compile Include="Converters\DemConvDlg.Designer.cs">
       <DependentUpon>DemConvDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Converters\DemConverter.cs" />
     <Compile Include="Converters\DispMapConverter.cs" />
     <Compile Include="Converters\Mesh2MeshConverter.cs" />
     <Compile Include="Converters\MeshSimpDlg.cs">
