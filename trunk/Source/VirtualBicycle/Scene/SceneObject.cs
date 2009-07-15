@@ -207,6 +207,16 @@ namespace VirtualBicycle.Scene
         public virtual void OnAddedToScene(object sender, OctreeSceneManager sceneMgr) { }
         public virtual void OnRemovedFromScene(object sender, OctreeSceneManager sceneMgr) { }
 
+        public virtual void NotifyClusterChanged(Cluster newCluster)
+        {
+            float ofsX = newCluster.WorldX - OffsetX;
+            float ofsY = newCluster.WorldY - OffsetY;
+            float ofsZ = newCluster.WorldZ - OffsetZ;
+
+            BoundingSphere.Center.X -= ofsX;
+            BoundingSphere.Center.Y -= ofsY;
+            BoundingSphere.Center.Z -= ofsZ;
+        }
 
         public virtual bool IntersectsSelectionRay(ref Ray ray)
         {

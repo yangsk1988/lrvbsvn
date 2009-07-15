@@ -136,6 +136,22 @@ namespace VirtualBicycle.Scene
 
         #region 方法
 
+        public override void NotifyClusterChanged(Cluster newCluster)
+        {
+            float ofsX = newCluster.WorldX - OffsetX;
+            float ofsY = newCluster.WorldY - OffsetY;
+            float ofsZ = newCluster.WorldZ - OffsetZ;
+
+            BoundingSphere.Center.X -= ofsX;
+            BoundingSphere.Center.Y -= ofsY;
+            BoundingSphere.Center.Z -= ofsZ;
+
+            position.X -= ofsX;
+            position.Y -= ofsY;
+            position.Z -= ofsZ;
+        
+        }
+
         public virtual void UpdateTransform()
         {
             // T = r * t

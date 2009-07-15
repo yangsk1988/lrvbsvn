@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Drawing;
+using System.IO;
 using System.Text;
 using SlimDX;
 using SlimDX.Direct3D9;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.IO;
 using VirtualBicycle.Sound;
-using System.Drawing;
-using System.IO;
 
 namespace VirtualBicycle.UI
 {
