@@ -94,6 +94,12 @@ namespace VirtualBicycle.Scene
             GameScene.GetClusterCoord(ox, oy, out cx, out cy);            
 
             ClusterDescription desc = new ClusterDescription(cx, cy);
+
+            if (desc == this.description)
+            {
+                return false;
+            }
+
             Cluster neightbour = GameScene.ClusterTable[desc];
 
             if (neightbour != null)             
@@ -104,8 +110,9 @@ namespace VirtualBicycle.Scene
             return false;
         }
 
-        public void NotifyObjectEntered(SceneObject obj) 
+        public void NotifyObjectEntered(SceneObject obj)
         {
+
             this.sceneMgr.AddObjectToScene(obj);
         }
 
@@ -284,6 +291,15 @@ namespace VirtualBicycle.Scene
             return false;
         }
 
+
+        public static bool operator ==(ClusterDescription a, ClusterDescription b)
+        {
+            return a.X == b.X && a.Y == b.Y;
+        }
+        public static bool operator !=(ClusterDescription a, ClusterDescription b)
+        {
+            return a.X != b.X || a.Y != b.Y;
+        }
 
         public override string ToString()
         {
