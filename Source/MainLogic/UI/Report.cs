@@ -211,7 +211,7 @@ namespace VirtualBicycle.UI
             para.PosX = 512f;
             para.PosY = 568f;
             iconBg.curDrawPara = para;
-            iconBg.ModColor = new Color3(0.55f, 0.55f, 0.55f);
+            iconBg.ModColor = Color.FromArgb(140, 140, 140);
         }
 
         private void LoadBackground()
@@ -226,7 +226,7 @@ namespace VirtualBicycle.UI
             para.PosY = 768f / 2;
 
             picBackground.curDrawPara = para;
-            picBackground.ModColor = new Color3(0.55f, 0.55f, 0.55f);
+            picBackground.ModColor = Color.FromArgb(140, 140, 140);
         }
 
 
@@ -255,20 +255,20 @@ namespace VirtualBicycle.UI
             para.PosY = 230f;
 
             heroGridPic.curDrawPara = para;
-            heroGridPic.ModColor = new Color3(1f, 1f, 1f);
+            heroGridPic.ModColor = Color.White;
 
             rankGridPic.curDrawPara = para;
-            rankGridPic.ModColor = new Color3(1f, 1f, 1f);
+            rankGridPic.ModColor = Color.White;
 
             curveGridPic.curDrawPara = para;
-            curveGridPic.ModColor = new Color3(1f, 1f, 1f);
+            curveGridPic.ModColor = Color.White;
 
             curveGridContent = new MenuPic(Game, "report_curve_content.png", "Curve Grid Content");
             para.desiredWidth = 600f;
             para.desiredHeight = 352f;
             para.Alpha = 1f;
             curveGridContent.curDrawPara = para;
-            curveGridContent.ModColor = new Color3(1f, 1f, 1f);
+            curveGridContent.ModColor = Color.White;
         }
 
         private void LoadText()

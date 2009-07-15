@@ -120,7 +120,7 @@ namespace VirtualBicycle.UI
             this.detail = detail;
             this.device = game.Device;
             this.Game = game;
-            this.modColor = new Color3(1, 1, 1);
+            this.modColor = Color.White;
 
             FileLocation fl = FileSystem.Instance.Locate(Path.Combine(Paths.DataUI, fileName),
                 FileLocateRules.Default);
@@ -145,7 +145,7 @@ namespace VirtualBicycle.UI
                 this.width = desc.Width;
                 this.height = desc.Height;
             }
-            this.modColor = new Color3(1, 1, 1);
+            this.modColor = Color.White;
         }
         #endregion
 
@@ -169,8 +169,9 @@ namespace VirtualBicycle.UI
 
                 sprite.Transform = Matrix.Scaling(dWidth / width, dHeight / height, 1) *
                     Matrix.Translation(new Vector3(new Vector2(posX, posY) - new Vector2(dWidth / 2, dHeight / 2), 0f));
-                sprite.Draw(texture, new Color4(a, modColor.Red, modColor.Green, modColor.Blue));
+                sprite.Draw(texture, Color.FromArgb((int)(a * 0xff), modColor));
                 sprite.Transform = Matrix.Identity;
+                
             }
         }
 
@@ -184,8 +185,8 @@ namespace VirtualBicycle.UI
             curDrawPara.desiredWidth = firstDrawPara.desiredWidth + (nextDrawPara.desiredWidth - firstDrawPara.desiredWidth) * dPara;
         }
 
-        private Color3 modColor;
-        public Color3 ModColor
+        private Color modColor;
+        public Color ModColor
         {
             get { return modColor; }
             set { modColor = value; }

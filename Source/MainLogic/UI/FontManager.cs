@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using VirtualBicycle.Collections;
 
 namespace VirtualBicycle.UI
 {
@@ -11,15 +12,32 @@ namespace VirtualBicycle.UI
     /// </summary>
     public class FontManager
     {
+        struct Entry 
+        {
+            public string FamilyName;
+            public float Size;
+
+            public Entry(string familyName, float size) 
+            {
+                this.FamilyName = familyName;
+                this.Size = size;
+            }
+
+            public override int GetHashCode()
+            {
+                return FamilyName.GetHashCode() ^ Size.GetHashCode();
+            }
+        }
+
         #region Fields
         private static FontManager instance;
-        List<Font> fonts;
+        Dictionary<Entry, Font> fonts;
         #endregion
 
         #region Constructor
         private FontManager()
         {
-            fonts = new List<Font>();
+            fonts = new Dictionary<Entry, Font>();
         }
         #endregion
 
@@ -36,16 +54,15 @@ namespace VirtualBicycle.UI
 
         public Font CreateFont(string familyName, float size)
         {
-            for (int i = 0; i < fonts.Count; i++)
+            Font font;
+            Entry entry = new Entry(familyName, size);
+
+            if (!fonts.TryGetValue(entry, out font))
             {
-                if ((fonts[i].Name == familyName) && (fonts[i].Size == size))
-                {
-                    return fonts[i];
-                }
+                font = new Font(familyName, size);
+                fonts.Add(entry, font);
             }
 
-            Font font = new Font(familyName, size);
-            fonts.Add(font);
             return font;
         }
         #endregion

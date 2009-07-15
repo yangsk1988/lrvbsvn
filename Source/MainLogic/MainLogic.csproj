@@ -52,11 +52,17 @@
     <Compile Include="Logic\Goal\BicycleToPointPart.cs" />
     <Compile Include="Logic\SmallBox.cs" />
     <Compile Include="Logic\SmallBoxFactory.cs" />
+    <Compile Include="UI\Control.cs" />
     <Compile Include="UI\DrawGrid.cs" />
     <Compile Include="UI\DrawTextBox.cs" />
     <Compile Include="UI\FontManager.cs" />
+    <Compile Include="UI\IngameMenu.cs" />
+    <Compile Include="UI\Label.cs" />
     <Compile Include="UI\MenuItemList.cs" />
+    <Compile Include="UI\PictureBox.cs" />
+    <Compile Include="UI\PowerGraph.cs" />
     <Compile Include="UI\Report.cs" />
+    <Compile Include="UI\StateIndicator.cs" />
     <Compile Include="ViewManager.cs" />
     <Compile Include="GameMainLogic.cs" />
     <Compile Include="GameMainLogicFactory.cs" />

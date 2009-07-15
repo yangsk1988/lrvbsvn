@@ -99,11 +99,13 @@ namespace VirtualBicycle.UI
             _rect.Width = (int)GetPositionWidth(rect.Width);
             _rect.Height = (int)GetPositionHeight(rect.Height);
 
-            if ((isShadowed) && (color != Color.Black))
+            if (isShadowed)
             {
-                _rect.X += 3;
-                _rect.Y += 3;
+                _rect.X += 2;
+                _rect.Y += 2;
                 font.DrawString(sprite, text, _rect, format, Color.Black);
+                _rect.X -= 2;
+                _rect.Y -= 2;
             }
             font.DrawString(sprite, text, _rect, format, color);
 
