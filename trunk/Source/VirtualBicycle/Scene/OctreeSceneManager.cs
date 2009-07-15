@@ -70,23 +70,44 @@ namespace VirtualBicycle.Scene
         {
             Vector3 pos = obj.BoundingSphere.Center;
 
-            if (pos.X >= min.X && pos.Y >= min.Y && pos.Z >= min.Z &&
-                pos.X <= max.X && pos.Y <= max.Y && pos.Z <= max.Z)
+            if (pos.X >= min.X && pos.X <= max.X &&
+                pos.Z >= min.Z && pos.Z <= max.Z)
             {
-                octRootNode.AddObject(obj);
-
-                if (farObjTable.Exists(obj))
+                if (pos.Y >= min.Y && pos.Y <= max.Y)
                 {
-                    farObjTable.Remove(obj);
-                    farObjects.Remove(obj);
+                    octRootNode.AddObject(obj);
+                    if (farObjTable.Exists(obj))
+                    {
+                        farObjTable.Remove(obj);
+                        farObjects.Remove(obj);
+                    }
+                }
+                else
+                {
+                    if (!farObjTable.Exists(obj))
+                    {
+                        farObjects.Add(obj);
+                        farObjTable.Add(obj);
+                    }
                 }
             }
             else
             {
-                if (!farObjTable.Exists(obj))
+                if (!ParentCluster.NotifyObjectLeaved(obj))
                 {
-                    farObjects.Add(obj);
-                    farObjTable.Add(obj);
+                    if (!farObjTable.Exists(obj))
+                    {
+                        farObjects.Add(obj);
+                        farObjTable.Add(obj);
+                    }
+                }
+                else
+                {
+                    if (farObjTable.Exists(obj))
+                    {
+                        farObjTable.Remove(obj);
+                        farObjects.Remove(obj);
+                    }
                 }
             }
         }

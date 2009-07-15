@@ -83,6 +83,32 @@ namespace VirtualBicycle.Scene
 
         #endregion
 
+        public bool NotifyObjectLeaved(SceneObject obj)
+        {
+            float ox = obj.OffsetX + obj.BoundingSphere.Center.X;
+            float oy = obj.OffsetY + obj.BoundingSphere.Center.Y;
+
+            int cx;
+            int cy;
+
+            GameScene.GetClusterCoord(ox, oy, out cx, out cy);            
+
+            ClusterDescription desc = new ClusterDescription(cx, cy);
+            Cluster neightbour = GameScene.ClusterTable[desc];
+
+            if (neightbour != null)             
+            {
+                neightbour.NotifyObjectEntered(obj);
+                return true;
+            }
+            return false;
+        }
+
+        public void NotifyObjectEntered(SceneObject obj) 
+        {
+            this.sceneMgr.AddObjectToScene(obj);
+        }
+
         #region 属性
 
         public GameScene GameScene
