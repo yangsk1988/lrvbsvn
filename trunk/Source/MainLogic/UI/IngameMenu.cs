@@ -1,27 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Text;
 using MainLogic;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VirtualBicycle.Graphics;
 using VirtualBicycle.Input;
-using VirtualBicycle.IO;
-using VirtualBicycle.Sound;
 
 namespace VirtualBicycle.UI
 {
-    public class MainMenu : UIComponent
+    public class IngameMenu : UIComponent
     {
         static readonly string UIFontName = "微软雅黑";
 
-        #region Fields
-        private Device device;
-
-        private GameUI gameUI;
-        private GameMainLogic logic;
+        Device device;
+        GameUI gameUI;
+        GameMainLogic logic;
+        World world;
+        IngameUI ingameUI;
 
         MenuPic picBackground;
         List<MenuPic> picSelectIcons;
@@ -30,43 +26,16 @@ namespace VirtualBicycle.UI
         DrawTextBox textBox;
         int curIndex = 0;
 
-        #endregion
-
-        #region Constructor
-        public MainMenu(Game game, GameUI gameUI, GameMainLogic logic)
-            :base(game)
+        public IngameMenu(Game game, World world, GameMainLogic logic, GameUI gameUI, IngameUI ingameUI)
+            : base(game)
         {
-            this.device = gameUI.Device;
-
+            this.device = game.Device;
+            this.world = world;
             this.gameUI = gameUI;
             this.logic = logic;
+
+            this.ingameUI = ingameUI;
         }
-        #endregion
-
-        #region Render
-        protected override void render()
-        {
-
-        }
-
-        private void DrawText(Sprite sprite)
-        {
-            textBox.Render(sprite, picSelectIcons[curIndex].Detail, true);
-        }
-
-        protected override void render(Sprite sprite)
-        {
-            picBackground.Render(sprite);
-
-            for (int i = 0; i < picSelectIcons.Count; i++)
-            {
-                picSelectIcons[i].Render(sprite);
-            }
-
-            iconBg.Render(sprite);
-            DrawText(sprite);
-        }
-        #endregion
 
         #region Update
         bool isAnimation = false;
@@ -111,7 +80,7 @@ namespace VirtualBicycle.UI
                         {
                             next = i - dIndex + 1;
                         }
-                            
+
                         if ((next >= 0) && (next <= 4))
                         {
                             float dPara = usedAnimationTime / animationTime;
@@ -136,69 +105,48 @@ namespace VirtualBicycle.UI
                 }
             }
 
+            if (world.Disposed)
+            {
+                gameUI.Pop();
+                Game.CurrentWorld = null;
+            }
         }
         #endregion
 
+        private void DrawText(Sprite sprite)
+        {
+            textBox.Render(sprite, picSelectIcons[curIndex].Detail, true);
+        }
 
-        private void MainMenu_ItemMoveLeft(object sender, EventArgs e)
+        protected override void render()
         {
-            if (!isAnimation)
+            if (world.IsValid)
             {
-                if (curIndex > 0)
+
+            }
+        }
+        protected override void render(Sprite sprite)
+        {
+            if (world.IsValid)
+            {
+                picBackground.Render(sprite);
+
+                for (int i = 0; i < picSelectIcons.Count; i++)
                 {
-                    isAnimation = true;
-                    isMoveLeft = false;
-                    usedAnimationTime = 0f;
-                    for (int i = curIndex - 2; i <= curIndex + 2; i++)
-                    {
-                        if ((i >= 0) && (i < picSelectIcons.Count))
-                        {
-                            //如果是需要移动的内容,则记录下上一次的渲染参数
-                            picSelectIcons[i].firstDrawPara = picSelectIcons[i].curDrawPara;
-                        }
-                    }
+                    picSelectIcons[i].Render(sprite);
                 }
+
+                iconBg.Render(sprite);
+                DrawText(sprite);
             }
-        }
-        private void MainMenu_ItemMoveRight(object sender, EventArgs e)
-        {
-            if (!isAnimation)
-            {
-                if (curIndex < picSelectIcons.Count - 1)
-                {
-                    isAnimation = true;
-                    isMoveLeft = true;
-                    usedAnimationTime = 0f;
-                    for (int i = curIndex - 2; i <= curIndex + 2; i++)
-                    {
-                        if ((i >= 0) && (i < picSelectIcons.Count))
-                        {
-                            //如果是需要移动的内容,则记录下上一次的渲染参数
-                            picSelectIcons[i].firstDrawPara = picSelectIcons[i].curDrawPara;
-                        }
-                    }
-                }
-            }
-        }
-        
-        private void MainMenu_Enter(object sender, EventArgs e)
-        {
-            if (!isAnimation)
-            {
-                picSelectIcons[curIndex].Activate();
-            }
-        }
-        private void MainMenu_Escape(object sender, EventArgs e)
-        {
-            Game.Exit();
         }
 
         #region Load
         private void LoadBackground()
         {
-            picBackground = new MenuPic(Game, "mainMenu.png", "MainMenu");
+            picBackground = new MenuPic(Game, "ingameMenu.png", "MainMenu");
             MenuPicDrawPara para;
-            para.Alpha = 1;
+            para.Alpha = 0.3f;
             para.desiredWidth = 1024f;
             para.desiredHeight = 768f;
             para.PosX = 1024f / 2;
@@ -212,7 +160,7 @@ namespace VirtualBicycle.UI
         {
             iconBg = new MenuPic(Game, "Menu_Background.png", "Icon Background");
             MenuPicDrawPara para;
-            para.Alpha = 1f;
+            para.Alpha = 0.8f;
             para.desiredWidth = 256f;
             para.desiredHeight = 256f;
             para.PosX = 512f;
@@ -232,20 +180,15 @@ namespace VirtualBicycle.UI
         {
             picSelectIcons = new List<MenuPic>();
             //设置图标列表
-            picSelectIcons.Add(new MenuPic(Game, "challenge.png", StringTableManager.StringTable["GUI:MMChallenge"]));
-            picSelectIcons[picSelectIcons.Count - 1].ActivedHandler += ChallengeActivated;
+            picSelectIcons.Add(new MenuPic(Game, "challenge.png", StringTableManager.StringTable["GUI:IGMResumeGame"]));
+            picSelectIcons[picSelectIcons.Count - 1].ActivedHandler += ResumeGame_Activated;
 
-            picSelectIcons.Add(new MenuPic(Game, "Option.png", StringTableManager.StringTable["GUI:MMOption"]));//"选项"
-            picSelectIcons[picSelectIcons.Count - 1].ActivedHandler += OptionActived;
+            picSelectIcons.Add(new MenuPic(Game, "Option.png", StringTableManager.StringTable["GUI:IGMOptions"]));
+            picSelectIcons[picSelectIcons.Count - 1].ActivedHandler += Options_Activated;
 
-            picSelectIcons.Add(new MenuPic(Game, "Help.png", StringTableManager.StringTable["GUI:MMHelp"]));//"帮助"
-            picSelectIcons[picSelectIcons.Count - 1].ActivedHandler += HelpActivated;
+            picSelectIcons.Add(new MenuPic(Game, "Help.png", StringTableManager.StringTable["GUI:IGMExitMainMenu"]));
+            picSelectIcons[picSelectIcons.Count - 1].ActivedHandler += ExitMainMenu_Activated;
 
-            picSelectIcons.Add(new MenuPic(Game, "Coach.png", StringTableManager.StringTable["GUI:MMCoach"]));//"教学模式"
-            picSelectIcons[picSelectIcons.Count - 1].ActivedHandler += TutorialActivated;
-
-            picSelectIcons.Add(new MenuPic(Game, "Heros.png", StringTableManager.StringTable["GUI:MMHighscores"]));//"高分榜"
-            picSelectIcons[picSelectIcons.Count - 1].ActivedHandler += HighScoresActivated;
         }
 
         private void LoadFont()
@@ -270,19 +213,19 @@ namespace VirtualBicycle.UI
             Vector2 midLocation = new Vector2(512f, 300f);
             Vector2 currentLocation = midLocation;
             Vector2 selectSize = new Vector2(256f, 256f);
-            Vector2 unSelectSize =  new Vector2(128f, 128f);
-            Vector2 twoPicNearDis = new Vector2(200f,0);
-            
-            float selctAlpha = 1f;
-            float unSelectAlpha = 0.5f;
+            Vector2 unSelectSize = new Vector2(128f, 128f);
+            Vector2 twoPicNearDis = new Vector2(200f, 0);
+
+            const float selctAlpha = 0.8f;
+            const float unSelectAlpha = 0.4f;
             int placeTime = 0;
             for (int i = 0; i < picSelectIcons.Count; i++)
             {
                 if (i == 0)
                 {
                     picSelectIcons[i].curDrawPara = new MenuPicDrawPara(midLocation.X, midLocation.Y,
-                                                                            selctAlpha,
-                                                                            selectSize.X, selectSize.Y);
+                                                                        selctAlpha,
+                                                                        selectSize.X, selectSize.Y);
                 }
                 else
                 {
@@ -294,79 +237,128 @@ namespace VirtualBicycle.UI
                     if (i == 1)
                     {
                         picSelectIcons[i].curDrawPara = new MenuPicDrawPara(currentLocation.X, currentLocation.Y,
-                                                                                unSelectAlpha,
-                                                                                unSelectSize.X, unSelectSize.Y);
+                                                                            unSelectAlpha,
+                                                                            unSelectSize.X, unSelectSize.Y);
                     }
                     else
                     {
                         picSelectIcons[i].curDrawPara = new MenuPicDrawPara(currentLocation.X, currentLocation.Y,
-                                                                                0f,
-                                                                                unSelectSize.X, unSelectSize.Y);
+                                                                            0f,
+                                                                            unSelectSize.X, unSelectSize.Y);
                     }
                 }
             }
 
             //下面设置5个渲染位置的初始参数
             picInitPara = new List<MenuPicDrawPara>();
-            picInitPara.Add(new MenuPicDrawPara(midLocation - 2 * twoPicNearDis,0f,unSelectSize));
+            picInitPara.Add(new MenuPicDrawPara(midLocation - 2 * twoPicNearDis, 0f, unSelectSize));
             picInitPara.Add(new MenuPicDrawPara(midLocation - twoPicNearDis, unSelectAlpha, unSelectSize));
-            picInitPara.Add(new MenuPicDrawPara(midLocation,1.0f,selectSize));
+            picInitPara.Add(new MenuPicDrawPara(midLocation, 1.0f, selectSize));
             picInitPara.Add(new MenuPicDrawPara(midLocation + twoPicNearDis, unSelectAlpha, unSelectSize));
             picInitPara.Add(new MenuPicDrawPara(midLocation + 2 * twoPicNearDis, 0f, unSelectSize));
         }
         #endregion
 
-        #region Unload
         protected override void unload()
         {
 
         }
+
+        #region 事件处理
+
+        void ResumeGame_Activated(object sender, EventArgs e)
+        {
+            if (world.IsValid)
+            {
+                ingameUI.IsMenuShown = false;
+            }
+        }
+        void Options_Activated(object sender, EventArgs e)
+        {
+
+        }
+        void ExitMainMenu_Activated(object sender, EventArgs e)
+        {
+            world.Unload();
+        }
+
+
         #endregion
 
-        #region Events
-        private void ChallengeActivated(object sender, EventArgs e)
+        private void IngameMenu_ItemMoveLeft(object sender, EventArgs e)
         {
-            gameUI.CurrentComponent = logic.UILogic.GetMapSelectScreen();
+            if (world.IsValid)
+            {
+                if (!isAnimation)
+                {
+                    if (curIndex > 0)
+                    {
+                        isAnimation = true;
+                        isMoveLeft = false;
+                        usedAnimationTime = 0f;
+                        for (int i = curIndex - 2; i <= curIndex + 2; i++)
+                        {
+                            if ((i >= 0) && (i < picSelectIcons.Count))
+                            {
+                                //如果是需要移动的内容,则记录下上一次的渲染参数
+                                picSelectIcons[i].firstDrawPara = picSelectIcons[i].curDrawPara;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        private void IngameMenu_ItemMoveRight(object sender, EventArgs e)
+        {
+            if (world.IsValid)
+            {
+                if (!isAnimation)
+                {
+                    if (curIndex < picSelectIcons.Count - 1)
+                    {
+                        isAnimation = true;
+                        isMoveLeft = true;
+                        usedAnimationTime = 0f;
+                        for (int i = curIndex - 2; i <= curIndex + 2; i++)
+                        {
+                            if ((i >= 0) && (i < picSelectIcons.Count))
+                            {
+                                //如果是需要移动的内容,则记录下上一次的渲染参数
+                                picSelectIcons[i].firstDrawPara = picSelectIcons[i].curDrawPara;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
-        private void OptionActived(object sender, EventArgs e)
+        private void IngameMenu_Enter(object sender, EventArgs e)
         {
-            gameUI.CurrentComponent = logic.UILogic.GetOptionScreen();
+            if (world.IsValid)
+            {
+                if (!isAnimation)
+                {
+                    picSelectIcons[curIndex].Activate();
+                }
+            }
         }
-        void HelpActivated(object sender, EventArgs e) 
-        {
-
-        }
-        void TutorialActivated(object sender, EventArgs e) 
-        {
-
-        
-        }
-
-        void HighScoresActivated(object sender, EventArgs e) 
-        {
-
-        }
-
-        #endregion
 
         public override void NotifyActivated()
         {
             base.NotifyActivated();
 
-            InputManager.Instance.Enter += this.MainMenu_Enter;
-            InputManager.Instance.ItemMoveLeft += this.MainMenu_ItemMoveLeft;
-            InputManager.Instance.ItemMoveRight += this.MainMenu_ItemMoveRight;
-            InputManager.Instance.Escape += this.MainMenu_Escape;
+            InputManager.Instance.Enter += this.IngameMenu_Enter;
+            InputManager.Instance.ItemMoveLeft += this.IngameMenu_ItemMoveLeft;
+            InputManager.Instance.ItemMoveRight += this.IngameMenu_ItemMoveRight;
         }
         public override void NotifyDeactivated()
         {
             base.NotifyDeactivated();
 
-            InputManager.Instance.Enter -= this.MainMenu_Enter;
-            InputManager.Instance.ItemMoveLeft -= this.MainMenu_ItemMoveLeft;
-            InputManager.Instance.ItemMoveRight -= this.MainMenu_ItemMoveRight;
-            InputManager.Instance.Escape -= this.MainMenu_Escape;
+            InputManager.Instance.Enter -= this.IngameMenu_Enter;
+            InputManager.Instance.ItemMoveLeft -= this.IngameMenu_ItemMoveLeft;
+            InputManager.Instance.ItemMoveRight -= this.IngameMenu_ItemMoveRight;
         }
     }
+
 }

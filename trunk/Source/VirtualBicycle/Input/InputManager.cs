@@ -85,6 +85,7 @@ namespace VirtualBicycle.Input
         public event HandlebarRotatedHandler HandlebarRotated;
         public event WheelSpeedChangedHandler WheelSpeedChanged;
 
+        public event EventHandler HeartPulse;
 
         public InputProcessor Processor
         {
@@ -150,6 +151,14 @@ namespace VirtualBicycle.Input
                 HandlebarRotated(new HandlebarRotatedEventArgs(angle, delta));
             }
         }
+        public void OnHeartPulse()
+        {
+            if (HeartPulse != null) 
+            {
+                HeartPulse(this, EventArgs.Empty);
+            }
+        }
+        
 
         protected override void dispose()
         {

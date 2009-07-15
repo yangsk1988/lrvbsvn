@@ -76,6 +76,8 @@ namespace VirtualBicycle.Input
         ushort lastWheel;
         float lastSpeed;
 
+        int lastHPulse;
+
 
         object syncHelper = new object();
 
@@ -266,20 +268,27 @@ namespace VirtualBicycle.Input
                                 break;
                             case DataType.ButtonDataTag:
 
-                                //if ((dta.byte2 & (0x80)) == 1) 
-                                //{
-                                //    angle = 0;                                    
+                                int hp = dta.byte2 & 0x40;
+                                if (hp != lastHPulse)
+                                {
+                                    lastHPulse = hp;
+                                }
+                                
+                                
+                                if ((dta.byte2 & (0x80)) == 1)
+                                {
+                                    angle = 0;
 
-                                //    if (lastAngle != angle)
-                                //    {
-                                //        float val = MathEx.PiOver2 * (float)angle / 256f;
-                                //        float lstval = MathEx.PiOver2 * (float)lastAngle / 256f;
+                                    if (lastAngle != angle)
+                                    {
+                                        float val = MathEx.PiOver2 * (float)angle / 256f;
+                                        float lstval = MathEx.PiOver2 * (float)lastAngle / 256f;
 
-                                //        Manager.OnHandlebarRotated(val, val - lstval);
+                                        Manager.OnHandlebarRotated(val, val - lstval);
 
-                                //        lastAngle = angle;
-                                //    }
-                                //}
+                                        lastAngle = angle;
+                                    }
+                                }
 
                                 if ((dta.byte2 & ButtonTLId) == 0)
                                 {

@@ -169,6 +169,7 @@ namespace VirtualBicycle.Input
         bool isEscPressed;
         bool isEnterPressed;
 
+        bool isTPressed;
 
         float handlebarAngle;
 
@@ -219,6 +220,19 @@ namespace VirtualBicycle.Input
             if (GetAsyncKeyState(VKeys.VK_S) || GetAsyncKeyState(VKeys.VK_DOWN))
             {
                 Manager.OnWheelSpeedChanged(0, -1, true);
+            }
+
+            if (GetAsyncKeyState((short)'T'))
+            {
+                if (!isTPressed)
+                {
+                    Manager.OnHeartPulse();
+                    isTPressed = true;
+                }
+            }
+            else 
+            {
+                isTPressed = false;
             }
 
             if (GetAsyncKeyState(VKeys.VK_ESCAPE))

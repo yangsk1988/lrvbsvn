@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using VirtualBicycle.Scene;
-using SD = System.Drawing;
 using System.Drawing;
+using System.Text;
 using SlimDX.Direct3D9;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.Logic.PathWay;
 using VirtualBicycle.Logic.Traffic;
+using VirtualBicycle.Scene;
+using SD = System.Drawing;
 
 namespace VirtualBicycle.Logic
 {

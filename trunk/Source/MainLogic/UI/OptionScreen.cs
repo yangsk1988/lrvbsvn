@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using MainLogic;
@@ -137,8 +138,8 @@ namespace VirtualBicycle.UI
             Vector2 size = new Vector2(20f, 50f);
             const float nearDis = 50f;
             const string fileName = "Volume_Block.png";
-            Color3 colorOn = new Color3(173f / 255f, 1f, 216f / 255f);
-            Color3 colorOff = new Color3(87f / 255f, 87f / 255f, 87f / 255f);
+            Color colorOn = Color.FromArgb(173, 255, 216);
+            Color colorOff = Color.FromArgb(87, 87, 87);
 
             
             if (VolumeBar == null)
@@ -396,7 +397,7 @@ namespace VirtualBicycle.UI
             para.PosY = 768f / 2;
 
             picBackground.curDrawPara = para;
-            picBackground.ModColor = new Color3(0.55f, 0.55f, 0.55f);
+            picBackground.ModColor = Color.FromArgb(140, 140, 140);
         }
 
         private void LoadIconBackground()

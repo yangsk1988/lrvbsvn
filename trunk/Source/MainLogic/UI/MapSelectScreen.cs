@@ -65,7 +65,7 @@ namespace VirtualBicycle.UI
 
             backgroundImage.curDrawPara = para;
             backgroundImage.nextDrawPara = MenuPicDrawPara.Zero;
-            backgroundImage.ModColor = new Color3(0.55f, 0.55f, 0.55f);
+            backgroundImage.ModColor = Color.FromArgb(140, 140, 140);
         }
 
         protected override void render()
