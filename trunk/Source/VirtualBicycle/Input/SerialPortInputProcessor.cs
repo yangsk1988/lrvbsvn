@@ -268,9 +268,12 @@ namespace VirtualBicycle.Input
                                 break;
                             case DataType.ButtonDataTag:
 
-                                int hp = dta.byte2 & 0x40;
+                                int hp = dta.byte2 & (1 << 5);
                                 if (hp != lastHPulse)
                                 {
+
+                                    Manager.OnHeartPulse();
+
                                     lastHPulse = hp;
                                 }
                                 
