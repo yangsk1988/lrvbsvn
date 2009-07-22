@@ -44,8 +44,8 @@ namespace VirtualBicycle.Logic
         public TerrainObject(TerrainObjectType bldType)
         {
             this.objType = bldType;
-            this.Model = bldType.Model;
-            this.LodModel = bldType.LodModel;
+            this.ModelL0 = bldType.Model;
+            this.ModelL1 = bldType.LodModel;
         }
 
         #endregion

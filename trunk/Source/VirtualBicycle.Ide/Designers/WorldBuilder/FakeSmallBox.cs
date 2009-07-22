@@ -23,7 +23,7 @@ namespace VirtualBicycle.Ide.Designers.WorldBuilder
         public FakeSmallBox(Device device) 
         {
             FileLocation fl = FileSystem.Instance.Locate(Path.Combine(VirtualBicycle.IO.Paths.Models, "box1.mesh"), FileLocateRules.Default);
-            Model = ModelManager.Instance.CreateInstance(device, fl);
+            ModelL0 = ModelManager.Instance.CreateInstance(device, fl);
 
             BoundingSphere.Radius = MathEx.Root3 * 0.5f; 
         }

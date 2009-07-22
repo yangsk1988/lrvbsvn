@@ -45,12 +45,18 @@ namespace VirtualBicycle.Scene
             max = octRootNode.BoundingVolume.Center + new Vector3(octRootNode.BoundingVolume.Length * 0.5f);
         }
 
+        
         public float MinimumBVSize
         {
             get;
             protected set;
         }
 
+
+        /// <summary>
+        ///  把物体加入到场景管理器中，并将它附到一个合适的节点
+        /// </summary>
+        /// <param name="obj">加入的物体</param>
         public override void AddObjectToScene(SceneObject obj)
         {
             base.AddObjectToScene(obj);
@@ -112,6 +118,10 @@ namespace VirtualBicycle.Scene
             }
         }
 
+        /// <summary>
+        ///  把物体从场景管理器中移除
+        /// </summary>
+        /// <param name="obj">移除的物体</param>
         public override void RemoveObjectFromScene(SceneObject obj)
         {
             base.RemoveObjectFromScene(obj);

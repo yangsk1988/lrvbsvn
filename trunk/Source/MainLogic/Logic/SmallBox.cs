@@ -20,7 +20,7 @@ namespace VirtualBicycle.Logic
         public SmallBox(Device device) 
         {
             FileLocation fl = FileSystem.Instance.Locate(Path.Combine(VirtualBicycle.IO.Paths.Models, "box1.mesh"), FileLocateRules.Default);
-            Model = ModelManager.Instance.CreateInstance(device, fl);
+            ModelL0 = ModelManager.Instance.CreateInstance(device, fl);
 
             BoundingSphere.Radius = MathEx.Root3 * 0.5f;
         }
@@ -66,9 +66,9 @@ namespace VirtualBicycle.Logic
 
             if (disposing)
             {
-                if (Model != null)
+                if (ModelL0 != null)
                 {
-                    ModelManager.Instance.DestoryInstance(Model);
+                    ModelManager.Instance.DestoryInstance(ModelL0);
                 }
             }
         }

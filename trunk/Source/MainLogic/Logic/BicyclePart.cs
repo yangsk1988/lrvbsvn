@@ -24,7 +24,7 @@ namespace VirtualBicycle.Logic
         {
             this.bike = bike;
             FileLocation fl = FileSystem.Instance.Locate(Path.Combine(VirtualBicycle.IO.Paths.Models, "sphere0.25.mesh"), FileLocateRules.Default);
-            Model = ModelManager.Instance.CreateInstance(device, fl);
+            ModelL0 = ModelManager.Instance.CreateInstance(device, fl);
         }
 
         public override bool IsSerializable

@@ -13,26 +13,29 @@ using VirtualBicycle.MathLib;
 namespace VirtualBicycle.Scene
 {
     /// <summary>
-    ///  场景分为若干Cluster
+    ///  表示Cluster。场景分为若干Cluster
     /// </summary>
     public class Cluster : IDisposable, IUpdatable
     {
         #region 常量
 
-        /// <summary>
-        ///  513
-        /// </summary>
-        public const int ClusterSize = 513;
+        ///// <summary>
+        /////  同Terrain.TerrainSize（513）
+        ///// </summary>
+        //public const int ClusterSize = Terrain.TerrainSize;
 
         /// <summary>
-        ///  512
+        ///  表示Cluster的长度（512）
         /// </summary>
-        public const int ClusterLength = ClusterSize - 1;
+        public const int ClusterLength = Terrain.TerrainSize - 1;
 
         #endregion
 
         #region 字段
 
+        /// <summary>
+        ///  【见属性】
+        /// </summary>
         protected ClusterDescription description;
 
         /// <summary>
@@ -72,7 +75,7 @@ namespace VirtualBicycle.Scene
                 (x + ClusterLength * 0.5f) * cellUnit,
                 0,
                 (y + ClusterLength * 0.5f) * cellUnit);
-            this.boudingSphere.Radius = (float)ClusterSize * cellUnit * 0.5f * MathEx.Root2;
+            this.boudingSphere.Radius = (float)ClusterLength * cellUnit * 0.5f * MathEx.Root2;
 
             this.WorldX = x == 0 ? 0 : (x - 1) * cellUnit;
             this.WorldZ = y == 0 ? 0 : (y - 1) * cellUnit;
@@ -83,6 +86,11 @@ namespace VirtualBicycle.Scene
 
         #endregion
 
+        /// <summary>
+        ///  当有一物体离开Cluster时被引擎调用
+        /// </summary>
+        /// <param name="obj">离开的物体</param>
+        /// <returns>如果Cluster有可以接受这个物体的Cluster，并成功加入了这个物体，返回true。否则为false。</returns>
         public bool NotifyObjectLeaved(SceneObject obj)
         {
             float ox = obj.OffsetX + obj.BoundingSphere.Center.X;
@@ -110,6 +118,10 @@ namespace VirtualBicycle.Scene
             return false;
         }
 
+        /// <summary>
+        ///  当有一个物体进入Cluster是被引擎调用
+        /// </summary>
+        /// <param name="obj">进入的物体</param>
         public void NotifyObjectEntered(SceneObject obj)
         {
             this.sceneMgr.AddObjectToScene(obj);
@@ -117,6 +129,9 @@ namespace VirtualBicycle.Scene
 
         #region 属性
 
+        /// <summary>
+        ///  获取该Cluster所在的Game Scene对象
+        /// </summary>
         public GameScene GameScene
         {
             get;
@@ -124,7 +139,7 @@ namespace VirtualBicycle.Scene
         }
 
         /// <summary>
-        ///  TODO:Commet
+        ///  获取一个浮点数，表示地形单元格的长度
         /// </summary>
         public float CellUnit
         {
@@ -133,7 +148,7 @@ namespace VirtualBicycle.Scene
         }
 
         /// <summary>
-        ///  TODO:Commet
+        ///  获取该Cluster的包围球
         /// </summary>
         public BoundingSphere BoundingVolume
         {
@@ -141,7 +156,7 @@ namespace VirtualBicycle.Scene
         }
 
         /// <summary>
-        ///  TODO:Commet
+        ///  获取该Cluster的ClusterDescription
         /// </summary>
         public ClusterDescription Description
         {
@@ -149,7 +164,7 @@ namespace VirtualBicycle.Scene
         }
 
         /// <summary>
-        ///  TODO:Commet
+        ///  获取该Cluster中的场景管理器
         /// </summary>
         public SceneManagerBase SceneManager
         {
@@ -157,7 +172,7 @@ namespace VirtualBicycle.Scene
         }
 
         /// <summary>
-        ///  获取这个Cluster的在3D世界中的X坐标
+        ///  获取这个Cluster的在世界坐标系中的X坐标
         /// </summary>
         public float WorldX
         {
@@ -166,7 +181,7 @@ namespace VirtualBicycle.Scene
         }
 
         /// <summary>
-        ///  获取这个Cluster的在3D世界中的Y坐标
+        ///  获取这个Cluster的在世界坐标系中的Y坐标
         /// </summary>
         public float WorldY
         {
@@ -175,7 +190,7 @@ namespace VirtualBicycle.Scene
         }
 
         /// <summary>
-        ///  获取这个Cluster的在3D世界中的Z坐标
+        ///  获取这个Cluster的在世界坐标系中的Z坐标
         /// </summary>
         public float WorldZ
         {
@@ -187,6 +202,10 @@ namespace VirtualBicycle.Scene
 
         #region IUpdatable 成员
 
+        /// <summary>
+        ///  更新Cluster的状态，每一帧如果可见，则被引擎调用
+        /// </summary>
+        /// <param name="dt">帧时间间隔，以秒为单位</param>
         public void Update(float dt)
         {
             sceneMgr.Update(dt);
@@ -196,17 +215,27 @@ namespace VirtualBicycle.Scene
 
         #region IDisposable 成员
 
+        /// <summary>
+        ///  释放场景物体所使用的所有资源。应在派生类中重写。重写的方法应调用基类中的方法。
+        /// </summary>
+        /// <param name="disposing">表示是否需要释放该物体所引用的其他资源，当为真时，调用那些资源的Dispose方法</param>
         protected virtual void Dispose(bool disposing)
         {
             sceneMgr.Dispose();
         }
 
+        /// <summary>
+        ///  获取一个布尔值，表示该场景物体是否已经释放了资源。
+        /// </summary>
         public bool Disposed
         {
             get;
             private set;
         }
 
+        /// <summary>
+        ///  释放场景物体所使用的所有资源。
+        /// </summary>
         public void Dispose()
         {
             if (!Disposed)
@@ -231,7 +260,7 @@ namespace VirtualBicycle.Scene
     }
 
     /// <summary>
-    /// 
+    ///  包含一个Cluster的信息，用来在ClusterTable中查询Cluster
     /// </summary>
     public struct ClusterDescription
     {
@@ -270,7 +299,7 @@ namespace VirtualBicycle.Scene
         #endregion
 
         /// <summary>
-        /// 
+        ///  
         /// </summary>
         /// <param name="x">以地形单位为单位</param>
         /// <param name="y">以地形单位为单位</param>

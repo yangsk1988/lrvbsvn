@@ -147,7 +147,7 @@ namespace VirtualBicycle.Scene
         public const int BlockSize = 33;
         public const int BlockEdgeLen = BlockSize - 1;
 
-        public const int TerrainSize = Cluster.ClusterSize;
+        public const int TerrainSize = 513;
         public const int TerrainLength = Cluster.ClusterLength;
 
 
@@ -1232,7 +1232,7 @@ namespace VirtualBicycle.Scene
                 }
 
                 shape = new ClusterTerrainShape(CellUnit, HeightScale, terrTex);
-                motionState = new DefaultMotionState(Matrix.Translation(Cluster.ClusterSize * 0.5f, 0, Cluster.ClusterSize * 0.5f));
+                motionState = new DefaultMotionState(Matrix.Translation(Terrain.TerrainSize * 0.5f, 0, Terrain.TerrainSize * 0.5f));
 
                 RigidBody = new RigidBody(0, motionState, shape);
 

@@ -108,12 +108,18 @@ namespace VirtualBicycle
             set { position = value; }
         }
 
+        /// <summary>
+        ///  获取或设置视点的朝向
+        /// </summary>
         public Quaternion Orientation
         {
             get { return orientation; }
             set { orientation = value; }
         }
 
+        /// <summary>
+        ///  获取或设置一个浮点数，表示投影fovy参数
+        /// </summary>
         public float FieldOfView
         {
             get { return MathEx.Radian2Degree(fovy); }
@@ -124,6 +130,9 @@ namespace VirtualBicycle
             }
         }
 
+        /// <summary>
+        ///  获取或设置一个浮点数，表示近裁剪平面的距离
+        /// </summary>
         public float NearPlane
         {
             get { return near; }
@@ -134,6 +143,9 @@ namespace VirtualBicycle
             }
         }
 
+        /// <summary>
+        ///  获取或设置一个浮点数，表示远裁剪平面的距离
+        /// </summary>
         public float FarPlane
         {
             get { return far; }
@@ -144,6 +156,9 @@ namespace VirtualBicycle
             }
         }
 
+        /// <summary>
+        ///  获取或设置一个浮点数，表示AspectRatio
+        /// </summary>
         public float AspectRatio
         {
             get { return aspect; }
@@ -154,22 +169,35 @@ namespace VirtualBicycle
             }
         }
 
+        /// <summary>
+        ///  获取视点变换矩阵
+        /// </summary>
         public Matrix ViewMatrix
         {
             get { return frustum.view; }
             protected set { frustum.view = value; }
         }
+
+        /// <summary>
+        ///  获取投影矩阵
+        /// </summary>
         public Matrix ProjectionMatrix
         {
             get { return frustum.proj; }
             protected set { frustum.proj = value; }
         }
 
+        /// <summary>
+        ///  获取一个浮点数，表示近裁剪平面的宽度
+        /// </summary>
         public float NearPlaneWidth
         {
             get;
             protected set;
-        }
+        } 
+        /// <summary>
+        ///  获取一个浮点数，表示近裁剪平面的高度
+        /// </summary>
         public float NearPlaneHeight
         {
             get;
@@ -197,11 +225,6 @@ namespace VirtualBicycle
 
         public virtual void UpdateProjection()
         {
-            //fFrustum.proj = Matrix.PerspectiveFovRH(MathEx.Angle2Radian(dFovy), dAspect, dNear, dFar);
-
-            //float radFov = MathEx.Radian2Angle(dFovy);
-
-
             NearPlaneHeight = (float)(Math.Tan(fovy * 0.5f)) * NearPlane * 2;
             NearPlaneWidth = NearPlaneHeight * AspectRatio;
 
@@ -211,37 +234,33 @@ namespace VirtualBicycle
             isProjDirty = false;
         }
 
+        /// <summary>
+        ///  更新相机的状态，每一帧均被引擎调用
+        /// </summary>
+        /// <param name="dt">帧时间间隔，以秒为单位</param>
         public virtual void Update(float dt)
         {
-            //Vector3 vMiPos = -vPosition;
-            //mViewMatrix=//.LoadTranslateMatrix(ref vMiPos);
-            //mViewMatrix *= qOri.ToMatrix4(new Vector3());
-
-            //mProjMatrix.LoadProjectionMatrix(dFovy, dAspect, dNear, dFar);
-
-            //如果需要更新Projection Matrix
+            // 如果需要更新Projection Matrix
             if (isProjDirty)
             {
                 UpdateProjection();
             }
 
             //更新摄像机的Front,Top,Right变量
-
-            //frustum.view = Matrix.RotationQuaternion(orientation);// Matrix.LookAtRH(position, position + front, top);
-
             Matrix m = Matrix.RotationQuaternion(orientation);
 
-            front = MathEx.GetMatrixFront(ref m); // MathEx.QuaternionRotate(orientation, new Vector3(0, 0, 1));
-            top = MathEx.GetMatrixUp(ref m);      // MathEx.QuaternionRotate(orientation, new Vector3(0, 1, 0));
-            right = MathEx.GetMatrixRight(ref m);  // MathEx.QuaternionRotate(orientation, new Vector3(1, 0, 0));
+            front = MathEx.GetMatrixFront(ref m);
+            top = MathEx.GetMatrixUp(ref m);
+            right = MathEx.GetMatrixRight(ref m);
 
             frustum.view = Matrix.LookAtRH(position, position + front, top);
-            //MathEx.QuaternionToMatrix(ref orientation, out frustum.view);
-            
-            //frustum.view = Matrix.Translation(-position) * frustum.view;
+
             frustum.Update();
         }
 
+        /// <summary>
+        ///  重置摄像机
+        /// </summary>
         public virtual void ResetView() { }
 
         #endregion
