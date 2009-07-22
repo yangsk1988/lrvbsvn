@@ -112,7 +112,6 @@ namespace VirtualBicycle.Scene
 
         public void NotifyObjectEntered(SceneObject obj)
         {
-
             this.sceneMgr.AddObjectToScene(obj);
         }
 
