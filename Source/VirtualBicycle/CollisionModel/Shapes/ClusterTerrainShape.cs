@@ -59,9 +59,9 @@ namespace VirtualBicycle.CollisionModel.Shapes
 
             _maxHeight = heightScale;
 
-            halfExtents.X = Cluster.ClusterSize;
+            halfExtents.X = Terrain.TerrainSize;
             halfExtents.Y = _maxHeight;
-            halfExtents.Z = Cluster.ClusterSize;
+            halfExtents.Z = Terrain.TerrainSize;
 
 
             halfExtents *= 0.5f;
@@ -112,21 +112,21 @@ namespace VirtualBicycle.CollisionModel.Shapes
 
         private float GetHeightFieldValue(int x, int y)
         {
-            return _heightfieldDataFloat[(y * Cluster.ClusterSize) + x];
+            return _heightfieldDataFloat[(y * Terrain.TerrainSize) + x];
         }
 
         private void GetVertex(int x, int y, ref Vector3 vertex)
         {
             PhysDebug.Assert(x >= 0);
             PhysDebug.Assert(y >= 0);
-            PhysDebug.Assert(x < Cluster.ClusterSize);
-            PhysDebug.Assert(y < Cluster.ClusterSize);
+            PhysDebug.Assert(x < Terrain.TerrainSize);
+            PhysDebug.Assert(y < Terrain.TerrainSize);
 
             float height = GetHeightFieldValue(x, y);
 
-            vertex.X = (-Cluster.ClusterSize / 2) + x;
+            vertex.X = (-Terrain.TerrainSize / 2) + x;
             vertex.Y = height;
-            vertex.Z = (-Cluster.ClusterSize / 2) + y;
+            vertex.Z = (-Terrain.TerrainSize / 2) + y;
 
             vertex *= _localScaling;
         }
@@ -163,14 +163,14 @@ namespace VirtualBicycle.CollisionModel.Shapes
             QuantizeWithClamp(quantizedAabbMax, ref localAabbMax);
 
             int startX = 0;
-            int endX = Cluster.ClusterSize - 1;
+            int endX = Terrain.TerrainSize - 1;
             int startJ = 0;
-            int endJ = Cluster.ClusterSize - 1;
+            int endJ = Terrain.TerrainSize - 1;
 
-            quantizedAabbMin[0] += Cluster.ClusterSize / 2 - 1;
-            quantizedAabbMax[0] += Cluster.ClusterSize / 2 + 1;
-            quantizedAabbMin[2] += Cluster.ClusterSize / 2 - 1;
-            quantizedAabbMax[2] += Cluster.ClusterSize / 2 + 1;
+            quantizedAabbMin[0] += Terrain.TerrainSize / 2 - 1;
+            quantizedAabbMax[0] += Terrain.TerrainSize / 2 + 1;
+            quantizedAabbMin[2] += Terrain.TerrainSize / 2 - 1;
+            quantizedAabbMax[2] += Terrain.TerrainSize / 2 + 1;
 
             if (quantizedAabbMin[0] > startX)
                 startX = quantizedAabbMin[0];

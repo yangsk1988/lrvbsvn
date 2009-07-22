@@ -50,35 +50,35 @@ namespace VirtualBicycle.Logic.Traffic
                 int rx = ux;
                 int ry = uy;
                 //根据相对值,得出到底是在哪个Cluster中
-                if ((ux < Cluster.ClusterSize) && (uy < Cluster.ClusterSize))
+                if ((ux < Terrain.TerrainSize) && (uy < Terrain.TerrainSize))
                 {
                     relativeMap = LeftUp;
                 }
-                else if ((ux < Cluster.ClusterSize) && (uy >= Cluster.ClusterSize))
+                else if ((ux < Terrain.TerrainSize) && (uy >= Terrain.TerrainSize))
                 {
                     relativeMap = LeftDown;
                 }
-                else if ((ux >= Cluster.ClusterSize) && (uy < Cluster.ClusterSize))
+                else if ((ux >= Terrain.TerrainSize) && (uy < Terrain.TerrainSize))
                 {
                     relativeMap = RightUp;
                 }
-                else if ((ux >= Cluster.ClusterSize) && (uy >= Cluster.ClusterSize))
+                else if ((ux >= Terrain.TerrainSize) && (uy >= Terrain.TerrainSize))
                 {
                     relativeMap = RightDown;
                 }
 
                 //根据相对值,计算得出在所属的Cluster中的相对坐标
-                if (uy >= Cluster.ClusterSize)
+                if (uy >= Terrain.TerrainSize)
                 {
-                    ry = uy - Cluster.ClusterSize;
+                    ry = uy - Terrain.TerrainSize;
                 }
 
-                if (ux >= Cluster.ClusterSize)
+                if (ux >= Terrain.TerrainSize)
                 {
-                    rx = ux - Cluster.ClusterSize;
+                    rx = ux - Terrain.TerrainSize;
                 }
 
-                return relativeMap[ry * Cluster.ClusterSize + rx];
+                return relativeMap[ry * Terrain.TerrainSize + rx];
             }
             set
             {
@@ -86,72 +86,72 @@ namespace VirtualBicycle.Logic.Traffic
                 int rx = ux;
                 int ry = uy;
                 //根据相对值,得出到底是在哪个Cluster中
-                if ((ux < Cluster.ClusterSize) && (uy < Cluster.ClusterSize))
+                if ((ux < Terrain.TerrainSize) && (uy < Terrain.TerrainSize))
                 {
                     relativeMap = LeftUp;
 
-                    if (uy >= Cluster.ClusterSize)
+                    if (uy >= Terrain.TerrainSize)
                     {
-                        ry = uy - Cluster.ClusterSize;
+                        ry = uy - Terrain.TerrainSize;
                     }
 
-                    if (ux >= Cluster.ClusterSize)
+                    if (ux >= Terrain.TerrainSize)
                     {
-                        rx = ux - Cluster.ClusterSize;
+                        rx = ux - Terrain.TerrainSize;
                     }
 
-                    relativeMap[ry * Cluster.ClusterSize + rx] = value;
+                    relativeMap[ry * Terrain.TerrainSize + rx] = value;
                 }
 
-                if ((ux < Cluster.ClusterSize) && (uy >= Cluster.ClusterSize - 1))
+                if ((ux < Terrain.TerrainSize) && (uy >= Terrain.TerrainSize - 1))
                 {
                     relativeMap = LeftDown;
 
-                    if (uy >= Cluster.ClusterSize)
+                    if (uy >= Terrain.TerrainSize)
                     {
-                        ry = uy - Cluster.ClusterSize;
+                        ry = uy - Terrain.TerrainSize;
                     }
 
-                    if (ux >= Cluster.ClusterSize)
+                    if (ux >= Terrain.TerrainSize)
                     {
-                        rx = ux - Cluster.ClusterSize;
+                        rx = ux - Terrain.TerrainSize;
                     }
 
-                    relativeMap[ry * Cluster.ClusterSize + rx] = value;
+                    relativeMap[ry * Terrain.TerrainSize + rx] = value;
                 }
 
-                if ((ux >= Cluster.ClusterSize - 1) && (uy < Cluster.ClusterSize))
+                if ((ux >= Terrain.TerrainSize - 1) && (uy < Terrain.TerrainSize))
                 {
                     relativeMap = RightUp;
 
-                    if (uy >= Cluster.ClusterSize)
+                    if (uy >= Terrain.TerrainSize)
                     {
-                        ry = uy - Cluster.ClusterSize;
+                        ry = uy - Terrain.TerrainSize;
                     }
 
-                    if (ux >= Cluster.ClusterSize)
+                    if (ux >= Terrain.TerrainSize)
                     {
-                        rx = ux - Cluster.ClusterSize;
+                        rx = ux - Terrain.TerrainSize;
                     }
 
-                    relativeMap[ry * Cluster.ClusterSize + rx] = value;
+                    relativeMap[ry * Terrain.TerrainSize + rx] = value;
                 }
 
-                if ((ux >= Cluster.ClusterSize - 1) && (uy >= Cluster.ClusterSize - 1))
+                if ((ux >= Terrain.TerrainSize - 1) && (uy >= Terrain.TerrainSize - 1))
                 {
                     relativeMap = RightDown;
 
-                    if (uy >= Cluster.ClusterSize)
+                    if (uy >= Terrain.TerrainSize)
                     {
-                        ry = uy - Cluster.ClusterSize;
+                        ry = uy - Terrain.TerrainSize;
                     }
 
-                    if (ux >= Cluster.ClusterSize)
+                    if (ux >= Terrain.TerrainSize)
                     {
-                        rx = ux - Cluster.ClusterSize;
+                        rx = ux - Terrain.TerrainSize;
                     }
 
-                    relativeMap[ry * Cluster.ClusterSize + rx] = value;
+                    relativeMap[ry * Terrain.TerrainSize + rx] = value;
                 }
             }
         }
@@ -955,7 +955,7 @@ namespace VirtualBicycle.Logic.Traffic
                 for (int dy = minY; dy <= maxY; dy++)
                 {
                     //如果这个点在地图中,则检查高度,这里需要特别考虑交界处的情况
-                    if (IsPointInMap(dx, dy, Cluster.ClusterSize, clusterCount))
+                    if (IsPointInMap(dx, dy, Terrain.TerrainSize, clusterCount))
                     {
                         Vector3 point = new Vector3(dx * cellUnit, 0, dy * cellUnit);
 

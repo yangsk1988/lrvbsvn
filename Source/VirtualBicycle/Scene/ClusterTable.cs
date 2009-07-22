@@ -5,7 +5,7 @@ using System.Text;
 namespace VirtualBicycle.Scene
 {
     /// <summary>
-    ///  用于快速查询Cluster的哈希表
+    ///  可以快速查询Cluster的哈希表
     /// </summary>
     public class ClusterTable : ClusterTableBase<Cluster>
     {

@@ -20,8 +20,8 @@ namespace VirtualBicycle.Logic
         {
             this.buildingType = bldType; 
             
-            this.Model = bldType.Model;
-            this.LodModel = bldType.LodModel;
+            this.ModelL0 = bldType.Model;
+            this.ModelL1 = bldType.LodModel;
         }
 
         #endregion

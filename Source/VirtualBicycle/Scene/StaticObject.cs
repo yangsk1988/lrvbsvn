@@ -111,7 +111,7 @@ namespace VirtualBicycle.Scene
                 trans.M42 = 0;
                 trans.M43 = 0;
 
-                cdMesh = CollisionMeshManager.Instance.CreateInstance(Model, trans);
+                cdMesh = CollisionMeshManager.Instance.CreateInstance(ModelL0, trans);
                 BvhTriMeshResShape shape = new BvhTriMeshResShape(cdMesh);
 
 

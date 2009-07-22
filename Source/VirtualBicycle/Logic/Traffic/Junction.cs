@@ -54,8 +54,8 @@ namespace VirtualBicycle.Logic.Traffic
             this.crossType = type;
             this.trafficNet = trafficNet;
 
-            this.Model = type.Model;
-            this.LodModel = type.LodModel;
+            this.ModelL0 = type.Model;
+            this.ModelL1 = type.LodModel;
 
             this.connectTable = new ExistTable<ITrafficComponment>();
             this.connectedCon = new List<TCConnectionInfo>();

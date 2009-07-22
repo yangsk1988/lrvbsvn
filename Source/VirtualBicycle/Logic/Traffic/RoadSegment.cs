@@ -24,7 +24,7 @@ namespace VirtualBicycle.Logic.Traffic
         public RoadSegment(Road parent, Model model)
             : base(false)
         {
-            base.Model = model;
+            base.ModelL0 = model;
             this.Track = parent;
         }
 

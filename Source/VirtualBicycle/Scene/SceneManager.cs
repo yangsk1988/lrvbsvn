@@ -90,9 +90,9 @@ namespace VirtualBicycle.Scene
         protected abstract void BuildSceneManager();
 
         /// <summary>
-        /// 添加物体到场景中，并将它附到一个合适的节点
+        ///  把物体加入到场景管理器中，并将它附到一个合适的节点
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">加入的物体</param>
         public virtual void AddObjectToScene(SceneObject obj)
         {
             obj.OffsetX = OffsetX;
@@ -104,10 +104,11 @@ namespace VirtualBicycle.Scene
             objects.Add(obj);
         }
 
+
         /// <summary>
-        /// 移除场景中的物体
+        ///  把物体从场景管理器中移除
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">移除的物体</param>
         public virtual void RemoveObjectFromScene(SceneObject obj)
         {
             objects.Remove(obj);

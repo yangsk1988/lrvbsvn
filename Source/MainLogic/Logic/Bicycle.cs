@@ -232,7 +232,7 @@ namespace VirtualBicycle.Logic
         public Bicycle(Device device)
         {
             FileLocation fl = FileSystem.Instance.Locate(Path.Combine(VirtualBicycle.IO.Paths.Models, "bicycle.mesh"), FileLocateRules.Default);
-            Model = ModelManager.Instance.CreateInstance(device, fl);
+            ModelL0 = ModelManager.Instance.CreateInstance(device, fl);
             mass = 70;
 
         }
@@ -240,7 +240,7 @@ namespace VirtualBicycle.Logic
         public Bicycle(Device device, BicycleOwner owner)
         {
             FileLocation fl = FileSystem.Instance.Locate(Path.Combine(VirtualBicycle.IO.Paths.Models, "bicycle.mesh"), FileLocateRules.Default);
-            Model = ModelManager.Instance.CreateInstance(device, fl);
+            ModelL0 = ModelManager.Instance.CreateInstance(device, fl);
             mass = 70;
             ownerType = owner;
         }
@@ -672,20 +672,20 @@ namespace VirtualBicycle.Logic
 
         public override RenderOperation[] GetRenderOperation()
         {
-            if (UseLodModel)
+            if (HasLodModel)
             {
-                if (LodModel != null)
+                if (ModelL1 != null)
                 {
-                    return LodModel.GetRenderOperation();
+                    return ModelL1.GetRenderOperation();
                 }
             }
-            if (Model != null)
+            if (ModelL0 != null)
             {
-                RenderOperation[] ops = Model.GetRenderOperation();
+                RenderOperation[] ops = ModelL0.GetRenderOperation();
 
                 if (handleBarIndex == -1 || frontWheelIndex == -1 || backWheelIndex == -1)
                 {
-                    GameMesh[] ents = Model.Entities;
+                    GameMesh[] ents = ModelL0.Entities;
                     for (int i = 0; i < ents.Length; i++)
                     {
                         if (CaseInsensitiveStringComparer.Compare(ents[i].Name, "handlebar"))
@@ -772,13 +772,13 @@ namespace VirtualBicycle.Logic
                 }
 
 
-                if (Model != null)
+                if (ModelL0 != null)
                 {
-                    ModelManager.Instance.DestoryInstance(Model);
+                    ModelManager.Instance.DestoryInstance(ModelL0);
                 }
-                if (LodModel != null)
+                if (ModelL1 != null)
                 {
-                    ModelManager.Instance.DestoryInstance(LodModel);
+                    ModelManager.Instance.DestoryInstance(ModelL1);
                 }
             }
             base.Dispose(disposing);

@@ -21,12 +21,20 @@ namespace VirtualBicycle.Scene
     {
         ClusterTable clusterTable;
 
+        /// <summary>
+        ///  获取游戏场景的ClusterTable，包含场景所有Cluster
+        /// </summary>
         public ClusterTable ClusterTable
         {
             get { return clusterTable; }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="device">d3d设备</param>
+        /// <param name="data">构建场景的数据</param>
+        /// <param name="cbk">进度指示回调</param>
         public GameScene(Device device, SceneData data, ProgressCallBack cbk)
             : base(device, data)
         {
@@ -81,6 +89,13 @@ namespace VirtualBicycle.Scene
 
         }
 
+        /// <summary>
+        ///  从世界坐标计算Cluster的坐标（地形坐标单位）
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="z"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
         public void GetClusterCoord(float x, float z, out int cx, out int cy)
         {
             float invCellUnit = 1.0f / CellUnit;
@@ -89,7 +104,7 @@ namespace VirtualBicycle.Scene
             int esy = (int)(z * invCellUnit);
 
             // 截断到Cluster的第一顶点处
-            if (esx < Cluster.ClusterSize)
+            if (esx < Terrain.TerrainSize)
             {
                 esx = 0;
             }
@@ -98,7 +113,7 @@ namespace VirtualBicycle.Scene
                 esx = Cluster.ClusterLength * ((esx - 1) / Cluster.ClusterLength) + 1;
             }
 
-            if (esy < Cluster.ClusterSize)
+            if (esy < Terrain.TerrainSize)
             {
                 esy = 0;
             }
@@ -110,6 +125,10 @@ namespace VirtualBicycle.Scene
             cy = esy;
         }
 
+        /// <summary>
+        ///  检测游戏场景中所有可见的Cluster
+        /// </summary>
+        /// <param name="cam">目标摄像机</param>
         protected override void PrepareVisibleClusters(ICamera cam)
         {
             visibleClusters.FastClear();
@@ -123,7 +142,7 @@ namespace VirtualBicycle.Scene
             int esy = (int)((camPos.Z - cam.FarPlane) * invCellUnit);
 
             // 截断到Cluster的第一顶点处
-            if (esx < Cluster.ClusterSize)
+            if (esx < Terrain.TerrainSize)
             {
                 esx = 0;
             }
@@ -132,7 +151,7 @@ namespace VirtualBicycle.Scene
                 esx = Cluster.ClusterLength * ((esx - 1) / Cluster.ClusterLength) + 1;
             }
 
-            if (esy < Cluster.ClusterSize)
+            if (esy < Terrain.TerrainSize)
             {
                 esy = 0;
             }
@@ -152,9 +171,9 @@ namespace VirtualBicycle.Scene
             //    enumLength++;
             //}
 
-            for (int x = esx; x < esx + enumLength; x += Cluster.ClusterSize)
+            for (int x = esx; x < esx + enumLength; x += Terrain.TerrainSize)
             {
-                for (int y = esy; y < esy + enumLength; y += Cluster.ClusterSize)
+                for (int y = esy; y < esy + enumLength; y += Terrain.TerrainSize)
                 {
                     ClusterDescription desc = new ClusterDescription(x, y);
 
@@ -170,6 +189,12 @@ namespace VirtualBicycle.Scene
                 }
             }
         }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <param name="ray"></param>
+        /// <returns></returns>
         public override SceneObject FindObject(LineSegment ray)
         {
             Vector3 direction = ray.End - ray.Start;
@@ -187,7 +212,7 @@ namespace VirtualBicycle.Scene
 
 
             // 截断到Cluster的第一顶点处
-            if (esx < Cluster.ClusterSize)
+            if (esx < Terrain.TerrainSize)
             {
                 esx = 0;
             }
@@ -196,7 +221,7 @@ namespace VirtualBicycle.Scene
                 esx = Cluster.ClusterLength * ((esx - 1) / Cluster.ClusterLength) + 1;
             }
 
-            if (esy < Cluster.ClusterSize)
+            if (esy < Terrain.TerrainSize)
             {
                 esy = 0;
             }
@@ -211,9 +236,9 @@ namespace VirtualBicycle.Scene
 
             Ray ra = new Ray(ray.Start, direction);
 
-            for (int x = esx; x < esx + enumLength; x += Cluster.ClusterSize)
+            for (int x = esx; x < esx + enumLength; x += Terrain.TerrainSize)
             {
-                for (int y = esy; y < esy + enumLength; y += Cluster.ClusterSize)
+                for (int y = esy; y < esy + enumLength; y += Terrain.TerrainSize)
                 {
                     ClusterDescription desc = new ClusterDescription(x, y);
 
@@ -243,6 +268,10 @@ namespace VirtualBicycle.Scene
             return result;
         }
 
+        /// <summary>
+        ///  释放使用的所有资源。重写的方法应调用基类中的方法。
+        /// </summary>
+        /// <param name="disposing">表示是否需要释放该物体所引用的其他资源，当为真时，调用那些资源的Dispose方法</param>      
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
