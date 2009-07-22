@@ -100,6 +100,7 @@ namespace VirtualBicycle.Ide
             ConverterManager.Instance.Register(new DispMapConverter());
             ConverterManager.Instance.Register(new NormalMapConverter());
             ConverterManager.Instance.Register(new XText2ModelConverter());
+            ConverterManager.Instance.Register(new DemConverter());
 
             ConverterManager.Instance.Register(new Mesh2MeshConverter());
 

@@ -271,7 +271,6 @@ namespace VirtualBicycle.Input
                                 int hp = dta.byte2 & (1 << 5);
                                 if (hp != lastHPulse)
                                 {
-
                                     Manager.OnHeartPulse();
 
                                     lastHPulse = hp;
