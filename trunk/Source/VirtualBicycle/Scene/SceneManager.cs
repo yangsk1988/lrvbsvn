@@ -121,6 +121,11 @@ namespace VirtualBicycle.Scene
         /// <param name="frus"></param>
         public abstract void FindObjects(FastList<SceneObject> objects, Frustum frus);
 
+        /// <summary>
+        ///  超找符合IObjectFilter提供的条件的物体
+        /// </summary>
+        /// <param name="callBack">回调</param>
+        /// <returns></returns>
         public List<SceneObject> FindObjects(IObjectFilter callBack)
         {
             List<SceneObject> result = new List<SceneObject>();

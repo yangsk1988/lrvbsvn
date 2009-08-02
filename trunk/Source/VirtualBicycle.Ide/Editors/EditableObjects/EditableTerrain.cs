@@ -22,7 +22,7 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
 
         public void LoadEmptyTerrain()
         {
-            Texture dtex = new Texture(base.Device, Cluster.ClusterSize, Cluster.ClusterSize, 1, Usage.None, Format.R32F, Pool.Managed);
+            Texture dtex = new Texture(base.Device, Terrain.TerrainSize, Terrain.TerrainSize, 1, Usage.None, Format.R32F, Pool.Managed);
             TerrainTexture tex = TerrainTextureManager.Instance.CreateInstance(dtex, true);
             SetDisplacementMap(tex);
 

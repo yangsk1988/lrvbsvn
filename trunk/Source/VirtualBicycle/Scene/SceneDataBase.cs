@@ -18,7 +18,9 @@ namespace VirtualBicycle.Scene
         public const float MaxTerrainHeight = 5000f;
 
         public const int FileId = (((byte)'V') << 24) | (((byte)'M') << 16) | (((byte)'P') << 8) | ((byte)' ');
+
         static readonly string NameTag = "Name";
+        
         static readonly string DescriptionTag = "Description";
 
         protected static readonly string TerrainTag = "Terrain";

@@ -191,7 +191,7 @@ namespace VirtualBicycle.Scene
         }
 
         /// <summary>
-        ///  
+        ///  查找和线段相交的物体
         /// </summary>
         /// <param name="ray"></param>
         /// <returns></returns>

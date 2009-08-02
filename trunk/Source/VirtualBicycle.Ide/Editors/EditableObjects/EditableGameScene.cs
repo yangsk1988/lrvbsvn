@@ -69,20 +69,20 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
             vtxPtr[0].diffuse = color;
             vtxPtr[0].pos = new Vector3(0, -500, 0);
             vtxPtr[1].diffuse = color;
-            vtxPtr[1].pos = new Vector3(Cluster.ClusterSize, -500, 0);
+            vtxPtr[1].pos = new Vector3(Terrain.TerrainSize, -500, 0);
             vtxPtr[2].diffuse = color;
-            vtxPtr[2].pos = new Vector3(Cluster.ClusterSize, -500, Cluster.ClusterSize);
+            vtxPtr[2].pos = new Vector3(Terrain.TerrainSize, -500, Terrain.TerrainSize);
             vtxPtr[3].diffuse = color;
-            vtxPtr[3].pos = new Vector3(0, -500, Cluster.ClusterSize);
+            vtxPtr[3].pos = new Vector3(0, -500, Terrain.TerrainSize);
 
             vtxPtr[4].diffuse = color;
             vtxPtr[4].pos = new Vector3(0, 500, 0);
             vtxPtr[5].diffuse = color;
-            vtxPtr[5].pos = new Vector3(Cluster.ClusterSize, 500, 0);
+            vtxPtr[5].pos = new Vector3(Terrain.TerrainSize, 500, 0);
             vtxPtr[6].diffuse = color;
-            vtxPtr[6].pos = new Vector3(Cluster.ClusterSize, 500, Cluster.ClusterSize);
+            vtxPtr[6].pos = new Vector3(Terrain.TerrainSize, 500, Terrain.TerrainSize);
             vtxPtr[7].diffuse = color;
-            vtxPtr[7].pos = new Vector3(0, 500, Cluster.ClusterSize);
+            vtxPtr[7].pos = new Vector3(0, 500, Terrain.TerrainSize);
 
             vb.Unlock();
 
@@ -269,7 +269,7 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
             int esy = (int)((camPos.Z - cam.FarPlane) * invCellUnit);
 
             // 截断到Cluster的第一顶点处
-            if (esx < Cluster.ClusterSize)
+            if (esx < Terrain.TerrainSize)
             {
                 esx = 0;
             }
@@ -278,7 +278,7 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
                 esx = Cluster.ClusterLength * ((esx - 1) / Cluster.ClusterLength) + 1;
             }
 
-            if (esy < Cluster.ClusterSize)
+            if (esy < Terrain.TerrainSize)
             {
                 esy = 0;
             }
@@ -298,9 +298,9 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
             //    enumLength++;
             //}
 
-            for (int x = esx; x < esx + enumLength; x += Cluster.ClusterSize)
+            for (int x = esx; x < esx + enumLength; x += Terrain.TerrainSize)
             {
-                for (int y = esy; y < esy + enumLength; y += Cluster.ClusterSize)
+                for (int y = esy; y < esy + enumLength; y += Terrain.TerrainSize)
                 {
                     ClusterDescription desc = new ClusterDescription(x, y);
 
@@ -338,7 +338,7 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
 
 
             // 截断到Cluster的第一顶点处
-            if (esx < Cluster.ClusterSize)
+            if (esx < Terrain.TerrainSize)
             {
                 esx = 0;
             }
@@ -347,7 +347,7 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
                 esx = Cluster.ClusterLength * ((esx - 1) / Cluster.ClusterLength) + 1;
             }
 
-            if (esy < Cluster.ClusterSize)
+            if (esy < Terrain.TerrainSize)
             {
                 esy = 0;
             }
@@ -362,9 +362,9 @@ namespace VirtualBicycle.Ide.Editors.EditableObjects
 
             Ray ra = new Ray(ray.Start, direction);
 
-            for (int x = esx; x < esx + enumLength; x += Cluster.ClusterSize)
+            for (int x = esx; x < esx + enumLength; x += Terrain.TerrainSize)
             {
-                for (int y = esy; y < esy + enumLength; y += Cluster.ClusterSize)
+                for (int y = esy; y < esy + enumLength; y += Terrain.TerrainSize)
                 {
                     ClusterDescription desc = new ClusterDescription(x, y);
 
