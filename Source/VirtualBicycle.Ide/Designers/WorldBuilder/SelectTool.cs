@@ -33,6 +33,11 @@ namespace VirtualBicycle.Ide.Designers.WorldBuilder
             return true;
         }
 
+        public bool Check(OctreeSceneNode node)
+        {
+            return true;
+        }
+
         #endregion
     }
 
