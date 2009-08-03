@@ -177,13 +177,15 @@ namespace VirtualBicycle.Scene
         /// <summary>
         /// 根据摄像机的视见体准备可见物体
         /// </summary>
-        /// <param name="camera"></param>
+        /// <param name="camera">渲染到的摄像机</param>
+        /// <param name="batchHelper">当该方法执行完毕后，存储当前场景管理器的可见批次</param>
         public abstract void PrepareVisibleObjects(ICamera camera, PassInfo batchHelper);
 
         /// <summary>
         /// 添加可见物体，准备渲染
         /// </summary>
         /// <param name="obj">要添加的物体</param>
+        /// <param name="batchHelper">当该方法执行完毕后，物体的渲染批次会存入</param>
         /// <remarks>用于渲染批次优化</remarks>
         protected void AddVisibleObject(SceneObject obj, PassInfo batchHelper)
         {
