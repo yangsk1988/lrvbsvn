@@ -52,11 +52,6 @@ namespace VirtualBicycle.Scene
             protected set;
         }
 
-
-        /// <summary>
-        ///  把物体加入到场景管理器中，并将它附到一个合适的节点
-        /// </summary>
-        /// <param name="obj">加入的物体</param>
         public override void AddObjectToScene(SceneObject obj)
         {
             base.AddObjectToScene(obj);
@@ -118,10 +113,6 @@ namespace VirtualBicycle.Scene
             }
         }
 
-        /// <summary>
-        ///  把物体从场景管理器中移除
-        /// </summary>
-        /// <param name="obj">移除的物体</param>
         public override void RemoveObjectFromScene(SceneObject obj)
         {
             base.RemoveObjectFromScene(obj);
@@ -154,10 +145,6 @@ namespace VirtualBicycle.Scene
             octRootNode = new OctreeSceneNode(this, null);
         }
 
-        //public override SceneNode FindNode(SceneObject obj)
-        //{
-        //    return base.FindNode(obj);
-        //}
         public override void FindObjects(FastList<SceneObject> objects, Frustum frus)
         {
             if (queue.Count == 0)
