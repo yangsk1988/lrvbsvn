@@ -12,9 +12,7 @@ namespace VirtualBicycle.Graphics
         /// <summary>
         ///  获得渲染操作
         /// </summary>
-        /// <returns></returns>
-        RenderOperation[] GetRenderOperation();
-
-        
+        /// <returns>返回一个数组，包含所有的渲染操作</returns>
+        RenderOperation[] GetRenderOperation();        
     }
 }

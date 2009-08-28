@@ -94,7 +94,7 @@ namespace VirtualBicycle.IO
             return buffer[0] | (buffer[1] << 8) | (buffer[2] << 16) | (buffer[3] << 24);
 
         }
-        //[CLSCompliant(false)]
+
         public uint GetDataUInt32(string name)
         {
             Entry ent = positions[name];

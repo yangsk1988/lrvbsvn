@@ -60,13 +60,17 @@ namespace VirtualBicycle.Scene
 
         protected FastList<SceneObject> visibleObjects;
 
-        PassInfo batchHelper = new PassInfo();
+        BatchData batchData = new BatchData();
 
         //public ClusterTable ClusterTable
         //{
         //    get { return clusterTable; }
         //}
 
+
+        /// <summary>
+        ///  获取或设置后期效果渲染器
+        /// </summary>
         public IPostSceneRenderer PostRenderer
         {
             get { return postRenderer; }
@@ -111,10 +115,13 @@ namespace VirtualBicycle.Scene
             protected set;
         }
 
+        /// <summary>
+        ///  获取渲染物体的数量
+        /// </summary>
         public int RenderedObjectCount
         {
-            get { return batchHelper.RenderedObjectCount; }
-            protected set { batchHelper.RenderedObjectCount = value; }
+            get { return batchData.RenderedObjectCount; }
+            protected set { batchData.RenderedObjectCount = value; }
         }
 
         ///// <summary>
@@ -231,10 +238,10 @@ namespace VirtualBicycle.Scene
             visibleObjects = new FastList<SceneObject>();
 
 
-            batchHelper.batchTable = batchTable;
-            batchHelper.effects = effects;
-            batchHelper.instanceTable = instanceTable;
-            batchHelper.visibleObjects = visibleObjects;
+            batchData.BatchTable = batchTable;
+            batchData.Effects = effects;
+            batchData.InstanceTable = instanceTable;
+            batchData.VisibleObjects = visibleObjects;
 
             this.instancing = new Instancing(device);
 
@@ -243,18 +250,29 @@ namespace VirtualBicycle.Scene
             EffectParams.ShadowMap = shadowMap;
         }
 
-
+        /// <summary>
+        ///  添加摄像机
+        /// </summary>
+        /// <param name="cam"></param>
         public void RegisterCamera(ICamera cam)
         {
             cameraList.Add(cam);
             CurrentCamera = cam;
         }
 
+        /// <summary>
+        ///  删除摄像机
+        /// </summary>
+        /// <param name="cam"></param>
         public void UnregisterCamera(ICamera cam)
         {
             cameraList.Remove(cam);
         }
 
+        /// <summary>
+        ///  将RenderOperation加入哈希表，准备渲染
+        /// </summary>
+        /// <param name="ops"></param>
         public void AddOperation(RenderOperation[] ops)
         {
             if (ops != null)
@@ -285,16 +303,16 @@ namespace VirtualBicycle.Scene
                             if (supportsInst)
                             {
                                 ModelEffect effect;
-                                if (!batchHelper.effects.TryGetValue(desc, out effect))
+                                if (!batchData.Effects.TryGetValue(desc, out effect))
                                 {
-                                    batchHelper.effects.Add(desc, mate.Effect);
+                                    batchData.Effects.Add(desc, mate.Effect);
                                 }
 
                                 Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable;
-                                if (!batchHelper.instanceTable.TryGetValue(desc, out matTable))
+                                if (!batchData.InstanceTable.TryGetValue(desc, out matTable))
                                 {
                                     matTable = new Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>();
-                                    batchHelper.instanceTable.Add(desc, matTable);
+                                    batchData.InstanceTable.Add(desc, matTable);
                                 }
 
                                 Dictionary<GeomentryData, FastList<RenderOperation>> geoDataTbl;
@@ -318,15 +336,15 @@ namespace VirtualBicycle.Scene
                                 ModelEffect effect;
                                 FastList<RenderOperation> opList;
 
-                                if (!batchHelper.effects.TryGetValue(desc, out effect))
+                                if (!batchData.Effects.TryGetValue(desc, out effect))
                                 {
-                                    batchHelper.effects.Add(desc, mate.Effect);
+                                    batchData.Effects.Add(desc, mate.Effect);
                                 }
 
-                                if (!batchHelper.batchTable.TryGetValue(desc, out opList))
+                                if (!batchData.BatchTable.TryGetValue(desc, out opList))
                                 {
                                     opList = new FastList<RenderOperation>();
-                                    batchHelper.batchTable.Add(desc, opList);
+                                    batchData.BatchTable.Add(desc, opList);
                                 }
 
                                 opList.Add(ops[k]);
@@ -492,17 +510,27 @@ namespace VirtualBicycle.Scene
         //    }
         //}
 
+        /// <summary>
+        ///  在渲染物体之前（包括阴影），进行渲染前操作。对于每个摄像机都会调用。
+        /// </summary>
         protected virtual void PreRender()
         {
 
         }
 
+        /// <summary>
+        ///  在渲染的时候，获取当前渲染到的摄像机
+        /// </summary>
         public ICamera CurrentCamera
         {
             get;
             protected set;
         }
 
+        /// <summary>
+        ///  见接口<see cref="ISceneRenderer"/>
+        /// </summary>
+        /// <param name="target"></param>
         void ISceneRenderer.RenderScenePost(Surface target)
         {
             device.SetRenderTarget(0, target);
@@ -644,6 +672,7 @@ namespace VirtualBicycle.Scene
             effects.Clear();
         }
 
+
         void RenderList(string name, FastList<RenderOperation> opList)
         {
             device.PixelShader = null;
@@ -704,7 +733,7 @@ namespace VirtualBicycle.Scene
             effect.End();
         }
 
-        void RenderSMList(string name, FastList<RenderOperation> opList) 
+        void RenderSMList(string name, FastList<RenderOperation> opList)
         {
             ModelEffect effect = effects[name];
             if (effect == null)
@@ -754,12 +783,30 @@ namespace VirtualBicycle.Scene
             effect.EndShadowPass();
         }
 
+        /// <summary>
+        ///  渲染整个场景
+        /// </summary>
+        /// <remarks>
+        ///  在这个函数中对于每个摄像机检测可见的物体，渲染阴影贴图。
+        ///  然后，渲染器会使用IPostSceneRenderer来进行剩下的渲染操作，
+        ///  在一个实现IPostSceneRenderer的对象中，
+        ///  IPostSceneRenderer对象可以回调该GameScene（或者说实现ISceneRenderer）的RenderScenePost方法，
+        ///  渲染3D场景的。然后完成后期特效的渲染。
+        ///  
+        ///  调用顺序：
+        ///   -> GameSceneBase.RenderScene
+        ///    检测可见物体
+        ///    完成阴影贴图渲染
+        ///   -> IPostSceneRender.Render
+        ///   -> ISceneRenderer.RenderScenePost 或者说 GameSceneBase.RenderScenePost
+        ///    渲染场景
+        /// </remarks>
         public virtual void RenderScene()
         {
             VertexCount = 0;
             BatchCount = 0;
             PrimitiveCount = 0;
-            batchHelper.RenderedObjectCount = 0;
+            batchData.RenderedObjectCount = 0;
 
             EffectParams.Atmosphere = Atmosphere;
             EffectParams.TerrainHeightScale = Data.TerrainSettings.HeightScale;
@@ -773,18 +820,18 @@ namespace VirtualBicycle.Scene
 
                 for (int j = 0; j < visibleClusters.Count; j++)
                 {
-                    visibleClusters[j].SceneManager.PrepareVisibleObjects(EffectParams.CurrentCamera, batchHelper);
+                    visibleClusters[j].SceneManager.PrepareVisibleObjects(EffectParams.CurrentCamera, batchData);
                 }
 
                 AddAxisOperation();
                 PreRender();
-
 
                 device.PixelShader = null;
                 device.VertexShader = null;
 
                 device.SetRenderState(RenderState.ZEnable, true);
 
+                // 渲染阴影贴图
                 #region Shadow Map Gen
                 shadowMap.Begin(Atmosphere.LightDirection, EffectParams.CurrentCamera);
 
@@ -880,6 +927,10 @@ namespace VirtualBicycle.Scene
             //shadowMap.RenderSM();
         }
 
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <param name="dt">时间间隔</param>
         public virtual void Update(float dt)
         {
             for (int i = 0; i < cameraList.Count; i++)

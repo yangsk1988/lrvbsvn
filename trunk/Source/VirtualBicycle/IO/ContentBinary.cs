@@ -8,7 +8,6 @@ using VirtualBicycle.Graphics;
 
 namespace VirtualBicycle.IO
 {
-
     public class ContentBinaryReader : BinaryReader
     {
         //bool closeStream = true;
@@ -117,7 +116,7 @@ namespace VirtualBicycle.IO
             green = ReadSingle();
             blue = ReadSingle();
             mat.Emissive = new Color4(alpha, red, green, blue);
-            
+
             mat.Power = ReadSingle();
         }
 
@@ -383,7 +382,7 @@ namespace VirtualBicycle.IO
 
             long start = BaseStream.Position;
 
-            data.Save(new VirtualStream(BaseStream, BaseStream.Position));           
+            data.Save(new VirtualStream(BaseStream, BaseStream.Position));
 
             long end = BaseStream.Position;
             int size = (int)(end - start);
@@ -393,6 +392,4 @@ namespace VirtualBicycle.IO
             BaseStream.Position = end;
         }
     }
-
- 
 }

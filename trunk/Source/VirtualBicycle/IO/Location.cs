@@ -6,6 +6,9 @@ using VirtualBicycle.Core;
 
 namespace VirtualBicycle.IO
 {
+    /// <summary>
+    ///  表示资源的位置
+    /// </summary>
     public abstract class ResourceLocation
     {
         string name;
@@ -42,7 +45,7 @@ namespace VirtualBicycle.IO
     }
 
     /// <summary>
-    /// 记录一个文件的位置信息，FileSystem查询结果。
+    ///  记录一个文件的位置信息，FileSystem查询结果。
     /// </summary>
     public class FileLocation : ResourceLocation
     {
@@ -131,6 +134,10 @@ namespace VirtualBicycle.IO
             get { return true; }
         }
     }
+
+    /// <summary>
+    ///  表示内存中的资源的位置
+    /// </summary>
     public unsafe class MemoryLocation : ResourceLocation
     {
         void* data;
@@ -165,6 +172,10 @@ namespace VirtualBicycle.IO
         //    get { return true; }
         //}
     }
+    
+    /// <summary>
+    ///  表示流中的资源的位置
+    /// </summary>
     public class StreamedLocation : ResourceLocation
     {
         Stream stream;

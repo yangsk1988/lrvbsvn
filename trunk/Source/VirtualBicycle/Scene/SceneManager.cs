@@ -179,7 +179,7 @@ namespace VirtualBicycle.Scene
         /// </summary>
         /// <param name="camera">渲染到的摄像机</param>
         /// <param name="batchHelper">当该方法执行完毕后，存储当前场景管理器的可见批次</param>
-        public abstract void PrepareVisibleObjects(ICamera camera, PassInfo batchHelper);
+        public abstract void PrepareVisibleObjects(ICamera camera, BatchData batchHelper);
 
         /// <summary>
         /// 添加可见物体，准备渲染
@@ -187,11 +187,11 @@ namespace VirtualBicycle.Scene
         /// <param name="obj">要添加的物体</param>
         /// <param name="batchHelper">当该方法执行完毕后，物体的渲染批次会存入</param>
         /// <remarks>用于渲染批次优化</remarks>
-        protected void AddVisibleObject(SceneObject obj, PassInfo batchHelper)
+        protected void AddVisibleObject(SceneObject obj, BatchData batchHelper)
         {
             batchHelper.RenderedObjectCount++;
 
-            batchHelper.visibleObjects.Add(obj);
+            batchHelper.VisibleObjects.Add(obj);
 
             RenderOperation[] ops = obj.GetRenderOperation();
             if (ops != null)
@@ -228,16 +228,16 @@ namespace VirtualBicycle.Scene
                             if (supportsInst && ops[k].Geomentry.UseIndices)
                             {
                                 ModelEffect effect;
-                                if (!batchHelper.effects.TryGetValue(desc, out effect))
+                                if (!batchHelper.Effects.TryGetValue(desc, out effect))
                                 {
-                                    batchHelper.effects.Add(desc, mate.Effect);
+                                    batchHelper.Effects.Add(desc, mate.Effect);
                                 }
 
                                 Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable;
-                                if (!batchHelper.instanceTable.TryGetValue(desc, out matTable))
+                                if (!batchHelper.InstanceTable.TryGetValue(desc, out matTable))
                                 {
                                     matTable = new Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>();
-                                    batchHelper.instanceTable.Add(desc, matTable);
+                                    batchHelper.InstanceTable.Add(desc, matTable);
                                 }
 
                                 Dictionary<GeomentryData, FastList<RenderOperation>> geoDataTbl;
@@ -261,15 +261,15 @@ namespace VirtualBicycle.Scene
                                 ModelEffect effect;
                                 FastList<RenderOperation> opList;
 
-                                if (!batchHelper.effects.TryGetValue(desc, out effect))
+                                if (!batchHelper.Effects.TryGetValue(desc, out effect))
                                 {
-                                    batchHelper.effects.Add(desc, mate.Effect);
+                                    batchHelper.Effects.Add(desc, mate.Effect);
                                 }
 
-                                if (!batchHelper.batchTable.TryGetValue(desc, out opList))
+                                if (!batchHelper.BatchTable.TryGetValue(desc, out opList))
                                 {
                                     opList = new FastList<RenderOperation>();
-                                    batchHelper.batchTable.Add(desc, opList);
+                                    batchHelper.BatchTable.Add(desc, opList);
                                 }
 
                                 //Matrix.Multiply(ref ops[k].Transformation, ref obj.Transformation, out ops[k].Transformation);
@@ -328,7 +328,8 @@ namespace VirtualBicycle.Scene
     }
 
     /// <summary>
-    ///  实现一个无实际管理功能的场景管理器
+    ///  实现一个简单的的场景管理器
+    ///  
     /// </summary>
     public unsafe class SceneManager : SceneManagerBase
     {
@@ -422,9 +423,9 @@ namespace VirtualBicycle.Scene
             return result;
         }
 
-        public override void PrepareVisibleObjects(ICamera camera, PassInfo batchHelper)
+        public override void PrepareVisibleObjects(ICamera camera, BatchData batchHelper)
         {
-            batchHelper.visibleObjects.FastClear();
+            batchHelper.VisibleObjects.FastClear();
             for (int i = 0; i < sceneNodes.Count; i++)
             {
                 FastList<SceneObject> objs = sceneNodes[i].AttchedObjects;

@@ -46,12 +46,18 @@ namespace VirtualBicycle.Scene
 
         #region 属性
 
+        /// <summary>
+        ///  获取场景的名称
+        /// </summary>
         public string Name
         {
             get;
             protected set;
         }
 
+        /// <summary>
+        ///  获取场景的描述
+        /// </summary>
         public string Description
         {
             get;
@@ -64,6 +70,9 @@ namespace VirtualBicycle.Scene
             private set;
         }
 
+        /// <summary>
+        ///  
+        /// </summary>
         public BoundingBox AABB
         {
             get { return boundingBox; }
@@ -76,17 +85,27 @@ namespace VirtualBicycle.Scene
             protected set;
         }
 
+        /// <summary>
+        ///  获取地形的地形设置
+        /// </summary>
         public TerrainSettings TerrainSettings
         {
             get;
             protected set;
         }
 
+        /// <summary>
+        ///  获取大气效果参数
+        /// </summary>
         public AtmosphereInfo AtmosphereData
         {
             get;
             protected set;
         }
+
+        /// <summary>
+        ///  获取场景中的物体列表
+        /// </summary>
         public SceneObject[] SceneObjects
         {
             get { return sceneObjects; }
@@ -110,6 +129,11 @@ namespace VirtualBicycle.Scene
 
         #region 方法
 
+        /// <summary>
+        ///  查找符合条件的物体
+        /// </summary>
+        /// <param name="callBack">查找判断物体的回调，当物体符合条件是应返回true</param>
+        /// <returns>一个列表，包含所有符合条件的物体</returns>
         public List<SceneObject> FindObjects(IObjectFilter callBack)
         {
             List<SceneObject> result = new List<SceneObject>();
