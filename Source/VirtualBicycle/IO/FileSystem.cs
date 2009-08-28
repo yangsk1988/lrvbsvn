@@ -97,13 +97,19 @@ namespace VirtualBicycle.IO
 
         static FileSystem singleton;
 
+        /// <summary>
+        ///  获取文件系统的唯一实例
+        /// </summary>
         public static FileSystem Instance
         {
             get
             {
                 if (singleton == null)
                 {
-                    singleton = new FileSystem();
+                    if (singleton == null)
+                    {
+                        singleton = new FileSystem();
+                    }
                 }
                 return singleton;
             }
@@ -374,7 +380,13 @@ namespace VirtualBicycle.IO
             return res;
         }
        
-
+        /// <summary>
+        ///  使用规则定位一个文件
+        /// </summary>
+        /// <param name="filePath">文件路径</param>
+        /// <param name="rule">文件定位规则</param>
+        /// <returns>一个<see cref="FileLocation"/>，表示文件的位置</returns>
+        /// <exception cref="FileNotFoundException">当文件没有找到时，引发此异常</exception>
         public FileLocation Locate(string filePath, FileLocateRule rule)
         {
             FileLocation res = TryLocate(filePath, rule);
@@ -448,6 +460,12 @@ namespace VirtualBicycle.IO
             return null;
         }
 
+        /// <summary>
+        ///  尝试定位文件，找不到文件时，不会引发异常
+        /// </summary>
+        /// <param name="filePath">文件路径</param>
+        /// <param name="rule">文件定位规则</param>
+        /// <returns>如果找到文件返回一个<see cref="FileLocation"/>对象，否则返回null</returns>
         public FileLocation TryLocate(string filePath, FileLocateRule rule)
         {
             // 遍历规则的所有检查点

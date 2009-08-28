@@ -19,11 +19,6 @@ namespace VirtualBicycle.Scene
     {
         #region 常量
 
-        ///// <summary>
-        /////  同Terrain.TerrainSize（513）
-        ///// </summary>
-        //public const int ClusterSize = Terrain.TerrainSize;
-
         /// <summary>
         ///  表示Cluster的长度（512）
         /// </summary>
@@ -57,9 +52,8 @@ namespace VirtualBicycle.Scene
 
         #region 构造函数
         /// <summary>
-        /// 
+        ///  构造一个新的<see cref="Cluster"/>对象
         /// </summary>
-        /// <param name="texSets"></param>
         /// <param name="device"></param>
         /// <param name="x">以地形单位为单位</param>
         /// <param name="y">以地形单位为单位</param>

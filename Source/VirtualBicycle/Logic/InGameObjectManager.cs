@@ -4,11 +4,14 @@ using System.Text;
 using SlimDX.Direct3D9;
 using VirtualBicycle.Config;
 using VirtualBicycle.IO;
-using VirtualBicycle.Scene;
 using VirtualBicycle.Logic.Traffic;
+using VirtualBicycle.Scene;
 
 namespace VirtualBicycle.Logic
 {
+    /// <summary>
+    ///  管理游戏中所有物体类型，可从二进制数据反序列化物体
+    /// </summary>
     public class InGameObjectManager : IDisposable
     {
         #region 字段
@@ -19,21 +22,36 @@ namespace VirtualBicycle.Logic
 
         #region 属性
 
+        /// <summary>
+        ///  建筑物类型
+        /// </summary>
         public Dictionary<string, BuildingType> BuildingTypes
         {
             get;
             set;
         }
+
+        /// <summary>
+        ///  树木类型
+        /// </summary>
         public Dictionary<string, TerrainObjectType> TreeTypes
         {
             get;
             set;
         }
+
+        /// <summary>
+        ///  地形物体类型
+        /// </summary>
         public Dictionary<string, TerrainObjectType> TOTypes
         {
             get;
             set;
         }
+
+        /// <summary>
+        ///  道路接口类型
+        /// </summary>
         public Dictionary<string, JunctionType> CrossingTypes
         {
             get;
@@ -44,6 +62,10 @@ namespace VirtualBicycle.Logic
 
         #region 构造函数
 
+        /// <summary>
+        ///  创建<see cref="InGameObjectManager"/>实例。从配置文件中读取物体类型
+        /// </summary>
+        /// <param name="file">表示配置文件的<see cref="FileLocation"/></param>
         public InGameObjectManager(FileLocation file)
         {
             factories = new Dictionary<string, InGameObjectFactory>();
@@ -117,6 +139,11 @@ namespace VirtualBicycle.Logic
 
         #region 方法
 
+        /// <summary>
+        ///  为所有物体类型加载相应的图像资源
+        /// </summary>
+        /// <param name="device"></param>
+        /// <param name="cbk"></param>
         public void LoadGraphics(Device device, ProgressCallBack cbk)
         {
             Dictionary<string, BuildingType>.ValueCollection vals1 = BuildingTypes.Values;

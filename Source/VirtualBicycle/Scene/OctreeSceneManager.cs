@@ -356,9 +356,9 @@ namespace VirtualBicycle.Scene
             return result;
         }
 
-        public override void PrepareVisibleObjects(ICamera camera, PassInfo batchHelper)
+        public override void PrepareVisibleObjects(ICamera camera, BatchData batchHelper)
         {
-            batchHelper.visibleObjects.FastClear();
+            batchHelper.VisibleObjects.FastClear();
 
             Frustum frus = camera.Frustum;
 

@@ -50,7 +50,7 @@ namespace VirtualBicycle.Logic
 
                     if (!mBitmaps.TryGetValue(description, out bitmap))
                     {
-                        bitmap = new Bitmap(Cluster.ClusterSize, Cluster.ClusterSize);
+                        bitmap = new Bitmap(Terrain.TerrainSize, Terrain.TerrainSize);
                         mBitmaps.Add(description, bitmap);
                     }
 

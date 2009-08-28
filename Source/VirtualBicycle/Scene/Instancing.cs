@@ -8,20 +8,45 @@ using VirtualBicycle.Graphics;
 
 namespace VirtualBicycle.Scene
 {
-    public struct InstanceData 
+    /// <summary>
+    ///  表示几何体实例化渲染所用的顶点缓冲中的顶点格式
+    ///  这个格式包含网格的世界变换矩阵
+    /// </summary>
+    public struct InstanceData
     {
+        /// <summary>
+        ///  矩阵的第一行
+        /// </summary>
         public Vector3 Row1;
+
+        /// <summary>
+        ///  矩阵的第二行
+        /// </summary>
         public Vector3 Row2;
+
+        /// <summary>
+        ///  矩阵的第三行
+        /// </summary>
         public Vector3 Row3;
+        
+        /// <summary>
+        ///  矩阵的第四行
+        /// </summary>
         public Vector3 Row4;
 
-        public static int Size 
+        /// <summary>
+        ///  获取这个结构体的大小
+        /// </summary>
+        public static int SizeInBytes
         {
             get { return Vector3.SizeInBytes * 4; }
         }
-
     }
-    public  class Instancing:UnmanagedResource
+
+    /// <summary>
+    ///  几何体实例化渲染器
+    /// </summary>
+    public class Instancing : UnmanagedResource
     {
         public const int MaxInstances = 25;
 
@@ -32,6 +57,10 @@ namespace VirtualBicycle.Scene
         Dictionary<VertexDeclaration, VertexDeclaration> declBuffer;
         VertexElement[] idElements;
 
+        /// <summary>
+        ///  创建新的几何体实例化渲染器
+        /// </summary>
+        /// <param name="device"></param>
         public Instancing(Device device)
         {
             this.device = device;
@@ -47,6 +76,16 @@ namespace VirtualBicycle.Scene
             this.idElements[3] = new VertexElement(1, (short)(Vector3.SizeInBytes * 3), DeclarationType.Float3, DeclarationMethod.Default, DeclarationUsage.TextureCoordinate, 11);
         }
 
+        /// <summary>
+        ///  为实例化RenderOperation做准备
+        /// </summary>
+        /// <param name="opList">用于实例化的RenderOperation组成的列表</param>
+        /// <param name="index">opList中开始RenderOperation的索引</param>
+        /// <returns>一个<see cref="System.Int32"/>，表示实际处理的RenderOperation</returns>
+        /// <remarks>
+        ///  这个方法将opList的RenderOperation中的变换矩阵作为实例化的数据存入一个顶点缓冲，
+        ///  在实例化渲染的时候使用Stream混合将网格的顶点和变换矩阵混合
+        /// </remarks>
         public unsafe int Setup(FastList<RenderOperation> opList, int index)
         {
             InstanceData* dst = (InstanceData*)instanceData.Lock(0, 0, LockFlags.None).DataPointer;
@@ -65,16 +104,21 @@ namespace VirtualBicycle.Scene
 
             instanceData.Unlock();
 
-            device.SetStreamSource(1, instanceData, 0, InstanceData.Size);
+            device.SetStreamSource(1, instanceData, 0, InstanceData.SizeInBytes);
             device.SetStreamSourceFrequency(1, 1, StreamSource.InstanceData);
 
             return count;
         }
 
+        /// <summary>
+        ///  获取将网格的顶点附上实例化数据的顶点格式的声明
+        /// </summary>
+        /// <param name="decl">原始顶点格式的声明</param>
+        /// <returns>复合顶点格式的声明</returns>
         public VertexDeclaration GetInstancingDecl(VertexDeclaration decl)
         {
             VertexDeclaration idecl;
-            if (!declBuffer.TryGetValue(decl, out idecl)) 
+            if (!declBuffer.TryGetValue(decl, out idecl))
             {
                 VertexElement[] elems1 = decl.Elements;
                 VertexElement[] elems2 = new VertexElement[elems1.Length + idElements.Length];
@@ -82,7 +126,7 @@ namespace VirtualBicycle.Scene
                 Array.Copy(elems1, elems2, elems1.Length - 1);
                 Array.Copy(idElements, 0, elems2, elems1.Length - 1, idElements.Length);
                 elems2[elems2.Length - 1] = VertexElement.VertexDeclarationEnd;
-                
+
                 idecl = new VertexDeclaration(device, elems2);
 
                 declBuffer.Add(decl, idecl);
@@ -92,7 +136,7 @@ namespace VirtualBicycle.Scene
 
         protected override void loadUnmanagedResources()
         {
-            this.instanceData = new VertexBuffer(device, MaxInstances * InstanceData.Size, Usage.Dynamic, VertexFormat.None, Pool.Default);
+            this.instanceData = new VertexBuffer(device, MaxInstances * InstanceData.SizeInBytes, Usage.Dynamic, VertexFormat.None, Pool.Default);
         }
 
         protected override void unloadUnmanagedResources()

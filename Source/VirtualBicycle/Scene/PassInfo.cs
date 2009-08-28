@@ -8,23 +8,23 @@ using VirtualBicycle.Graphics.Effects;
 namespace VirtualBicycle.Scene
 {
     /// <summary>
-    ///  渲染场景时，PassInfo对象用来从Cluster的场景管理器收集信息，并存储
+    ///  渲染场景前检测可见物体时，<see cref="BatchData"/>对象用来存储要渲染的物体的
     /// </summary>
-    public class PassInfo
+    public class BatchData
     {
         /// <summary>
         ///  按效果批次分组，一个效果批次有一个RenderOperation列表
         /// </summary>
-        public Dictionary<string, FastList<RenderOperation>> batchTable;
+        public Dictionary<string, FastList<RenderOperation>> BatchTable;
 
         /// <summary>
         ///  按效果批次名称查询效果的哈希表
         /// </summary>
-        public Dictionary<string, ModelEffect> effects;
+        public Dictionary<string, ModelEffect> Effects;
 
-        public Dictionary<string, Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>> instanceTable;
+        public Dictionary<string, Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>> InstanceTable;
 
-        public FastList<SceneObject> visibleObjects;
+        public FastList<SceneObject> VisibleObjects;
 
         public int RenderedObjectCount;
     }

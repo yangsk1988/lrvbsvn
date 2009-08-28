@@ -4,22 +4,40 @@ using System.Drawing;
 using System.Text;
 using SlimDX;
 using SlimDX.Direct3D9;
+using VirtualBicycle.Graphics;
 using VirtualBicycle.Graphics.Effects;
 using VirtualBicycle.IO;
-using VirtualBicycle.Graphics;
 
 namespace VirtualBicycle.Scene
 {
+    /// <summary>
+    ///  定义可以渲染场景的接口，供后期效果渲染器使用。
+    /// </summary>
     public interface ISceneRenderer
     {
+        /// <summary>
+        ///  正常渲染场景
+        /// </summary>
+        /// <param name="target">场景渲染目标</param>
         void RenderScenePost(Surface target);
     }
 
+    /// <summary>
+    ///  定义后期效果渲染器的接口
+    /// </summary>
     public interface IPostSceneRenderer : IDisposable
     {
+        /// <summary>
+        ///  进行全部渲染，形成最总图像（带后期渲染）
+        /// </summary>
+        /// <param name="renderer">实现ISceneRenderer可以渲染场景的对象</param>
+        /// <param name="screenTarget">渲染目标</param>
         void Render(ISceneRenderer renderer, Surface screenTarget);
     }
 
+    /// <summary>
+    ///  后期效果渲染器
+    /// </summary>
     public class PostRenderer : UnmanagedResource, IPostSceneRenderer
     {
         struct RectVertex
@@ -38,6 +56,7 @@ namespace VirtualBicycle.Scene
                 get { return Vector4.SizeInBytes + Vector2.SizeInBytes; }
             }
         }
+
         Device device;
 
         Texture colorTarget;
@@ -122,6 +141,11 @@ namespace VirtualBicycle.Scene
             device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 4, 0, 2);
         }
 
+        /// <summary>
+        ///  见接口
+        /// </summary>
+        /// <param name="renderer"></param>
+        /// <param name="screenTarget"></param>
         public void Render(ISceneRenderer renderer, Surface screenTarget)
         {
             renderer.RenderScenePost(clrRt);
@@ -199,7 +223,6 @@ namespace VirtualBicycle.Scene
             device.SetRenderState(RenderState.AlphaBlendEnable, false);
 
             #endregion
-
         }
 
         protected unsafe override void loadUnmanagedResources()
@@ -260,7 +283,6 @@ namespace VirtualBicycle.Scene
             indexBuffer.Unlock();
 
         }
-
 
         protected override void unloadUnmanagedResources()
         {

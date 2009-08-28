@@ -87,6 +87,10 @@ namespace VirtualBicycle.IO
             set;
         }
     }
+
+    /// <summary>
+    ///  定义查找文件的规则，就是检查目录或者文件包的次序
+    /// </summary>
     public class FileLocateRule
     {
         List<LocateCheckPoint> pathChkPt;

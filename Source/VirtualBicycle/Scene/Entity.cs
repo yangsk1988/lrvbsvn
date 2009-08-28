@@ -195,11 +195,17 @@ namespace VirtualBicycle.Scene
             }
             protected set
             {
+                if (lodModels == null)
+                {
+                    lodModels = new Model[1];
+                }
+
                 if (lodModels.Length < 1)
                 {
                     Array.Resize<Model>(ref lodModels, 1);
                 }
                 lodModels[0] = value;
+
             }
         }
 
@@ -220,11 +226,17 @@ namespace VirtualBicycle.Scene
             }
             protected set
             {
+                if (lodModels == null)
+                {
+                    lodModels = new Model[2];
+                }
+
                 if (lodModels.Length < 2)
                 {
                     Array.Resize<Model>(ref lodModels, 2);
                 }
                 lodModels[1] = value;
+
             }
         }
 
@@ -287,7 +299,11 @@ namespace VirtualBicycle.Scene
         {
             if (HasLodModel)
             {
-                if (ModelL1 != null)
+                if (ModelL2 != null)
+                {
+                    return ModelL2.GetRenderOperation();
+                }
+                else if (ModelL1 != null)
                 {
                     return ModelL1.GetRenderOperation();
                 }
@@ -339,7 +355,7 @@ namespace VirtualBicycle.Scene
 
                 float dist = Vector3.Distance(camera.Position, BoundingSphere.Center);
 
-            //    HasLodModel = dist > BoundingSphere.Radius * 15f;
+                //HasLodModel = dist > BoundingSphere.Radius * 15f;
 
                 dontDraw = (dist - BoundingSphere.Radius) > camera.FarPlane * 0.75f;
             }
