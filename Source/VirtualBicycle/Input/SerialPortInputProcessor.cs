@@ -214,7 +214,7 @@ namespace VirtualBicycle.Input
                                             wheel = 0;
                                         }
 
-                                        float deltaS = 0.001f * (wheel - lastWheel) * 1.2f;
+                                        float deltaS = 0.001f * (wheel - lastWheel) * 1.75f;
 
                                         if (deltaS > 0)
                                         {

@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace VirtualBicycle.Config
 {
-    public class IniSection : ConfigurationSection// Dictionary<string, string>
+    public class IniSection : ConfigurationSection
     {
         const char ValueSeprater = ',';
         const char PathSeprater = '|';
