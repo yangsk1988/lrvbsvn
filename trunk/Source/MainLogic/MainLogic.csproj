@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{D0B4E6C5-76E0-49F6-83C5-4A6D3EA4C89A}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -106,9 +106,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VirtualBicycle\VirtualBicycle.csproj">
+    <ProjectReference Include="..\VirtualBicycle\Game.csproj">
       <Project>{1DA1C1E6-DDD6-4F45-9CF4-7465F4931F2F}</Project>
-      <Name>VirtualBicycle</Name>
+      <Name>Game</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
