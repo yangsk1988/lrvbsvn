@@ -566,7 +566,7 @@
     <Content Include="WeifenLuo.WinFormsUI.Docking.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VirtualBicycle\Game.csproj">
+    <ProjectReference Include="..\Game\Game.csproj">
       <Project>{1DA1C1E6-DDD6-4F45-9CF4-7465F4931F2F}</Project>
       <Name>Game</Name>
     </ProjectReference>
