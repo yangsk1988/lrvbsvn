@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using VirtualBicycle.Collections;
 
 namespace VirtualBicycle.RenderSystem
 {
-
+    /// <summary>
+    ///  表示顶点声明
+    /// </summary>
     public abstract class VertexDeclaration : IDisposable
     {
         protected VertexDeclaration(VertexElement[] elements)
@@ -14,8 +17,6 @@ namespace VirtualBicycle.RenderSystem
                 this.elements.Add(elements[i]);
             }
         }
-
-  
 
         #region Fields
 

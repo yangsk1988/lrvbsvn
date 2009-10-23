@@ -1,9 +1,9 @@
 using System;
 using System.Runtime.Serialization;
-using R3D.MathLib;
-using R3D.Collections;
+using VirtualBicycle.MathLib;
+using VirtualBicycle.Collections;
 
-namespace R3D.GraphicsEngine.ParticleSystem
+namespace VirtualBicycle.RenderSystem.ParticleSystem
 {
     /// <summary>
     /// Represents a pre-calculated curve.

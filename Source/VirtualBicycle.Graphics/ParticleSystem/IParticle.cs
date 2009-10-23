@@ -1,7 +1,7 @@
 using System;
-using R3D.MathLib;
+using VirtualBicycle.MathLib;
 
-namespace R3D.GraphicsEngine.ParticleSystem
+namespace VirtualBicycle.RenderSystem.ParticleSystem
 {
     /// <summary>
     /// Defines the minimum interface that must be exposed by all particle structures.

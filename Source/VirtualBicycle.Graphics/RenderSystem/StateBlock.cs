@@ -4,6 +4,9 @@ using System.Text;
 
 namespace VirtualBicycle.RenderSystem
 {
+    /// <summary>
+    /// Applications use the methods of the StateBlock class to encapsulate render states.
+    /// </summary>
     public abstract class StateBlock : IDisposable
     {
         public RenderSystem RenderSystem

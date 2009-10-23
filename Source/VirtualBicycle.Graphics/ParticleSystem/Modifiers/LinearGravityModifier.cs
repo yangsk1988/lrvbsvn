@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using R3D.MathLib;
+using VirtualBicycle.MathLib;
 
-namespace R3D.GraphicsEngine.ParticleSystem.Modifiers
+namespace VirtualBicycle.RenderSystem.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents gravity that will affect particles in a linear manner.

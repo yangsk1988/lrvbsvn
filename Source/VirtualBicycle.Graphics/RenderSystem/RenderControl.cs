@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
+using VirtualBicycle.Graphics;
 using SD = System.Drawing;
 
 namespace VirtualBicycle.RenderSystem
 {
+    /// <summary>
+    ///  表示渲染目标所在的控件
+    /// </summary>
     public abstract class RenderControl : IDisposable
     {
         RenderTarget renderTarget;
@@ -111,6 +115,9 @@ namespace VirtualBicycle.RenderSystem
         #endregion
     }
 
+    /// <summary>
+    ///  表示渲染窗口
+    /// </summary>
     public abstract class RenderWindow : RenderControl
     {
         public class RenderForm : Form

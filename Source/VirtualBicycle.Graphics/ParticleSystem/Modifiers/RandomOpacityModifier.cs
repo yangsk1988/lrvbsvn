@@ -1,6 +1,6 @@
 using System;
-using R3D.MathLib;
-namespace R3D.GraphicsEngine.ParticleSystem.Modifiers
+using VirtualBicycle.MathLib;
+namespace VirtualBicycle.RenderSystem.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Applies random opacity to particles upon release.

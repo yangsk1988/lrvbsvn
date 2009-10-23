@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace VirtualBicycle.RenderSystem
 {
+    /// <summary>
+    ///  渲染设备的渲染目标参数
+    /// </summary>
     public struct PresentParameters
     {
         bool isWindowed;
@@ -73,6 +76,9 @@ namespace VirtualBicycle.RenderSystem
 
     }
 
+    /// <summary>
+    ///  表示图形API的渲染设备，可以创建渲染目标
+    /// </summary>
     public abstract class DeviceContent
     {
         FastList<RenderControl> renderVps;
@@ -91,7 +97,11 @@ namespace VirtualBicycle.RenderSystem
 
         protected abstract RenderControl create(PresentParameters pm);
      
-
+        /// <summary>
+        ///  创建一个渲染控件，渲染到一个控件中
+        /// </summary>
+        /// <param name="pm"></param>
+        /// <returns></returns>
         public RenderControl Create(PresentParameters pm)
         {
             RenderControl rc = create(pm);
@@ -99,14 +109,15 @@ namespace VirtualBicycle.RenderSystem
             return rc;
         }
 
-        
-
         public void Destroy(RenderControl rc)
         {
             renderVps.Remove(rc);
             rc.Dispose();
         }
 
+        /// <summary>
+        ///  获取该渲染设备对应的渲染系统
+        /// </summary>
         public abstract RenderSystem RenderSystem
         {
             get;

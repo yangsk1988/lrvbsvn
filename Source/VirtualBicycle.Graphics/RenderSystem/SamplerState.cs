@@ -5,6 +5,9 @@ using VirtualBicycle.Media;
 
 namespace VirtualBicycle.RenderSystem
 {
+    /// <summary>
+    ///  表示采样器的状态，可以获取或设置采样器的参数
+    /// </summary>
     public abstract class SamplerState
     {
         protected SamplerState(int index)

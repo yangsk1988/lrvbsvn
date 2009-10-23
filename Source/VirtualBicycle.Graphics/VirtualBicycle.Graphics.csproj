@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -46,10 +48,13 @@
     <Compile Include="Animation\SkinAnimation.cs" />
     <Compile Include="Animation\TransformAnimation.cs" />
     <Compile Include="Atmosphere.cs" />
-    <Compile Include="Buffer\HardwareBuffer.cs" />
-    <Compile Include="Buffer\IndexBuffer.cs" />
-    <Compile Include="Buffer\Surface.cs" />
-    <Compile Include="Buffer\VertexBuffer.cs" />
+    <Compile Include="Collections\SamplerStateCollection.cs" />
+    <Compile Include="Core\TextureLoader.cs" />
+    <Compile Include="FpsCounter.cs" />
+    <Compile Include="RenderSystem\Buffer\HardwareBuffer.cs" />
+    <Compile Include="RenderSystem\Buffer\IndexBuffer.cs" />
+    <Compile Include="RenderSystem\Buffer\Surface.cs" />
+    <Compile Include="RenderSystem\Buffer\VertexBuffer.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Collections\BoneCollection.cs" />
     <Compile Include="Collections\EntityNodeCollection.cs" />
@@ -104,17 +109,20 @@
     <Compile Include="ParticleSystem\SmokePlumeParticleEffect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenderOperation.cs" />
-    <Compile Include="RenderSystem.cs" />
+    <Compile Include="RenderSystem\RenderSystem.cs" />
     <Compile Include="RenderSystem\BufferStream.cs" />
     <Compile Include="RenderSystem\DeviceContent.cs" />
     <Compile Include="RenderSystem\Enums.cs" />
     <Compile Include="RenderSystem\Font.cs" />
     <Compile Include="RenderSystem\FontManager.cs" />
+    <Compile Include="RenderSystem\GraphicsAPI.cs" />
     <Compile Include="RenderSystem\Light.cs" />
     <Compile Include="RenderSystem\Line.cs" />
     <Compile Include="RenderSystem\Material.cs" />
+    <Compile Include="RenderSystem\ObjectFactory.cs" />
     <Compile Include="RenderSystem\RenderControl.cs" />
     <Compile Include="RenderSystem\RenderStateManager.cs" />
+    <Compile Include="RenderSystem\RenderSystemCaps.cs" />
     <Compile Include="RenderSystem\RenderTarget.cs" />
     <Compile Include="RenderSystem\SamplerState.cs" />
     <Compile Include="RenderSystem\Shader.cs" />

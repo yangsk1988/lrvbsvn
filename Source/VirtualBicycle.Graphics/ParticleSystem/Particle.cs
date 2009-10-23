@@ -1,8 +1,8 @@
 using System;
-using R3D.MathLib;
+using VirtualBicycle.MathLib;
 
 
-namespace R3D.GraphicsEngine.ParticleSystem
+namespace VirtualBicycle.RenderSystem.ParticleSystem
 {
     public class Particle : IParticle
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace R3D.GraphicsEngine.ParticleSystem.Modifiers
+namespace VirtualBicycle.RenderSystem.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents the abstract base class for all modifiers.

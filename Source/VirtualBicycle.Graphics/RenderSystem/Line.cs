@@ -5,6 +5,7 @@ using System.Text;
 using VirtualBicycle.Collections;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.Media;
+using VirtualBicycle.Graphics;
 
 namespace VirtualBicycle.RenderSystem
 {
@@ -79,7 +80,7 @@ namespace VirtualBicycle.RenderSystem
 
                 ObjectFactory fac = rs.ObjectFactory;
 
-                bufferedVB = fac.CreateVertexBuffer(count, LineVertex.Declaration, BufferUsage.Dynamic); // new D3D.VertexBuffer(dev, LineVertex.Size * count, D3D.Usage.Dynamic, LineVertex.Format, D3D.Pool.Default);
+                bufferedVB = fac.CreateVertexBuffer(count, LineVertex.Declaration, BufferUsage.Dynamic);
                 this.capacity = count;
             }
 
@@ -136,8 +137,6 @@ namespace VirtualBicycle.RenderSystem
                 }
             }
         }
-
-
 
         int curIndex;
 
