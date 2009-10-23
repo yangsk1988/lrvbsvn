@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MainLogic.Plugin" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Plugin.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="MainLogic.GameMainLogic" Collapsed="true">
+    <Position X="4.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQIAAAKgAAAAAMAAAAoAAAABAAAAAAAMAAAAAAAAAA=</HashCode>
+      <FileName>GameMainLogic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainLogic.GameMainLogicFactory" Collapsed="true">
+    <Position X="4.75" Y="1.75" Width="2.25" />
+    <InheritanceLine Type="VirtualBicycle.Logic.Mod.LogicModFactroy" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="2.062" />
+        <Point X="4.75" Y="2.062" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameMainLogicFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.UILogic" Collapsed="true">
+    <Position X="7.25" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAgAAgAQAAAIAQQAAAAIAAkAAAAEAAAAAwAAA=</HashCode>
+      <FileName>UILogic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.LogicConponment" Collapsed="true">
+    <Position X="7.25" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAQAAAAAgAAAAAAgAAAAAEAAAAAACAAA=</HashCode>
+      <FileName>LogicConponment.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VirtualBicycle.Logic.Mod.GameLogicManager" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="VirtualBicycle.Logic.Mod.LogicMod" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="VirtualBicycle.Logic.Mod.LogicModFactroy" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="VirtualBicycle.UI.IngameUI" Collapsed="true">
+    <Position X="9.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AJAAEQQAAIAAIgQCQAAAAAAAgCEIBAAAAAKAABA2ADA=</HashCode>
+      <FileName>UI\IngameUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.UI.LoadingScreen" Collapsed="true">
+    <Position X="11" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIAAAAECAIAAAAIAAAAAAAAAIIAgIACSAgAAAAEUQAA=</HashCode>
+      <FileName>UI\LoadingScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.UI.IngameMenu" Collapsed="true">
+    <Position X="12.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIgAGACCAIAABDQCABAQAAAEBAAQBAAgiAAABVA0gIw=</HashCode>
+      <FileName>UI\IngameMenu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.UI.MapSelectScreen" Collapsed="true">
+    <Position X="12.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIAACAACAMAEAJRAABAQgAQAAAEAhIABgAAAEDA0AAA=</HashCode>
+      <FileName>UI\MapSelectScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.UI.OptionScreen" Collapsed="true">
+    <Position X="11" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIgACgACAYAAKBVABNAQAAAFAIgIJAAgoAQABTg2gIw=</HashCode>
+      <FileName>UI\OptionScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.UI.StartScreen" Collapsed="true">
+    <Position X="9.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GIAAAAASAIAAIAQCAAAAAAAAAAQABCAAAAAAADA0EIA=</HashCode>
+      <FileName>UI\StartScreen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.UI.ReportScreen" Collapsed="true">
+    <Position X="12.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIAASAAiAYCAABQEKBASAAREAARABAAhgAAABRC0AAE=</HashCode>
+      <FileName>UI\Report.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="VirtualBicycle.Logic.Mod.IPlugin">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>
