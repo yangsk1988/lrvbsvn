@@ -21,7 +21,7 @@ namespace VirtualBicycle.Core
         public abstract void Process();
     }
 
-    class ResourceLoader : ResourceOperation
+    public class ResourceLoader : ResourceOperation
     {
         public ResourceLoader(Resource resource)
             : base(resource)
@@ -36,7 +36,7 @@ namespace VirtualBicycle.Core
             }
         }
     }
-    class ResourceUnloader : ResourceOperation
+    public class ResourceUnloader : ResourceOperation
     {
         public ResourceUnloader(Resource resource)
             : base(resource)
@@ -53,13 +53,13 @@ namespace VirtualBicycle.Core
         }
     }
 
-    class AsyncLoader
+    class AsyncProcessor
     {
         Queue<ResourceOperation> opQueue;
 
         object syncHelper = new object();
 
-        public AsyncLoader() 
+        public AsyncProcessor() 
         {
             opQueue = new Queue<ResourceOperation>();
         }

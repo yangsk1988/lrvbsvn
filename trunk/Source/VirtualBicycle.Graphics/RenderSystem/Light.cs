@@ -15,7 +15,9 @@ namespace VirtualBicycle.RenderSystem
         /// Spotlights simulate a cone of light from a source so require position and direction, plus extra values for falloff
         Spotlight = 2
     }
-
+    /// <summary>
+    /// Defines a set of lighting properties.
+    /// </summary>
     public class Light
     {
         Vector3 position;
@@ -76,31 +78,49 @@ namespace VirtualBicycle.RenderSystem
             get { return power; }
             set { power = value; }
         }
+        /// <summary>
+        /// Gets or sets the position of the light in world space. This member does not affect directional lights.
+        /// </summary>
         public Vector3 Position
         {
             get { return position; }
             set { position = value; }
         }
+        /// <summary>
+        /// Gets or sets the direction of the light. This vector need not be normalized, but should have a non-zero length.
+        /// </summary>
         public Vector3 Direction
         {
             get { return direction; }
             set { direction = value; }
         }
+        /// <summary>
+        /// Gets or sets the ambient color of the light.
+        /// </summary>
         public Color4F Ambient
         {
             get { return ambient; }
             set { ambient = value; }
         }
+        /// <summary>
+        /// Gets or sets the diffuse color of the light.
+        /// </summary>
         public Color4F Diffuse
         {
             get { return diffuse; }
             set { diffuse = value; }
         }
+        /// <summary>
+        /// Gets or sets the specular color of the light.
+        /// </summary>
         public Color4F Specular
         {
             get { return specular; }
             set { specular = value; }
         }
+        /// <summary>
+        /// Gets or sets the type of the light source.
+        /// </summary>
         public LightType Type
         {
             get { return ltType; }

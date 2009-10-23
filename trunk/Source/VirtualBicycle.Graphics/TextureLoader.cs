@@ -7,6 +7,8 @@ using System.IO.Compression;
 using System.Text;
 using SlimDX.Direct3D9;
 using VirtualBicycle.IO;
+using VirtualBicycle.RenderSystem;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics
 {

@@ -383,7 +383,7 @@ namespace VirtualBicycle.RenderSystem
                 }
                 else
                 {
-                    R3DConsole.Instance.Write("Texture: " + fileName + "is not found.", ConsoleMessageType.Warning);
+                    EngineConsole.Instance.Write("Texture: " + fileName + "is not found.", ConsoleMessageType.Warning);
                     return null;
                 }
             }

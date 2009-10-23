@@ -5,12 +5,13 @@ using VirtualBicycle.Media;
 
 namespace VirtualBicycle.RenderSystem
 {
+    /// <summary>
+    ///  表示渲染目标
+    /// </summary>
     public abstract class RenderTarget
     {
         protected Surface colorBuffer;
         protected Surface depthStencilBuffer;
-
-        
 
         protected RenderTarget(RenderSystem renderSystem, int width, int height,
             PixelFormat clrBufFormat, PixelFormat depBufFmt)

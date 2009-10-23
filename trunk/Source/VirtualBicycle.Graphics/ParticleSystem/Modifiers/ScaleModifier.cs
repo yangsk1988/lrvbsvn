@@ -1,7 +1,7 @@
 using System;
-using R3D.MathLib;
+using VirtualBicycle.MathLib;
 
-namespace R3D.GraphicsEngine.ParticleSystem.Modifiers
+namespace VirtualBicycle.RenderSystem.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents a modifier which interpolates the scale of a particle throughout its

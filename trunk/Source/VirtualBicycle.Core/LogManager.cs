@@ -8,12 +8,15 @@ namespace VirtualBicycle
     {
         static LogManager singleton;
 
-        public static LogManager Instance 
+        public static LogManager Instance
         {
-            get 
+            get
             {
+                if (singleton == null)
+                    singleton = new LogManager();
                 return singleton;
             }
         }
+
     }
 }

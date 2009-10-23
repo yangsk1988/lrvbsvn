@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.IO;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.RenderSystem
 {

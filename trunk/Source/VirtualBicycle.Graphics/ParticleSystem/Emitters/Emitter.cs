@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using R3D.MathLib;
-using R3D.GraphicsEngine.ParticleSystem.Modifiers;
+using VirtualBicycle.MathLib;
+using VirtualBicycle.RenderSystem.ParticleSystem.Modifiers;
 
-namespace R3D.GraphicsEngine.ParticleSystem.Emitters
+namespace VirtualBicycle.RenderSystem.ParticleSystem.Emitters
 {
     [Serializable]
     public class Emitter<T> where T : IParticle, new()

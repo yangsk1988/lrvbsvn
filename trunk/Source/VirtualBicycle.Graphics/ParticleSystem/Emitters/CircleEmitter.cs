@@ -1,8 +1,8 @@
 using System;
 using System.Runtime.Serialization;
-using R3D.MathLib;
+using VirtualBicycle.MathLib;
 
-namespace R3D.GraphicsEngine.ParticleSystem.Emitters
+namespace VirtualBicycle.RenderSystem.ParticleSystem.Emitters
 {
     /// <summary>
     /// Represents a particle emitter that releases particles in a circle shape.

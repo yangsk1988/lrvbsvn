@@ -5,7 +5,7 @@ using System.Text;
 using SlimDX.Direct3D9;
 using VirtualBicycle.Core;
 using VirtualBicycle.Graphics;
-using VirtualBicycle.IO;
+using VirtualBicycle.Vfs;
 using VBC = VirtualBicycle.Core;
 
 namespace VirtualBicycle.Graphics

@@ -511,7 +511,13 @@ namespace VirtualBicycle.RenderSystem
         Point = 1,
         PyramidalQuad = 6
     }
-
+    public enum ImageType
+    {
+        Image1D = 0,
+        Image2D,
+        Image3D,
+        CubeImage
+    }
     public enum TextureType
     {
         Texture1D = 0,

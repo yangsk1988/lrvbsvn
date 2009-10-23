@@ -1,8 +1,8 @@
 using System;
-using R3D.MathLib;
-using R3D.Media;
+using VirtualBicycle.MathLib;
+using VirtualBicycle.Media;
 
-namespace R3D.GraphicsEngine.ParticleSystem.Modifiers
+namespace VirtualBicycle.RenderSystem.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents a modifier that interpolates the color of a particle over its lifetime.

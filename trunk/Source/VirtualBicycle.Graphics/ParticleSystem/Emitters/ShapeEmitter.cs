@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using R3D.MathLib;
+using VirtualBicycle.MathLib;
 
-namespace R3D.GraphicsEngine.ParticleSystem.Emitters
+namespace VirtualBicycle.RenderSystem.ParticleSystem.Emitters
 {
     /// <summary>
     /// Represents an emitter that releases particles from a random position on the edge of a shape.

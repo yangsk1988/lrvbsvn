@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using VirtualBicycle.Collections;
+using VirtualBicycle.Graphics;
 using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.RenderSystem
