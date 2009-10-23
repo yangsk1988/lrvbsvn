@@ -7,7 +7,7 @@ using SD = System.Drawing;
 using SDI = System.Drawing.Imaging;
 using VirtualBicycle.Media;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     /// <summary>
     /// Specifies formatting options for text rendering. 

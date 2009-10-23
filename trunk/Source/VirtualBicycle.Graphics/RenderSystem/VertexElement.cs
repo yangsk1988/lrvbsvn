@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     /// <summary>
     /// 	This class declares the usage of a single vertex buffer as a component
@@ -12,10 +12,6 @@ namespace VirtualBicycle.RenderSystem
     {
         #region Fields
 
-        ///// <summary>
-        /////     The source vertex buffer, as bound to an index using <see cref="VertexBufferBinding"/>.
-        ///// </summary>
-        //protected short source;
         /// <summary>
         ///     The offset in the buffer that this element starts at.
         /// </summary>
@@ -182,20 +178,6 @@ namespace VirtualBicycle.RenderSystem
                             return VertexElementFormat.Vector4;
                     }
                     break;
-
-                //case VertexElementFormat.Short1:
-                //    switch (count)
-                //    {
-                //        case 1:
-                //            return VertexElementType.Short1;
-                //        case 2:
-                //            return VertexElementType.Short2;
-                //        case 3:
-                //            return VertexElementType.Short3;
-                //        case 4:
-                //            return VertexElementType.Short4;
-                //    }
-                //    break;
             }
 
             throw new Exception("Cannot multiply base vertex element type: " + type.ToString());
@@ -204,17 +186,6 @@ namespace VirtualBicycle.RenderSystem
         #endregion
 
         #region Properties
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public short Source
-        //{
-        //    get
-        //    {
-        //        return source;
-        //    }
-        //}
 
         /// <summary>
         ///     Gets the offset into the buffer where this element starts.
@@ -273,7 +244,6 @@ namespace VirtualBicycle.RenderSystem
             return left.index == right.index &&
                 left.offset == right.offset &&
                 left.semantic == right.semantic &&
-                //left.source == right.source &&
                 left.type == right.type;
         }
 
@@ -282,7 +252,6 @@ namespace VirtualBicycle.RenderSystem
             return left.index != right.index ||
                 left.offset != right.offset ||
                 left.semantic != right.semantic ||
-                //left.source != right.source ||
                 left.type != right.type;
         }
 

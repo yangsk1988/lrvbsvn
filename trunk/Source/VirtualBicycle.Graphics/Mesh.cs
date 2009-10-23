@@ -4,10 +4,9 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
 using VirtualBicycle.Graphics.Animation;
-using VirtualBicycle.IO;
+using VirtualBicycle.Graphics;
+
 
 namespace VirtualBicycle.Graphics
 {
@@ -511,7 +510,7 @@ namespace VirtualBicycle.Graphics
         #endregion
     }
 
-    public unsafe class MeshData : MeshData<MeshMaterial>
+    public unsafe class MeshData : MeshData<Material>
     {
         public MeshData(Device dev)
             : base(dev)
@@ -528,7 +527,7 @@ namespace VirtualBicycle.Graphics
             this.VertexCount = mesh.VertexCount;
             this.VertexSize = mesh.VertexSize;
 
-            void* src = mesh.VertexBuffer.Lock(0, 0, LockFlags.ReadOnly).DataPointer.ToPointer();
+            void* src = mesh.VertexBuffer.Lock(0, 0, LockMode.ReadOnly).DataPointer.ToPointer();
 
             SetData(src, VertexSize * VertexCount);
 
@@ -606,13 +605,13 @@ namespace VirtualBicycle.Graphics
             }
         }
 
-        protected override MeshMaterial LoadMaterial(Device device, BinaryDataReader matData)
+        protected override Material LoadMaterial(Device device, BinaryDataReader matData)
         {
-            return MeshMaterial.FromBinary(device, matData);
+            return Material.FromBinary(device, matData);
         }
-        protected override BinaryDataWriter SaveMaterial(MeshMaterial mat)
+        protected override BinaryDataWriter SaveMaterial(Material mat)
         {
-            return MeshMaterial.ToBinary(mat);
+            return Material.ToBinary(mat);
         }
     }
 
@@ -630,7 +629,7 @@ namespace VirtualBicycle.Graphics
         //GeomentryData[] bufferedGm;
         RenderOperation[] bufferedOp;
 
-        protected MeshMaterial[][] materials;
+        protected Material[][] materials;
         protected MaterialAnimationInstance[] matAnims;
 
         protected VertexBuffer vertexBuffer;
@@ -1051,7 +1050,7 @@ namespace VirtualBicycle.Graphics
             BuildFromData(dev, data);
         }
 
-        public GameMesh(Device dev, VertexPNT1[] vertices, int[] indices, MeshMaterial[][] materials)
+        public GameMesh(Device dev, VertexPNT1[] vertices, int[] indices, Material[][] materials)
         {
             this.dev = dev;
             this.vtxFormat = VertexPNT1.Format;
@@ -1127,7 +1126,7 @@ namespace VirtualBicycle.Graphics
         {
             get { return matAnims; }
         }
-        public MeshMaterial[][] Materials
+        public Material[][] Materials
         {
             get { return materials; }
         }
@@ -1230,7 +1229,7 @@ namespace VirtualBicycle.Graphics
                 {
                     for (int j = 0; j < materials[i].Length; j++)
                     {
-                        if (materials[i][j] != MeshMaterial.DefaultMaterial)
+                        if (materials[i][j] != Material.DefaultMaterial)
                         {
                             if (!materials[i][j].Disposed)
                             {

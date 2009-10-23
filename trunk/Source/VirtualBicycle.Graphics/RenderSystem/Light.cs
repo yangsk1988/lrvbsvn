@@ -4,7 +4,7 @@ using System.Text;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.Media;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     public enum LightType : int
     {

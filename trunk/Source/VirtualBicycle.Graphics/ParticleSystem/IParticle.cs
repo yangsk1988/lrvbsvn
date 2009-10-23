@@ -1,7 +1,7 @@
 using System;
 using VirtualBicycle.MathLib;
 
-namespace VirtualBicycle.RenderSystem.ParticleSystem
+namespace VirtualBicycle.Graphics.ParticleSystem
 {
     /// <summary>
     /// Defines the minimum interface that must be exposed by all particle structures.

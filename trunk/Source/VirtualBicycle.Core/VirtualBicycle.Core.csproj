@@ -151,6 +151,7 @@
   <ItemGroup>
     <Folder Include="Graphic\" />
     <Folder Include="Input\" />
+    <Folder Include="Media\" />
     <Folder Include="Physics\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

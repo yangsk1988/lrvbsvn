@@ -1,7 +1,7 @@
 using System;
 using VirtualBicycle.MathLib;
 
-namespace VirtualBicycle.RenderSystem.ParticleSystem.Modifiers
+namespace VirtualBicycle.Graphics.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents a modifier that interpolates the opacity of a particle over its

@@ -1,120 +1,88 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Vfs;
+using SlimDX;
+using SlimDX.Direct3D9;
+using VirtualBicycle.IO;
+using VirtualBicycle.Graphics.Effects;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
-    public class MaterialBase
+    [Flags()]
+    public enum MaterialFlags
     {
-        public const int MaxTexLayers = 4;
+        None = 0,
+        RemapColor = 1
+    }
+
+    public abstract class MaterialBase
+    {
+        #region Constants
+
+        /// <summary>
+        ///  获取最大允许的纹理层数
+        /// </summary>
+        public const int MaxTexLayers = 16;
 
         static readonly string IsTransparentTag = "IsTransparent";
         static readonly string CullModeTag = "CullMode";
-        static readonly string MaterialColorTag = "MaterialColor";
+        #endregion
 
-        public CullMode Cull
+
+        #region Properties
+
+        public Cull CullMode
         {
             get;
             set;
         }
+
         public bool IsTransparent
         {
             get;
             set;
         }
 
+        #endregion
 
-        public Color4F Ambient
-        {
-            get;
-            set;
-        }
-
-        public Color4F Diffuse
-        {
-            get;
-            set;
-        }
-
-        public Color4F Specular
-        {
-            get;
-            set;
-        }
-
-        public Color4F Emissive
-        {
-            get;
-            set;
-        }
-
-        public float Power
-        {
-            get;
-            set;
-        }
+        #region Methods
 
         protected virtual void ReadData(BinaryDataReader data)
         {
-            Cull = (CullMode)data.GetDataInt32(CullModeTag, 0);
+            CullMode = (Cull)data.GetDataInt32(CullModeTag, 0);
             IsTransparent = data.GetDataBool(IsTransparentTag, false);
-
-            ContentBinaryReader br = data.GetData(MaterialColorTag);
-
-            Ambient = new Color4F(br.ReadSingle(), br.ReadSingle(), br.ReadSingle(), br.ReadSingle());
-            Diffuse = new Color4F(br.ReadSingle(), br.ReadSingle(), br.ReadSingle(), br.ReadSingle());
-            Specular = new Color4F(br.ReadSingle(), br.ReadSingle(), br.ReadSingle(), br.ReadSingle());
-            Emissive = new Color4F(br.ReadSingle(), br.ReadSingle(), br.ReadSingle(), br.ReadSingle());
-
-            br.Close();
         }
+
         protected virtual void WriteData(BinaryDataWriter data)
         {
-            data.AddEntry(CullModeTag, (int)Cull);
+            data.AddEntry(CullModeTag, (int)CullMode);
             data.AddEntry(IsTransparentTag, IsTransparent);
-
-            ContentBinaryWriter bw = data.AddEntry(MaterialColorTag);
-
-            Color4F clr = Ambient;
-            bw.Write(clr.Alpha);
-            bw.Write(clr.Red);
-            bw.Write(clr.Green);
-            bw.Write(clr.Blue);
-
-            clr = Diffuse;
-            bw.Write(clr.Alpha);
-            bw.Write(clr.Red);
-            bw.Write(clr.Green);
-            bw.Write(clr.Blue);
-
-            clr = Specular;
-            bw.Write(clr.Alpha);
-            bw.Write(clr.Red);
-            bw.Write(clr.Green);
-            bw.Write(clr.Blue);
-
-            clr = Emissive;
-            bw.Write(clr.Alpha);
-            bw.Write(clr.Red);
-            bw.Write(clr.Green);
-            bw.Write(clr.Blue);
-
-            bw.Close();
         }
+
+        #endregion
     }
 
-
-    public abstract class Material<TexType> : MaterialBase, IDisposable
+    /// <summary>
+    ///  定义材质的基本结构
+    /// </summary>
+    /// <typeparam name="TexType"></typeparam>
+    public abstract class MeshMaterialBase<TexType> : MaterialBase, IDisposable 
         where TexType : class
     {
+        #region Constants
+        static readonly string MaterialColorTag = "MaterialColor";
+
         static readonly string IsTexEmbededTag = "IsEmbeded";
+        static readonly string MaterialFlagTag = "Flags";
         static readonly string HasTextureTag = "HasTexture";
         static readonly string TextureTag = "Texture";
         static readonly string EffectTag = "Effect";
+        #endregion
 
-        //public Material mat;
+        #region Field
+        protected internal Material mat;
+
         protected string[] textureFiles = new string[MaxTexLayers];
 
         protected bool[] texEmbeded = new bool[MaxTexLayers];
@@ -123,37 +91,69 @@ namespace VirtualBicycle.RenderSystem
 
         string effectName;
 
-        public Effect Effect
+        bool disposed;
+
+        #endregion
+
+        #region 属性
+
+
+        public Color4 Ambient
+        {
+            get { return mat.Ambient; }
+            set { mat.Ambient = value; }
+        }
+
+        public Color4 Diffuse
+        {
+            get { return mat.Diffuse; }
+            set { mat.Diffuse = value; }
+        }
+
+        public Color4 Specular
+        {
+            get { return mat.Specular; }
+            set { mat.Specular = value; }
+        }
+
+        public Color4 Emissive
+        {
+            get { return mat.Emissive; }
+            set { mat.Emissive = value; }
+        }
+
+        public float Power
+        {
+            get { return mat.Power; }
+            set { mat.Power = value; }
+        }
+        
+        public Material D3DMaterial
+        {
+            get { return mat; }
+            set { mat = value; }
+        }
+        public ModelEffect Effect
         {
             get;
             protected set;
         }
-        //public int EffectIndex
-        //{
-        //    get;
-        //    protected set;
-        //}
 
-        //public string EffectBatchName
-        //{
-        //    get 
-        //    {
-        //        if (Effect != null)
-        //        {
-        //            return effectName + EffectIndex.ToString();
-        //        }
-        //        return SceneManagerBase.DefaultEffectBatch;
-        //    }
-        //}
+        public int BatchIndex
+        {
+            get;
+            protected set;
+        }
 
-        //public string GetTextureFile(int idx)
-        //{
-        //    return textureFiles[idx];
-        //}
-        //public bool GetTextureEmbedded(int idx)
-        //{
-        //    return texEmbeded[idx];
-        //}
+        public string GetTextureFile(int idx)
+        {
+            return textureFiles[idx];
+        }
+        public void SetTextureFile(int idx, string filePath)
+        {
+            textureFiles[idx] = filePath;
+        }
+
         public TexType GetTexture(int idx)
         {
             return textures[idx];
@@ -162,17 +162,34 @@ namespace VirtualBicycle.RenderSystem
         {
             textures[idx] = tex;
         }
-        public void SetEffect(Effect eff)
+
+
+        public void SetEffect(ModelEffect eff)
         {
             Effect = eff;
         }
 
+        public void SetBatchIndex(int index)
+        {
+            BatchIndex = index;
+        }
 
+        public MaterialFlags Flags
+        {
+            get;
+            set;
+        }
+        #endregion
+
+        #region Abstract Methods
         protected abstract TexType LoadTexture(ContentBinaryReader br, bool isEmbeded, int index);
         protected abstract void DestroyTexture(TexType tex);
 
         protected abstract void SaveTexture(ContentBinaryWriter bw, TexType tex, bool isEmbeded, int index);
-        protected abstract Effect LoadEffect(string name);
+        protected abstract ModelEffect LoadEffect(string name);
+        #endregion
+
+        #region Methods
 
         protected override void ReadData(BinaryDataReader data)
         {
@@ -180,15 +197,17 @@ namespace VirtualBicycle.RenderSystem
 
             ContentBinaryReader br;
 
-            //br = data.GetData(MaterialColorTag);
-            //br.ReadMaterial(out mat);
-            //br.Close();
+            Flags = (MaterialFlags)data.GetDataInt32(MaterialFlagTag);
+
+            br = data.GetData(MaterialColorTag);
+            br.ReadMaterial(out mat);
+            br.Close();
 
 
             br = data.GetData(EffectTag);
             effectName = br.ReadStringUnicode();
-            //if (effectName.Length == 0)
-            //    effectName = StandardEffectFactory.Name;
+            if (effectName.Length == 0)
+                effectName = StandardEffectFactory.Name;
             Effect = LoadEffect(effectName);
 
             br.Close();
@@ -200,7 +219,7 @@ namespace VirtualBicycle.RenderSystem
             }
             br.Close();
 
-            bool[] hasTexture = new bool[4];
+            bool[] hasTexture = new bool[MaxTexLayers];
             br = data.GetData(HasTextureTag);
             for (int i = 0; i < MaxTexLayers; i++)
             {
@@ -218,15 +237,14 @@ namespace VirtualBicycle.RenderSystem
                     br.Close();
                 }
             }
-
-
         }
+
         protected override void WriteData(BinaryDataWriter data)
         {
             base.WriteData(data);
 
 
-            //data.AddEntry(MaterialFlagTag, (int)Flags);
+            data.AddEntry(MaterialFlagTag, (int)Flags);
 
             ContentBinaryWriter bw;
 
@@ -241,9 +259,9 @@ namespace VirtualBicycle.RenderSystem
             //}
             bw.Close();
 
-            //bw = data.AddEntry(MaterialColorTag);
-            //bw.Write(ref mat);
-            //bw.Close();
+            bw = data.AddEntry(MaterialColorTag);
+            bw.Write(ref mat);
+            bw.Close();
 
 
             bw = data.AddEntry(IsTexEmbededTag);
@@ -271,34 +289,14 @@ namespace VirtualBicycle.RenderSystem
             }
         }
 
+        #endregion
 
         #region IDisposable 成员
 
-        public bool Disposed
+        public void Dispose()
         {
-            get;
-            private set;
-        }
-
-        public void DisposeRef()
-        {
-            if (!Disposed)
+            if (!disposed)
             {
-                Dispose(false);
-
-                Disposed = true;
-            }
-            else
-                throw new ObjectDisposedException(ToString());
-        }
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (Effect != null)
-                {
-                    Effect.Dispose();
-                }
                 if (textures != null)
                 {
                     for (int i = 0; i < 4; i++)
@@ -306,131 +304,151 @@ namespace VirtualBicycle.RenderSystem
                         if (textures[i] != null)
                         {
                             DestroyTexture(textures[i]);
-                            //TextureManager.Instance.DestoryInstance(textures[i]);
                             textures[i] = null;
                         }
                     }
+                    textures = null;
                 }
-            }
-            Effect = null;
-            textures = null;
-        }
-        public void Dispose()
-        {
-            if (!Disposed)
-            {
-                Dispose(true);
-               
-                Disposed = true;
+                disposed = true;
             }
             else
                 throw new ObjectDisposedException(ToString());
         }
 
+        #endregion
 
-
-        ~Material()
+        public bool Disposed
         {
-            if (!Disposed) 
-            {
-                Dispose(false);
-            }
+            get { return disposed; }
         }
 
-        #endregion
+        ~MeshMaterialBase()
+        {
+            if (!disposed)
+            {
+                Dispose();
+            }
+        }
     }
 
-    public class Material : Material<Texture>
+    /// <summary>
+    ///  材质
+    /// </summary>
+    public class Material : MeshMaterialBase<GameTexture>, IComparable<Material>
     {
+        #region Constants
+
+        /// <summary>
+        ///  获取默认的材质颜色
+        /// </summary>
+        public readonly static Material DefaultMatColor;
+
         public static Material DefaultMaterial
         {
             get;
             private set;
         }
 
+        #endregion
+
+        #region Constructors
         static Material()
         {
-            Color4F clr;
+            Color4 clr;
             clr.Alpha = 1;
             clr.Blue = 1;
             clr.Green = 1;
             clr.Red = 1;
 
-            DefaultMaterial = new Material();
-            DefaultMaterial.Ambient = clr;
-            DefaultMaterial.Diffuse = clr;
-            DefaultMaterial.Power = 0;
+            DefaultMatColor.Ambient = clr;
+            DefaultMatColor.Diffuse = clr;
+            DefaultMatColor.Power = 0;
             clr.Alpha = 0;
             clr.Red = 0;
             clr.Green = 0;
             clr.Blue = 0;
-            DefaultMaterial.Emissive = clr;
-            DefaultMaterial.Specular = clr;
+            DefaultMatColor.Emissive = clr;
+            DefaultMatColor.Specular = clr;
+
+            DefaultMaterial = new Material(null);
+            DefaultMaterial.CullMode = Cull.None;
+            DefaultMaterial.mat = DefaultMatColor;
         }
 
+        public Material(Device dev)
+        {
+            device = dev;
+        }
+        #endregion
 
-        Texture LoadTexture(string fileName)
+        #region Fields
+
+        protected Device device;
+        #endregion
+
+        #region IComparable<MeshMaterial> 成员
+
+        public int CompareTo(Material other)
+        {
+            return this.GetHashCode().CompareTo(other.GetHashCode());
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///  重写以适应不同环境下的使用
+        /// </summary>
+        GameTexture LoadTexture(string fileName)
         {
             fileName = fileName.Trim();
             if (!string.IsNullOrEmpty(fileName))
             {
-                FileLocation fl = FileSystem.Instance.TryLocate(fileName, DefaultLocateRules.Instance.TextureLocateRule);
+                FileLocation fl = FileSystem.Instance.TryLocate(fileName, FileLocateRules.Model);
                 if (fl != null)
                 {
-                    ImageLoader image = ImageManager.Instance.CreateInstance(fl);
-
-                    return TextureManager.Instance.CreateInstance(image);// Texture.FromStream(device, fl.GetStream, Usage.None, Pool.Managed);
+                    return TextureManager.Instance.CreateInstance(device, fl);
                 }
                 else
                 {
-                    EngineConsole.Instance.Write("Texture: " + fileName + "is not found.", ConsoleMessageType.Warning);
+                    EngineConsole.Instance.Write("找不到纹理：" + fileName, ConsoleMessageType.Warning);
                     return null;
                 }
             }
             return null;
         }
-        protected override Texture LoadTexture(ContentBinaryReader br, bool isEmbeded, int index)
+        protected override GameTexture LoadTexture(ContentBinaryReader br, bool isEmbeded, int index)
         {
             if (isEmbeded)
             {
-                string ext = br.ReadStringUnicode();
-
-                VirtualStream vs = new VirtualStream(br.BaseStream, br.BaseStream.Position, br.BaseStream.Length - br.BaseStream.Position);
-
-                StreamedLocation sl = new StreamedLocation(vs);
-
-                ImageLoader imgLdr = ImageManager.Instance.CreateInstance(sl, ext);
-                Image image = imgLdr.Load();
-                return TextureManager.Instance.CreateInstance(image);
-
-                //return Texture.FromStream(device, br.BaseStream, Usage.None, Pool.Managed);
+                return new GameTexture(Texture.FromStream(device, br.BaseStream, Usage.None, Pool.Managed));
             }
             else
             {
-                return LoadTexture(br.ReadStringUnicode());
+                string fn = br.ReadStringUnicode();
+                textureFiles[index] = fn;
+
+                return LoadTexture(fn);
             }
         }
 
-        protected override void DestroyTexture(Texture tex)
+        protected override void SaveTexture(ContentBinaryWriter bw, GameTexture tex, bool isEmbeded, int index)
         {
-            tex.Dispose();
+            if (isEmbeded)
+            {
+                throw new NotSupportedException();
+            }
+            bw.WriteStringUnicode(textureFiles[index]);
         }
 
-        protected override void SaveTexture(ContentBinaryWriter bw, Texture tex, bool isEmbeded, int index)
+        protected override ModelEffect LoadEffect(string name)
         {
-            throw new NotImplementedException();
+            return EffectManager.Instance.GetModelEffect(name);
         }
-
-        protected override Effect LoadEffect(string name)
+        public static Material FromBinary(Device dev, BinaryDataReader data)
         {
-            throw new NotImplementedException();
-
-            //return EffectManager.Instance.GetModelEffect(name);
-        }
-
-        public static Material FromBinary(BinaryDataReader data)
-        {
-            Material res = new Material();
+            Material res = new Material(dev);
 
             res.ReadData(data);
 
@@ -443,5 +461,12 @@ namespace VirtualBicycle.RenderSystem
 
             return data;
         }
+
+        protected override void DestroyTexture(GameTexture tex)
+        {
+            TextureManager.Instance.DestroyInstance(tex);
+        }
+
+        #endregion
     }
 }

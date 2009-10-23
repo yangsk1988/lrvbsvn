@@ -2,7 +2,7 @@ using System;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.Media;
 
-namespace VirtualBicycle.RenderSystem.ParticleSystem.Modifiers
+namespace VirtualBicycle.Graphics.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents a modifier that interpolates the color of a particle over its lifetime.

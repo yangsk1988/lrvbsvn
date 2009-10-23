@@ -2,7 +2,7 @@ using System;
 using System.Runtime.Serialization;
 using VirtualBicycle.MathLib;
 
-namespace VirtualBicycle.RenderSystem.ParticleSystem.Emitters
+namespace VirtualBicycle.Graphics.ParticleSystem.Emitters
 {
     /// <summary>
     /// Represents a particle emitter that releases particles in a circle shape.

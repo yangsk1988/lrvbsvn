@@ -171,7 +171,7 @@ namespace VirtualBicycle.Graphics.Effects
             effect.EndPass();
         }
 
-        public override void SetupInstancing(MeshMaterial mat)
+        public override void SetupInstancing(Material mat)
         {
             if (!stateSetted)
             {
@@ -223,7 +223,7 @@ namespace VirtualBicycle.Graphics.Effects
 
             effectInst.CommitChanges();
         }
-        public override void Setup(MeshMaterial mat, ref RenderOperation op)
+        public override void Setup(Material mat, ref RenderOperation op)
         {
             if (!stateSetted)
             {
@@ -293,7 +293,7 @@ namespace VirtualBicycle.Graphics.Effects
             shadowMapGen.EndPass();
             shadowMapGen.End();
         }
-        public override void SetupShadowPass(MeshMaterial mat, ref RenderOperation op)
+        public override void SetupShadowPass(Material mat, ref RenderOperation op)
         {
             shadowMapGen.SetTexture(ehDispMap, mat.GetTexture(0).GetTexture);
             shadowMapGen.SetValue(ehHeightScale, EffectParams.TerrainHeightScale);

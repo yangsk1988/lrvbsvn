@@ -77,7 +77,7 @@
     <Compile Include="Geometry\Torus.cs" />
     <Compile Include="IRenderable.cs" />
     <Compile Include="Mesh.cs" />
-    <Compile Include="MeshMaterial.cs" />
+    <Compile Include="RenderSystem\Material.cs" />
     <Compile Include="MeshSimplifier.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="ModelHelper.cs" />
@@ -118,7 +118,6 @@
     <Compile Include="RenderSystem\GraphicsAPI.cs" />
     <Compile Include="RenderSystem\Light.cs" />
     <Compile Include="RenderSystem\Line.cs" />
-    <Compile Include="RenderSystem\Material.cs" />
     <Compile Include="RenderSystem\ObjectFactory.cs" />
     <Compile Include="RenderSystem\RenderControl.cs" />
     <Compile Include="RenderSystem\RenderStateManager.cs" />
@@ -130,7 +129,6 @@
     <Compile Include="RenderSystem\StateBlock.cs" />
     <Compile Include="RenderSystem\Texture.cs" />
     <Compile Include="RenderSystem\TextureManager.cs" />
-    <Compile Include="RenderSystem\Vertex.cs" />
     <Compile Include="RenderSystem\VertexDeclaration.cs" />
     <Compile Include="RenderSystem\VertexElement.cs" />
     <Compile Include="Scene\Cluster.cs" />
@@ -161,12 +159,10 @@
     <Compile Include="Scene\TerrainTreeNode.cs" />
     <Compile Include="ShadowMap.cs" />
     <Compile Include="SkyBox.cs" />
-    <Compile Include="Sprite3D.cs" />
     <Compile Include="TextureLibrary.cs" />
     <Compile Include="TextureLoader.cs" />
     <Compile Include="TextureManager.cs" />
-    <Compile Include="TextureSet.cs" />
-    <Compile Include="VertexFormats.cs" />
+    <Compile Include="RenderSystem\VertexFormats.cs" />
     <Compile Include="WaterSurface.cs" />
     <Compile Include="WeatherType.cs" />
   </ItemGroup>

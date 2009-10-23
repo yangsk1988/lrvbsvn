@@ -30,7 +30,7 @@ namespace VirtualBicycle.Graphics.Effects
             throw new NotSupportedException();
         }
 
-        public override void Setup(MeshMaterial mat, ref RenderOperation op)
+        public override void Setup(Material mat, ref RenderOperation op)
         {
             throw new NotSupportedException();
         }
@@ -72,7 +72,7 @@ namespace VirtualBicycle.Graphics.Effects
 
 
 
-        public override void SetupShadowPass(MeshMaterial mat, ref RenderOperation op)
+        public override void SetupShadowPass(Material mat, ref RenderOperation op)
         {
             effect.SetValue(ehMVP, op.Transformation * EffectParams.ShadowMap.ViewProj);
 

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using VirtualBicycle.MathLib;
 
-namespace VirtualBicycle.RenderSystem.ParticleSystem.Modifiers
+namespace VirtualBicycle.Graphics.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents gravity that will affect particles in a linear manner.

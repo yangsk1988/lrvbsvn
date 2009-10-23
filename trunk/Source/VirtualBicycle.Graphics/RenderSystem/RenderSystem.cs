@@ -4,7 +4,7 @@ using System.Text;
 using VirtualBicycle.Collections;
 using VirtualBicycle.MathLib;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     /// <summary>
     /// Applications use the methods of the RenderSystem to perform DrawPrimitive-based rendering, create resources,

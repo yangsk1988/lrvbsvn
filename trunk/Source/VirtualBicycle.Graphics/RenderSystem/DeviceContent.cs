@@ -5,7 +5,7 @@ using VirtualBicycle.Collections;
 using VirtualBicycle.Media;
 using System.Windows.Forms;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     /// <summary>
     ///  渲染设备的渲染目标参数

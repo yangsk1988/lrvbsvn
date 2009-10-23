@@ -40,11 +40,7 @@ namespace VirtualBicycle.Core
         /// </summary>
         int manageTimes;
 
-
-        /// <summary>
-        ///  是否允许资源的动态加载
-        /// </summary>
-        bool allowDynLd = true;
+        AsyncProcessor asyncProc = new AsyncProcessor();
 
         /// <summary>
         ///  以默认缓存大小创建一个资源管理器
@@ -78,14 +74,6 @@ namespace VirtualBicycle.Core
             manageFrequency = manageFreq;
         }
 
-        /// <summary>
-        ///  获取或设置该资源管理器是否允许动态加载/释放
-        /// </summary>
-        public bool AllowDynamicLoading
-        {
-            get { return allowDynLd; }
-            set { allowDynLd = value; }
-        }
 
         /// <summary>
         ///  获取或设置最大允许的缓存大小
@@ -133,30 +121,28 @@ namespace VirtualBicycle.Core
         /// </summary>
         public void Manage()
         {
-            if (allowDynLd)
+            manageTimes++;
+
+            if (manageTimes >= manageFrequency)
             {
-                manageTimes++;
-
-                if (manageTimes >= manageFrequency)
+                manageTimes = 0;
+                if (curUsedCache > totalCacheSize)
                 {
-                    manageTimes = 0;
-                    if (curUsedCache > totalCacheSize)
-                    {
-                        objects.Sort(Comparison);
+                    objects.Sort(Comparison);
 
-                        int oc = objects.Count;
-                        int k = oc - 1;
-                        while (curUsedCache > totalCacheSize && k >= 0)
+                    int oc = objects.Count;
+                    int k = oc - 1;
+                    while (curUsedCache > totalCacheSize && k >= 0)
+                    {
+                        if (objects[k].State == ResourceState.Loaded && objects[k].IsUnloadable)
                         {
-                            if (objects[k].State == ResourceState.Loaded && objects[k].IsUnloadable)
-                            {
-                                objects[k].Unload();
-                            }
-                            k--;
+                            objects[k].Unload();
                         }
+                        k--;
                     }
                 }
             }
+
         }
 
         /// <summary>
@@ -165,10 +151,7 @@ namespace VirtualBicycle.Core
         /// <param name="res">资源</param>
         public void NotifyResourceLoaded(Resource res)
         {
-            if (allowDynLd)
-            {
-                curUsedCache += res.GetSize();
-            }
+            curUsedCache += res.GetSize();
         }
 
         /// <summary>
@@ -177,10 +160,7 @@ namespace VirtualBicycle.Core
         /// <param name="res">资源</param>
         public void NotifyResourceUnloaded(Resource res)
         {
-            if (allowDynLd)
-            {
-                curUsedCache -= res.GetSize();
-            }
+            curUsedCache -= res.GetSize();
         }
 
         /// <summary>
@@ -195,19 +175,17 @@ namespace VirtualBicycle.Core
 
         #endregion
 
-
+        public void AddTask(ResourceOperation op) 
+        {
+            asyncProc.AddTask(op);
+        }
         /// <summary>
         ///  提示资源管理器已经创建了一个新资源，这个资源在创建时不考虑先前创建的资源
         /// </summary>
         /// <param name="res"></param>
-        protected void NewCached(Resource res, CacheType ctype)
+        protected void NotifyNewCached(Resource res, CacheType ctype)
         {
             objects.Add(res);
-
-            if (!res.AllowDynamicLoading)
-            {
-                allowDynLd = false;
-            }
 
             int size = res.GetSize();
 
@@ -234,15 +212,10 @@ namespace VirtualBicycle.Core
         ///  提示资源管理器已经创建了一个新资源，将它放入管理范围
         /// </summary>
         /// <param name="res"></param>
-        protected void NewResource(Resource res, CacheType ctype)
+        protected void NotifyNewResource(Resource res, CacheType ctype)
         {
             hashTable.Add(res.HashString, res);
             objects.Add(res);
-
-            if (!res.AllowDynamicLoading)
-            {
-                allowDynLd = false;
-            }
 
             int size = res.GetSize();
 
@@ -264,45 +237,6 @@ namespace VirtualBicycle.Core
                 }
             }
             res.SetCache(cm);
-        }
-
-        /// <summary>
-        ///  销毁一个资源对象
-        ///  即使该资源不受管理也照常销毁
-        /// </summary>
-        /// <param name="res"></param>
-        protected void DestoryResource(Resource res)
-        {
-            if (res == null)
-            {
-                throw new ArgumentNullException("res");
-            }
-
-
-            if (!res.IsUnmamaged)
-            {
-                Cache.Instance.Release(res.GetCache());
-                res.ResetCache();
-
-                res.Dispose();
-            }
-            else
-            {
-                if (res.ResourceEntity != null)
-                {
-                    res.ResourceEntity.ReferenceCount--;
-                    if (res.ResourceEntity.ReferenceCount == 0)
-                    {
-                        if (res.ResourceEntity.IsResourceEntity)
-                        {
-                            hashTable.Remove(res.ResourceEntity.HashString);
-                            objects.Remove(res.ResourceEntity);
-                        }
-                        DestoryResource(res.ResourceEntity);
-                    }
-                }
-                //res.Dispose(false);
-            }
         }
 
         /// <summary>

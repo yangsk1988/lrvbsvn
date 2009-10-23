@@ -41,7 +41,7 @@ namespace VirtualBicycle.Graphics
             {
                 Model mdl = new Model(device, rl);// Model.FromFile(device, rl);
                 retrived = mdl;
-                base.NewResource(mdl, CacheType.Static);
+                base.NotifyNewResource(mdl, CacheType.Static);
             }
             else
             {

@@ -7,7 +7,7 @@ using D3D = SlimDX.Direct3D9;
 using SD = System.Drawing;
 using SDI = System.Drawing.Imaging;
 
-namespace VirtualBicycle.RenderSystem.D3D9
+namespace VirtualBicycle.Graphics.D3D9
 {
     internal sealed class D3D9Texture : Texture
     {
@@ -364,9 +364,9 @@ namespace VirtualBicycle.RenderSystem.D3D9
                 throw new InvalidOperationException();
             }
         }
-        protected override void Dispose(bool disposing)
+        protected override void dispose(bool disposing)
         {
-            base.Dispose(disposing);
+            base.dispose(disposing);
             if (disposing)
             {
                 if (volTexture != null)

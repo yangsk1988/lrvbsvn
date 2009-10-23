@@ -30,6 +30,29 @@ namespace VirtualBicycle.Core
         Unloading
     }
 
+    public class ResourceRef<T>
+        where T : Resource
+    {
+        T resuorce;
+
+        public ResourceRef(T res) 
+        {
+            res.Reference();
+            this.resuorce = res;
+        }
+
+        ~ResourceRef() 
+        {
+            resuorce.Dereference();
+        }
+
+        public static implicit operator T(ResourceRef<T> res) 
+        {
+            res.resuorce.Use();
+            return res.resuorce;
+        }
+    }
+
     /// <summary>
     ///  表示一个资源，如纹理、模型等
     /// </summary>
@@ -41,6 +64,77 @@ namespace VirtualBicycle.Core
     /// </remarks>
     public abstract class Resource : IDisposable
     {
+        class ResourceLoader : ResourceOperation
+        {
+            public ResourceLoader(Resource resource)
+                : base(resource)
+            {
+            }
+
+            public override void Process()
+            {
+                if (Resource != null)
+                {
+                    Resource.load();
+                    Resource.State = ResourceState.Loaded;
+                }
+            }
+        }
+        class ResourceUnloader : ResourceOperation
+        {
+            public ResourceUnloader(Resource resource)
+                : base(resource)
+            {
+
+            }
+
+            public override void Process()
+            {
+                if (Resource != null)
+                {
+                    Resource.unload();
+                    Resource.State = ResourceState.Unloaded;
+                }
+            }
+        }
+
+        class ResoueceCacheReader : ResourceOperation
+        {
+            public ResoueceCacheReader(Resource resource)
+                : base(resource)
+            {
+
+            }
+
+            public override void Process()
+            {
+                if (Resource != null)
+                {
+                    Stream stream = Resource.cacheMem.ResourceLocation.GetStream;
+                    Resource.ReadCacheData(new VirtualStream(stream));
+                    Resource.State = ResourceState.Loaded;
+                }
+            }
+        }
+        class ResoueceCacheWriter : ResourceOperation
+        {
+            public ResoueceCacheWriter(Resource resource)
+                : base(resource)
+            {
+
+            }
+
+            public override void Process()
+            {
+                if (Resource != null)
+                {
+                    Stream stream = Resource.cacheMem.ResourceLocation.GetStream;
+
+                    Resource.WriteCacheData(new VirtualStream(stream));
+                }
+            }
+        }
+
         ResourceState resState;
         TimeSpan creationTime;
         TimeSpan lastAccessed;
@@ -51,17 +145,20 @@ namespace VirtualBicycle.Core
         ResourceManager manager;
 
         string hashString;
-        //int hashCode;
 
-        bool isUnmanaged;
-
-        Resource resourceEntity;
-
-        int entityRefCount;
+        int refCount;
 
         protected CacheMemory cacheMem;
 
+
+        ResourceLoader resourceLoader;
+        ResourceUnloader resourceUnloader;
+        ResoueceCacheReader resourceCReader;
+        ResoueceCacheWriter resourceCWriter;
         object syncHelper = new object();
+
+
+
 
         /// <summary>
         /// 如果是资源实体，获取资源实体的引用计数
@@ -69,16 +166,27 @@ namespace VirtualBicycle.Core
         [Browsable(false)]
         public int ReferenceCount
         {
-            get { return entityRefCount; }
-            set { entityRefCount = value; }
+            get { return refCount; }
         }
-        /// <summary>
-        ///  如果是引用，获取资源实体
-        /// </summary>
-        [Browsable(false)]
-        public Resource ResourceEntity
+
+        internal void Reference()
         {
-            get { return resourceEntity; }
+            if (IsManaged)
+                refCount++;
+        }
+
+        internal void Dereference() 
+        {
+            if (IsManaged)
+            {
+                refCount--;
+
+                if (refCount == 0)
+                {
+                    if (!Disposed)
+                        Dispose();
+                }
+            }
         }
 
         /// <summary>
@@ -115,8 +223,8 @@ namespace VirtualBicycle.Core
             cacheMem = new CacheMemory();
         }
 
-        public abstract void ReadCacheData(Stream stream);
-        public abstract void WriteCacheData(Stream stream);
+        protected abstract void ReadCacheData(Stream stream);
+        protected abstract void WriteCacheData(Stream stream);
 
         /// <summary>
         ///  获取该资源的状态
@@ -156,43 +264,15 @@ namespace VirtualBicycle.Core
         /// </summary>
         protected Resource()
         {
-            IsUnmamaged = true;
-        }
-
-        /// <summary>
-        ///  获取一个System.Boolean，表示该资源是否允许动态加载/卸载
-        /// </summary>
-        [Browsable(false)]
-        public bool AllowDynamicLoading
-        {
-            get;
-            protected set;
-        }
-
-        /// <summary>
-        ///  创建引用，不受管理
-        /// </summary>
-        protected Resource(ResourceManager manager, Resource resourceEntity)
-        {
-            this.hashString = string.Empty;
-            this.resourceEntity = resourceEntity;
-
-            this.IsUnmamaged = true;
-
-            this.resourceEntity.ReferenceCount++;
+            resourceLoader = new ResourceLoader(this);
+            resourceUnloader = new ResourceUnloader(this);
+            resourceCReader = new ResoueceCacheReader(this);
+            resourceCWriter = new ResoueceCacheWriter(this);
         }
 
         protected Resource(ResourceManager manager, string hashString)
+            : this()
         {
-            this.AllowDynamicLoading = true;
-            this.hashString = hashString;
-            this.manager = manager;
-        }
-
-
-        protected Resource(ResourceManager manager, string hashString, bool allowdl)
-        {
-            this.AllowDynamicLoading = allowdl;
             this.hashString = hashString;
             this.manager = manager;
         }
@@ -209,20 +289,11 @@ namespace VirtualBicycle.Core
         ///  获取该资源是否不受管理
         /// </summary>
         [Browsable(false)]
-        public bool IsUnmamaged
+        public bool IsManaged
         {
-            get { return isUnmanaged; }
-            private set { isUnmanaged = value; }
+            get { return manager != null; }
         }
 
-        /// <summary>
-        ///  获取一个System.Boolean，表示该资源是否是资源实体(ResourceEntity)
-        /// </summary>
-        [Browsable(false)]
-        public bool IsResourceEntity
-        {
-            get { return resourceEntity == null; }
-        }
 
         /// <summary>
         ///  获取一个System.Boolean，表示该资源是否已经加载
@@ -290,25 +361,17 @@ namespace VirtualBicycle.Core
         /// </summary>
         public void Use()
         {
-            if (!IsResourceEntity)
+            if (IsManaged)
             {
-                resourceEntity.Use();
-            }
-            else
-            {
-                if (!isUnmanaged)
+                lastAccessed = EngineTimer.TimeSpan;
+                accessTimes++;
+
+                float seconds = (float)((lastAccessed - creationTime).TotalSeconds);
+                useFrequency = seconds < 1 ? float.MaxValue : ((float)accessTimes) / seconds;
+
+                if (State != ResourceState.Loaded && State != ResourceState.Loading)
                 {
-                    lastAccessed = EngineTimer.TimeSpan;
-                    accessTimes++;
-
-                    float seconds = (float)((lastAccessed - creationTime).TotalSeconds);
-                    useFrequency = seconds < 1 ? float.MaxValue : ((float)accessTimes) / seconds;
-
-                    if (State == ResourceState.Unloaded)
-                    {
-                        manager.Manage();
-                        Load();
-                    }
+                    Load();
                 }
             }
         }
@@ -317,27 +380,18 @@ namespace VirtualBicycle.Core
         ///  加载资源
         /// </summary>
         public void Load()
-        {            
-            if (IsResourceEntity)
+        {
+            if (IsManaged)
             {
-                if (!isUnmanaged)
-                {
-                    creationTime = EngineTimer.TimeSpan;
-                    State = ResourceState.Loading;
+                creationTime = EngineTimer.TimeSpan;
+                State = ResourceState.Loading;
 
-                    if (HasCache)
-                    {
-                        Stream stream = cacheMem.ResourceLocation.GetStream;
-                        ReadCacheData(new VirtualStream(stream));
-                    }
-                    else
-                    {
-                        load();
-                    }
+                if (HasCache)
+                    manager.AddTask(resourceCReader);
+                else
+                    manager.AddTask(resourceLoader);
 
-                    manager.NotifyResourceLoaded(this);
-                    State = ResourceState.Loaded;
-                }
+                manager.NotifyResourceLoaded(this);
             }
         }
 
@@ -346,40 +400,25 @@ namespace VirtualBicycle.Core
         /// </summary>
         public void Unload()
         {
-            if (IsResourceEntity)
+            if (IsManaged)
             {
-                if (!isUnmanaged)
-                {
-                    State = ResourceState.Unloading;
+                State = ResourceState.Unloading;
+               
+                if (HasCache)
+                    manager.AddTask(resourceCWriter);
+                manager.AddTask(resourceUnloader);
 
-                    if (HasCache)
-                    {
-                        Stream stream = cacheMem.ResourceLocation.GetStream;
-                        WriteCacheData(new VirtualStream(stream));
-                        unload();
-#warning review
-                    }
-                    else
-                    {
-                        unload();
-                    }
-
-                    //manager.NotifyResourceUnloaded(this);
-                    State = ResourceState.Unloaded;
-                }
+                manager.NotifyResourceUnloaded(this);   
             }
         }
         public void Reload()
         {
-            if (IsResourceEntity)
+            if (IsManaged)
             {
-                if (!isUnmanaged)
+                if (IsLoaded)
                 {
-                    if (IsLoaded)
-                    {
-                        Unload();
-                        Load();
-                    }
+                    Unload();
+                    Load();
                 }
             }
         }
@@ -389,10 +428,13 @@ namespace VirtualBicycle.Core
         ///  销毁资源
         /// </summary>
         /// <param name="disposing">是否释放</param>
-        protected virtual void Dispose(bool disposing)
+        protected virtual void dispose(bool disposing)
         {
-            if (disposing && manager != null)
+            if (disposing && IsManaged)
             {
+                Cache.Instance.Release(cacheMem);
+                ResetCache();
+
                 manager.NotifyResourceFinalizing(this);
             }
         }
@@ -416,7 +458,7 @@ namespace VirtualBicycle.Core
         {
             if (!Disposed)
             {
-                Dispose(true);
+                dispose(true);
                 Disposed = true;
             }
             else
@@ -431,7 +473,7 @@ namespace VirtualBicycle.Core
         {
             if (!Disposed)
             {
-                Dispose(false);
+                dispose(false);
                 Disposed = true;
             }
         }

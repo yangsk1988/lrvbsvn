@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.RenderSystem;
+using VirtualBicycle.Graphics;
 using VirtualBicycle.Media;
 using D3D = SlimDX.Direct3D9;
 
-namespace VirtualBicycle.RenderSystem.D3D9
+namespace VirtualBicycle.Graphics.D3D9
 {
     internal class D3D9SamplerState : SamplerState
     {

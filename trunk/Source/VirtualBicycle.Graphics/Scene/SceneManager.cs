@@ -203,7 +203,7 @@ namespace VirtualBicycle.Scene
                         Matrix.Multiply(ref ops[k].Transformation, ref ofsTrans, out ops[k].Transformation);
                         Matrix.Multiply(ref ops[k].Transformation, ref obj.Transformation, out ops[k].Transformation);
 
-                        MeshMaterial mate = ops[k].Material;
+                        Material mate = ops[k].Material;
                         GeomentryData geoData = ops[k].Geomentry;
 
                         if (mate != null)
@@ -231,10 +231,10 @@ namespace VirtualBicycle.Scene
                                     batchHelper.effects.Add(desc, mate.Effect);
                                 }
 
-                                Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable;
+                                Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable;
                                 if (!batchHelper.instanceTable.TryGetValue(desc, out matTable))
                                 {
-                                    matTable = new Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>();
+                                    matTable = new Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>();
                                     batchHelper.instanceTable.Add(desc, matTable);
                                 }
 

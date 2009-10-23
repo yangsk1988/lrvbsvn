@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using VirtualBicycle.Graphics;
 using SD = System.Drawing;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     /// <summary>
     ///  表示渲染目标所在的控件

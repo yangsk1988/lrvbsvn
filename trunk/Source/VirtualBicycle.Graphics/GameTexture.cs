@@ -171,9 +171,9 @@ namespace VirtualBicycle.Graphics
             return 0;
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void dispose(bool disposing)
         {
-            base.Dispose(disposing);
+            base.dispose(disposing);
 
             resLoc = null;
         } 

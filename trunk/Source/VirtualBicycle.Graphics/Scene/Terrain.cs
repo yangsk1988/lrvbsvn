@@ -202,7 +202,7 @@ namespace VirtualBicycle.Scene
 
         IndexBuffer[] levelIb;
 
-        protected MeshMaterial material;
+        protected Material material;
 
         TerrainTexture displacementMap;
         TerrainTexture colorMap;
@@ -683,7 +683,7 @@ namespace VirtualBicycle.Scene
 
             worldTrans = Matrix.Identity;
 
-            material = new MeshMaterial(device);
+            material = new Material(device);
             material.CullMode = Cull.Counterclockwise;
 
             material.mat.Ambient = terrData.MaterialAmbient;

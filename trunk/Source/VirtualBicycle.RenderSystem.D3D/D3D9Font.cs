@@ -4,7 +4,7 @@ using System.Text;
 using VirtualBicycle.MathLib;
 using D3D = SlimDX.Direct3D9;
 
-namespace VirtualBicycle.RenderSystem.D3D9
+namespace VirtualBicycle.Graphics.D3D9
 {
     internal sealed class D3D9Font : Font
     {
