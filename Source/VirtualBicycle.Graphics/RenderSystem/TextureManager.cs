@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using VirtualBicycle.Core;
 using VirtualBicycle.Vfs;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     public class TextureManager : ResourceManager
     {
@@ -100,7 +101,7 @@ namespace VirtualBicycle.RenderSystem
             {
                 Texture tex = Factory.CreateTexture(image, CreationUsage);
                 retrived = tex;
-                base.NewResource(tex);
+                base.NotifyNewResource(tex);
             }
             else
             {

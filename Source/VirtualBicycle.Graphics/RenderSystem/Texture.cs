@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Core;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     /// <summary>
     ///  表示纹理贴图。可以是1-3维的或者是立方贴图

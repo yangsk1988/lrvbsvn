@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using VirtualBicycle.MathLib;
-using VirtualBicycle.RenderSystem.ParticleSystem.Modifiers;
+using VirtualBicycle.Graphics.ParticleSystem.Modifiers;
 
-namespace VirtualBicycle.RenderSystem.ParticleSystem.Emitters
+namespace VirtualBicycle.Graphics.ParticleSystem.Emitters
 {
     [Serializable]
     public class Emitter<T> where T : IParticle, new()

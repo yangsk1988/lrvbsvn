@@ -2,7 +2,7 @@ using System;
 using VirtualBicycle.MathLib;
 
 
-namespace VirtualBicycle.RenderSystem.ParticleSystem
+namespace VirtualBicycle.Graphics.ParticleSystem
 {
     public class Particle : IParticle
     {

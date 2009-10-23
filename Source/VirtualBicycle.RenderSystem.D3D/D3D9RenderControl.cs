@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
-namespace VirtualBicycle.RenderSystem.D3D9
+namespace VirtualBicycle.Graphics.D3D9
 {
     /// <summary>
     ///  D3D9RenderControl 就和 SwapChain一样

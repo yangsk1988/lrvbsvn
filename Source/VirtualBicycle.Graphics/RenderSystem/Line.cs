@@ -7,7 +7,7 @@ using VirtualBicycle.MathLib;
 using VirtualBicycle.Media;
 using VirtualBicycle.Graphics;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     public class Line : IRenderable
     {

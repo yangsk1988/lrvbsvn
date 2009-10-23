@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
-using SlimDX.Direct3D9;
 using VirtualBicycle.Graphics.Animation;
-using VirtualBicycle.IO;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics
 {
@@ -26,7 +25,7 @@ namespace VirtualBicycle.Graphics
 
         protected MeshType[] entities;
         //protected Animation animation;
-        protected Device device;
+        protected RenderSystem device;
 
         TransformAnimationInstance transAnim;
         SkinAnimationInstance skinAnim;
@@ -54,46 +53,39 @@ namespace VirtualBicycle.Graphics
             private set;
         }
 
-        protected ModelBase(Device dev, ResourceLocation rl)
+        protected ModelBase(RenderSystem dev, ResourceLocation rl)
             : base(ModelManager.Instance, rl.Name)
         {
             device = dev;
             DataSource = rl;
         }
 
-        protected ModelBase(Device rs)
+        protected ModelBase(RenderSystem rs)
         {
             device = rs;
         }
-        protected ModelBase(Device rs, ModelBase<MeshType> refMdl)
+        protected ModelBase(RenderSystem rs, ModelBase<MeshType> refMdl)
             : base(ModelManager.Instance, refMdl)
         {
         }
-        protected ModelBase(Device rs, string name)
+        protected ModelBase(RenderSystem rs, string name)
             : base(ModelManager.Instance, name)
         {
             device = rs;
         }
 
-        protected ModelBase(Device rs, string name, bool allowdl)
+        protected ModelBase(RenderSystem rs, string name, bool allowdl)
             : base(ModelManager.Instance, name, allowdl)
         {
             device = rs;
         }
 
         [Browsable(false)]
-        public Device Device
+        public RenderSystem RenderSystem
         {
             get { return device; }
         }
 
-        //public Animation ModelAnimation
-        //{
-        //    get { return animation; }
-        //    set { animation = value; }
-        //}
-
-        //[Browsable(false)]
         public MeshType[] Entities
         {
             get
@@ -434,9 +426,9 @@ namespace VirtualBicycle.Graphics
 
         #region IDisposable 成员
 
-        protected override void Dispose(bool disposing)
+        protected override void dispose(bool disposing)
         {
-            base.Dispose(disposing);
+            base.dispose(disposing);
 
             if (disposing)
             {

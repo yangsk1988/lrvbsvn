@@ -22,7 +22,7 @@ namespace VirtualBicycle.Scene
         /// </summary>
         public Dictionary<string, ModelEffect> effects;
 
-        public Dictionary<string, Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>> instanceTable;
+        public Dictionary<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>> instanceTable;
 
         public FastList<SceneObject> visibleObjects;
 

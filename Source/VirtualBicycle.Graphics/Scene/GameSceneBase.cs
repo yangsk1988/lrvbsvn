@@ -56,7 +56,7 @@ namespace VirtualBicycle.Scene
         /// </summary>
         protected Dictionary<string, ModelEffect> effects;
 
-        Dictionary<string, Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>> instanceTable;
+        Dictionary<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>> instanceTable;
 
         protected FastList<SceneObject> visibleObjects;
 
@@ -204,7 +204,7 @@ namespace VirtualBicycle.Scene
             axisOp.Geomentry = new GeomentryData(null);
             axisOp.Geomentry.Format = VertexPC.Format;
             axisOp.Geomentry.IndexBuffer = null;
-            axisOp.Material = MeshMaterial.DefaultMaterial;
+            axisOp.Material = Material.DefaultMaterial;
             axisOp.Geomentry.PrimCount = 3;
             axisOp.Geomentry.PrimitiveType = PrimitiveType.LineList;
             axisOp.Transformation = Matrix.Identity;
@@ -232,7 +232,7 @@ namespace VirtualBicycle.Scene
 
             effects = new Dictionary<string, ModelEffect>();
             batchTable = new Dictionary<string, FastList<RenderOperation>>();
-            instanceTable = new Dictionary<string, Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>>();
+            instanceTable = new Dictionary<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>>();
 
             visibleObjects = new FastList<SceneObject>();
 
@@ -281,7 +281,7 @@ namespace VirtualBicycle.Scene
                 {
                     if (ops[k].Geomentry != null)
                     {
-                        MeshMaterial mate = ops[k].Material;
+                        Material mate = ops[k].Material;
                         GeomentryData geoData = ops[k].Geomentry;
 
                         if (mate != null)
@@ -308,10 +308,10 @@ namespace VirtualBicycle.Scene
                                     batchHelper.effects.Add(desc, mate.Effect);
                                 }
 
-                                Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable;
+                                Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable;
                                 if (!batchHelper.instanceTable.TryGetValue(desc, out matTable))
                                 {
-                                    matTable = new Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>();
+                                    matTable = new Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>();
                                     batchHelper.instanceTable.Add(desc, matTable);
                                 }
 
@@ -431,10 +431,10 @@ namespace VirtualBicycle.Scene
             #endregion
 
             #region 处理Instancing
-            foreach (KeyValuePair<string, Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>> e2 in instanceTable)
+            foreach (KeyValuePair<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>> e2 in instanceTable)
             {
-                Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable = e2.Value;
-                foreach (KeyValuePair<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>> e3 in matTable)
+                Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable = e2.Value;
+                foreach (KeyValuePair<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> e3 in matTable)
                 {
                     Dictionary<GeomentryData, FastList<RenderOperation>> geoTable = e3.Value;
                     foreach (KeyValuePair<GeomentryData, FastList<RenderOperation>> e4 in geoTable)
@@ -459,9 +459,9 @@ namespace VirtualBicycle.Scene
                                     effect = EffectManager.Instance.GetModelEffect(StandardEffectFactory.Name);
                                 }
 
-                                MeshMaterial mate = e3.Key;
+                                Material mate = e3.Key;
                                 if (mate == null)
-                                    mate = MeshMaterial.DefaultMaterial;
+                                    mate = Material.DefaultMaterial;
 
                                 if (gm.VertexCount == 0)
                                     continue;
@@ -521,10 +521,10 @@ namespace VirtualBicycle.Scene
             {
                 opList.FastClear();
             }
-            Dictionary<string, Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>>.ValueCollection instTableVals = instanceTable.Values;
-            foreach (Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>> matTbl in instTableVals)
+            Dictionary<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>>.ValueCollection instTableVals = instanceTable.Values;
+            foreach (Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTbl in instTableVals)
             {
-                Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>.ValueCollection matTableVals = matTbl.Values;
+                Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>.ValueCollection matTableVals = matTbl.Values;
                 foreach (Dictionary<GeomentryData, FastList<RenderOperation>> geoTable in matTableVals)
                 {
                     Dictionary<GeomentryData, FastList<RenderOperation>>.ValueCollection geoTableVals = geoTable.Values;
@@ -565,9 +565,9 @@ namespace VirtualBicycle.Scene
                     PrimitiveCount += gm.PrimCount;
                     VertexCount += gm.VertexCount;
 
-                    MeshMaterial mate = op.Material;
+                    Material mate = op.Material;
                     if (mate == null)
-                        mate = MeshMaterial.DefaultMaterial;
+                        mate = Material.DefaultMaterial;
 
                     //device.SetRenderState(RenderState.ZWriteEnable, !mate.IsTransparent);
                     device.SetRenderState(RenderState.AlphaTestEnable, mate.IsTransparent);
@@ -617,9 +617,9 @@ namespace VirtualBicycle.Scene
                 PrimitiveCount += gm.PrimCount;
                 VertexCount += gm.VertexCount;
 
-                MeshMaterial mate = op.Material;
+                Material mate = op.Material;
                 if (mate == null)
-                    mate = MeshMaterial.DefaultMaterial;
+                    mate = Material.DefaultMaterial;
 
                 //device.SetRenderState(RenderState.AlphaTestEnable, mate.IsTransparent);
                 device.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
@@ -708,10 +708,10 @@ namespace VirtualBicycle.Scene
                         RenderSMList(e1.Key, opList);
                     }
                 }
-                foreach (KeyValuePair<string, Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>> e2 in instanceTable)
+                foreach (KeyValuePair<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>> e2 in instanceTable)
                 {
-                    Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable = e2.Value;
-                    foreach (KeyValuePair<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>> e3 in matTable)
+                    Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable = e2.Value;
+                    foreach (KeyValuePair<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> e3 in matTable)
                     {
                         Dictionary<GeomentryData, FastList<RenderOperation>> geoTable = e3.Value;
                         foreach (KeyValuePair<GeomentryData, FastList<RenderOperation>> e4 in geoTable)
@@ -733,9 +733,9 @@ namespace VirtualBicycle.Scene
                                     if (effect == null)
                                         effect = shadowMap.DefaultSMGen;
 
-                                    MeshMaterial mate = e3.Key;
+                                    Material mate = e3.Key;
                                     if (mate == null)
-                                        mate = MeshMaterial.DefaultMaterial;
+                                        mate = Material.DefaultMaterial;
 
 
                                     if (gm.VertexCount == 0)
@@ -828,10 +828,10 @@ namespace VirtualBicycle.Scene
                 }
                 batchTable.Clear();
 
-                Dictionary<string, Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>>.ValueCollection instTableVals = instanceTable.Values;
-                foreach (Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>> matTbl in instTableVals)
+                Dictionary<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>>.ValueCollection instTableVals = instanceTable.Values;
+                foreach (Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTbl in instTableVals)
                 {
-                    Dictionary<MeshMaterial, Dictionary<GeomentryData, FastList<RenderOperation>>>.ValueCollection matTableVals = matTbl.Values;
+                    Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>.ValueCollection matTableVals = matTbl.Values;
                     foreach (Dictionary<GeomentryData, FastList<RenderOperation>> geoTable in matTableVals)
                     {
                         Dictionary<GeomentryData, FastList<RenderOperation>>.ValueCollection geoTableVals = geoTable.Values;

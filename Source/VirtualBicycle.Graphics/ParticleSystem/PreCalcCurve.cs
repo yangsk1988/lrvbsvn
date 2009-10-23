@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.Collections;
 
-namespace VirtualBicycle.RenderSystem.ParticleSystem
+namespace VirtualBicycle.Graphics.ParticleSystem
 {
     /// <summary>
     /// Represents a pre-calculated curve.

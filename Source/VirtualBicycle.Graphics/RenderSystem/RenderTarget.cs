@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Media;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     /// <summary>
     ///  表示渲染目标

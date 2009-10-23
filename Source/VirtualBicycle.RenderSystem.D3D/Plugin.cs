@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.PluginManager;
 
-namespace VirtualBicycle.RenderSystem.D3D9
+namespace VirtualBicycle.Graphics.D3D9
 {
     public class Plugin : IPlugin
     {

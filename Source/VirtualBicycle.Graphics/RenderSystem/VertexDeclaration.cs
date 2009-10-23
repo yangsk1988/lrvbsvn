@@ -3,13 +3,23 @@ using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Collections;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     /// <summary>
     ///  表示顶点声明
     /// </summary>
     public abstract class VertexDeclaration : IDisposable
     {
+        #region 字段
+
+        /// <summary>
+        ///     List of elements that make up this declaration.
+        /// </summary>
+        protected FastList<VertexElement> elements = new FastList<VertexElement>();
+
+        #endregion
+
+
         protected VertexDeclaration(VertexElement[] elements)
         {
             for (int i = 0; i < elements.Length; i++)
@@ -18,57 +28,8 @@ namespace VirtualBicycle.RenderSystem
             }
         }
 
-        #region Fields
 
-        /// <summary>
-        ///     List of elements that make up this declaration.
-        /// </summary>
-        protected FastList<VertexElement> elements = new FastList<VertexElement>();
-
-        #endregion Fields
-
-        #region Methods
-
-        ///// <summary>
-        /////     Adds a new VertexElement to this declaration.
-        ///// </summary>
-        ///// <remarks>
-        /////     This method adds a single element (positions, normals etc) to the
-        /////     vertex declaration. <b>Please read the information in <see cref="VertexDeclaration"/> about
-        /////     the importance of ordering and structure for compatibility with older D3D drivers</b>.
-        ///// </remarks>
-        ///// <param name="source">
-        /////     The binding index of HardwareVertexBuffer which will provide the source for this element.
-        ///// </param>
-        ///// <param name="offset">The offset in bytes where this element is located in the buffer.</param>
-        ///// <param name="type">The data format of the element (3 floats, a color etc).</param>
-        ///// <param name="semantic">The meaning of the data (position, normal, diffuse color etc).</param>
-        //public VertexElement AddElement(int offset, VertexElementFormat type, VertexElementUsage semantic)
-        //{
-        //    return AddElement(offset, type, semantic, 0);
-        //}
-
-        ///// <summary>
-        /////     Adds a new VertexElement to this declaration.
-        ///// </summary>
-        ///// <remarks>
-        /////     This method adds a single element (positions, normals etc) to the
-        /////     vertex declaration. <b>Please read the information in <see cref="VertexDeclaration"/> about
-        /////     the importance of ordering and structure for compatibility with older D3D drivers</b>.
-        ///// </remarks>
-        ///// <param name="source">
-        /////     The binding index of HardwareVertexBuffer which will provide the source for this element.
-        ///// </param>
-        ///// <param name="offset">The offset in bytes where this element is located in the buffer.</param>
-        ///// <param name="type">The data format of the element (3 floats, a color etc).</param>
-        ///// <param name="semantic">The meaning of the data (position, normal, diffuse color etc).</param>
-        ///// <param name="index">Optional index for multi-input elements like texture coordinates.</param>
-        //public virtual VertexElement AddElement(int offset, VertexElementFormat type, VertexElementUsage semantic, int index)
-        //{
-        //    VertexElement element = new VertexElement(offset, type, semantic, index);
-        //    elements.Add(element);
-        //    return element;
-        //}
+        #region 方法
 
         /// <summary>
         ///     Finds a <see cref="VertexElement"/> with the given semantic, and index if there is more than 
@@ -108,25 +69,6 @@ namespace VirtualBicycle.RenderSystem
             return false;
         }
 
-        ///// <summary>
-        /////     Gets a list of elements which use a given source.
-        ///// </summary>
-        //public virtual FastList<VertexElement> FindElementBySource(short source)
-        //{
-        //    FastList<VertexElement> rv = new FastList<VertexElement>();
-
-        //    for (int i = 0; i < elements.Count; i++)
-        //    {
-        //        VertexElement element = elements[i];
-
-        //        //// do they match?
-        //        if (element.Source == source)
-        //        rv.Add(element);
-        //    }
-
-        //    // return the list
-        //    return rv;
-        //}
 
         /// <summary>
         ///		Gets the <see cref="VertexElement"/> at the specified index.
@@ -161,132 +103,6 @@ namespace VirtualBicycle.RenderSystem
             return size;
         }
 
-        ///// <summary>
-        /////		Inserts a new <see cref="VertexElement"/> at a given position in this declaration.
-        ///// </summary>
-        ///// <remarks>
-        /////		This method adds a single element (positions, normals etc) at a given position in this
-        /////		vertex declaration. <b>Please read the information in VertexDeclaration about
-        /////		the importance of ordering and structure for compatibility with older D3D drivers</b>.
-        ///// </remarks>
-        ///// <param name="position">Position to insert into.</param>
-        ///// <param name="source">The binding index of HardwareVertexBuffer which will provide the source for this element.</param>
-        ///// <param name="offset">The offset in bytes where this element is located in the buffer.</param>
-        ///// <param name="type">The data format of the element (3 floats, a color, etc).</param>
-        ///// <param name="semantic">The meaning of the data (position, normal, diffuse color etc).</param>
-        ///// <returns>A reference to the newly created element.</returns>
-        //public VertexElement InsertElement(int position, short source, int offset, VertexElementFormat type, VertexElementUsage semantic)
-        //{
-        //    return InsertElement(position, source, offset, type, semantic, 0);
-        //}
-
-        ///// <summary>
-        /////		Inserts a new <see cref="VertexElement"/> at a given position in this declaration.
-        ///// </summary>
-        ///// <remarks>
-        /////		This method adds a single element (positions, normals etc) at a given position in this
-        /////		vertex declaration. <b>Please read the information in VertexDeclaration about
-        /////		the importance of ordering and structure for compatibility with older D3D drivers</b>.
-        ///// </remarks>
-        ///// <param name="position">Position to insert into.</param>
-        ///// <param name="source">The binding index of HardwareVertexBuffer which will provide the source for this element.</param>
-        ///// <param name="offset">The offset in bytes where this element is located in the buffer.</param>
-        ///// <param name="type">The data format of the element (3 floats, a color, etc).</param>
-        ///// <param name="semantic">The meaning of the data (position, normal, diffuse color etc).</param>
-        ///// <param name="index">Optional index for multi-input elements like texture coordinates.</param>
-        ///// <returns>A reference to the newly created element.</returns>
-        //public virtual VertexElement InsertElement(int position, short source, int offset, VertexElementFormat type, VertexElementUsage semantic, int index)
-        //{
-        //    if (position >= elements.Count)
-        //    {
-        //        return AddElement(offset, type, semantic, index);
-        //    }
-
-        //    VertexElement element = new VertexElement(offset, type, semantic, index);
-
-        //    elements.Insert(position, element);
-
-        //    return element;
-        //}
-
-        ///// <summary>
-        /////		Gets the <see cref="VertexElement"/> at the specified index.
-        ///// </summary>
-        ///// <param name="index">Index of the element to retrieve.</param>
-        ///// <returns>Element at the requested index.</returns>
-        //public virtual void RemoveElement(int index)
-        //{
-        //    //Debug.Assert(index < elements.Count && index >= 0, "Element index out of bounds.");
-
-        //    elements.RemoveAt(index);
-        //}
-
-        ///// <summary>
-        /////		Removes all <see cref="VertexElement"/> from the declaration.
-        ///// </summary>
-
-        //public virtual void RemoveAllElements()
-        //{
-        //    elements.Clear();
-        //}
-
-        ///// <summary>
-        /////		Modifies the definition of a <see cref="VertexElement"/>.
-        ///// </summary>
-        ///// <param name="elemIndex">Index of the element to modify.</param>
-        ///// <param name="source">Source of the element.</param>
-        ///// <param name="offset">Offset of the element.</param>
-        ///// <param name="type">Type of the element.</param>
-        ///// <param name="semantic">Semantic of the element.</param>
-        //public void ModifyElement(int elemIndex, short source, int offset, VertexElementFormat type, VertexElementUsage semantic)
-        //{
-        //    ModifyElement(elemIndex, source, offset, type, semantic, 0);
-        //}
-
-        ///// <summary>
-        /////		Modifies the definition of a <see cref="VertexElement"/>.
-        ///// </summary>
-        ///// <param name="elemIndex">Index of the element to modify.</param>
-        ///// <param name="source">Source of the element.</param>
-        ///// <param name="offset">Offset of the element.</param>
-        ///// <param name="type">Type of the element.</param>
-        ///// <param name="semantic">Semantic of the element.</param>
-        ///// <param name="index">Usage index of the element.</param>
-        //public virtual void ModifyElement(int elemIndex, short source, int offset, VertexElementFormat type, VertexElementUsage semantic, int index)
-        //{
-        //    elements[elemIndex] = new VertexElement(offset, type, semantic, index);
-        //}
-
-        ///// <summary>
-        /////		Remove the element with the given semantic.
-        ///// </summary>
-        ///// <remarks>
-        /////		For elements that have usage indexes, the default of 0 is used.
-        ///// </remarks>
-        ///// <param name="semantic">Semantic to remove.</param>
-        //public void RemoveElement(VertexElementUsage semantic)
-        //{
-        //    RemoveElement(semantic, 0);
-        //}
-
-        ///// <summary>
-        /////		Remove the element with the given semantic and usage index.
-        ///// </summary>
-        ///// <param name="semantic">Semantic to remove.</param>
-        ///// <param name="index">Usage index to remove, typically only applies to tex coords.</param>
-        //public virtual void RemoveElement(VertexElementUsage semantic, int index)
-        //{
-        //    for (int i = elements.Count - 1; i >= 0; i--)
-        //    {
-        //        VertexElement element = elements[i];
-
-        //        if (element.Semantic == semantic && element.Index == index)
-        //        {
-        //            // we have a winner!
-        //            elements.RemoveAt(i);
-        //        }
-        //    }
-        //}
 
         /// <summary>
         ///     Tests equality of 2 <see cref="VertexElement"/> objects.
@@ -327,7 +143,7 @@ namespace VirtualBicycle.RenderSystem
 
         #endregion
 
-        #region Properties
+        #region 属性
 
         /// <summary>
         ///     Gets the number of elements in the declaration.

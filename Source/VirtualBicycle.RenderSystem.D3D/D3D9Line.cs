@@ -7,7 +7,7 @@ using VirtualBicycle.MathLib;
 using VirtualBicycle.Media;
 using D3D = SlimDX.Direct3D9;
 
-namespace VirtualBicycle.RenderSystem.D3D9
+namespace VirtualBicycle.Graphics.D3D9
 {
 
     internal sealed unsafe class D3D9Line : Line

@@ -1,6 +1,6 @@
 using System;
 using VirtualBicycle.MathLib;
-namespace VirtualBicycle.RenderSystem.ParticleSystem.Modifiers
+namespace VirtualBicycle.Graphics.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents a radial gravity source.

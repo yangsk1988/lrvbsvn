@@ -165,7 +165,7 @@ namespace VirtualBicycle.Graphics.Effects
 
 
 
-        public override void Setup(MeshMaterial mat, ref RenderOperation op)
+        public override void Setup(Material mat, ref RenderOperation op)
         {
             if (!stateSetted)
             {
@@ -215,7 +215,7 @@ namespace VirtualBicycle.Graphics.Effects
 
         }
 
-        public override void SetupInstancing(MeshMaterial mat)
+        public override void SetupInstancing(Material mat)
         {
             if (!stateSetted)
             {
@@ -260,7 +260,7 @@ namespace VirtualBicycle.Graphics.Effects
             effectInst.CommitChanges();
         }
 
-        public override void SetupShadowPass(MeshMaterial mat, ref RenderOperation op)
+        public override void SetupShadowPass(Material mat, ref RenderOperation op)
         {
             GameTexture clrTex = mat.GetTexture(0);
             if (clrTex == null)

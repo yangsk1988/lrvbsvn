@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     /// <summary>
     /// Describes the location for the include file.
@@ -68,12 +68,7 @@ namespace VirtualBicycle.RenderSystem
             private set;
         }
 
-
-        public ConstantTable ConstantTable
-        {
-            get;
-            protected set;
-        }
+        public abstract void SetValue<T>(string paramName, T value) where T : struct; 
 
         #region IDisposable 成员
 

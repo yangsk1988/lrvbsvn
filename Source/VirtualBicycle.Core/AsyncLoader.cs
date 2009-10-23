@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace VirtualBicycle.Core
 {
-    abstract class ResourceOperation
+    public abstract class ResourceOperation
     {
         Resource resource;
 
@@ -16,67 +17,86 @@ namespace VirtualBicycle.Core
         protected ResourceOperation(Resource res) 
         {
             this.resource = res;
+            
         }
 
         public abstract void Process();
     }
 
-    public class ResourceLoader : ResourceOperation
-    {
-        public ResourceLoader(Resource resource)
-            : base(resource)
-        {
-        }
-
-        public override void Process()
-        {
-            if (Resource != null) 
-            {
-                Resource.Load();
-            }
-        }
-    }
-    public class ResourceUnloader : ResourceOperation
-    {
-        public ResourceUnloader(Resource resource)
-            : base(resource)
-        {
-
-        }
-
-        public override void Process()
-        {
-            if (Resource != null)
-            {
-                Resource.Unload();
-            }
-        }
-    }
-
-    class AsyncProcessor
+    class AsyncProcessor : IDisposable
     {
         Queue<ResourceOperation> opQueue;
 
+        Thread processThread;
+
         object syncHelper = new object();
+
 
         public AsyncProcessor() 
         {
             opQueue = new Queue<ResourceOperation>();
+
+            processThread = new Thread(Main);
+            processThread.SetApartmentState(ApartmentState.MTA);
+            processThread.Start();
         }
 
-        private void Main() 
+        [MTAThread()]
+        private void Main(object state) 
         {
-            while (true) 
+            while (!Disposed)
             {
                 ResourceOperation resOp = null;
 
-                lock (syncHelper) 
+                lock (syncHelper)
                 {
-                    resOp = opQueue.Dequeue();
+                    if (opQueue.Count > 0)
+                    {
+                        resOp = opQueue.Dequeue();
+                    }
+                    else 
+                    {
+                        Thread.Sleep(10);
+                        continue;
+                    }
                 }
 
-                resOp.Process();
+                if (resOp != null)
+                {
+                    resOp.Process();
+                }
             }
         }
+
+        public void AddTask(ResourceOperation op) 
+        {
+            opQueue.Enqueue(op);
+        }
+
+        public bool TaskCompleted 
+        {
+            get
+            {
+                lock (syncHelper)
+                {
+                    return opQueue.Count == 0;
+                }
+            }
+        }
+
+        #region IDisposable 成员
+
+        public bool Disposed
+        {
+            get;
+            private set;
+        }
+
+        public void Dispose()
+        {
+            Disposed = true;
+        }
+
+        #endregion
     }
 }

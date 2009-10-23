@@ -164,13 +164,13 @@ namespace VirtualBicycle.Graphics.Effects
             protected set;
         }
 
-        public virtual void SetupInstancing(MeshMaterial mat) 
+        public virtual void SetupInstancing(Material mat) 
         {
             throw new NotSupportedException();
         }
 
-        public abstract void Setup(MeshMaterial mat, ref RenderOperation op);
-        public abstract void SetupShadowPass(MeshMaterial mat, ref RenderOperation op);
+        public abstract void Setup(Material mat, ref RenderOperation op);
+        public abstract void SetupShadowPass(Material mat, ref RenderOperation op);
 
     }
 

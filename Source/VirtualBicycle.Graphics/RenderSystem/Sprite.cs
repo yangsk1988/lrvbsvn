@@ -6,7 +6,7 @@ using VirtualBicycle.Collections;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.MathLib;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     public class Sprite : IDisposable
     {

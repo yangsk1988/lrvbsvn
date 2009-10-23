@@ -78,7 +78,7 @@ namespace VirtualBicycle.Graphics
             {
                 GameTexture tex = new GameTexture(this, device, rl, CreationUsage, CreationPool);
                 retrived = tex;
-                base.NewResource(tex, CacheType.Static);
+                base.NotifyNewResource(tex, CacheType.Static);
 
                 return new GameTexture(this, tex);
             }
@@ -97,7 +97,7 @@ namespace VirtualBicycle.Graphics
         public GameTexture CreateInstance(Device deivce, Texture t) 
         {
             GameTexture tex = new GameTexture(this, t);
-            base.NewResource(tex, CacheType.Static);
+            base.NotifyNewResource(tex, CacheType.Static);
 
             return new GameTexture(this, tex);
         }

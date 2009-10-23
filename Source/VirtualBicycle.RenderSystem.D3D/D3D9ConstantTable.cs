@@ -5,7 +5,7 @@ using VirtualBicycle.Media;
 using VirtualBicycle.MathLib;
 using D3D = SlimDX.Direct3D9;
 
-namespace VirtualBicycle.RenderSystem.D3D9
+namespace VirtualBicycle.Graphics.D3D9
 {
     internal unsafe class D3D9ConstantTable : ConstantTable
     {

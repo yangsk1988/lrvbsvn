@@ -5,7 +5,7 @@ using SlimDX.Direct3D9;
 
 using D3D = SlimDX.Direct3D9;
 
-namespace VirtualBicycle.RenderSystem.D3D9
+namespace VirtualBicycle.Graphics.D3D9
 {
     internal class D3D9IndexBuffer : IndexBuffer
     {

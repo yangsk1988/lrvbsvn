@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX.Direct3D9;
 using SlimDX;
+using SlimDX.Direct3D9;
+using VirtualBicycle.MathLib;
+using VirtualBicycle.Graphics;
 
 namespace VirtualBicycle.Graphics
 {
@@ -16,7 +18,7 @@ namespace VirtualBicycle.Graphics
     {
         public Matrix Transformation;
 
-        public MeshMaterial Material;
+        public Material Material;
 
         public GeomentryData Geomentry;        
     }

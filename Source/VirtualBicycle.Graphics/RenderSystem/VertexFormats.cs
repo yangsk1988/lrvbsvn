@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
 using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Graphics
 {
     public struct VertexPBNT1
     {
+        static VertexElement[] elements;
+
         public Vector3 pos;
         public Vector4 blend;
         public byte boneId1;
@@ -20,9 +20,12 @@ namespace VirtualBicycle.Graphics
 
         public float u, v;
 
-        public static VertexFormat Format
+        /// <summary>
+        ///  获取一个VertexElement数组，包含该顶点格式的元素
+        /// </summary>
+        public static VertexElement[] Elements
         {
-            get { return VertexFormat.PositionBlend4 | VertexFormat.Normal | VertexFormat.Texture1; }
+            get { return elements; }
         }
 
         public override int GetHashCode()
@@ -42,6 +45,8 @@ namespace VirtualBicycle.Graphics
 
     public struct VertexPN
     {
+        static VertexElement[] elements;
+
         /// <summary>
         ///  获取或设置顶点的位置
         /// </summary>
@@ -51,12 +56,13 @@ namespace VirtualBicycle.Graphics
         ///  获取或设置顶点的法向量
         /// </summary>
         public Vector3 n;
+
         /// <summary>
-        ///  获取该顶点的格式的VertexFormat表达形式
+        ///  获取一个VertexElement数组，包含该顶点格式的元素
         /// </summary>
-        public static VertexFormat Format
+        public static VertexElement[] Elements
         {
-            get { return VertexFormat.Position | VertexFormat.Normal; }
+            get { return elements; }
         }
 
         public override int GetHashCode()
@@ -78,6 +84,8 @@ namespace VirtualBicycle.Graphics
     /// </summary>
     public struct VertexPNT1
     {
+        static VertexElement[] elements;
+
         /// <summary>
         ///  获取或设置顶点的位置
         /// </summary>
@@ -99,12 +107,13 @@ namespace VirtualBicycle.Graphics
         public float v;
 
         /// <summary>
-        ///  获取该顶点的格式的VertexFormat表达形式
+        ///  获取一个VertexElement数组，包含该顶点格式的元素
         /// </summary>
-        public static VertexFormat Format
+        public static VertexElement[] Elements
         {
-            get { return VertexFormat.Position | VertexFormat.Normal | VertexFormat.Texture1; }
+            get { return elements; }
         }
+
         public unsafe static int Size
         {
             get { return sizeof(VertexPNT1); }
@@ -130,6 +139,8 @@ namespace VirtualBicycle.Graphics
     /// </summary>
     public struct VertexPNT2
     {
+        static VertexElement[] elements;
+
         /// <summary>
         ///  获取或设置顶点的位置
         /// </summary>
@@ -162,12 +173,13 @@ namespace VirtualBicycle.Graphics
         public float v2;
 
         /// <summary>
-        ///  获取该顶点的格式的VertexFormat表达形式
+        ///  获取一个VertexElement数组，包含该顶点格式的元素
         /// </summary>
-        public static VertexFormat Format
+        public static VertexElement[] Elements
         {
-            get { return VertexFormat.Position | VertexFormat.Normal | VertexFormat.Texture2; }
+            get { return elements; }
         }
+
 
         /// <summary>
         ///  获取该顶点的System.String表达形式
@@ -186,6 +198,8 @@ namespace VirtualBicycle.Graphics
     /// </summary>
     public struct VertexPNT3
     {
+        static VertexElement[] elements;
+
         /// <summary>
         ///  获取或设置顶点的位置
         /// </summary>
@@ -222,11 +236,11 @@ namespace VirtualBicycle.Graphics
         public float v3;
 
         /// <summary>
-        ///  获取该顶点的格式的VertexFormat表达形式
+        ///  获取一个VertexElement数组，包含该顶点格式的元素
         /// </summary>
-        public static VertexFormat Format
+        public static VertexElement[] Elements
         {
-            get { return VertexFormat.Position | VertexFormat.Normal | VertexFormat.Texture3; }
+            get { return elements; }
         }
 
         /// <summary>
@@ -247,6 +261,8 @@ namespace VirtualBicycle.Graphics
     /// </summary>
     public struct VertexPNT4
     {
+        static VertexElement[] elements;
+
         /// <summary>
         ///  获取或设置顶点的位置
         /// </summary>
@@ -291,12 +307,13 @@ namespace VirtualBicycle.Graphics
         public float v4;
 
         /// <summary>
-        ///  获取该顶点的格式的VertexFormat表达形式
+        ///  获取一个VertexElement数组，包含该顶点格式的元素
         /// </summary>
-        public static VertexFormat Format
+        public static VertexElement[] Elements
         {
-            get { return VertexFormat.Position | VertexFormat.Normal | VertexFormat.Texture4; }
+            get { return elements; }
         }
+
 
         /// <summary>
         ///  获取该顶点的System.String表达形式
@@ -317,6 +334,8 @@ namespace VirtualBicycle.Graphics
     /// </summary>
     public struct VertexPT1
     {
+        static VertexElement[] elements;
+
         /// <summary>
         ///  获取或设置顶点的位置
         /// </summary>
@@ -333,11 +352,11 @@ namespace VirtualBicycle.Graphics
         public float v1;
 
         /// <summary>
-        ///  获取该顶点的格式的VertexFormat表达形式
+        ///  获取一个VertexElement数组，包含该顶点格式的元素
         /// </summary>
-        public static VertexFormat Format
+        public static VertexElement[] Elements
         {
-            get { return VertexFormat.Position | VertexFormat.Texture1; }
+            get { return elements; }
         }
 
         /// <summary>
@@ -351,6 +370,8 @@ namespace VirtualBicycle.Graphics
     }
     public struct VertexPT2
     {
+        static VertexElement[] elements;
+
         /// <summary>
         ///  获取或设置顶点的位置
         /// </summary>
@@ -377,11 +398,11 @@ namespace VirtualBicycle.Graphics
         public float v2;
 
         /// <summary>
-        ///  获取该顶点的格式的VertexFormat表达形式
+        ///  获取一个VertexElement数组，包含该顶点格式的元素
         /// </summary>
-        public static VertexFormat Format
+        public static VertexElement[] Elements
         {
-            get { return VertexFormat.Position | VertexFormat.Texture2; }
+            get { return elements; }
         }
 
         /// <summary>
@@ -397,6 +418,8 @@ namespace VirtualBicycle.Graphics
     }
     public struct VertexPT3
     {
+        static VertexElement[] elements;
+
         /// <summary>
         ///  获取或设置顶点的位置
         /// </summary>
@@ -428,11 +451,11 @@ namespace VirtualBicycle.Graphics
         public float v3;
 
         /// <summary>
-        ///  获取该顶点的格式的VertexFormat表达形式
+        ///  获取一个VertexElement数组，包含该顶点格式的元素
         /// </summary>
-        public static VertexFormat Format
+        public static VertexElement[] Elements
         {
-            get { return VertexFormat.Position | VertexFormat.Texture3; }
+            get { return elements; }
         }
 
         /// <summary>
@@ -449,6 +472,8 @@ namespace VirtualBicycle.Graphics
     }
     public struct VertexPT4
     {
+        static VertexElement[] elements;
+
         /// <summary>
         ///  获取或设置顶点的位置
         /// </summary>
@@ -487,11 +512,11 @@ namespace VirtualBicycle.Graphics
         public float v4;
 
         /// <summary>
-        ///  获取该顶点的格式的VertexFormat表达形式
+        ///  获取一个VertexElement数组，包含该顶点格式的元素
         /// </summary>
-        public static VertexFormat Format
+        public static VertexElement[] Elements
         {
-            get { return VertexFormat.Position | VertexFormat.Texture4; }
+            get { return elements; }
         }
 
         /// <summary>
@@ -514,6 +539,8 @@ namespace VirtualBicycle.Graphics
     /// </summary>
     public struct VertexPC
     {
+        static VertexElement[] elements;
+
         /// <summary>
         ///  获取或设置顶点的位置
         /// </summary>
@@ -531,11 +558,11 @@ namespace VirtualBicycle.Graphics
         }
 
         /// <summary>
-        ///  获取该顶点的格式的VertexFormat表达形式
+        ///  获取一个VertexElement数组，包含该顶点格式的元素
         /// </summary>
-        public static VertexFormat Format
+        public static VertexElement[] Elements
         {
-            get { return VertexFormat.Position | VertexFormat.Diffuse; }
+            get { return elements; }
         }
 
         /// <summary>
@@ -550,6 +577,8 @@ namespace VirtualBicycle.Graphics
 
     public struct VertexPCT
     {
+        static VertexElement[] elements;
+
         public Vector3 pos;
         public float shit;
         public int diffuse;
@@ -567,11 +596,11 @@ namespace VirtualBicycle.Graphics
         }
 
         /// <summary>
-        ///  获取该顶点的格式的VertexFormat表达形式
+        ///  获取一个VertexElement数组，包含该顶点格式的元素
         /// </summary>
-        public static VertexFormat Format
+        public static VertexElement[] Elements
         {
-            get { return VertexFormat.PositionRhw | VertexFormat.Diffuse | VertexFormat.Texture1; }
+            get { return elements; }
         }
         /// <summary>
         ///  获取该顶点的大小
@@ -588,17 +617,19 @@ namespace VirtualBicycle.Graphics
     /// </summary>
     public struct VertexP
     {
+        static VertexElement[] elements;
+
         /// <summary>
         ///  获取或设置顶点的位置
         /// </summary>
         public Vector3 pos;
 
         /// <summary>
-        ///  获取该顶点的格式的VertexFormat表达形式
+        ///  获取一个VertexElement数组，包含该顶点格式的元素
         /// </summary>
-        public static VertexFormat Format
+        public static VertexElement[] Elements
         {
-            get { return VertexFormat.Position; }
+            get { return elements; }
         }
 
         /// <summary>

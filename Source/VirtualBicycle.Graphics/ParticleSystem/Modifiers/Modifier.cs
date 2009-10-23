@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace VirtualBicycle.RenderSystem.ParticleSystem.Modifiers
+namespace VirtualBicycle.Graphics.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents the abstract base class for all modifiers.

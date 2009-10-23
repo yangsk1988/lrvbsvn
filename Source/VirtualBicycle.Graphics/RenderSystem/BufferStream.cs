@@ -4,7 +4,7 @@ using System.Text;
 using VirtualBicycle.IO;
 using VirtualBicycle.Vfs;
 
-namespace VirtualBicycle.RenderSystem
+namespace VirtualBicycle.Graphics
 {
     public unsafe class DataStream : MemoryStream
     {
