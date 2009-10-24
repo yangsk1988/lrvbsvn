@@ -58,16 +58,15 @@ namespace VirtualBicycle.Core
                     {
                         resOp = opQueue.Dequeue();
                     }
-                    else 
-                    {
-                        Thread.Sleep(10);
-                        continue;
-                    }
                 }
 
                 if (resOp != null)
                 {
                     resOp.Process();
+                }
+                else 
+                {
+                    Thread.Sleep(10); 
                 }
             }
         }

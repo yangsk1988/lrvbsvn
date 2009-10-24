@@ -30,10 +30,12 @@ namespace VirtualBicycle.Graphics
         }
 
         public ModelManager() { }
+
         public ModelManager(int cacheSize)
             : base(cacheSize)
         {
         }
+
         public Model CreateInstance(Device device, ResourceLocation rl)
         {
             VBC.Resource retrived = base.Exists(rl.Name);

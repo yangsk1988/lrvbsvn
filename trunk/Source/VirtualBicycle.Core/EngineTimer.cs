@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace VirtualBicycle
 {
@@ -27,9 +28,11 @@ namespace VirtualBicycle
         static TimeAdjuster tAdj;
         static TimeCaps tCaps;
 
-        static int loopPassed;
         static uint startTime;
         static long curTime;
+
+        static object syncHelper = new object();
+        static Thread thread;
 
         static EngineTimer()
         {
@@ -37,7 +40,13 @@ namespace VirtualBicycle
             tAdj = new TimeAdjuster();
 
             startTime = GetTime();
-            Update();
+            Update(null);
+
+            thread = new Thread(Update);
+            thread.Name = "Timer Auto Update";
+            thread.SetApartmentState(ApartmentState.MTA);
+            thread.Priority = ThreadPriority.AboveNormal;
+            thread.Start();
         }
 
         #region 属性
@@ -60,7 +69,10 @@ namespace VirtualBicycle
         {
             get
             {
-                return curTime - startTime;
+                lock (syncHelper)
+                {
+                    return curTime - startTime;
+                }
             }
         }
 
@@ -87,27 +99,35 @@ namespace VirtualBicycle
 
         #region 方法
 
-        /// <summary>
-        /// 得到两次更新的时间差
-        /// </summary>
-        /// <returns>返回时间的单位为ms</returns>
-        public static long GetInterval()
-        {
-            long old = curTime;
-            Update();
-            return curTime - old;
-        }
+        ///// <summary>
+        ///// 得到两次更新的时间差
+        ///// </summary>
+        ///// <returns>返回时间的单位为ms</returns>
+        //public static long GetInterval()
+        //{
+        //    long old = curTime;
+        //    Update(null);
+        //    return curTime - old;
+        //}
 
-        public static void Update()
+        private static void Update(object state)
         {
-            long t = GetTime() + uint.MaxValue * loopPassed;
-            if (t < curTime)
+            int loopPassed = 0;
+            while (true)
             {
-                loopPassed++;
-                curTime = t + uint.MaxValue;
+                lock (syncHelper)
+                {
+                    long t = GetTime() + uint.MaxValue * loopPassed;
+                    if (t < curTime)
+                    {
+                        loopPassed++;
+                        curTime = t + uint.MaxValue;
+                    }
+                    else
+                        curTime = t;
+                }
+                Thread.Sleep(10);
             }
-            else
-                curTime = t;
         }
 
         #endregion

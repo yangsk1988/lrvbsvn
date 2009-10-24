@@ -8,55 +8,11 @@ using VirtualBicycle.Collections;
 
 namespace VirtualBicycle.Core
 {
-    /// <summary>
-    ///  资源分代管理，代数越小，资源使用越频繁
-    /// </summary>
-    class GenerationTable
-    {
-        class RefEqualityComparer : IEqualityComparer<Resource>
-        {
-            #region IEqualityComparer<Resource> 成员
-
-            public bool Equals(Resource x, Resource y)
-            {
-                return object.ReferenceEquals(x, y);
-            }
-
-            public int GetHashCode(Resource obj)
-            {
-                return obj.GetHashCode();
-            }
-
-            #endregion
-        }
-
-        const int MaxGeneration = 4;
-
-        ExistTable<Resource>[] gen;
-        
-        public GenerationTable()
-        {
-            gen = new ExistTable<Resource>[4];
-
-            gen[0] = new ExistTable<Resource>();
-            gen[1] = new ExistTable<Resource>();
-            gen[2] = new ExistTable<Resource>();
-            gen[3] = new ExistTable<Resource>();
-        }
-
-        public ExistTable<Resource> this[int index]
-        {
-            get
-            {
-                return gen[index];
-            }
-        }
-    }
 
     /// <summary>
     ///  定义一个资源管理器，可以动态的进行资源加载与释放
     /// </summary>
-    public abstract class ResourceManager
+    public abstract class ResourceManager : IDisposable
     {
         /// <summary>
         ///  受管理的资源哈希表
@@ -169,7 +125,7 @@ namespace VirtualBicycle.Core
 
                     while (predictCSize > totalCacheSize)
                     {
-                        for (int i = 3; i >= 2; i++)
+                        for (int i = 3; i >= 1; i--)
                             foreach (Resource r in genTable[i])
                                 if (r.State == ResourceState.Loaded && r.IsUnloadable)
                                 {
@@ -214,10 +170,18 @@ namespace VirtualBicycle.Core
             }
         }
 
-        public void AddTask(ResourceOperation op) 
+        internal void AddTask(ResourceOperation op) 
         {
             asyncProc.AddTask(op);
         }
+        public bool IsIdle
+        {
+            get
+            {
+                return asyncProc.TaskCompleted;
+            }
+        }
+
         ///// <summary>
         /////  提示资源管理器已经创建了一个新资源，这个资源在创建时不考虑先前创建的资源
         ///// </summary>
@@ -299,5 +263,31 @@ namespace VirtualBicycle.Core
             return null;
         }
 
+
+
+
+        #region IDisposable 成员
+
+        public bool Disposed
+        {
+            get;
+            private set;
+        }
+
+        public void Dispose()
+        {
+            if (!Disposed)
+            {
+                if (!genTable.Disposed)
+                    genTable.Dispose();
+                Disposed = true;
+            }
+            else
+            {
+                throw new ObjectDisposedException(ToString());
+            }
+        }
+
+        #endregion
     }
 }
