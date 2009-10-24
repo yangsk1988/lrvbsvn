@@ -76,7 +76,8 @@ namespace VirtualBicycle.Core
                 if (Resource != null)
                 {
                     Resource.load();
-                    Resource.State = ResourceState.Loaded;
+                    if (Resource.State == ResourceState.Loading)
+                        Resource.State = ResourceState.Loaded;
                 }
             }
         }
@@ -93,7 +94,8 @@ namespace VirtualBicycle.Core
                 if (Resource != null)
                 {
                     Resource.unload();
-                    Resource.State = ResourceState.Unloaded;
+                    if (Resource.State == ResourceState.Unloaded)
+                        Resource.State = ResourceState.Unloaded;
                 }
             }
         }
@@ -112,7 +114,8 @@ namespace VirtualBicycle.Core
                 {
                     Stream stream = Resource.cacheMem.ResourceLocation.GetStream;
                     Resource.ReadCacheData(new VirtualStream(stream));
-                    Resource.State = ResourceState.Loaded;
+                    if (Resource.State == ResourceState.Loading)
+                        Resource.State = ResourceState.Loaded;
                 }
             }
         }
@@ -158,10 +161,8 @@ namespace VirtualBicycle.Core
         object syncHelper = new object();
 
 
-
-
         /// <summary>
-        /// 如果是资源实体，获取资源实体的引用计数
+        /// 获取资源的引用计数
         /// </summary>
         [Browsable(false)]
         public int ReferenceCount
@@ -175,7 +176,7 @@ namespace VirtualBicycle.Core
                 refCount++;
         }
 
-        internal void Dereference() 
+        internal void Dereference()
         {
             if (IsManaged)
             {

@@ -49,7 +49,6 @@
     <Compile Include="Animation\TransformAnimation.cs" />
     <Compile Include="Atmosphere.cs" />
     <Compile Include="Collections\SamplerStateCollection.cs" />
-    <Compile Include="Core\TextureLoader.cs" />
     <Compile Include="FpsCounter.cs" />
     <Compile Include="RenderSystem\Buffer\HardwareBuffer.cs" />
     <Compile Include="RenderSystem\Buffer\IndexBuffer.cs" />
@@ -173,6 +172,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Core\" />
     <Folder Include="EffectSystem\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
