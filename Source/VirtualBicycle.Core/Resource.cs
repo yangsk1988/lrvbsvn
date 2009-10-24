@@ -34,7 +34,7 @@ namespace VirtualBicycle.Core
     ///  表示对一个资源对象的引用
     /// </summary>
     /// <typeparam name="T">资源类型</typeparam>
-    public class ResourceRef<T>
+    public class ResourceRef<T> : IDisposable
         where T : Resource
     {
         T resuorce;
@@ -47,7 +47,10 @@ namespace VirtualBicycle.Core
 
         ~ResourceRef()
         {
-            resuorce.Dereference();
+            if (!Disposed) 
+            {
+                Dispose();
+            }
         }
 
         public static implicit operator T(ResourceRef<T> res)
@@ -55,6 +58,33 @@ namespace VirtualBicycle.Core
             res.resuorce.Use();
             return res.resuorce;
         }
+
+        public override string ToString()
+        {
+            return resuorce.ToString();
+        }
+
+        #region IDisposable 成员
+
+        public bool Disposed
+        {
+            get;
+            private set;
+        }
+
+        public void Dispose()
+        {
+            if (!Disposed)
+            {
+                resuorce.Dereference();
+            }
+            else 
+            {
+                throw new ObjectDisposedException(ToString());
+            }
+        }
+
+        #endregion
     }
 
     /// <summary>
@@ -364,7 +394,7 @@ namespace VirtualBicycle.Core
         }
 
         /// <summary>
-        ///  不受管理
+        ///  创建一个不受管理的资源
         /// </summary>
         protected Resource()
         {
