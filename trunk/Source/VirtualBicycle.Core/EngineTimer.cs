@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 
 namespace VirtualBicycle
@@ -40,12 +40,12 @@ namespace VirtualBicycle
             tAdj = new TimeAdjuster();
 
             startTime = GetTime();
-            Update(null);
+            //Update(null);
 
             thread = new Thread(Update);
             thread.Name = "Timer Auto Update";
             thread.SetApartmentState(ApartmentState.MTA);
-            thread.Priority = ThreadPriority.AboveNormal;
+            //thread.Priority = ThreadPriority.AboveNormal;
             thread.Start();
         }
 
@@ -115,18 +115,24 @@ namespace VirtualBicycle
             int loopPassed = 0;
             while (true)
             {
-                lock (syncHelper)
+                long t = GetTime() + uint.MaxValue * loopPassed;
+                if (t < curTime)
                 {
-                    long t = GetTime() + uint.MaxValue * loopPassed;
-                    if (t < curTime)
+                    loopPassed++;
+                    lock (syncHelper)
                     {
-                        loopPassed++;
                         curTime = t + uint.MaxValue;
                     }
-                    else
-                        curTime = t;
                 }
-                Thread.Sleep(10);
+                else
+                {
+                    lock (syncHelper)
+                    {
+                        curTime = t;
+                    }
+                }
+
+                Thread.Sleep(15);
             }
         }
 

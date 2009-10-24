@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
-using VirtualBicycle.Vfs;
 using VirtualBicycle.Collections;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Core
 {
@@ -164,10 +164,7 @@ namespace VirtualBicycle.Core
         public void NotifyResourceFinalizing(Resource res)
         {
             hashTable.Remove(res.HashString);
-            if (res.Generation != -1) 
-            {
-                genTable[res.Generation].Remove(res);
-            }
+            genTable.RemoveResource(res);
         }
 
         internal void AddTask(ResourceOperation op) 
@@ -218,10 +215,7 @@ namespace VirtualBicycle.Core
         protected void NotifyResourceNew(Resource res, CacheType ctype)
         {
             hashTable.Add(res.HashString, res);
-            if (res.Generation != -1)
-            {
-                genTable[res.Generation].Add(res);
-            }
+            genTable.AddResource(res);
 
             if (ctype != CacheType.None)
             {

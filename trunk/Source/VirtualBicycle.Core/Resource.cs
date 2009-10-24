@@ -187,6 +187,8 @@ namespace VirtualBicycle.Core
         /// </summary>
         class GenerationCalculator
         {
+            object syncHelper = new object();
+
             int generation;
 
             GenerationTable table;
@@ -209,20 +211,23 @@ namespace VirtualBicycle.Core
                 get
                 {
                     float result = float.MinValue;
-                    if (timeQueue.Count > 5)
-                    {
-                        timeQueue.Dequeue();
-                    }
-                    if (timeQueue.Count > 0)
-                    {
-                        result = 0;
-                        foreach (float s in timeQueue)
-                        {
-                            result += s;
-                        }
-                        result /= timeQueue.Count;
-                    }
 
+                    lock (syncHelper)
+                    {
+                        if (timeQueue.Count > 5)
+                        {
+                            timeQueue.Dequeue();
+                        }
+                        if (timeQueue.Count > 0)
+                        {
+                            result = 0;
+                            foreach (float s in timeQueue)
+                            {
+                                result += s;
+                            }
+                            result /= timeQueue.Count;
+                        }
+                    }
                     result = (float)(EngineTimer.TimeSpan.TotalMilliseconds * 0.001) - result;
 
 
@@ -258,23 +263,23 @@ namespace VirtualBicycle.Core
             {
                 TimeSpan time = EngineTimer.TimeSpan;
 
-                timeQueue.Enqueue((float)(time.TotalMilliseconds * 0.001));
-
-                int oldGeneration = generation;
-                int newGen = Generation;
-
-                if (oldGeneration != newGen)
+                lock (syncHelper)
                 {
-                    if (oldGeneration != -1 && table[oldGeneration].Exists(resource))
-                        table[oldGeneration].Remove(resource);
-
-                    if (!table[newGen].Exists(resource))
-                        table[newGen].Add(resource);
+                    timeQueue.Enqueue((float)(time.TotalMilliseconds * 0.001));
                 }
 
+                int og = generation;
+                int ng = Generation;
+
+                if (og != ng)
+                    table.UpdateGeneration(og, ng, resource);
+
                 // 请求一段时间后检测是否进化，更新GenerationTable
-                table.ApplyChecking(newGen, resource);
+                if (generation < GenerationTable.MaxGeneration - 1)
+                    table.ApplyChecking(generation, resource);
             }
+
+    
         }
 
         GenerationCalculator generation;
