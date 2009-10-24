@@ -223,34 +223,34 @@ namespace VirtualBicycle.Core
         {
             asyncProc.AddTask(op);
         }
-        /// <summary>
-        ///  提示资源管理器已经创建了一个新资源，这个资源在创建时不考虑先前创建的资源
-        /// </summary>
-        /// <param name="res"></param>
-        protected void NotifyNewCached(Resource res, CacheType ctype)
-        {
-            objects.Add(res);
+        ///// <summary>
+        /////  提示资源管理器已经创建了一个新资源，这个资源在创建时不考虑先前创建的资源
+        ///// </summary>
+        ///// <param name="res"></param>
+        //protected void NotifyNewCached(Resource res, CacheType ctype)
+        //{
+        //    objects.Add(res);
 
-            int size = res.GetSize();
+        //    int size = res.GetSize();
 
-            CacheMemory cm;
-            if (size == 0)
-            {
-                cm = Cache.Instance.Allocate();
-            }
-            else
-            {
-                if (ctype == CacheType.Dynamic)
-                {
-                    cm = Cache.Instance.Allocate(CacheType.Dynamic, size);
-                }
-                else
-                {
-                    cm = Cache.Instance.Allocate(CacheType.Static, size);
-                }
-            }
-            res.SetCache(cm);
-        }
+        //    CacheMemory cm;
+        //    if (size == 0)
+        //    {
+        //        cm = Cache.Instance.Allocate();
+        //    }
+        //    else
+        //    {
+        //        if (ctype == CacheType.Dynamic)
+        //        {
+        //            cm = Cache.Instance.Allocate(CacheType.Dynamic, size);
+        //        }
+        //        else
+        //        {
+        //            cm = Cache.Instance.Allocate(CacheType.Static, size);
+        //        }
+        //    }
+        //    res.SetCache(cm);
+        //}
 
         /// <summary>
         ///  提示资源管理器已经创建了一个新资源，将它放入管理范围
