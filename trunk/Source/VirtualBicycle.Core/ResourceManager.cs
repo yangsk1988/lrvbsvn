@@ -65,7 +65,6 @@ namespace VirtualBicycle.Core
             manageFrequency = 4;
         }
 
-
         protected ResourceManager(int cacheSize, int manageFreq)
         {
             objects = new List<Resource>();
@@ -73,7 +72,6 @@ namespace VirtualBicycle.Core
             totalCacheSize = cacheSize;
             manageFrequency = manageFreq;
         }
-
 
         /// <summary>
         ///  获取或设置最大允许的缓存大小
@@ -102,8 +100,6 @@ namespace VirtualBicycle.Core
         {
             get { return curUsedCache; }
         }
-
-        #region ICachedObjectManager 成员
 
         /// <summary>
         ///  比较器
@@ -172,8 +168,6 @@ namespace VirtualBicycle.Core
             hashTable.Remove(res.HashString);
             objects.Remove(res);
         }
-
-        #endregion
 
         public void AddTask(ResourceOperation op) 
         {
@@ -254,7 +248,5 @@ namespace VirtualBicycle.Core
             return null;
         }
 
-
     }
-
 }
