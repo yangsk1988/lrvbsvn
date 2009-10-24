@@ -13,16 +13,16 @@ namespace VirtualBicycle.Core
     {
         class GenerationTableCommander : IDisposable
         {
-            Thread thread;
-
             struct Task
             {
                 public TimeSpan actTime;
                 public Resource res;
             }
 
-            float[] checkInterval;
             Queue<Task>[] queues;
+            Thread thread;
+
+            object syncHelper = new object();
 
             public GenerationTableCommander(GenerationTable table)
             {
@@ -39,12 +39,11 @@ namespace VirtualBicycle.Core
             {
                 while (!Disposed)
                 {
-                    
+
                 }
             }
 
             #region IDisposable 成员
-
 
             public bool Disposed
             {
@@ -64,7 +63,14 @@ namespace VirtualBicycle.Core
 
             public void ApplyChecking(int generation, Resource res)
             {
-                
+                Task t;
+                t.actTime = EngineTimer.TimeSpan + TimeSpan.FromSeconds(GetGenerationLifeTime(generation));
+                t.res = res;
+
+                lock (syncHelper)
+                {
+                    queues[generation].Enqueue(t);
+                }
             }
         }
 
@@ -85,10 +91,9 @@ namespace VirtualBicycle.Core
             #endregion
         }
 
-        const int MaxGeneration = 4;
+        public const int MaxGeneration = 4;
 
         static int[] GenerationLifeTime = new int[MaxGeneration] { 10, 60, 300, int.MaxValue };
-
 
         /// <summary>
         ///  获取特定代的生存周期
@@ -100,6 +105,7 @@ namespace VirtualBicycle.Core
             return GenerationLifeTime[i];
         }
 
+        object syncHelper = new object();
 
         ExistTable<Resource>[] gen;
         GenerationTableCommander commander;
@@ -126,11 +132,10 @@ namespace VirtualBicycle.Core
 
         public void ApplyChecking(int generation, Resource res)
         {
-
+            commander.ApplyChecking(generation, res);
         }
 
         #region IDisposable 成员
-
 
         public bool Disposed
         {
