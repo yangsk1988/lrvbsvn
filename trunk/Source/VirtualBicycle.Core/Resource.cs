@@ -187,23 +187,20 @@ namespace VirtualBicycle.Core
         /// </summary>
         class GenerationCalculator
         {
-            List<TimeSpan> atLastMin;
-            List<TimeSpan> atLast10Sec;
-            List<TimeSpan> atLastSec;
-
-            float frequency;
+            TimeSpan lastAccess;
 
             int generation;
 
             GenerationTable table;
 
+            Queue<float> timeQueue;
+
             public GenerationCalculator(GenerationTable table)
             {
-                this.atLastMin = new List<TimeSpan>();
-                this.atLast10Sec = new List<TimeSpan>();
-                this.atLastSec = new List<TimeSpan>();
-                this.table = table;
+                this.timeQueue = new Queue<float>();
 
+                this.table = table;
+                this.lastAccess = EngineTimer.TimeSpan;
                 this.generation = 3;
             }
 
@@ -212,7 +209,49 @@ namespace VirtualBicycle.Core
             /// </summary>
             public int Generation
             {
-                get { return generation; }
+                get
+                {
+                    float result = 0;
+                    if (timeQueue.Count > 5)
+                    {
+                        timeQueue.Dequeue();
+                    }
+                    if (timeQueue.Count > 0)
+                    {
+                        result = 0;
+                        foreach (float s in timeQueue)
+                        {
+                            result += s;
+                        }
+                        result /= timeQueue.Count;
+                    }
+
+                    result = (float)(EngineTimer.TimeSpan.TotalMilliseconds * 0.001) - result;
+
+
+                    float frequency = 1.0f / result;
+
+                    if (frequency > 0.001f)
+                    {
+                        if (frequency > 0.01)
+                        {
+                            if (frequency > 0.1)
+                                generation = 0;
+                            else
+                                generation = 1;
+                        }
+                        else
+                        {
+                            generation = 2;
+                        }
+                    }
+                    else
+                    {
+                        generation = 3;
+                    }
+
+                    return generation;
+                }
             }
 
             /// <summary>
@@ -224,84 +263,16 @@ namespace VirtualBicycle.Core
 
                 TimeSpan time = EngineTimer.TimeSpan;
 
-                atLastMin.Add(time);
-                atLast10Sec.Add(time);
-                atLastSec.Add(time);
-
-                TimeSpan last10Sec = time - new TimeSpan(0, 0, 10);
-                TimeSpan lastSec = time - new TimeSpan(0, 0, 1);
-                TimeSpan lastMin = time - new TimeSpan(0, 1, 0);
-
-                int startIdx = -1;
-                for (int i = 0; i < atLastMin.Count; i++)
-                {
-                    if (atLastMin[i] < lastMin)
-                        startIdx = i;
-                }
-                if (startIdx != -1)
-                    atLastMin.RemoveRange(0, startIdx + 1);
-
-                startIdx = -1;
-                for (int i = 0; i < atLast10Sec.Count; i++)
-                {
-                    if (atLast10Sec[i] < last10Sec)
-                        startIdx = i;
-                }
-                if (startIdx != -1)
-                    atLast10Sec.RemoveRange(0, startIdx + 1);
-               
-                startIdx = -1;
-                for (int i = 0; i < atLastSec.Count; i++)
-                {
-                    if (atLastSec[i] < lastSec)
-                        startIdx = i;
-                }
-                if (startIdx != -1)
-                    atLastSec.RemoveRange(0, startIdx + 1);
-                #endregion
-
-                #region 计算近期使用频率
-                float rf = 0;
-                if (atLastMin.Count == 1)
-                {
-                    rf = 1;
-                }
-                else if (atLastMin.Count > 0)
-                {
-                    int c = atLastMin.Count - 1;
-                    rf = 1 / (float)((atLastMin[c] - atLastMin[c - 1]).Seconds);
-                }
-
-                frequency = (atLastSec.Count + atLast10Sec.Count / 10.0f + 0.5f * atLastMin.Count / 60.0f + rf) / 4.0f;
+                timeQueue.Enqueue((float)(time.TotalMilliseconds * 0.001));
 
                 #endregion
+
 
                 int oldGeneration = generation;
 
                 #region 由使用频率确定代数
 
-                if (frequency > 0.001f)
-                {
-                    if (frequency > 0.01)
-                    {
-                        if (frequency > 0.1)
-                        {
-                            generation = 0;
-                        }
-                        else
-                        {
-                            generation = 1;
-                        }
-                    }
-                    else
-                    {
-                        generation = 2;
-                    }
-                }
-                else
-                {
-                    generation = 3;
-                }
+
                 #endregion
 
                 if (oldGeneration != generation)
