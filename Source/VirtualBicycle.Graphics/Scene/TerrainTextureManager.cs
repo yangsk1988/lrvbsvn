@@ -91,7 +91,7 @@ namespace VirtualBicycle.Scene
             {
                 TerrainTexture tex = new TerrainTexture(this, device, rl, CreationUsage, CreationPool, isDisp);
                 retrived = tex;
-                base.NotifyNewResource(tex, CacheType.Static);
+                base.NotifyResourceNew(tex, CacheType.Static);
 
                 return new TerrainTexture(this, tex);
             }

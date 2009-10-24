@@ -9,6 +9,7 @@ namespace VirtualBicycle
 {
     public enum CacheType
     {
+        None,
         Static,
         Dynamic
     }

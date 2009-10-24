@@ -40,6 +40,7 @@ namespace VirtualBicycle.Core
             opQueue = new Queue<ResourceOperation>();
 
             processThread = new Thread(Main);
+            processThread.Name = "AsyncProcessor";
             processThread.SetApartmentState(ApartmentState.MTA);
             processThread.Start();
         }

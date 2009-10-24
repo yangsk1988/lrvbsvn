@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using VirtualBicycle.Core;
-using System.IO;
 
 namespace VirtualBicycle.Test.ResourceManagerTest
 {
@@ -16,9 +16,11 @@ namespace VirtualBicycle.Test.ResourceManagerTest
 
         }
 
+        public void Visit() { }
+
         protected override void ReadCacheData(Stream stream)
         {
-            
+            resource = new int[128];
         }
 
         protected override void WriteCacheData(Stream stream)
@@ -49,16 +51,16 @@ namespace VirtualBicycle.Test.ResourceManagerTest
         {
         }
 
-        public ResourceRef<TestResource> CreateInstance(string name)
+        public ResourceHandle<TestResource> CreateInstance(string name)
         {
             Resource retrived = base.Exists(name);
             if (retrived == null)
             {
                 TestResource test = new TestResource(this, name);
                 retrived = test;
-                base.NotifyNewResource(test, CacheType.Static);
+                base.NotifyResourceNew(test, CacheType.None);
             }
-            return new ResourceRef<TestResource>((TestResource)retrived);
+            return new ResourceHandle<TestResource>((TestResource)retrived);
         }
     }
 
@@ -66,6 +68,16 @@ namespace VirtualBicycle.Test.ResourceManagerTest
     {
         static void Main(string[] args)
         {
+            TestResourceManager mgr = new TestResourceManager();
+
+            ResourceHandle<TestResource> handle = mgr.CreateInstance("a");
+            ResourceHandle<TestResource> handle2 = mgr.CreateInstance("b");
+            ResourceHandle<TestResource> handle3 = mgr.CreateInstance("a");
+            ResourceHandle<TestResource> handle4 = mgr.CreateInstance("a");
+
+            handle.Resource.Visit();
+
+            Console.ReadKey();
         }
     }
 }
