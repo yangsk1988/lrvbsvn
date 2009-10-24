@@ -7,6 +7,44 @@ using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Core
 {
+    /// <summary>
+    ///  资源分代管理，代数越小，资源使用越频繁
+    /// </summary>
+    class GenerationTable 
+    {
+        const int MaxGeneration = 4;
+
+        List<Resource>[] gen;
+
+        public GenerationTable() 
+        {
+            gen = new List<Resource>[4];
+
+            gen[0] = new List<Resource>();
+            gen[1] = new List<Resource>();
+            gen[2] = new List<Resource>();
+            gen[3] = new List<Resource>();
+        }
+
+        public static int GetResourceGen(Resource res)
+        {
+            float freq = res.UseFrequency;
+            if (res.UseFrequency > 0.001f)
+            {
+                if (res.UseFrequency > 0.01)
+                {
+                    if (res.UseFrequency > 0.1) 
+                    {
+                        return 0;
+                    }
+                    return 1;
+                }
+                return 2;
+            }
+            return 3;
+        }
+    }
+
     public abstract class ResourceManager
     {
         /// <summary>
@@ -124,18 +162,21 @@ namespace VirtualBicycle.Core
                 manageTimes = 0;
                 if (curUsedCache > totalCacheSize)
                 {
-                    objects.Sort(Comparison);
+                    int predictCSize = curUsedCache;
 
-                    int oc = objects.Count;
-                    int k = oc - 1;
-                    while (curUsedCache > totalCacheSize && k >= 0)
-                    {
-                        if (objects[k].State == ResourceState.Loaded && objects[k].IsUnloadable)
-                        {
-                            objects[k].Unload();
-                        }
-                        k--;
-                    }
+
+                    //objects.Sort(Comparison);
+
+                    //int oc = objects.Count;
+                    //int k = oc - 1;
+                    //while (curUsedCache > totalCacheSize && k >= 0)
+                    //{
+                    //    if (objects[k].State == ResourceState.Loaded && objects[k].IsUnloadable)
+                    //    {
+                    //        objects[k].Unload();
+                    //    }
+                    //    k--;
+                    //}
                 }
             }
 
@@ -148,6 +189,7 @@ namespace VirtualBicycle.Core
         public void NotifyResourceLoaded(Resource res)
         {
             curUsedCache += res.GetSize();
+            Manage();
         }
 
         /// <summary>

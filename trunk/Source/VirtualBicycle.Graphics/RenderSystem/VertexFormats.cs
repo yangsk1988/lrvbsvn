@@ -635,7 +635,6 @@ namespace VirtualBicycle.Graphics
         }
     }
 
-
     /// <summary>
     ///  定义具有位置和颜色的顶点
     /// </summary>
@@ -729,7 +728,6 @@ namespace VirtualBicycle.Graphics
             get { return sizeof(float) * 7; }
         }
     }
-
 
     /// <summary>
     ///   定义具有位置的顶点

@@ -64,6 +64,7 @@ namespace VirtualBicycle.Core
     /// </remarks>
     public abstract class Resource : IDisposable
     {
+        #region Resource Operations
         class ResourceLoader : ResourceOperation
         {
             public ResourceLoader(Resource resource)
@@ -137,13 +138,112 @@ namespace VirtualBicycle.Core
                 }
             }
         }
+        #endregion
+
+        struct GenerationCalculator 
+        {
+            List<TimeSpan> useRecords;
+
+            int atLastMin;
+            int atLast10Sec;
+            int atLastSec;
+
+            float frequency;
+
+            int generation;
+
+
+            
+            public GenerationCalculator() 
+            {
+                useRecords = new List<TimeSpan>();
+            }
+
+            public int Generation
+            {
+                get { return generation; }
+            }
+
+            public void Use()
+            {
+                TimeSpan time = EngineTimer.TimeSpan;
+
+                TimeSpan last10Sec = time - new TimeSpan(0, 0, 10);
+                TimeSpan lastSec = time - new TimeSpan(0, 0, 1);
+                TimeSpan lastMin = time - new TimeSpan(0, 1, 0);
+
+                int startIdx = -1;
+                for (int i = 0; i < useRecords.Count; i++) 
+                {
+                    if (useRecords[i] < lastMin)
+                    {
+                        if (useRecords[i] < last10Sec) 
+                        {
+                            if (useRecords[i] < lastSec) 
+                            {
+                                atLastSec--;
+                            }
+                            atLast10Sec--;
+                        }
+                        atLastMin--;
+                        startIdx = i;
+                    }
+                }
+
+                if (startIdx != -1) 
+                {
+                    useRecords.RemoveRange(0, startIdx + 1);
+                }
+
+                atLast10Sec++;
+                atLastMin++;
+                atLastSec++;
+
+                float rf = 0;
+                if (useRecords.Count == 1)
+                {
+                    rf = 1;
+                }
+                else 
+                {
+                    int c=useRecords.Count-1;
+                    rf = 1 / (float)((useRecords[c] - useRecords[c - 1]).Seconds);
+                }
+
+                frequency = (atLastSec + atLast10Sec / 10.0f + 0.5f * atLastMin / 60.0f + rf) / 4.0f;
+
+                if (frequency > 0.001f)
+                {
+                    if (frequency > 0.01)
+                    {
+                        if (frequency > 0.1)
+                        {
+                            generation = 0;
+                        }
+                        else
+                        {
+                            generation = 1;
+                        }
+                    }
+                    else
+                    {
+                        generation = 2;
+                    }
+                }
+                else
+                {
+                    generation = 3;
+                }
+            }
+        }
 
         ResourceState resState;
         TimeSpan creationTime;
         TimeSpan lastAccessed;
         int accessTimes;
-
         float useFrequency;
+
+        GenerationCalculator generation;
 
         ResourceManager manager;
 
@@ -189,6 +289,7 @@ namespace VirtualBicycle.Core
                 }
             }
         }
+
 
         /// <summary>
         /// 所有资源的名称都统一用该方法计算哈希代码
@@ -369,6 +470,9 @@ namespace VirtualBicycle.Core
 
                 float seconds = (float)((lastAccessed - creationTime).TotalSeconds);
                 useFrequency = seconds < 1 ? float.MaxValue : ((float)accessTimes) / seconds;
+
+                generation.Use();
+
 
                 if (State != ResourceState.Loaded && State != ResourceState.Loading)
                 {
