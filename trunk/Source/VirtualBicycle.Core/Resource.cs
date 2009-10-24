@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
 using System.IO;
+using System.Text;
 using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Core
@@ -19,7 +19,7 @@ namespace VirtualBicycle.Core
         /// <summary>
         ///  正在加载
         /// </summary>
-        Loading,        
+        Loading,
         /// <summary>
         ///  已经加载
         /// </summary>
@@ -30,23 +30,27 @@ namespace VirtualBicycle.Core
         Unloading
     }
 
+    /// <summary>
+    ///  表示对一个资源对象的引用
+    /// </summary>
+    /// <typeparam name="T">资源类型</typeparam>
     public class ResourceRef<T>
         where T : Resource
     {
         T resuorce;
 
-        public ResourceRef(T res) 
+        public ResourceRef(T res)
         {
             res.Reference();
             this.resuorce = res;
         }
 
-        ~ResourceRef() 
+        ~ResourceRef()
         {
             resuorce.Dereference();
         }
 
-        public static implicit operator T(ResourceRef<T> res) 
+        public static implicit operator T(ResourceRef<T> res)
         {
             res.resuorce.Use();
             return res.resuorce;
@@ -56,12 +60,6 @@ namespace VirtualBicycle.Core
     /// <summary>
     ///  表示一个资源，如纹理、模型等
     /// </summary>
-    /// <remarks>
-    /// 资源分两种，引用和实体
-    /// 引用引用着资源实体
-    /// 引用不受管理，但使用时会影响实体的状态
-    /// 资源管理器根据实体资源的状态对其进行管理
-    /// </remarks>
     public abstract class Resource : IDisposable
     {
         #region Resource Operations
@@ -140,7 +138,10 @@ namespace VirtualBicycle.Core
         }
         #endregion
 
-        class GenerationCalculator 
+        /// <summary>
+        ///  提供用于计算资源代数的功能
+        /// </summary>
+        class GenerationCalculator
         {
             List<TimeSpan> useRecords;
 
@@ -153,17 +154,23 @@ namespace VirtualBicycle.Core
             int generation;
 
 
-            
-            public GenerationCalculator() 
+
+            public GenerationCalculator()
             {
                 useRecords = new List<TimeSpan>();
             }
 
+            /// <summary>
+            ///  获取资源的代数
+            /// </summary>
             public int Generation
             {
                 get { return generation; }
             }
 
+            /// <summary>
+            ///  通知资源被使用，更新代数
+            /// </summary>
             public void Use()
             {
                 TimeSpan time = EngineTimer.TimeSpan;
@@ -173,13 +180,13 @@ namespace VirtualBicycle.Core
                 TimeSpan lastMin = time - new TimeSpan(0, 1, 0);
 
                 int startIdx = -1;
-                for (int i = 0; i < useRecords.Count; i++) 
+                for (int i = 0; i < useRecords.Count; i++)
                 {
                     if (useRecords[i] < lastMin)
                     {
-                        if (useRecords[i] < last10Sec) 
+                        if (useRecords[i] < last10Sec)
                         {
-                            if (useRecords[i] < lastSec) 
+                            if (useRecords[i] < lastSec)
                             {
                                 atLastSec--;
                             }
@@ -190,7 +197,7 @@ namespace VirtualBicycle.Core
                     }
                 }
 
-                if (startIdx != -1) 
+                if (startIdx != -1)
                 {
                     useRecords.RemoveRange(0, startIdx + 1);
                 }
@@ -204,9 +211,9 @@ namespace VirtualBicycle.Core
                 {
                     rf = 1;
                 }
-                else 
+                else
                 {
-                    int c=useRecords.Count-1;
+                    int c = useRecords.Count - 1;
                     rf = 1 / (float)((useRecords[c] - useRecords[c - 1]).Seconds);
                 }
 
@@ -247,6 +254,7 @@ namespace VirtualBicycle.Core
 
         protected CacheMemory cacheMem;
 
+        ResourceState resState;
 
         ResourceLoader resourceLoader;
         ResourceUnloader resourceUnloader;
@@ -374,6 +382,16 @@ namespace VirtualBicycle.Core
             this.generation = new GenerationCalculator();
         }
 
+        public int Generation 
+        {
+            get
+            {
+                if (generation == null)
+                    return -1;
+                return generation.Generation;
+            }
+        }
+
         /// <summary>
         ///  获得管理该资源的资源管理器
         /// </summary>
@@ -401,38 +419,12 @@ namespace VirtualBicycle.Core
             get { return resState == ResourceState.Loaded; }
         }
 
-        /// <summary>
-        ///  获取该资源的使用频率
-        /// </summary>
-        [Browsable(false)]
-        public float UseFrequency
-        {
-            get { return useFrequency; }
-        }
 
         /// <summary>
         ///  获取该资源所占内存的大小
         /// </summary>
         /// <returns></returns>
         public abstract int GetSize();
-
-        /// <summary>
-        ///  获取该资源的创建时间
-        /// </summary>
-        [Browsable(false)]
-        public TimeSpan CreationTime
-        {
-            get { return creationTime; }
-        }
-
-        /// <summary>
-        ///  获取上次访问该资源的时间
-        /// </summary>
-        [Browsable(false)]
-        public TimeSpan LastAccessedTime
-        {
-            get { return lastAccessed; }
-        }
 
         /// <summary>
         ///  加载资源的实现
@@ -476,7 +468,8 @@ namespace VirtualBicycle.Core
         {
             if (IsManaged)
             {
-                creationTime = EngineTimer.TimeSpan;
+                generation.Use();
+
                 State = ResourceState.Loading;
 
                 if (HasCache)
@@ -496,12 +489,12 @@ namespace VirtualBicycle.Core
             if (IsManaged)
             {
                 State = ResourceState.Unloading;
-               
+
                 if (HasCache)
                     manager.AddTask(resourceCWriter);
                 manager.AddTask(resourceUnloader);
 
-                manager.NotifyResourceUnloaded(this);   
+                manager.NotifyResourceUnloaded(this);
             }
         }
         public void Reload()
