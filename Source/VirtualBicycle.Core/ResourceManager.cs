@@ -169,7 +169,7 @@ namespace VirtualBicycle.Core
 
                     while (predictCSize > totalCacheSize)
                     {
-                        for (int i = 3; i >= 0; i++) 
+                        for (int i = 3; i >= 2; i++) 
                         {
                             foreach (Resource r in genTable[i])
                             {
