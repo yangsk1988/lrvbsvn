@@ -318,7 +318,7 @@ namespace VirtualBicycle.Graphics
 
             // ------------------------------------------
 
-            elements = new VertexElement[3];
+            elements = new VertexElement[6];
 
             elements[0] = new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position);
             elements[1] = new VertexElement(elements[0].Size, VertexElementFormat.Vector3, VertexElementUsage.Normal);
