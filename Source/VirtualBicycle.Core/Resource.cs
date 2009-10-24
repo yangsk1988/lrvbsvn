@@ -140,7 +140,7 @@ namespace VirtualBicycle.Core
         }
         #endregion
 
-        struct GenerationCalculator 
+        class GenerationCalculator 
         {
             List<TimeSpan> useRecords;
 
@@ -236,12 +236,6 @@ namespace VirtualBicycle.Core
                 }
             }
         }
-
-        ResourceState resState;
-        TimeSpan creationTime;
-        TimeSpan lastAccessed;
-        int accessTimes;
-        float useFrequency;
 
         GenerationCalculator generation;
 
@@ -377,6 +371,7 @@ namespace VirtualBicycle.Core
         {
             this.hashString = hashString;
             this.manager = manager;
+            this.generation = new GenerationCalculator();
         }
 
         /// <summary>
@@ -465,14 +460,7 @@ namespace VirtualBicycle.Core
         {
             if (IsManaged)
             {
-                lastAccessed = EngineTimer.TimeSpan;
-                accessTimes++;
-
-                float seconds = (float)((lastAccessed - creationTime).TotalSeconds);
-                useFrequency = seconds < 1 ? float.MaxValue : ((float)accessTimes) / seconds;
-
                 generation.Use();
-
 
                 if (State != ResourceState.Loaded && State != ResourceState.Loading)
                 {
