@@ -101,7 +101,7 @@ namespace VirtualBicycle.Graphics
             {
                 Texture tex = Factory.CreateTexture(image, CreationUsage);
                 retrived = tex;
-                base.NotifyNewResource(tex);
+                base.NotifyResourceNew(tex);
             }
             else
             {

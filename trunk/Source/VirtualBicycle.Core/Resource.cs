@@ -34,26 +34,36 @@ namespace VirtualBicycle.Core
     ///  表示对一个资源对象的引用
     /// </summary>
     /// <typeparam name="T">资源类型</typeparam>
-    public class ResourceRef<T> : IDisposable
+    public class ResourceHandle<T> : IDisposable
         where T : Resource
     {
         T resuorce;
+        object syncHelper = new object();
 
-        public ResourceRef(T res)
+        public ResourceHandle(T res)
         {
             res.Reference();
             this.resuorce = res;
         }
 
-        ~ResourceRef()
+        ~ResourceHandle()
         {
-            if (!Disposed) 
+            if (!Disposed)
             {
                 Dispose();
             }
         }
 
-        public static implicit operator T(ResourceRef<T> res)
+        public T Resource
+        {
+            get
+            {
+                resuorce.Use();
+                return resuorce;
+            }
+        }
+
+        public static implicit operator T(ResourceHandle<T> res)
         {
             res.resuorce.Use();
             return res.resuorce;
@@ -74,13 +84,17 @@ namespace VirtualBicycle.Core
 
         public void Dispose()
         {
-            if (!Disposed)
+            lock (syncHelper)
             {
-                resuorce.Dereference();
-            }
-            else 
-            {
-                throw new ObjectDisposedException(ToString());
+                if (!Disposed)
+                {
+                    resuorce.Dereference();
+                    Disposed = true;
+                }
+                else
+                {
+                    throw new ObjectDisposedException(ToString());
+                }
             }
         }
 
@@ -173,21 +187,24 @@ namespace VirtualBicycle.Core
         /// </summary>
         class GenerationCalculator
         {
-            List<TimeSpan> useRecords;
-
-            int atLastMin;
-            int atLast10Sec;
-            int atLastSec;
+            List<TimeSpan> atLastMin;
+            List<TimeSpan> atLast10Sec;
+            List<TimeSpan> atLastSec;
 
             float frequency;
 
             int generation;
 
+            GenerationTable table;
 
-
-            public GenerationCalculator()
+            public GenerationCalculator(GenerationTable table)
             {
-                useRecords = new List<TimeSpan>();
+                this.atLastMin = new List<TimeSpan>();
+                this.atLast10Sec = new List<TimeSpan>();
+                this.atLastSec = new List<TimeSpan>();
+                this.table = table;
+
+                this.generation = 3;
             }
 
             /// <summary>
@@ -201,53 +218,67 @@ namespace VirtualBicycle.Core
             /// <summary>
             ///  通知资源被使用，更新代数
             /// </summary>
-            public void Use()
+            public void Use(Resource resource)
             {
+                #region 确定时间段内的使用次数
+
                 TimeSpan time = EngineTimer.TimeSpan;
+
+                atLastMin.Add(time);
+                atLast10Sec.Add(time);
+                atLastSec.Add(time);
 
                 TimeSpan last10Sec = time - new TimeSpan(0, 0, 10);
                 TimeSpan lastSec = time - new TimeSpan(0, 0, 1);
                 TimeSpan lastMin = time - new TimeSpan(0, 1, 0);
 
                 int startIdx = -1;
-                for (int i = 0; i < useRecords.Count; i++)
+                for (int i = 0; i < atLastMin.Count; i++)
                 {
-                    if (useRecords[i] < lastMin)
-                    {
-                        if (useRecords[i] < last10Sec)
-                        {
-                            if (useRecords[i] < lastSec)
-                            {
-                                atLastSec--;
-                            }
-                            atLast10Sec--;
-                        }
-                        atLastMin--;
+                    if (atLastMin[i] < lastMin)
                         startIdx = i;
-                    }
                 }
-
                 if (startIdx != -1)
+                    atLastMin.RemoveRange(0, startIdx + 1);
+
+                startIdx = -1;
+                for (int i = 0; i < atLast10Sec.Count; i++)
                 {
-                    useRecords.RemoveRange(0, startIdx + 1);
+                    if (atLast10Sec[i] < last10Sec)
+                        startIdx = i;
                 }
+                if (startIdx != -1)
+                    atLast10Sec.RemoveRange(0, startIdx + 1);
+               
+                startIdx = -1;
+                for (int i = 0; i < atLastSec.Count; i++)
+                {
+                    if (atLastSec[i] < lastSec)
+                        startIdx = i;
+                }
+                if (startIdx != -1)
+                    atLastSec.RemoveRange(0, startIdx + 1);
+                #endregion
 
-                atLast10Sec++;
-                atLastMin++;
-                atLastSec++;
-
+                #region 计算近期使用频率
                 float rf = 0;
-                if (useRecords.Count == 1)
+                if (atLastMin.Count == 1)
                 {
                     rf = 1;
                 }
-                else
+                else if (atLastMin.Count > 0)
                 {
-                    int c = useRecords.Count - 1;
-                    rf = 1 / (float)((useRecords[c] - useRecords[c - 1]).Seconds);
+                    int c = atLastMin.Count - 1;
+                    rf = 1 / (float)((atLastMin[c] - atLastMin[c - 1]).Seconds);
                 }
 
-                frequency = (atLastSec + atLast10Sec / 10.0f + 0.5f * atLastMin / 60.0f + rf) / 4.0f;
+                frequency = (atLastSec.Count + atLast10Sec.Count / 10.0f + 0.5f * atLastMin.Count / 60.0f + rf) / 4.0f;
+
+                #endregion
+
+                int oldGeneration = generation;
+
+                #region 由使用频率确定代数
 
                 if (frequency > 0.001f)
                 {
@@ -270,6 +301,16 @@ namespace VirtualBicycle.Core
                 else
                 {
                     generation = 3;
+                }
+                #endregion
+
+                if (oldGeneration != generation)
+                {
+                    if (oldGeneration != -1 && table[oldGeneration].Exists(resource))
+                        table[oldGeneration].Remove(resource);
+
+                    if (!table[generation].Exists(resource))
+                        table[generation].Add(resource);
                 }
             }
         }
@@ -409,10 +450,10 @@ namespace VirtualBicycle.Core
         {
             this.hashString = hashString;
             this.manager = manager;
-            this.generation = new GenerationCalculator();
+            this.generation = new GenerationCalculator(manager.Table);
         }
 
-        public int Generation 
+        public int Generation
         {
             get
             {
@@ -482,7 +523,7 @@ namespace VirtualBicycle.Core
         {
             if (IsManaged)
             {
-                generation.Use();
+                generation.Use(this);
 
                 if (State != ResourceState.Loaded && State != ResourceState.Loading)
                 {
@@ -498,7 +539,7 @@ namespace VirtualBicycle.Core
         {
             if (IsManaged)
             {
-                generation.Use();
+                generation.Use(this);
 
                 State = ResourceState.Loading;
 

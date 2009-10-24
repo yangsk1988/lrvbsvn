@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text;
 using VirtualBicycle.Vfs;
+using VirtualBicycle.Collections;
 
 namespace VirtualBicycle.Core
 {
@@ -12,43 +13,43 @@ namespace VirtualBicycle.Core
     /// </summary>
     class GenerationTable
     {
-        const int MaxGeneration = 4;
-
-        List<Resource>[] gen;
-
-        public GenerationTable()
+        class RefEqualityComparer : IEqualityComparer<Resource>
         {
-            gen = new List<Resource>[4];
+            #region IEqualityComparer<Resource> 成员
 
-            gen[0] = new List<Resource>();
-            gen[1] = new List<Resource>();
-            gen[2] = new List<Resource>();
-            gen[3] = new List<Resource>();
+            public bool Equals(Resource x, Resource y)
+            {
+                return object.ReferenceEquals(x, y);
+            }
+
+            public int GetHashCode(Resource obj)
+            {
+                return obj.GetHashCode();
+            }
+
+            #endregion
         }
 
-        public List<Resource> this[int index]
+        const int MaxGeneration = 4;
+
+        ExistTable<Resource>[] gen;
+        
+        public GenerationTable()
+        {
+            gen = new ExistTable<Resource>[4];
+
+            gen[0] = new ExistTable<Resource>();
+            gen[1] = new ExistTable<Resource>();
+            gen[2] = new ExistTable<Resource>();
+            gen[3] = new ExistTable<Resource>();
+        }
+
+        public ExistTable<Resource> this[int index]
         {
             get
             {
                 return gen[index];
             }
-        }
-
-
-        /// <summary>
-        ///  比较器
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        int Comparison(Resource a, Resource b)
-        {
-            return a.Generation.CompareTo(b.Generation);
-        }
-
-        public void Update(int index)
-        {
-            gen[index].Sort(Comparison);
         }
     }
 
@@ -65,7 +66,6 @@ namespace VirtualBicycle.Core
         /// <summary>
         ///  受管理的资源的列表
         /// </summary>
-        List<Resource> objects;
         GenerationTable genTable = new GenerationTable();
 
         /// <summary>
@@ -97,7 +97,6 @@ namespace VirtualBicycle.Core
         /// </summary>
         protected ResourceManager()
         {
-            objects = new List<Resource>();
             hashTable = new Dictionary<string, Resource>();
             totalCacheSize = 8 * 1048576;  // 8mb
             manageFrequency = 4;
@@ -109,7 +108,6 @@ namespace VirtualBicycle.Core
         /// <param name="cacheSize">缓存大小</param>
         protected ResourceManager(int cacheSize)
         {
-            objects = new List<Resource>();
             hashTable = new Dictionary<string, Resource>();
             totalCacheSize = cacheSize;
             manageFrequency = 4;
@@ -117,10 +115,14 @@ namespace VirtualBicycle.Core
 
         protected ResourceManager(int cacheSize, int manageFreq)
         {
-            objects = new List<Resource>();
             hashTable = new Dictionary<string, Resource>();
             totalCacheSize = cacheSize;
             manageFrequency = manageFreq;
+        }
+
+        internal GenerationTable Table
+        {
+            get { return genTable; }
         }
 
         /// <summary>
@@ -169,19 +171,13 @@ namespace VirtualBicycle.Core
                     {
                         for (int i = 3; i >= 0; i++) 
                         {
-                            genTable.Update(i);
-
-                            int oc = genTable[i].Count;
-                            int k = oc - 1;
-
-                            while (predictCSize > totalCacheSize && k > 0)
+                            foreach (Resource r in genTable[i])
                             {
-                                if (genTable[i][k].State == ResourceState.Loaded && objects[k].IsUnloadable)
+                                if (r.State == ResourceState.Loaded && r.IsUnloadable)
                                 {
-                                    predictCSize -= genTable[i][k].GetSize();
-                                    genTable[i][k].Unload();
+                                    predictCSize -= r.GetSize();
+                                    r.Unload();
                                 }
-                                k--;
                             }
                         }
                     }
@@ -216,7 +212,10 @@ namespace VirtualBicycle.Core
         public void NotifyResourceFinalizing(Resource res)
         {
             hashTable.Remove(res.HashString);
-            objects.Remove(res);
+            if (res.Generation != -1) 
+            {
+                genTable[res.Generation].Remove(res);
+            }
         }
 
         public void AddTask(ResourceOperation op) 
@@ -256,31 +255,37 @@ namespace VirtualBicycle.Core
         ///  提示资源管理器已经创建了一个新资源，将它放入管理范围
         /// </summary>
         /// <param name="res"></param>
-        protected void NotifyNewResource(Resource res, CacheType ctype)
+        protected void NotifyResourceNew(Resource res, CacheType ctype)
         {
             hashTable.Add(res.HashString, res);
-            objects.Add(res);
-
-            int size = res.GetSize();
-
-            CacheMemory cm;
-            if (size == 0)
+            if (res.Generation != -1)
             {
-                cm = Cache.Instance.Allocate();
+                genTable[res.Generation].Add(res);
             }
-            else
+
+            if (ctype != CacheType.None)
             {
-                if (ctype == CacheType.Dynamic)
+                int size = res.GetSize();
+
+                CacheMemory cm;
+                if (size == 0)
                 {
-                    cm = Cache.Instance.Allocate(CacheType.Dynamic, size);
+                    cm = Cache.Instance.Allocate();
                 }
                 else
                 {
-                    EngineConsole.Instance.Write("正在为资源" + res.HashString + "分为静态缓存空间。");
-                    cm = Cache.Instance.Allocate(CacheType.Static, size);
+                    if (ctype == CacheType.Dynamic)
+                    {
+                        cm = Cache.Instance.Allocate(CacheType.Dynamic, size);
+                    }
+                    else
+                    {
+                        EngineConsole.Instance.Write("正在为资源" + res.HashString + "分为静态缓存空间。");
+                        cm = Cache.Instance.Allocate(CacheType.Static, size);
+                    }
                 }
+                res.SetCache(cm);
             }
-            res.SetCache(cm);
         }
 
         /// <summary>
