@@ -26,7 +26,7 @@ namespace VirtualBicycle.Test.ResourceManagerTest
 
         protected override void WriteCacheData(Stream stream)
         {
-            
+
         }
 
         public override int GetSize()
@@ -76,39 +76,57 @@ namespace VirtualBicycle.Test.ResourceManagerTest
             ResourceHandle<TestResource> handle3 = mgr.CreateInstance("c");
             ResourceHandle<TestResource> handle4 = mgr.CreateInstance("d");
 
-            handle4.Resource.Visit();
-
-            TestResource res = handle3.Resource;
-            res.Visit();
+            TestResource res4 = handle4;
 
             int lastTick = Environment.TickCount;
-            while (res.State != ResourceState.Loaded) 
+            TestResource res2 = handle2;
+            while (res2.State != ResourceState.Loaded)
             {
                 Thread.Sleep(10);
             }
-            Console.WriteLine("异步用时：{0}", (Environment.TickCount - lastTick).ToString());
-
-            res = handle2.Resource;
-            res.Visit();
+            Console.WriteLine("异步用时2：{0}", (Environment.TickCount - lastTick).ToString());
+          
             lastTick = Environment.TickCount;
-            while (res.State != ResourceState.Loaded)
+            TestResource res3 = handle3;
+            while (res3.State != ResourceState.Loaded)
             {
                 Thread.Sleep(10);
             }
-            Console.WriteLine("异步用时：{0}", (Environment.TickCount - lastTick).ToString());
+            Console.WriteLine("异步用时3：{0}", (Environment.TickCount - lastTick).ToString());
 
+            Console.WriteLine("开始访问测试...");
 
-            for (int i = 0; i < 100; i++)
+            const int maxTest = 650;
+            for (int i = 0; i < maxTest; i++)
             {
                 handle2.Resource.Visit();
                 Thread.Sleep(100);
+
+                if (i % 10 == 0)
+                {
+                    Console.WriteLine("已完成：{0:P}", (float)i / maxTest);
+                }
             }
 
-            Console.WriteLine("代数：{0}", handle2.Resource.Generation);
-            Console.WriteLine("代数：{0}", handle.Resource.Generation);
-          
+            Console.WriteLine("代数2：{0}", res2.Generation);
+            Console.WriteLine("代数3：{0}", res3.Generation);
+            Console.WriteLine("代数4：{0}", res4.Generation);
+
+            Console.WriteLine("管理器缓冲大小：{0}", mgr.UsedCacheSize);
+
+            Console.WriteLine("按任意键继续测试");
+            Console.ReadKey();
+
             Thread.Sleep(100);
+
+            lastTick = Environment.TickCount;
             handle.Resource.Visit();
+            while (!mgr.IsIdle)
+            {
+                Thread.Sleep(10);
+            } 
+            Console.WriteLine("异步用时1：{0}", (Environment.TickCount - lastTick).ToString());
+            Console.WriteLine("管理器缓冲大小：{0}", mgr.UsedCacheSize);
 
             Console.ReadKey();
         }

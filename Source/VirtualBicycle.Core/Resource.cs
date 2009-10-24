@@ -187,8 +187,6 @@ namespace VirtualBicycle.Core
         /// </summary>
         class GenerationCalculator
         {
-            TimeSpan lastAccess;
-
             int generation;
 
             GenerationTable table;
@@ -200,7 +198,6 @@ namespace VirtualBicycle.Core
                 this.timeQueue = new Queue<float>();
 
                 this.table = table;
-                this.lastAccess = EngineTimer.TimeSpan;
                 this.generation = 3;
             }
 
@@ -211,7 +208,7 @@ namespace VirtualBicycle.Core
             {
                 get
                 {
-                    float result = 0;
+                    float result = float.MinValue;
                     if (timeQueue.Count > 5)
                     {
                         timeQueue.Dequeue();
@@ -231,11 +228,11 @@ namespace VirtualBicycle.Core
 
                     float frequency = 1.0f / result;
 
-                    if (frequency > 0.001f)
+                    if (frequency > 0.003333f)
                     {
-                        if (frequency > 0.01)
+                        if (frequency > 0.016667f)
                         {
-                            if (frequency > 0.1)
+                            if (frequency > 0.1f)
                                 generation = 0;
                             else
                                 generation = 1;
@@ -259,30 +256,24 @@ namespace VirtualBicycle.Core
             /// </summary>
             public void Use(Resource resource)
             {
-                #region 确定时间段内的使用次数
-
                 TimeSpan time = EngineTimer.TimeSpan;
 
                 timeQueue.Enqueue((float)(time.TotalMilliseconds * 0.001));
 
-                #endregion
-
-
                 int oldGeneration = generation;
+                int newGen = Generation;
 
-                #region 由使用频率确定代数
-
-
-                #endregion
-
-                if (oldGeneration != generation)
+                if (oldGeneration != newGen)
                 {
                     if (oldGeneration != -1 && table[oldGeneration].Exists(resource))
                         table[oldGeneration].Remove(resource);
 
-                    if (!table[generation].Exists(resource))
-                        table[generation].Add(resource);
+                    if (!table[newGen].Exists(resource))
+                        table[newGen].Add(resource);
                 }
+
+                // 请求一段时间后检测是否进化，更新GenerationTable
+
             }
         }
 
@@ -319,7 +310,6 @@ namespace VirtualBicycle.Core
             if (IsManaged)
                 refCount++;
         }
-
         internal void Dereference()
         {
             if (IsManaged)
@@ -333,7 +323,6 @@ namespace VirtualBicycle.Core
                 }
             }
         }
-
 
         /// <summary>
         /// 所有资源的名称都统一用该方法计算哈希代码
@@ -607,5 +596,4 @@ namespace VirtualBicycle.Core
         }
 
     }
-
 }

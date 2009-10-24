@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsyncLoader.cs" />
+    <Compile Include="AsyncProcessor.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="CaseInsensitiveStringComparer.cs" />
     <Compile Include="Collections\CollectionBase.cs" />
@@ -83,6 +83,7 @@
     <Compile Include="Exceptions.cs" />
     <Compile Include="GameClock.cs" />
     <Compile Include="GameTime.cs" />
+    <Compile Include="GenerationTable.cs" />
     <Compile Include="IUpdatable.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogManager.cs" />
