@@ -10,13 +10,13 @@ namespace VirtualBicycle.Core
     /// <summary>
     ///  资源分代管理，代数越小，资源使用越频繁
     /// </summary>
-    class GenerationTable 
+    class GenerationTable
     {
         const int MaxGeneration = 4;
 
         List<Resource>[] gen;
 
-        public GenerationTable() 
+        public GenerationTable()
         {
             gen = new List<Resource>[4];
 
@@ -26,22 +26,14 @@ namespace VirtualBicycle.Core
             gen[3] = new List<Resource>();
         }
 
-        public static int GetResourceGen(Resource res)
+        public List<Resource> GetList(int index)
         {
-            float freq = res.UseFrequency;
-            if (res.UseFrequency > 0.001f)
-            {
-                if (res.UseFrequency > 0.01)
-                {
-                    if (res.UseFrequency > 0.1) 
-                    {
-                        return 0;
-                    }
-                    return 1;
-                }
-                return 2;
-            }
-            return 3;
+            return gen[index];
+        }
+
+        public void Update() 
+        {
+            
         }
     }
 
@@ -56,6 +48,7 @@ namespace VirtualBicycle.Core
         ///  受管理的资源的列表
         /// </summary>
         List<Resource> objects;
+        GenerationTable genTable = new GenerationTable();
 
         /// <summary>
         ///  最大允许的缓存大小
@@ -78,6 +71,7 @@ namespace VirtualBicycle.Core
         /// </summary>
         int manageTimes;
 
+        
         AsyncProcessor asyncProc = new AsyncProcessor();
 
         /// <summary>
