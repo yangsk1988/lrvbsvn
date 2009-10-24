@@ -23,6 +23,9 @@ namespace VirtualBicycle.Core
         public abstract void Process();
     }
 
+    /// <summary>
+    ///  资源异步处理器
+    /// </summary>
     class AsyncProcessor : IDisposable
     {
         Queue<ResourceOperation> opQueue;

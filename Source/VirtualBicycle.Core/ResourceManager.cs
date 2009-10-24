@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
 using System.IO;
+using System.Text;
 using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Core
@@ -26,17 +26,35 @@ namespace VirtualBicycle.Core
             gen[3] = new List<Resource>();
         }
 
-        public List<Resource> GetList(int index)
+        public List<Resource> this[int index]
         {
-            return gen[index];
+            get
+            {
+                return gen[index];
+            }
         }
 
-        public void Update() 
+
+        /// <summary>
+        ///  比较器
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        int Comparison(Resource a, Resource b)
         {
-            
+            return a.Generation.CompareTo(b.Generation);
+        }
+
+        public void Update(int index)
+        {
+            gen[index].Sort(Comparison);
         }
     }
 
+    /// <summary>
+    ///  定义一个资源管理器，可以动态的进行资源加载与释放
+    /// </summary>
     public abstract class ResourceManager
     {
         /// <summary>
@@ -134,17 +152,6 @@ namespace VirtualBicycle.Core
         }
 
         /// <summary>
-        ///  比较器
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        int Comparison(Resource a, Resource b)
-        {
-            return a.UseFrequency.CompareTo(b.UseFrequency);
-        }
-
-        /// <summary>
         ///  管理资源，将不常使用的销毁掉以释放内存
         /// </summary>
         public void Manage()
@@ -158,19 +165,26 @@ namespace VirtualBicycle.Core
                 {
                     int predictCSize = curUsedCache;
 
+                    while (predictCSize > totalCacheSize)
+                    {
+                        for (int i = 3; i >= 0; i++) 
+                        {
+                            genTable.Update(i);
 
-                    //objects.Sort(Comparison);
+                            int oc = genTable[i].Count;
+                            int k = oc - 1;
 
-                    //int oc = objects.Count;
-                    //int k = oc - 1;
-                    //while (curUsedCache > totalCacheSize && k >= 0)
-                    //{
-                    //    if (objects[k].State == ResourceState.Loaded && objects[k].IsUnloadable)
-                    //    {
-                    //        objects[k].Unload();
-                    //    }
-                    //    k--;
-                    //}
+                            while (predictCSize > totalCacheSize && k > 0)
+                            {
+                                if (genTable[i][k].State == ResourceState.Loaded && objects[k].IsUnloadable)
+                                {
+                                    predictCSize -= genTable[i][k].GetSize();
+                                    genTable[i][k].Unload();
+                                }
+                                k--;
+                            }
+                        }
+                    }
                 }
             }
 
