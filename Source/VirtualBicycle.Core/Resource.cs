@@ -198,7 +198,7 @@ namespace VirtualBicycle.Core
                 this.timeQueue = new Queue<float>();
 
                 this.table = table;
-                this.generation = 3;
+                this.generation = GenerationTable.MaxGeneration;
             }
 
             /// <summary>
@@ -273,7 +273,7 @@ namespace VirtualBicycle.Core
                 }
 
                 // 请求一段时间后检测是否进化，更新GenerationTable
-
+                table.ApplyChecking(newGen, resource);
             }
         }
 
