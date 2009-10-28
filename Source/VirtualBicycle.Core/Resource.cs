@@ -193,7 +193,7 @@ namespace VirtualBicycle.Core
 
             GenerationTable table;
 
-            Queue<float> timeQueue;
+            volatile Queue<float> timeQueue;
 
             public GenerationCalculator(GenerationTable table)
             {
@@ -274,9 +274,9 @@ namespace VirtualBicycle.Core
                 if (og != ng)
                     table.UpdateGeneration(og, ng, resource);
 
-                // 请求一段时间后检测是否进化，更新GenerationTable
-                if (generation < GenerationTable.MaxGeneration - 1)
-                    table.ApplyChecking(generation, resource);
+                //// 请求一段时间后检测是否进化，更新GenerationTable
+                //if (generation < GenerationTable.MaxGeneration - 1)
+                //    table.ApplyChecking(generation, resource);
             }
 
     

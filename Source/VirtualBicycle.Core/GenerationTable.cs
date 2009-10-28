@@ -11,157 +11,157 @@ namespace VirtualBicycle.Core
     /// </summary>
     class GenerationTable : IDisposable
     {
-        class GenerationTableMaintance : IDisposable
-        {
-            struct Task
-            {
-                public TimeSpan actTime;
-                public Resource res;
-            }
+        //class GenerationTableMaintance : IDisposable
+        //{
+        //    struct Task
+        //    {
+        //        public TimeSpan actTime;
+        //        public Resource res;
+        //    }
 
-            /// <summary>
-            ///  各个代的请求队列
-            /// </summary>
-            Queue<Task>[] queues;
-            ExistTable<Resource>[] etables;
-            Thread thread;
-            GenerationTable table;
+        //    /// <summary>
+        //    ///  各个代的请求队列
+        //    /// </summary>
+        //    Queue<Task>[] queues;
+        //    ExistTable<Resource>[] etables;
+        //    Thread thread;
+        //    GenerationTable table;
 
-            /// <summary>
-            ///  对queues的线程锁
-            /// </summary>
-            object syncHelper = new object();
+        //    /// <summary>
+        //    ///  对queues的线程锁
+        //    /// </summary>
+        //    object syncHelper = new object();
 
-            public GenerationTableMaintance(GenerationTable table)
-            {
-                this.table = table;
-                thread = new Thread(Main);
+        //    public GenerationTableMaintance(GenerationTable table)
+        //    {
+        //        this.table = table;
+        //        thread = new Thread(Main);
 
-                // 最后一代不用管，因为最后一代的对象不可能再进化了
-                queues = new Queue<Task>[GenerationTable.MaxGeneration - 1];
-                etables = new ExistTable<Resource>[GenerationTable.MaxGeneration - 1];
+        //        // 最后一代不用管，因为最后一代的对象不可能再进化了
+        //        queues = new Queue<Task>[GenerationTable.MaxGeneration - 1];
+        //        etables = new ExistTable<Resource>[GenerationTable.MaxGeneration - 1];
 
-                for (int i = 0; i < queues.Length; i++)
-                {
-                    queues[i] = new Queue<Task>();
-                    etables[i] = new ExistTable<Resource>();
-                }
+        //        for (int i = 0; i < queues.Length; i++)
+        //        {
+        //            queues[i] = new Queue<Task>();
+        //            etables[i] = new ExistTable<Resource>();
+        //        }
 
-                thread.Name = "Generation Maintance";
-                thread.SetApartmentState(ApartmentState.MTA);
-                thread.Start();
-            }
+        //        thread.Name = "Generation Maintance";
+        //        thread.SetApartmentState(ApartmentState.MTA);
+        //        thread.Start();
+        //    }
 
-            private void Main(object state)
-            {
-                TimeSpan time = EngineTimer.TimeSpan;
+        //    private void Main(object state)
+        //    {
+        //        TimeSpan time = EngineTimer.TimeSpan;
                 
-                // 记录各个代的记录起始时间
-                TimeSpan[] timeStart = new TimeSpan[GenerationTable.MaxGeneration - 1];
-                for (int i = 0; i < timeStart.Length; i++)
-                {
-                    timeStart[i] = time;
-                }
+        //        // 记录各个代的记录起始时间
+        //        TimeSpan[] timeStart = new TimeSpan[GenerationTable.MaxGeneration - 1];
+        //        for (int i = 0; i < timeStart.Length; i++)
+        //        {
+        //            timeStart[i] = time;
+        //        }
 
-                // 对各个代的时间计数器
-                float[] timeCount = new float[GenerationTable.MaxGeneration - 1];
+        //        // 对各个代的时间计数器
+        //        float[] timeCount = new float[GenerationTable.MaxGeneration - 1];
 
-                while (!Disposed)
-                {
-                    time = EngineTimer.TimeSpan;
+        //        while (!Disposed)
+        //        {
+        //            time = EngineTimer.TimeSpan;
 
-                    for (int i = 0; i < timeCount.Length; i++)
-                    {
-                        timeCount[i] = (float)(time - timeStart[i]).TotalSeconds;
-                    }
+        //            for (int i = 0; i < timeCount.Length; i++)
+        //            {
+        //                timeCount[i] = (float)(time - timeStart[i]).TotalSeconds;
+        //            }
 
-                    for (int i = 0; i < GenerationTable.MaxGeneration - 1; i++) 
-                    {
-                        if (timeCount[i] > GetGenerationLifeTime(i))
-                        {
-                            lock (syncHelper)
-                            {
-                                while (queues[i].Count > 0)
-                                {
-                                    Task t = queues[i].Dequeue();
-                                    Resource res = t.res;
+        //            for (int i = 0; i < GenerationTable.MaxGeneration - 1; i++) 
+        //            {
+        //                if (timeCount[i] > GetGenerationLifeTime(i))
+        //                {
+        //                    lock (syncHelper)
+        //                    {
+        //                        while (queues[i].Count > 0)
+        //                        {
+        //                            Task t = queues[i].Dequeue();
+        //                            Resource res = t.res;
 
-                                    int g = res.Generation;
+        //                            int g = res.Generation;
 
-                                    if (g != i)
-                                    {
-                                        etables[i].Remove(res);
-                                        table.UpdateGeneration(i, g, res);
-                                    }
-                                    else
-                                    {
-                                        queues[i].Enqueue(t);
-                                    }
-                                }
-                            }
-                            timeStart[i] = time;
-                        }
-                    }
+        //                            if (g != i)
+        //                            {
+        //                                etables[i].Remove(res);
+        //                                table.UpdateGeneration(i, g, res);
+        //                            }
+        //                            else
+        //                            {
+        //                                queues[i].Enqueue(t);
+        //                            }
+        //                        }
+        //                    }
+        //                    timeStart[i] = time;
+        //                }
+        //            }
 
-                    Thread.Sleep(10);
-                }
-            }
+        //            Thread.Sleep(10);
+        //        }
+        //    }
 
-            #region IDisposable 成员
+        //    #region IDisposable 成员
 
-            public bool Disposed
-            {
-                get;
-                private set;
-            }
+        //    public bool Disposed
+        //    {
+        //        get;
+        //        private set;
+        //    }
 
-            public void Dispose()
-            {
-                if (!Disposed)
-                {
-                    Disposed = true;
-                }
-            }
+        //    public void Dispose()
+        //    {
+        //        if (!Disposed)
+        //        {
+        //            Disposed = true;
+        //        }
+        //    }
 
-            #endregion
+        //    #endregion
 
-            public void ApplyChecking(int generation, Resource res)
-            {
-                if (!etables[generation].Exists(res))
-                {
-                    Task t;
-                    t.actTime = EngineTimer.TimeSpan + TimeSpan.FromSeconds(GetGenerationLifeTime(generation));
-                    t.res = res;
+        //    public void ApplyChecking(int generation, Resource res)
+        //    {
+        //        if (!etables[generation].Exists(res))
+        //        {
+        //            Task t;
+        //            t.actTime = EngineTimer.TimeSpan + TimeSpan.FromSeconds(GetGenerationLifeTime(generation));
+        //            t.res = res;
 
-                    lock (syncHelper)
-                    {
-                        queues[generation].Enqueue(t);
-                    }
-                    etables[generation].Add(res);
-                }
-            }
+        //            lock (syncHelper)
+        //            {
+        //                queues[generation].Enqueue(t);
+        //            }
+        //            etables[generation].Add(res);
+        //        }
+        //    }
 
-            public bool MaintanceCompleted 
-            {
-                get
-                {
-                    bool result = true;
+        //    public bool MaintanceCompleted 
+        //    {
+        //        get
+        //        {
+        //            bool result = true;
 
-                    lock (syncHelper)
-                    {
-                        for (int i = 0; i < queues.Length; i++)
-                        {
-                            if (queues[i].Count > 0) 
-                            {
-                                result = false;
-                                break;
-                            }
-                        }
-                    }
-                    return result;
-                }
-            }
-        }
+        //            lock (syncHelper)
+        //            {
+        //                for (int i = 0; i < queues.Length; i++)
+        //                {
+        //                    if (queues[i].Count > 0) 
+        //                    {
+        //                        result = false;
+        //                        break;
+        //                    }
+        //                }
+        //            }
+        //            return result;
+        //        }
+        //    }
+        //}
 
         class RefEqualityComparer : IEqualityComparer<Resource>
         {
@@ -200,7 +200,7 @@ namespace VirtualBicycle.Core
         object syncHelper = new object();
 
         ExistTable<Resource>[] gen;
-        GenerationTableMaintance commander;
+        //GenerationTableMaintance commander;
 
         public GenerationTable()
         {
@@ -211,7 +211,7 @@ namespace VirtualBicycle.Core
                 gen[i] = new ExistTable<Resource>();
             }
 
-            commander = new GenerationTableMaintance(this);
+            //commander = new GenerationTableMaintance(this);
         }
 
         public ExistTable<Resource> this[int index]
@@ -245,10 +245,10 @@ namespace VirtualBicycle.Core
                 }
             }
         }
-        public void ApplyChecking(int generation, Resource res)
-        {
-            commander.ApplyChecking(generation, res);
-        }
+        //public void ApplyChecking(int generation, Resource res)
+        //{
+        //    commander.ApplyChecking(generation, res);
+        //}
         public void UpdateGeneration(int oldGeneration, int newGeneration, Resource resource)
         {
             lock (syncHelper)
@@ -272,7 +272,7 @@ namespace VirtualBicycle.Core
         {
             if (!Disposed) 
             {
-                commander.Dispose();
+                //commander.Dispose();
                 Disposed = true;
             }
         }
