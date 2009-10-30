@@ -69,10 +69,15 @@ namespace VirtualBicycle
         {
             get
             {
+                long result;
                 lock (syncHelper)
-                {
-                    return curTime - startTime;
+                {                 
+                    result = curTime - startTime;
                 }
+
+                if (result < 0)
+                    result = 0;
+                return result;
             }
         }
 
@@ -115,19 +120,19 @@ namespace VirtualBicycle
             int loopPassed = 0;
             while (true)
             {
-                long t = GetTime() + uint.MaxValue * loopPassed;
-                if (t < curTime)
+                lock (syncHelper)
                 {
-                    loopPassed++;
-                    lock (syncHelper)
+                    long t = GetTime() + uint.MaxValue * loopPassed;
+                    if (t < curTime)
                     {
+                        loopPassed++;
+
                         curTime = t + uint.MaxValue;
+
                     }
-                }
-                else
-                {
-                    lock (syncHelper)
+                    else
                     {
+
                         curTime = t;
                     }
                 }
