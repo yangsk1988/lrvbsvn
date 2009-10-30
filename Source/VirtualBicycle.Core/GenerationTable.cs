@@ -11,158 +11,6 @@ namespace VirtualBicycle.Core
     /// </summary>
     class GenerationTable : IDisposable
     {
-        //class GenerationTableMaintance : IDisposable
-        //{
-        //    struct Task
-        //    {
-        //        public TimeSpan actTime;
-        //        public Resource res;
-        //    }
-
-        //    /// <summary>
-        //    ///  各个代的请求队列
-        //    /// </summary>
-        //    Queue<Task>[] queues;
-        //    ExistTable<Resource>[] etables;
-        //    Thread thread;
-        //    GenerationTable table;
-
-        //    /// <summary>
-        //    ///  对queues的线程锁
-        //    /// </summary>
-        //    object syncHelper = new object();
-
-        //    public GenerationTableMaintance(GenerationTable table)
-        //    {
-        //        this.table = table;
-        //        thread = new Thread(Main);
-
-        //        // 最后一代不用管，因为最后一代的对象不可能再进化了
-        //        queues = new Queue<Task>[GenerationTable.MaxGeneration - 1];
-        //        etables = new ExistTable<Resource>[GenerationTable.MaxGeneration - 1];
-
-        //        for (int i = 0; i < queues.Length; i++)
-        //        {
-        //            queues[i] = new Queue<Task>();
-        //            etables[i] = new ExistTable<Resource>();
-        //        }
-
-        //        thread.Name = "Generation Maintance";
-        //        thread.SetApartmentState(ApartmentState.MTA);
-        //        thread.Start();
-        //    }
-
-        //    private void Main(object state)
-        //    {
-        //        TimeSpan time = EngineTimer.TimeSpan;
-                
-        //        // 记录各个代的记录起始时间
-        //        TimeSpan[] timeStart = new TimeSpan[GenerationTable.MaxGeneration - 1];
-        //        for (int i = 0; i < timeStart.Length; i++)
-        //        {
-        //            timeStart[i] = time;
-        //        }
-
-        //        // 对各个代的时间计数器
-        //        float[] timeCount = new float[GenerationTable.MaxGeneration - 1];
-
-        //        while (!Disposed)
-        //        {
-        //            time = EngineTimer.TimeSpan;
-
-        //            for (int i = 0; i < timeCount.Length; i++)
-        //            {
-        //                timeCount[i] = (float)(time - timeStart[i]).TotalSeconds;
-        //            }
-
-        //            for (int i = 0; i < GenerationTable.MaxGeneration - 1; i++) 
-        //            {
-        //                if (timeCount[i] > GetGenerationLifeTime(i))
-        //                {
-        //                    lock (syncHelper)
-        //                    {
-        //                        while (queues[i].Count > 0)
-        //                        {
-        //                            Task t = queues[i].Dequeue();
-        //                            Resource res = t.res;
-
-        //                            int g = res.Generation;
-
-        //                            if (g != i)
-        //                            {
-        //                                etables[i].Remove(res);
-        //                                table.UpdateGeneration(i, g, res);
-        //                            }
-        //                            else
-        //                            {
-        //                                queues[i].Enqueue(t);
-        //                            }
-        //                        }
-        //                    }
-        //                    timeStart[i] = time;
-        //                }
-        //            }
-
-        //            Thread.Sleep(10);
-        //        }
-        //    }
-
-        //    #region IDisposable 成员
-
-        //    public bool Disposed
-        //    {
-        //        get;
-        //        private set;
-        //    }
-
-        //    public void Dispose()
-        //    {
-        //        if (!Disposed)
-        //        {
-        //            Disposed = true;
-        //        }
-        //    }
-
-        //    #endregion
-
-        //    public void ApplyChecking(int generation, Resource res)
-        //    {
-        //        if (!etables[generation].Exists(res))
-        //        {
-        //            Task t;
-        //            t.actTime = EngineTimer.TimeSpan + TimeSpan.FromSeconds(GetGenerationLifeTime(generation));
-        //            t.res = res;
-
-        //            lock (syncHelper)
-        //            {
-        //                queues[generation].Enqueue(t);
-        //            }
-        //            etables[generation].Add(res);
-        //        }
-        //    }
-
-        //    public bool MaintanceCompleted 
-        //    {
-        //        get
-        //        {
-        //            bool result = true;
-
-        //            lock (syncHelper)
-        //            {
-        //                for (int i = 0; i < queues.Length; i++)
-        //                {
-        //                    if (queues[i].Count > 0) 
-        //                    {
-        //                        result = false;
-        //                        break;
-        //                    }
-        //                }
-        //            }
-        //            return result;
-        //        }
-        //    }
-        //}
-
         class RefEqualityComparer : IEqualityComparer<Resource>
         {
             #region IEqualityComparer<Resource> 成员
@@ -180,6 +28,13 @@ namespace VirtualBicycle.Core
             #endregion
         }
 
+        enum ManageState 
+        {
+            Off,
+            RequiresSynchronize,
+            Ready,
+        }
+
         public const int MaxGeneration = 4;
 
         internal static readonly float[] GenerationLifeTime = new float[MaxGeneration] { 10, 60, 300, 800 };
@@ -193,13 +48,21 @@ namespace VirtualBicycle.Core
         /// </summary>
         object syncHelper2 = new object();
 
+        /// <summary>
+        ///  代数计算线程与管理线程同步
+        /// </summary>
+        object syncHelper3 = new object();
+
         ExistTable<Resource>[] gen;
         List<Resource> genList;
 
-        Thread thread;
+        Thread guThread;
+        Thread mgrThread;
+        ResourceManager manager;
+        ManageState manageState;
 
         [MTAThread()]
-        private void MMain(object state)
+        private void GenerationUpdate_Main(object state)
         {
             const int passTimeLimit = 4000;
 
@@ -207,6 +70,14 @@ namespace VirtualBicycle.Core
 
             while (!Disposed)
             {
+                bool isSyncing;
+
+                lock (syncHelper3) 
+                {
+                    isSyncing = manageState == ManageState.RequiresSynchronize;
+                }
+
+
                 TimeSpan time = EngineTimer.TimeSpan;
 
                 int count;
@@ -232,7 +103,7 @@ namespace VirtualBicycle.Core
                             res = genList[j];
                         }
 
-                        if (res.generation.GenerationOutOfTime(ref timeStart)) // bug
+                        if (res.generation.GenerationOutOfTime(ref timeStart))
                         {
                             int og = res.generation.generation;
 
@@ -242,7 +113,7 @@ namespace VirtualBicycle.Core
                             if (ng != og)
                             {
                                 UpdateGeneration(og, ng, res);
-                                Console.WriteLine("{0}由{1}改变至{2}", res.HashString, og.ToString(), ng.ToString());
+                                //Console.WriteLine("{0}由{1}改变至{2}", res.HashString, og.ToString(), ng.ToString());
                                 //EngineConsole.Instance.Write("资源{0}由{1}改变至{2}", res.HashString, og.ToString(), ng.ToString());
                             }
                         }
@@ -262,12 +133,91 @@ namespace VirtualBicycle.Core
                     }
                 }
 
+                if (isSyncing) 
+                {
+                    lock (syncHelper3) 
+                    {
+                        manageState = ManageState.Ready;
+                    }
+                }
+
                 Thread.Sleep(100);
             }
         }
-        
 
-        public GenerationTable()
+        [MTAThread()]
+        private void Manage_Main(object state)
+        {
+            while (!Disposed)
+            {
+                bool flag;
+
+                lock (syncHelper3)
+                {
+                    flag = manageState == ManageState.Ready;
+
+                    if (flag)
+                    {
+                        manageState = ManageState.Off;
+                    }
+                }
+
+                if (flag)
+                {
+                    int predictCSize = manager.UsedCacheSize;
+
+                    while (predictCSize > manager.TotalCacheSize)
+                    {
+                        for (int i = 3; i >= 1 && predictCSize > manager.TotalCacheSize; i--)
+                        {
+                            foreach (Resource r in gen[i])
+                            {
+                                if (r != null && r.State == ResourceState.Loaded && r.IsUnloadable)
+                                {
+                                    predictCSize -= r.GetSize();
+                                    r.Unload();
+
+                                    if (predictCSize <= manager.TotalCacheSize)
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (manager.UsedCacheSize > manager.TotalCacheSize)
+                    {
+                        ManageSwitch = true;
+                    }
+                }
+
+                Thread.Sleep(1000);
+            }
+        }
+
+        public bool ManageSwitch 
+        {
+            get
+            {
+                lock (syncHelper3)
+                    return manageState != ManageState.Off;
+            }
+            set
+            {
+                lock (syncHelper3)
+                {
+                    if (manageState == ManageState.Off)
+                    {
+                        manageState = ManageState.RequiresSynchronize;
+                    }
+                }
+            }
+        }
+
+        public GenerationTable(ResourceManager mgr)
         {
             gen = new ExistTable<Resource>[MaxGeneration];
             genList = new List<Resource>();
@@ -275,10 +225,17 @@ namespace VirtualBicycle.Core
             {
                 gen[i] = new ExistTable<Resource>();
             }
-            thread = new Thread(MMain);
-            thread.Name = "Generation Maintance";
-            thread.SetApartmentState(ApartmentState.MTA);
-            thread.Start();
+            manager = mgr;
+
+            guThread = new Thread(GenerationUpdate_Main);
+            guThread.Name = "Generation Update Thread for" + manager.ToString();
+            guThread.SetApartmentState(ApartmentState.MTA);
+            guThread.Start();
+
+            mgrThread = new Thread(Manage_Main);
+            mgrThread.Name = "Resource Management Thread for" + manager.ToString();
+            mgrThread.SetApartmentState(ApartmentState.MTA);
+            mgrThread.Start();
         }
 
         public ExistTable<Resource> this[int index]
@@ -305,7 +262,7 @@ namespace VirtualBicycle.Core
             }
         }
         public void RemoveResource(Resource res)
-        {
+        {         
             int g = res.Generation;
 
             if (g != -1)

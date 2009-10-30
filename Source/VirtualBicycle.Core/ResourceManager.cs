@@ -21,7 +21,7 @@ namespace VirtualBicycle.Core
         /// <summary>
         ///  受管理的资源的列表
         /// </summary>
-        GenerationTable genTable = new GenerationTable();
+        GenerationTable genTable;
 
         /// <summary>
         ///  最大允许的缓存大小
@@ -39,10 +39,10 @@ namespace VirtualBicycle.Core
         /// </summary>
         int manageFrequency;
 
-        /// <summary>
-        ///  记录管理资源的次数
-        /// </summary>
-        int manageTimes;
+        ///// <summary>
+        /////  记录管理资源的次数
+        ///// </summary>
+        //int manageTimes;
 
         
         AsyncProcessor asyncProc = new AsyncProcessor();
@@ -51,10 +51,8 @@ namespace VirtualBicycle.Core
         ///  以默认缓存大小创建一个资源管理器
         /// </summary>
         protected ResourceManager()
+            : this(8 * 1048576,4)
         {
-            hashTable = new Dictionary<string, Resource>();
-            totalCacheSize = 8 * 1048576;  // 8mb
-            manageFrequency = 4;
         }
 
         /// <summary>
@@ -62,10 +60,8 @@ namespace VirtualBicycle.Core
         /// </summary>
         /// <param name="cacheSize">缓存大小</param>
         protected ResourceManager(int cacheSize)
+            : this(cacheSize, 4)
         {
-            hashTable = new Dictionary<string, Resource>();
-            totalCacheSize = cacheSize;
-            manageFrequency = 4;
         }
 
         protected ResourceManager(int cacheSize, int manageFreq)
@@ -73,12 +69,15 @@ namespace VirtualBicycle.Core
             hashTable = new Dictionary<string, Resource>();
             totalCacheSize = cacheSize;
             manageFrequency = manageFreq;
+            genTable = new GenerationTable(this);
         }
 
         internal GenerationTable Table
         {
             get { return genTable; }
         }
+
+
 
         /// <summary>
         ///  获取或设置最大允许的缓存大小
@@ -91,7 +90,6 @@ namespace VirtualBicycle.Core
                 if (value < totalCacheSize)
                 {
                     totalCacheSize = value;
-                    Manage();
                 }
                 else
                 {
@@ -108,39 +106,39 @@ namespace VirtualBicycle.Core
             get { return curUsedCache; }
         }
 
-        /// <summary>
-        ///  管理资源，将不常使用的销毁掉以释放内存
-        /// </summary>
-        public void Manage()
-        {
-            manageTimes++;
+        ///// <summary>
+        /////  管理资源，将不常使用的销毁掉以释放内存
+        ///// </summary>
+        //public void Manage()
+        //{
+        //    manageTimes++;
 
-            if (manageTimes >= manageFrequency)
-            {
-                manageTimes = 0;
-                if (curUsedCache > totalCacheSize)
-                {
-                    int predictCSize = curUsedCache;
+        //    if (manageTimes >= manageFrequency)
+        //    {
+        //        manageTimes = 0;
+        //        if (curUsedCache > totalCacheSize)
+        //        {
+        //            int predictCSize = curUsedCache;
 
-                    while (predictCSize > totalCacheSize)
-                    {
-                        for (int i = 3; i >= 1 && predictCSize > totalCacheSize; i--)
-                            foreach (Resource r in genTable[i])
-                                if (r.State == ResourceState.Loaded && r.IsUnloadable)
-                                {
-                                    predictCSize -= r.GetSize();
-                                    r.Unload();
+        //            while (predictCSize > totalCacheSize)
+        //            {
+        //                for (int i = 3; i >= 1 && predictCSize > totalCacheSize; i--)
+        //                    foreach (Resource r in genTable[i])
+        //                        if (r.State == ResourceState.Loaded && r.IsUnloadable)
+        //                        {
+        //                            predictCSize -= r.GetSize();
+        //                            r.Unload();
 
-                                    if (predictCSize <= totalCacheSize) 
-                                    {
-                                        break;
-                                    }
-                                }
-                    }
-                }
-            }
+        //                            if (predictCSize <= totalCacheSize) 
+        //                            {
+        //                                break;
+        //                            }
+        //                        }
+        //            }
+        //        }
+        //    }
 
-        }
+        //}
 
         /// <summary>
         ///  提示资源管理器一个资源已经加载
@@ -149,7 +147,6 @@ namespace VirtualBicycle.Core
         public void NotifyResourceLoaded(Resource res)
         {
             curUsedCache += res.GetSize();
-            Manage();
         }
 
         /// <summary>
@@ -181,7 +178,7 @@ namespace VirtualBicycle.Core
             {
                 return asyncProc.TaskCompleted;
             }
-        }
+        }        
 
         ///// <summary>
         /////  提示资源管理器已经创建了一个新资源，这个资源在创建时不考虑先前创建的资源
@@ -276,8 +273,12 @@ namespace VirtualBicycle.Core
         {
             if (!Disposed)
             {
-                if (!genTable.Disposed)
+                if (genTable != null &&
+                    !genTable.Disposed)
+                {
                     genTable.Dispose();
+                    genTable = null;
+                }
                 Disposed = true;
             }
             else
