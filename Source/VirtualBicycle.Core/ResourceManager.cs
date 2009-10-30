@@ -8,7 +8,6 @@ using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Core
 {
-
     /// <summary>
     ///  定义一个资源管理器，可以动态的进行资源加载与释放
     /// </summary>
@@ -125,12 +124,17 @@ namespace VirtualBicycle.Core
 
                     while (predictCSize > totalCacheSize)
                     {
-                        for (int i = 3; i >= 1; i--)
+                        for (int i = 3; i >= 1 && predictCSize > totalCacheSize; i--)
                             foreach (Resource r in genTable[i])
                                 if (r.State == ResourceState.Loaded && r.IsUnloadable)
                                 {
                                     predictCSize -= r.GetSize();
                                     r.Unload();
+
+                                    if (predictCSize <= totalCacheSize) 
+                                    {
+                                        break;
+                                    }
                                 }
                     }
                 }

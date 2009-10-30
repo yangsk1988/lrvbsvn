@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using VirtualBicycle.Collections;
 using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Core
@@ -137,7 +138,7 @@ namespace VirtualBicycle.Core
                 if (Resource != null)
                 {
                     Resource.unload();
-                    if (Resource.State == ResourceState.Unloaded)
+                    if (Resource.State == ResourceState.Unloading)
                         Resource.State = ResourceState.Unloaded;
                 }
             }
@@ -185,22 +186,22 @@ namespace VirtualBicycle.Core
         /// <summary>
         ///  提供用于计算资源代数的功能
         /// </summary>
-        class GenerationCalculator
+        internal class GenerationCalculator
         {
             object syncHelper = new object();
 
-            int generation;
+            internal volatile int generation;
 
             GenerationTable table;
 
-            volatile Queue<float> timeQueue;
+            volatile FastQueue<float> timeQueue;
 
             public GenerationCalculator(GenerationTable table)
             {
-                this.timeQueue = new Queue<float>();
+                this.timeQueue = new FastQueue<float>();
 
                 this.table = table;
-                this.generation = GenerationTable.MaxGeneration;
+                this.generation = GenerationTable.MaxGeneration - 1;
             }
 
             /// <summary>
@@ -210,48 +211,6 @@ namespace VirtualBicycle.Core
             {
                 get
                 {
-                    float result = float.MinValue;
-
-                    lock (syncHelper)
-                    {
-                        if (timeQueue.Count > 5)
-                        {
-                            timeQueue.Dequeue();
-                        }
-                        if (timeQueue.Count > 0)
-                        {
-                            result = 0;
-                            foreach (float s in timeQueue)
-                            {
-                                result += s;
-                            }
-                            result /= timeQueue.Count;
-                        }
-                    }
-                    result = (float)(EngineTimer.TimeSpan.TotalMilliseconds * 0.001) - result;
-
-
-                    float frequency = 1.0f / result;
-
-                    if (frequency > 0.003333f)
-                    {
-                        if (frequency > 0.016667f)
-                        {
-                            if (frequency > 0.1f)
-                                generation = 0;
-                            else
-                                generation = 1;
-                        }
-                        else
-                        {
-                            generation = 2;
-                        }
-                    }
-                    else
-                    {
-                        generation = 3;
-                    }
-
                     return generation;
                 }
             }
@@ -265,24 +224,89 @@ namespace VirtualBicycle.Core
 
                 lock (syncHelper)
                 {
-                    timeQueue.Enqueue((float)(time.TotalMilliseconds * 0.001));
+                    timeQueue.Enqueue((float)EngineTimer.TimeSpan.TotalSeconds);
                 }
 
-                int og = generation;
-                int ng = Generation;
+                //int og = generation;
+                //UpdateGeneration();
+                //int ng = generation;
 
-                if (og != ng)
-                    table.UpdateGeneration(og, ng, resource);
-
-                //// 请求一段时间后检测是否进化，更新GenerationTable
-                //if (generation < GenerationTable.MaxGeneration - 1)
-                //    table.ApplyChecking(generation, resource);
+                //if (og > ng)
+                //{
+                //    table.UpdateGeneration(og, ng, resource);
+                //}
             }
 
-    
+            internal void UpdateGeneration()
+            {
+                float result = float.MinValue;
+
+                lock (syncHelper)
+                {
+                    while (timeQueue.Count > 5)                    
+                        timeQueue.Dequeue();
+                    
+                    if (timeQueue.Count > 0)
+                    {
+                        result = 0;
+                        for (int i = 0; i < timeQueue.Count; i++) 
+                        {
+                            result += timeQueue.GetElement(i);
+                        }
+                        result /= timeQueue.Count;
+                    }
+                }
+                result = (float)EngineTimer.TimeSpan.TotalSeconds - result;
+
+                if (result > GenerationTable.GenerationLifeTime[0])
+                {
+                    if (result > GenerationTable.GenerationLifeTime[1])
+                    {
+                        if (result > GenerationTable.GenerationLifeTime[2])
+                        {
+                            generation = 3;
+                        }
+                        else
+                        {
+                            generation = 2;
+                        }
+                    }
+                    else
+                    {
+                        generation = 1;
+                    }
+                }
+                else
+                {
+                    generation = 0;
+                }
+            }
+
+            public bool GenerationOutOfTime(ref TimeSpan time)
+            {
+                bool notEmpty;
+                float topVal = 0;
+                lock (syncHelper)
+                {
+                    notEmpty = (timeQueue.Count > 0);
+                    if (notEmpty) 
+                        topVal = timeQueue.Tail();
+                }
+
+                if (notEmpty)
+                {
+                    float interval = (float)time.TotalSeconds - topVal;
+                    if (generation < GenerationTable.MaxGeneration - 1 && interval > GenerationTable.GenerationLifeTime[generation])
+                    {
+                        return true;
+                    }
+                    return generation > 0 && interval <= GenerationTable.GenerationLifeTime[generation - 1];
+                }
+                return generation != GenerationTable.MaxGeneration - 1;
+            }
         }
 
-        GenerationCalculator generation;
+        internal GenerationCalculator generation;
 
         ResourceManager manager;
 
@@ -328,6 +352,7 @@ namespace VirtualBicycle.Core
                 }
             }
         }
+
 
         /// <summary>
         /// 所有资源的名称都统一用该方法计算哈希代码
@@ -417,6 +442,7 @@ namespace VirtualBicycle.Core
             this.manager = manager;
             this.generation = new GenerationCalculator(manager.Table);
         }
+
 
         public int Generation
         {
