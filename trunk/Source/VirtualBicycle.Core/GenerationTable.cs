@@ -182,36 +182,103 @@ namespace VirtualBicycle.Core
 
         public const int MaxGeneration = 4;
 
-        static int[] GenerationLifeTime = new int[MaxGeneration] { 10, 60, 300, int.MaxValue };
-
-        /// <summary>
-        ///  获取特定代的生存周期
-        /// </summary>
-        /// <param name="i"></param>
-        /// <returns></returns>
-        static internal int GetGenerationLifeTime(int i)
-        {
-            return GenerationLifeTime[i];
-        }
+        internal static readonly float[] GenerationLifeTime = new float[MaxGeneration] { 10, 60, 300, 800 };
 
         /// <summary>
         ///  对gen的线程锁
         /// </summary>
         object syncHelper = new object();
+        /// <summary>
+        ///  对genList的线程锁
+        /// </summary>
+        object syncHelper2 = new object();
 
         ExistTable<Resource>[] gen;
-        //GenerationTableMaintance commander;
+        List<Resource> genList;
+
+        Thread thread;
+
+        [MTAThread()]
+        private void MMain(object state)
+        {
+            const int passTimeLimit = 4000;
+
+            TimeSpan timeStart = EngineTimer.TimeSpan;
+
+            while (!Disposed)
+            {
+                TimeSpan time = EngineTimer.TimeSpan;
+
+                int count;
+                lock (syncHelper2)
+                {
+                    count = genList.Count;
+                }
+
+                if (count > 0)
+                {
+                    int loopCount = 0;
+
+                    int remainingTime = passTimeLimit;
+                    int perObjTime = passTimeLimit / count;
+                    int actlObjTime = Math.Max(1, Math.Min(perObjTime, 10));
+
+                    for (int j = 0; j < count; j++)
+                    {
+                        Resource res;
+
+                        lock (syncHelper2)
+                        {
+                            res = genList[j];
+                        }
+
+                        if (res.generation.GenerationOutOfTime(ref timeStart)) // bug
+                        {
+                            int og = res.generation.generation;
+
+                            res.generation.UpdateGeneration();
+                            int ng = res.generation.generation;
+
+                            if (ng != og)
+                            {
+                                UpdateGeneration(og, ng, res);
+                                Console.WriteLine("{0}由{1}改变至{2}", res.HashString, og.ToString(), ng.ToString());
+                                //EngineConsole.Instance.Write("资源{0}由{1}改变至{2}", res.HashString, og.ToString(), ng.ToString());
+                            }
+                        }
+
+                        if (loopCount++ % 10 == 0)
+                        {
+                            timeStart = EngineTimer.TimeSpan;
+                            remainingTime -= (int)(timeStart - time).TotalMilliseconds;
+
+                            loopCount = 0;
+                        }
+
+                        if (perObjTime >= 1 && remainingTime > 0)
+                        {
+                            Thread.Sleep(actlObjTime);
+                        }
+                    }
+                }
+
+                Thread.Sleep(100);
+            }
+        }
+        
 
         public GenerationTable()
         {
             gen = new ExistTable<Resource>[MaxGeneration];
-
+            genList = new List<Resource>();
             for (int i = 0; i < MaxGeneration; i++)
             {
                 gen[i] = new ExistTable<Resource>();
             }
-
-            //commander = new GenerationTableMaintance(this);
+            thread = new Thread(MMain);
+            thread.Name = "Generation Maintance";
+            thread.SetApartmentState(ApartmentState.MTA);
+            thread.Start();
         }
 
         public ExistTable<Resource> this[int index]
@@ -231,6 +298,10 @@ namespace VirtualBicycle.Core
                 {
                     gen[g].Add(res);
                 }
+                lock (syncHelper2) 
+                {
+                    genList.Add(res);
+                }
             }
         }
         public void RemoveResource(Resource res)
@@ -243,13 +314,17 @@ namespace VirtualBicycle.Core
                 {
                     gen[g].Remove(res);
                 }
+                lock (syncHelper2)
+                {
+                    genList.Remove(res);
+                }
             }
         }
         //public void ApplyChecking(int generation, Resource res)
         //{
         //    commander.ApplyChecking(generation, res);
         //}
-        public void UpdateGeneration(int oldGeneration, int newGeneration, Resource resource)
+        internal void UpdateGeneration(int oldGeneration, int newGeneration, Resource resource)
         {
             lock (syncHelper)
             {

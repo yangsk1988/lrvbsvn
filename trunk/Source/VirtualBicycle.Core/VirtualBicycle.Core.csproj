@@ -47,6 +47,7 @@
     <Compile Include="Collections\CurveKeyCollection.cs" />
     <Compile Include="Collections\ExistTable.cs" />
     <Compile Include="Collections\FastList.cs" />
+    <Compile Include="Collections\FastQueue.cs" />
     <Compile Include="Collections\HashHelpers.cs" />
     <Compile Include="Collections\PlaformCollection.cs" />
     <Compile Include="Config\BasicConfigs.cs" />

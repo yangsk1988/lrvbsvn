@@ -108,9 +108,10 @@ namespace VirtualBicycle.Test.ResourceManagerTest
                 }
             }
 
-            Console.WriteLine("代数2：{0}", res2.Generation);
-            Console.WriteLine("代数3：{0}", res3.Generation);
-            Console.WriteLine("代数4：{0}", res4.Generation);
+
+            Console.WriteLine(" 资源{0}：{1}，代数{2}", res2.HashString, res2.State, res2.Generation);
+            Console.WriteLine(" 资源{0}：{1}，代数{2}", res3.HashString, res3.State, res3.Generation);
+            Console.WriteLine(" 资源{0}：{1}，代数{2}", res4.HashString, res4.State, res4.Generation);
 
             Console.WriteLine("管理器缓冲大小：{0}", mgr.UsedCacheSize);
 
@@ -120,13 +121,24 @@ namespace VirtualBicycle.Test.ResourceManagerTest
             Thread.Sleep(100);
 
             lastTick = Environment.TickCount;
-            handle.Resource.Visit();
+
+            TestResource res1 = handle;
+
             while (!mgr.IsIdle)
             {
                 Thread.Sleep(10);
             } 
             Console.WriteLine("异步用时1：{0}", (Environment.TickCount - lastTick).ToString());
             Console.WriteLine("管理器缓冲大小：{0}", mgr.UsedCacheSize);
+
+            Console.WriteLine("资源状态：");
+
+            Console.WriteLine(" 资源{0}：{1}，代数{2}", res1.HashString, res1.State, res1.Generation);
+            Console.WriteLine(" 资源{0}：{1}，代数{2}", res2.HashString, res2.State, res2.Generation);
+            Console.WriteLine(" 资源{0}：{1}，代数{2}", res3.HashString, res3.State, res3.Generation);
+            Console.WriteLine(" 资源{0}：{1}，代数{2}", res4.HashString, res4.State, res4.Generation);
+
+
 
             Console.ReadKey();
         }

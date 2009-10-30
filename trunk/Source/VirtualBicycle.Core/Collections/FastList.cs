@@ -1,9 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace VirtualBicycle.Collections
 {
+    internal sealed class Mscorlib_CollectionDebugView<T>
+    {
+        // Fields
+        private ICollection<T> collection;
+
+        // Methods
+        public Mscorlib_CollectionDebugView(ICollection<T> collection)
+        {
+            if (collection == null)
+            {
+                throw new ArgumentNullException("collection");
+            }
+            this.collection = collection;
+        }
+
+        // Properties
+        [DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
+        public T[] Items
+        {
+            get
+            {
+                T[] array = new T[this.collection.Count];
+                this.collection.CopyTo(array, 0);
+                return array;
+            }
+        }
+    }
+
+    [Serializable, DebuggerDisplay("Count = {Count}"), DebuggerTypeProxy(typeof(Mscorlib_CollectionDebugView<>))]
     public class FastList<T>
     {
         sealed class FunctorComparer<U> : IComparer<U>
