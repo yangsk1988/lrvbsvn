@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics
 {
@@ -20,11 +21,11 @@ namespace VirtualBicycle.Graphics
             RenderSystem = rs;
         }
 
-        public abstract Texture CreateReferenceTexture(Texture texture);
 
+        public abstract Texture CreateTexture(ResourceLocation rl, TextureUsage usage);
         public abstract Texture CreateTexture(System.Drawing.Bitmap bmp, TextureUsage usage);
-        public abstract Texture CreateTexture(Image image, TextureUsage usage);        
-        public abstract Texture CreateTexture(ImageLoader image, TextureUsage usage);
+        public abstract Texture CreateTexture(Image image, TextureUsage usage);
+        //public abstract Texture CreateTexture(ImageLoader image, TextureUsage usage);
         public abstract Texture CreateTexture(int width, int height, int levelCount, TextureUsage usage, PixelFormat format);
 
         //public abstract Texture CreateTexture(Surface[] surfaces);
@@ -72,5 +73,4 @@ namespace VirtualBicycle.Graphics
         public abstract PixelShader CreatePixelShader(string code, Macro[] defines, Include include, string profile, string functionName);
 
     }
-
 }

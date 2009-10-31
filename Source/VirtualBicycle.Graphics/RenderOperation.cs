@@ -40,14 +40,14 @@ namespace VirtualBicycle.Graphics
             get { return sender; }
         }
 
-        /// <summary>
-        ///  获取或设置顶点格式
-        /// </summary>
-        public VertexFormat Format
-        {
-            get;
-            set;
-        }
+        ///// <summary>
+        /////  获取或设置顶点格式
+        ///// </summary>
+        //public VertexFormat Format
+        //{
+        //    get;
+        //    set;
+        //}
         public int VertexSize
         {
             get;

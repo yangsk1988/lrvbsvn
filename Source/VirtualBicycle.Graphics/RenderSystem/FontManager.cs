@@ -6,7 +6,8 @@ namespace VirtualBicycle.Graphics
 {
     public class FontManager : Singleton
     {
-        static FontManager singleton;
+        static volatile FontManager singleton;
+        static volatile object syncHelper = new object();
 
         public static FontManager Instance 
         {
@@ -14,7 +15,13 @@ namespace VirtualBicycle.Graphics
             {
                 if (singleton == null)
                 {
-                    singleton = new FontManager();
+                    lock (syncHelper)
+                    {
+                        if (singleton == null)
+                        {
+                            singleton = new FontManager();
+                        }
+                    }
                 }
                 return singleton;
             }
@@ -64,20 +71,10 @@ namespace VirtualBicycle.Graphics
 
         Dictionary<FontDescription, Font> buffered;
 
-        
-
-
         private FontManager()
         {
             buffered = new Dictionary<FontDescription, Font>();
         }
-
-
-        //public ObjectFactory Factory
-        //{
-        //    get;
-        //    set;
-        //}
 
         public Font CreateInstance(RenderSystem rs, System.Drawing.Font font)
         {

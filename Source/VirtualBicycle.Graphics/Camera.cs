@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using VirtualBicycle.Graphics;
 using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle

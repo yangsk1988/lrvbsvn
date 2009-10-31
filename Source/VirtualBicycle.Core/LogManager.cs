@@ -6,14 +6,23 @@ namespace VirtualBicycle
 {
     public class LogManager
     {
-        static LogManager singleton;
+        static volatile LogManager singleton;
+        static volatile object syncHelper = new object();
 
         public static LogManager Instance
         {
             get
             {
                 if (singleton == null)
-                    singleton = new LogManager();
+                {
+                    lock (syncHelper)
+                    {
+                        if (singleton == null)
+                        {
+                            singleton = new LogManager();
+                        }
+                    }
+                }
                 return singleton;
             }
         }
