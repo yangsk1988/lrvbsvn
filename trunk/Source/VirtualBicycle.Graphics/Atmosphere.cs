@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using VirtualBicycle.Config;
-using VirtualBicycle.Vfs;
 using VirtualBicycle.MathLib;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics
 {
@@ -16,12 +16,8 @@ namespace VirtualBicycle.Graphics
     public class AtmosphereInfo : IConfigurable
     {
         Color4F ambientColor;
-
         Color4F diffuseColor;
-
         Color4F specularColor;
-
-
 
         /// <summary>
         ///  获取或设置光照环境光成分
@@ -31,7 +27,6 @@ namespace VirtualBicycle.Graphics
             get { return ambientColor; }
             set { ambientColor = value; }
         }
-
 
         /// <summary>
         ///  获取或设置光照漫反射成分
@@ -183,32 +178,18 @@ namespace VirtualBicycle.Graphics
 
         #endregion
 
-
-
         static readonly string DayLengthTag = "DayLength";
-
         static readonly string StartRealtimeTag = "StartWithRealTime";
-
         static readonly string WeatherTypeTag = "WeatherType";
-
         static readonly string SkyTag = "Sky";
-
         static readonly string AmbientTag = "Ambient";
-
         static readonly string DiffuseTag = "Diffuse";
-
         static readonly string SpecularTag = "Specular";
-
         static readonly string FogModeTag = "FogMode";
-
         static readonly string FogDensityTag = "FogDensity";
-
         static readonly string FogStartTag = "FogStart";
-
         static readonly string FogEndTag = "FogEnd";
-
         static readonly string FogColorTag = "FogColor";
-
 
         public void ReadData(BinaryDataReader data)
         {

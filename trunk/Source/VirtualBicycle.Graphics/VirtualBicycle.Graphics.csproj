@@ -65,7 +65,6 @@
     <Compile Include="Effects\RoadEffect.cs" />
     <Compile Include="Effects\StandardEffect.cs" />
     <Compile Include="Effects\TerrainRenderingEffect.cs" />
-    <Compile Include="GameTexture.cs" />
     <Compile Include="Geometry\Box.cs" />
     <Compile Include="Geometry\Capsule.cs" />
     <Compile Include="Geometry\ChamferCylinder.cs" />
@@ -157,10 +156,8 @@
     <Compile Include="Scene\TerrainTextureManager.cs" />
     <Compile Include="Scene\TerrainTreeNode.cs" />
     <Compile Include="ShadowMap.cs" />
-    <Compile Include="SkyBox.cs" />
     <Compile Include="TextureLibrary.cs" />
     <Compile Include="TextureLoader.cs" />
-    <Compile Include="TextureManager.cs" />
     <Compile Include="RenderSystem\VertexFormats.cs" />
     <Compile Include="WaterSurface.cs" />
     <Compile Include="WeatherType.cs" />

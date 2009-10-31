@@ -28,7 +28,7 @@ namespace VirtualBicycle.Core
             #endregion
         }
 
-        enum ManageState 
+        enum ManageState
         {
             Off,
             RequiresSynchronize,
@@ -53,8 +53,8 @@ namespace VirtualBicycle.Core
         /// </summary>
         object syncHelper3 = new object();
 
-        ExistTable<Resource>[] gen;
-        List<Resource> genList;
+        volatile ExistTable<Resource>[] gen;
+        volatile List<Resource> genList;
 
         Thread guThread;
         Thread mgrThread;
@@ -72,7 +72,7 @@ namespace VirtualBicycle.Core
             {
                 bool isSyncing;
 
-                lock (syncHelper3) 
+                lock (syncHelper3)
                 {
                     isSyncing = manageState == ManageState.RequiresSynchronize;
                 }
@@ -133,9 +133,9 @@ namespace VirtualBicycle.Core
                     }
                 }
 
-                if (isSyncing) 
+                if (isSyncing)
                 {
-                    lock (syncHelper3) 
+                    lock (syncHelper3)
                     {
                         manageState = ManageState.Ready;
                     }
@@ -198,7 +198,7 @@ namespace VirtualBicycle.Core
             }
         }
 
-        public bool ManageSwitch 
+        public bool ManageSwitch
         {
             get
             {
@@ -246,7 +246,7 @@ namespace VirtualBicycle.Core
             }
         }
 
-        public void AddResource(Resource res) 
+        public void AddResource(Resource res)
         {
             int g = res.Generation;
             if (g != -1)
@@ -255,14 +255,14 @@ namespace VirtualBicycle.Core
                 {
                     gen[g].Add(res);
                 }
-                lock (syncHelper2) 
+                lock (syncHelper2)
                 {
                     genList.Add(res);
                 }
             }
         }
         public void RemoveResource(Resource res)
-        {         
+        {
             int g = res.Generation;
 
             if (g != -1)
@@ -277,10 +277,7 @@ namespace VirtualBicycle.Core
                 }
             }
         }
-        //public void ApplyChecking(int generation, Resource res)
-        //{
-        //    commander.ApplyChecking(generation, res);
-        //}
+
         internal void UpdateGeneration(int oldGeneration, int newGeneration, Resource resource)
         {
             lock (syncHelper)
@@ -302,7 +299,7 @@ namespace VirtualBicycle.Core
 
         public void Dispose()
         {
-            if (!Disposed) 
+            if (!Disposed)
             {
                 //commander.Dispose();
                 Disposed = true;

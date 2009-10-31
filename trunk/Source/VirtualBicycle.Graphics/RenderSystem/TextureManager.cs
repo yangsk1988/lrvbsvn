@@ -8,7 +8,8 @@ namespace VirtualBicycle.Graphics
 {
     public class TextureManager : ResourceManager
     {
-        static TextureManager singleton;
+        static volatile TextureManager singleton;
+        static volatile object syncHelper = new object();
 
         public static TextureManager Instance
         {
@@ -16,7 +17,13 @@ namespace VirtualBicycle.Graphics
             {
                 if (singleton == null)
                 {
-                    singleton = new TextureManager();
+                    lock (syncHelper)
+                    {
+                        if (singleton == null)
+                        {
+                            singleton = new TextureManager();
+                        }
+                    }
                 }
                 return singleton;
             }
@@ -39,7 +46,7 @@ namespace VirtualBicycle.Graphics
         }
 
         /// <summary>
-        /// 
+        ///  
         /// </summary>
         /// <param name="image"></param>
         /// <returns></returns>
@@ -83,98 +90,26 @@ namespace VirtualBicycle.Graphics
             return Factory.CreateTexture(length, surfaceCount, CreationUsage, format);
         }
 
-        public Texture CreateInstance(FileLocation fl)
-        {
-            ImageLoader il = ImageManager.Instance.CreateInstance(fl);
-
-            return CreateInstance(il);
-        }
-        public Texture CreateInstance(ImageLoader image)
+        public ResourceHandle<Texture> CreateInstance(FileLocation fl)
         {
             if (Factory == null)
             {
                 throw new InvalidOperationException();
             }
-
-            Resource retrived = base.Exists(image.GetHashCode());
+            Resource retrived = base.Exists(fl.Name);
             if (retrived == null)
             {
-                Texture tex = Factory.CreateTexture(image, CreationUsage);
+                Texture tex = Factory.CreateTexture(fl, CreationUsage);
                 retrived = tex;
-                base.NotifyResourceNew(tex);
+                base.NotifyResourceNew(tex, CacheType.Static);
             }
             else
             {
                 retrived.Use();
             }
 
-            return Factory.CreateReferenceTexture((Texture)retrived);
+            return new ResourceHandle<Texture>((Texture)retrived);
         }
-        public void DestroyInstance(Texture texture)
-        {
-            base.DestoryResource(texture);
-        }
+
     }
-
-    //public class TextureManager : ObjectTracker<Texture>
-    //{
-    //    static TextureManager singleton;
-
-    //    static void InvalidOpErr()
-    //    {
-    //        throw new InvalidOperationException();
-    //    }
-
-    //    public static void Initialize(Device dev)
-    //    {
-    //        singleton = new TextureManager(dev);
-    //    }
-
-    //    public static TextureManager Instance
-    //    {
-    //        get
-    //        {
-    //            if (singleton == null)
-    //                InvalidOpErr();
-    //            return singleton;
-    //        }
-    //    }
-
-    //    RenderSystem renderSys;
-    //    TextureUsage usage;
-    //    Pool pool;
-
-
-    //    private TextureManager(RenderSystem rs)
-    //    {
-    //        renderSys = rs;
-    //        usage = TextureUsage.Static;
-    //        pool = Pool.Managed;
-    //    }
-
-    //    public Usage CreationUsage
-    //    {
-    //        get { return usage; }
-    //        set { usage = value; }
-    //    }
-    //    public Pool CreationPool
-    //    {
-    //        get { return pool; }
-    //        set { pool = value; }
-    //    }
-
-    //    protected override Texture create(ResourceLocation rl)
-    //    {
-    //        throw new NotImplementedException();
-    //        //return Texture.FromStream(device, rl.GetStream, usage, pool);//Texture.FromStream(device, rl.GetStream, 0, 0, 1, usage, Format.Unknown, pool, Filter.None, Filter.None, 0);
-    //    }
-
-    //    protected override void destroy(Texture obj)
-    //    {
-    //        if (obj != null && !obj.Disposed)
-    //            obj.Dispose();
-    //    }
-
-
-    //}
 }

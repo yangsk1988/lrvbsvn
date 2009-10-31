@@ -86,8 +86,6 @@
     <Compile Include="GameTime.cs" />
     <Compile Include="GenerationTable.cs" />
     <Compile Include="IUpdatable.cs" />
-    <Compile Include="Log.cs" />
-    <Compile Include="LogManager.cs" />
     <Compile Include="MathLib\BoundingBox.cs" />
     <Compile Include="MathLib\BoundingFrustum.cs" />
     <Compile Include="MathLib\BoundingSphere.cs" />

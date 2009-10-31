@@ -26,14 +26,23 @@ namespace VirtualBicycle
         //delegate void WriteHelper(string msg, ConsoleMessageType type);
         //delegate string GetTextHelper();
 
-        static EngineConsole singleton;
+        static volatile EngineConsole singleton;
+        static volatile object syncHelper = new object();
 
         public static EngineConsole Instance
         {
             get
             {
                 if (singleton == null)
-                    singleton = new EngineConsole();
+                {
+                    lock (syncHelper)
+                    {
+                        if (singleton == null)
+                        {
+                            singleton = new EngineConsole();
+                        }
+                    }
+                }
                 return singleton;
             }
         }

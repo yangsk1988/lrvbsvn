@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Logic
+namespace VirtualBicycle.Graphics
 {
     [Flags()]
     public enum WeatherType
