@@ -116,8 +116,10 @@ namespace VirtualBicycle
         void CreateD3D()
         {
             Rectangle rect = Screen.PrimaryScreen.Bounds;
-            int width = 1024;
-            int height = 768;
+
+            VideoConfigs vidCon = (VideoConfigs)BasicConfigs.Instance[VideoConfigFactory.VideoConfigName];
+            int width = vidCon.ScreenWidth;
+            int height = vidCon.ScreenHeight;
 
             Window.ClientSize = new Size(width, height);
             Window.Location = new Point((rect.Width - Window.Width) / 2, (rect.Height - Window.Height) / 2);
@@ -158,6 +160,14 @@ namespace VirtualBicycle
                 }
             }
             FileSystem.Instance.AddWorkingDir(Application.StartupPath);
+            ConfigurationManager.Initialize();
+            ConfigurationManager.Instance.Register(new ConfigurationIniFormat());
+
+            BasicConfigs.Initialize();
+            BasicConfigs.Instance.RegisterConfigType(AudioConfigFacotry.AudioConfigName, new AudioConfigFacotry());
+            BasicConfigs.Instance.RegisterConfigType(VideoConfigFactory.VideoConfigName, new VideoConfigFactory());
+            BasicConfigs.Instance.Load();
+
             CreateD3D();
             
         }
@@ -182,11 +192,6 @@ namespace VirtualBicycle
 
                 FMOD.Factory.System_Create(ref sndSystem);
                 sndSystem.init(8, FMOD.INITFLAG.NORMAL, IntPtr.Zero);
-
-                BasicConfigs.Initialize();
-                BasicConfigs.Instance.RegisterConfigType(AudioConfigFacotry.AudioConfigName, new AudioConfigFacotry());
-                BasicConfigs.Instance.RegisterConfigType(VideoConfigFactory.VideoConfigName, new VideoConfigFactory());
-                BasicConfigs.Instance.Load();
 
                 SerialPortInputProcessor seip = new SerialPortInputProcessor(InputManager.Instance);
                 if (seip.IsValid)

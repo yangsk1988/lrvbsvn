@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.IO;
 using VirtualBicycle.Scene;
+using VirtualBicycle.Physics.Dynamics;
 
 namespace VirtualBicycle.Logic
 {
@@ -52,5 +53,13 @@ namespace VirtualBicycle.Logic
             get { return BuildingFactory.TypeId; }
         }
         #endregion
+
+        public override unsafe void BuildPhysicsModel(DynamicsWorld world)
+        {
+            if (!CaseInsensitiveStringComparer.Compare(TypeName, "finalflag"))
+            {
+                base.BuildPhysicsModel(world);
+            }
+        }
     }
 }

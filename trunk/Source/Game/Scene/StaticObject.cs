@@ -143,7 +143,8 @@ namespace VirtualBicycle.Scene
 
             if (disposing)
             {
-                CollisionMeshManager.Instance.DestoryInstance(cdMesh);
+                if (cdMesh != null)
+                    CollisionMeshManager.Instance.DestoryInstance(cdMesh);
             }
             cdMesh = null;
         }

@@ -56,6 +56,7 @@
     <Compile Include="UI\DrawGrid.cs" />
     <Compile Include="UI\DrawTextBox.cs" />
     <Compile Include="UI\FontManager.cs" />
+    <Compile Include="UI\GameFinishedUI.cs" />
     <Compile Include="UI\IngameMenu.cs" />
     <Compile Include="UI\Label.cs" />
     <Compile Include="UI\MenuItemList.cs" />
@@ -124,8 +125,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>Copy $(TargetPath) $(SolutionDir)VirtualBicycle\bin\$(TargetName).lgc
-Copy $(TargetDir)$(TargetName).pdb $(SolutionDir)VirtualBicycle\bin\$(TargetName).pdb
+    <PostBuildEvent>Copy $(TargetPath) $(SolutionDir)Game\bin\$(TargetName).lgc
+Copy $(TargetDir)$(TargetName).pdb $(SolutionDir)Game\bin\$(TargetName).pdb
 
 Copy $(TargetPath) $(SolutionDir)VirtualBicycle.Ide\bin\$(TargetName).lgc
 Copy $(TargetDir)$(TargetName).pdb $(SolutionDir)VirtualBicycle.Ide\bin\$(TargetName).pdb</PostBuildEvent>

@@ -53,6 +53,18 @@ namespace VirtualBicycle.Logic.Goal
             }
         }
 
+        public BaseGoal CurrentGoal 
+        {
+            get
+            {
+                if (goalSeq.Count > 0)
+                {
+                    return goalSeq.Peek();
+                }
+                return null;
+            }
+        }
+
         /// <summary>
         /// 得到队列中的第一个原子目标
         /// 供状态机类调用
