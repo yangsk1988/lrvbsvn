@@ -285,7 +285,7 @@ namespace VirtualBicycle.Graphics
 
         SkyBox skyBox;
         AtmosphereInfo info;
-        Device device;
+        RenderSystem renderSystem;
 
         Light light;
         Light currentLight;
@@ -315,9 +315,9 @@ namespace VirtualBicycle.Graphics
         /// <param name="dev"></param>
         /// <param name="info"></param>
         /// <param name="sblcbk">用于创建天空盒的回调函数</param>
-        public Atmosphere(Device dev, AtmosphereInfo info, SkyBoxLoadCallback sblcbk)
+        public Atmosphere(RenderSystem rs, AtmosphereInfo info, SkyBoxLoadCallback sblcbk)
         {
-            device = dev;
+            renderSystem = rs;
             this.info = info;
 
             //shadowMap = new ShadowMap(dev);
@@ -433,18 +433,20 @@ namespace VirtualBicycle.Graphics
             }
             if (FogEnabled)
             {
-                device.SetRenderState(RenderState.FogEnable, true);
-                device.SetRenderState<FogMode>(RenderState.FogTableMode, fogMode);
-                device.SetRenderState<FogMode>(RenderState.FogVertexMode, fogMode);
+                RenderStateManager states = renderSystem.RenderStates;
 
-                device.SetRenderState(RenderState.FogStart, fogStart);
-                device.SetRenderState(RenderState.FogEnd, fogEnd);
-                device.SetRenderState(RenderState.FogColor, currentFogColor);
-                device.SetRenderState(RenderState.FogDensity, fogDensity);
+                states.FogEnable = true;
+                states.FogTableMode = fogMode;
+                states.FogVertexMode = fogMode;
+
+                states.FogStart = fogStart;
+                states.FogEnd = fogEnd;
+                states.FogColor = currentFogColor;
+                states.FogDensity = fogDensity;
             }
             else
             {
-                device.SetRenderState(RenderState.FogEnable, false);
+                renderSystem.RenderStates.FogEnable = false;
             }
         }
 
