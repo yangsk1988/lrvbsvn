@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using SlimDX;
 using VirtualBicycle.Collections;
 using VirtualBicycle.IO;
+using VirtualBicycle.MathLib;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics.Animation
 {

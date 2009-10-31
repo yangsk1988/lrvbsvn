@@ -25,13 +25,8 @@ namespace VirtualBicycle.Graphics
 
     public class GeomentryData
     {
-        //public delegate void RenderedHandler(RenderOperation op);
-
         IRenderable sender;
-        //public Matrix Transformation;
 
-
-        //RenderedHandler renderHandler;
         /// <summary>
         /// 渲染操作的来源
         /// </summary>
@@ -107,29 +102,5 @@ namespace VirtualBicycle.Graphics
             get;
             set;
         }
-
-
-        //public bool IsLastOperation
-        //{
-        //    get;
-        //    set;
-        //}
-
-        //public event RenderedHandler Rendered
-        //{
-        //    add { renderHandler += value; }
-        //    remove { renderHandler -= value; }
-        //}
-
-        //public void OnRendered()
-        //{
-        //    if (renderHandler != null)
-        //        renderHandler(this);
-        //}
-
-        //~RenderOperation()
-        //{
-        //    renderHandler = null;
-        //}
     }
 }

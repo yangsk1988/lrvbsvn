@@ -49,6 +49,14 @@
     <Compile Include="Animation\TransformAnimation.cs" />
     <Compile Include="Atmosphere.cs" />
     <Compile Include="Collections\SamplerStateCollection.cs" />
+    <Compile Include="Desgin\MatrixEditControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Desgin\MatrixEditControl.designer.cs">
+      <DependentUpon>MatrixEditControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Desgin\MatrixEditor.cs" />
+    <Compile Include="Desgin\MeshFaceConverter.cs" />
     <Compile Include="FpsCounter.cs" />
     <Compile Include="RenderSystem\Buffer\HardwareBuffer.cs" />
     <Compile Include="RenderSystem\Buffer\IndexBuffer.cs" />
@@ -156,8 +164,6 @@
     <Compile Include="Scene\TerrainTextureManager.cs" />
     <Compile Include="Scene\TerrainTreeNode.cs" />
     <Compile Include="ShadowMap.cs" />
-    <Compile Include="TextureLibrary.cs" />
-    <Compile Include="TextureLoader.cs" />
     <Compile Include="RenderSystem\VertexFormats.cs" />
     <Compile Include="WaterSurface.cs" />
     <Compile Include="WeatherType.cs" />
@@ -167,6 +173,12 @@
       <Project>{767AFD72-02F7-4543-B193-A2E19645A4B9}</Project>
       <Name>VirtualBicycle.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Desgin\MatrixEditControl.resx">
+      <DependentUpon>MatrixEditControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
