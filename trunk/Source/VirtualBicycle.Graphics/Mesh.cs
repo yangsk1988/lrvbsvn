@@ -4,8 +4,9 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using VirtualBicycle.Graphics.Animation;
 using VirtualBicycle.Graphics;
+using VirtualBicycle.Graphics.Animation;
+using VirtualBicycle.MathLib;
 using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics
@@ -311,7 +312,7 @@ namespace VirtualBicycle.Graphics
 
         //}
 
-        protected abstract MType LoadMaterial(Device device, BinaryDataReader matData);
+        protected abstract MType LoadMaterial(RenderSystem renderSystem, BinaryDataReader matData);
         protected abstract BinaryDataWriter SaveMaterial(MType mat);
 
         public void SetData(void* data, int size)
@@ -518,7 +519,7 @@ namespace VirtualBicycle.Graphics
         }
 
         public MeshData(GameMesh mesh)
-            : base(mesh.Device)
+            : base(mesh.RenderSystem)
         {
             this.Format = mesh.Format;
             this.Materials = mesh.Materials;
@@ -624,7 +625,7 @@ namespace VirtualBicycle.Graphics
         VertexDeclaration vtxDecl;
         int vertexSize;
 
-        protected VertexFormat vtxFormat;
+        //protected VertexFormat vtxFormat;
 
         //GeomentryData[] bufferedGm;
         RenderOperation[] bufferedOp;
@@ -637,7 +638,7 @@ namespace VirtualBicycle.Graphics
         protected int[] partPrimCount;
         protected int[] partVtxCount;
 
-        Device dev;
+        RenderSystem renderSystem;
         string name;
 
         bool disposed;
@@ -646,128 +647,128 @@ namespace VirtualBicycle.Graphics
         int vertexCount;
         #endregion
 
-        #region APIMesh
-        public static Mesh BuildMesh(Device dev, int vertexCount, int faceCount, VertexFormat format)
-        {
-            bool useIndex16 = vertexCount <= ushort.MaxValue;
-            Mesh mesh;
-            if (useIndex16)
-            {
-                mesh = new Mesh(dev, faceCount, vertexCount, MeshFlags.Managed, format);
-            }
-            else
-            {
-                mesh = new Mesh(dev, faceCount, vertexCount, MeshFlags.Managed | MeshFlags.Use32Bit, format);
-            }
-            return mesh;
-        }
+        //#region APIMesh
+        //public static Mesh BuildMesh(Device dev, int vertexCount, int faceCount, VertexFormat format)
+        //{
+        //    bool useIndex16 = vertexCount <= ushort.MaxValue;
+        //    Mesh mesh;
+        //    if (useIndex16)
+        //    {
+        //        mesh = new Mesh(dev, faceCount, vertexCount, MeshFlags.Managed, format);
+        //    }
+        //    else
+        //    {
+        //        mesh = new Mesh(dev, faceCount, vertexCount, MeshFlags.Managed | MeshFlags.Use32Bit, format);
+        //    }
+        //    return mesh;
+        //}
 
-        /// <summary>
-        /// Build a Mesh object from GameMeshDataBase
-        /// </summary>
-        /// <typeparam name="MType"></typeparam>
-        /// <param name="dev"></param>
-        /// <param name="sounds"></param>
-        /// <returns></returns>
-        public static Mesh BuildMeshFromData<MType>(Device dev, MeshData<MType> data)
-            where MType : class
-        {
-            Mesh mesh;
+        ///// <summary>
+        ///// Build a Mesh object from GameMeshDataBase
+        ///// </summary>
+        ///// <typeparam name="MType"></typeparam>
+        ///// <param name="dev"></param>
+        ///// <param name="sounds"></param>
+        ///// <returns></returns>
+        //public static Mesh BuildMeshFromData<MType>(Device dev, MeshData<MType> data)
+        //    where MType : class
+        //{
+        //    Mesh mesh;
 
-            int matCount = data.Materials.Length;
-            int vertexCount = data.VertexCount;
-            int faceCount = data.Faces.Length;
+        //    int matCount = data.Materials.Length;
+        //    int vertexCount = data.VertexCount;
+        //    int faceCount = data.Faces.Length;
 
-            bool useIndex16 = vertexCount <= ushort.MaxValue;
+        //    bool useIndex16 = vertexCount <= ushort.MaxValue;
 
-            if (useIndex16)
-            {
-                mesh = new Mesh(dev, faceCount, vertexCount, MeshFlags.Managed, data.Format);
-            }
-            else
-            {
-                mesh = new Mesh(dev, faceCount, vertexCount, MeshFlags.Managed | MeshFlags.Use32Bit, data.Format);
-            }
+        //    if (useIndex16)
+        //    {
+        //        mesh = new Mesh(dev, faceCount, vertexCount, MeshFlags.Managed, data.Format);
+        //    }
+        //    else
+        //    {
+        //        mesh = new Mesh(dev, faceCount, vertexCount, MeshFlags.Managed | MeshFlags.Use32Bit, data.Format);
+        //    }
 
-            void* vdst = mesh.LockVertexBuffer(LockFlags.None).DataPointer.ToPointer();
+        //    void* vdst = mesh.LockVertexBuffer(LockFlags.None).DataPointer.ToPointer();
 
-            Memory.Copy(data.Data.ToPointer(), vdst, vertexCount * data.VertexSize);
+        //    Memory.Copy(data.Data.ToPointer(), vdst, vertexCount * data.VertexSize);
 
-            mesh.UnlockVertexBuffer();
+        //    mesh.UnlockVertexBuffer();
 
             
 
-            List<int>[] indices = new List<int>[matCount];
-            for (int i = 0; i < matCount; i++)
-            {
-                indices[i] = new List<int>();
-            }
+        //    List<int>[] indices = new List<int>[matCount];
+        //    for (int i = 0; i < matCount; i++)
+        //    {
+        //        indices[i] = new List<int>();
+        //    }
 
 
-            MeshFace[] faces = data.Faces;
-            for (int i = 0; i < faces.Length; i++)
-            {
-                MeshFace face = faces[i];
-                int matId = face.MaterialIndex;
+        //    MeshFace[] faces = data.Faces;
+        //    for (int i = 0; i < faces.Length; i++)
+        //    {
+        //        MeshFace face = faces[i];
+        //        int matId = face.MaterialIndex;
 
-                indices[matId].Add(face.IndexA);
-                indices[matId].Add(face.IndexB);
-                indices[matId].Add(face.IndexC);
-            }
+        //        indices[matId].Add(face.IndexA);
+        //        indices[matId].Add(face.IndexB);
+        //        indices[matId].Add(face.IndexC);
+        //    }
 
 
-            uint* ab = (uint*)mesh.LockAttributeBuffer(LockFlags.None).DataPointer.ToPointer();
+        //    uint* ab = (uint*)mesh.LockAttributeBuffer(LockFlags.None).DataPointer.ToPointer();
 
-            if (useIndex16)
-            {
-                ushort* ib = (ushort*)mesh.LockIndexBuffer(LockFlags.None).DataPointer.ToPointer();
+        //    if (useIndex16)
+        //    {
+        //        ushort* ib = (ushort*)mesh.LockIndexBuffer(LockFlags.None).DataPointer.ToPointer();
 
-                int faceIdx = 0;
-                for (int i = 0; i < matCount; i++)
-                {
-                    List<int> idx = indices[i];
-                    for (int j = 0; j < idx.Count; j += 3)
-                    {
-                        ab[faceIdx] = (uint)i;
+        //        int faceIdx = 0;
+        //        for (int i = 0; i < matCount; i++)
+        //        {
+        //            List<int> idx = indices[i];
+        //            for (int j = 0; j < idx.Count; j += 3)
+        //            {
+        //                ab[faceIdx] = (uint)i;
 
-                        int ibIdx = faceIdx * 3;
-                        ib[ibIdx] = (ushort)idx[j];
-                        ib[ibIdx + 1] = (ushort)idx[j + 1];
-                        ib[ibIdx + 2] = (ushort)idx[j + 2];
+        //                int ibIdx = faceIdx * 3;
+        //                ib[ibIdx] = (ushort)idx[j];
+        //                ib[ibIdx + 1] = (ushort)idx[j + 1];
+        //                ib[ibIdx + 2] = (ushort)idx[j + 2];
 
-                        faceIdx++;
-                    }
-                }
+        //                faceIdx++;
+        //            }
+        //        }
 
-                mesh.UnlockIndexBuffer();
-            }
-            else
-            {
-                uint* ib = (uint*)mesh.LockIndexBuffer(LockFlags.None).DataPointer.ToPointer();
+        //        mesh.UnlockIndexBuffer();
+        //    }
+        //    else
+        //    {
+        //        uint* ib = (uint*)mesh.LockIndexBuffer(LockFlags.None).DataPointer.ToPointer();
 
-                int faceIdx = 0;
-                for (int i = 0; i < matCount; i++)
-                {
-                    List<int> idx = indices[i];
-                    for (int j = 0; j < idx.Count; j += 3)
-                    {
-                        ab[faceIdx] = (uint)i;
+        //        int faceIdx = 0;
+        //        for (int i = 0; i < matCount; i++)
+        //        {
+        //            List<int> idx = indices[i];
+        //            for (int j = 0; j < idx.Count; j += 3)
+        //            {
+        //                ab[faceIdx] = (uint)i;
 
-                        int ibIdx = faceIdx * 3;
-                        ib[ibIdx] = (ushort)idx[j];
-                        ib[ibIdx + 1] = (ushort)idx[j + 1];
-                        ib[ibIdx + 2] = (ushort)idx[j + 2];
+        //                int ibIdx = faceIdx * 3;
+        //                ib[ibIdx] = (ushort)idx[j];
+        //                ib[ibIdx + 1] = (ushort)idx[j + 1];
+        //                ib[ibIdx + 2] = (ushort)idx[j + 2];
 
-                        faceIdx++;
-                    }
-                }
+        //                faceIdx++;
+        //            }
+        //        }
 
-                mesh.UnlockIndexBuffer();
-            }
-            mesh.UnlockAttributeBuffer();
-            return mesh;
-        }
-        #endregion
+        //        mesh.UnlockIndexBuffer();
+        //    }
+        //    mesh.UnlockAttributeBuffer();
+        //    return mesh;
+        //}
+        //#endregion
 
         #region 获取数据
 
@@ -1013,9 +1014,9 @@ namespace VirtualBicycle.Graphics
         /// </summary>
         /// <param name="rs"></param>
         /// <param name="mesh"></param>
-        public GameMesh(Device dev, GameMesh mesh)
+        public GameMesh(RenderSystem dev, GameMesh mesh)
         {
-            this.dev = dev;
+            this.renderSystem = dev;
             this.disposed = mesh.disposed;
             this.indexBuffers = mesh.indexBuffers;
             this.materials = mesh.materials;
@@ -1043,16 +1044,16 @@ namespace VirtualBicycle.Graphics
         /// </summary>
         /// <param name="dev"></param>
         /// <param name="data"></param>
-        public GameMesh(Device dev, MeshData data)
+        public GameMesh(RenderSystem dev, MeshData data)
         {
-            this.dev = dev;
+            this.renderSystem = dev;
 
             BuildFromData(dev, data);
         }
 
-        public GameMesh(Device dev, VertexPNT1[] vertices, int[] indices, Material[][] materials)
+        public GameMesh(RenderSystem dev, VertexPNT1[] vertices, int[] indices, Material[][] materials)
         {
-            this.dev = dev;
+            this.renderSystem = dev;
             this.vtxFormat = VertexPNT1.Format;
             this.materials = materials;
 
@@ -1109,13 +1110,13 @@ namespace VirtualBicycle.Graphics
         #endregion
 
         #region 属性
-        /// <summary>
-        ///  获得网格顶点的格式的VertexFormat表达形式
-        /// </summary>
-        public VertexFormat Format
-        {
-            get { return vtxFormat; }
-        }
+        ///// <summary>
+        /////  获得网格顶点的格式的VertexFormat表达形式
+        ///// </summary>
+        //public VertexFormat Format
+        //{
+        //    get { return vtxFormat; }
+        //}
 
         public int[] PartPrimitiveCount
         {
@@ -1154,10 +1155,10 @@ namespace VirtualBicycle.Graphics
             set { name = value; }
         }
 
-        public Device Device
+        public RenderSystem RenderSystem
         {
-            get { return dev; }
-            set { dev = value; }
+            get { return renderSystem; }
+            set { renderSystem = value; }
         }
 
         #endregion

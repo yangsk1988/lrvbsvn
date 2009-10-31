@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using VirtualBicycle.Core;
 using VirtualBicycle.Graphics.Animation;
 using VirtualBicycle.Vfs;
 
@@ -12,7 +13,7 @@ namespace VirtualBicycle.Graphics
     ///  定义3D模型提供基础结构
     /// </summary>
     /// <typeparam name="MeshType"></typeparam>
-    public abstract class ModelBase<MeshType> : VirtualBicycle.Core.Resource
+    public abstract class ModelBase<MeshType> : Resource
         where MeshType : class
     {
         public const int MdlId = 0;
@@ -20,32 +21,39 @@ namespace VirtualBicycle.Graphics
         protected readonly string EntityCountTag = "EntityCount";
 
         protected readonly string EntityPrefix = "Ent";
-        protected readonly string AnimationTag = "Animation";
-        protected readonly string AnimationFlagTag = "AnimationFlag";
+        //protected readonly string AnimationTag = "Animation";
+        //protected readonly string AnimationFlagTag = "AnimationFlag";
 
         protected MeshType[] entities;
         //protected Animation animation;
         protected RenderSystem renderSystem;
 
-        TransformAnimationInstance transAnim;
-        SkinAnimationInstance skinAnim;
+        AnimationInstance animInstance;
+
+        //TransformAnimationInstance transAnim;
+        //SkinAnimationInstance skinAnim;
 
         public Dictionary<string, TapeHelper> TapeHelpers
         {
             get;
             set;
         }
-        
-        public TransformAnimationInstance TransformAnim
+
+        public AnimationInstance CurrentAnimation 
         {
-            get { return transAnim; }
-            protected set { transAnim = value; }
+            get { return animInstance; }
+            set { animInstance = value; }
         }
-        public SkinAnimationInstance SkinAnim
-        {
-            get { return skinAnim; }
-            protected set { skinAnim = value; }
-        }
+        //public TransformAnimationInstance TransformAnim
+        //{
+        //    get { return transAnim; }
+        //    protected set { transAnim = value; }
+        //}
+        //public SkinAnimationInstance SkinAnim
+        //{
+        //    get { return skinAnim; }
+        //    protected set { skinAnim = value; }
+        //}
 
         public ResourceLocation DataSource
         {
@@ -109,23 +117,23 @@ namespace VirtualBicycle.Graphics
             ModelAnimationFlags flags = (ModelAnimationFlags)data.GetDataInt32(AnimationFlagTag);
             BinaryDataReader animData;
 
-            if ((flags & ModelAnimationFlags.EntityTransform) == ModelAnimationFlags.EntityTransform)
-            {
-                br = data.GetData(AnimationTag + ModelAnimationFlags.EntityTransform.ToString());
-                TransformAnimation transAnimDat = new TransformAnimation(entities.Length);
+            //if ((flags & ModelAnimationFlags.EntityTransform) == ModelAnimationFlags.EntityTransform)
+            //{
+            //    br = data.GetData(AnimationTag + ModelAnimationFlags.EntityTransform.ToString());
+            //    TransformAnimation transAnimDat = new TransformAnimation(entities.Length);
 
-                animData = br.ReadBinaryData();
-                transAnimDat.Load(animData);
-                animData.Close();
+            //    animData = br.ReadBinaryData();
+            //    transAnimDat.Load(animData);
+            //    animData.Close();
 
-                br.Close();
+            //    br.Close();
 
-                transAnim = new TransformAnimationInstance(transAnimDat);
-            }
-            if ((flags & ModelAnimationFlags.Skin) == ModelAnimationFlags.Skin)
-            {
+            //    transAnim = new TransformAnimationInstance(transAnimDat);
+            //}
+            //if ((flags & ModelAnimationFlags.Skin) == ModelAnimationFlags.Skin)
+            //{
 
-            }
+            //}
 
             //br = data.TryGetData(LodMeshTag);
             //if (br != null)
@@ -154,33 +162,33 @@ namespace VirtualBicycle.Graphics
                 bw.Close();
             }
 
-            ModelAnimationFlags flags = ModelAnimationFlags.EntityTransform;
+            //ModelAnimationFlags flags = ModelAnimationFlags.EntityTransform;
 
-            if (skinAnim != null)
-            {
-                flags |= ModelAnimationFlags.Skin;
-            }
+            //if (skinAnim != null)
+            //{
+            //    flags |= ModelAnimationFlags.Skin;
+            //}
 
 
-            data.AddEntry(AnimationFlagTag, (int)flags);
+            //data.AddEntry(AnimationFlagTag, (int)flags);
 
-            BinaryDataWriter animData;
+            //BinaryDataWriter animData;
 
-            if ((flags & ModelAnimationFlags.EntityTransform) == ModelAnimationFlags.EntityTransform)
-            {
-                bw = data.AddEntry(AnimationTag + ModelAnimationFlags.EntityTransform.ToString());
-                animData = transAnim.Data.Save();
-                bw.Write(animData);
-                animData.Dispose();
-            }
+            //if ((flags & ModelAnimationFlags.EntityTransform) == ModelAnimationFlags.EntityTransform)
+            //{
+            //    bw = data.AddEntry(AnimationTag + ModelAnimationFlags.EntityTransform.ToString());
+            //    animData = transAnim.Data.Save();
+            //    bw.Write(animData);
+            //    animData.Dispose();
+            //}
 
-            if ((flags & ModelAnimationFlags.Skin) == ModelAnimationFlags.Skin)
-            {
-                bw = data.AddEntry(AnimationTag + ModelAnimationFlags.Skin.ToString());
-                animData = skinAnim.Data.Save();
-                bw.Write(animData);
-                animData.Dispose();
-            }
+            //if ((flags & ModelAnimationFlags.Skin) == ModelAnimationFlags.Skin)
+            //{
+            //    bw = data.AddEntry(AnimationTag + ModelAnimationFlags.Skin.ToString());
+            //    animData = skinAnim.Data.Save();
+            //    bw.Write(animData);
+            //    animData.Dispose();
+            //}
         }
 
 
@@ -258,16 +266,16 @@ namespace VirtualBicycle.Graphics
         {
             this.entities = entities;
 
-            TransformAnimation animData = new TransformAnimation(entities.Length);
-            this.TransformAnim = new TransformAnimationInstance(animData);
+            //TransformAnimation animData = new TransformAnimation(entities.Length);
+            //this.TransformAnim = new TransformAnimationInstance(animData);
         }
         public Model(RenderSystem device, int entityCount)
             : base(device)
         {
             this.entities = new GameMesh[entityCount];
 
-            TransformAnimation animData = new TransformAnimation(entityCount);
-            this.TransformAnim = new TransformAnimationInstance(animData);
+            //TransformAnimation animData = new TransformAnimation(entityCount);
+            //this.TransformAnim = new TransformAnimationInstance(animData);
         }
 
         protected override void unload()

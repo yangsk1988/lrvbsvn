@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
 using VirtualBicycle.Config;
 using VirtualBicycle.Graphics.Effects;
-using VirtualBicycle.IO;
 using VirtualBicycle.MathLib;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics
 {
@@ -20,38 +18,38 @@ namespace VirtualBicycle.Graphics
             public Vector3 pos;
             public Vector3 texCoord;
 
-            public static VertexFormat Format
-            {
-                get { return (VertexFormat)((int)VertexFormat.Position | (int)VertexFormat.Texture1 | Utils.GetTexCoordSize3Format(0)); }
-            }
+            //public static VertexFormat Format
+            //{
+            //    get { return (VertexFormat)((int)VertexFormat.Position | (int)VertexFormat.Texture1 | Utils.GetTexCoordSize3Format(0)); }
+            //}
         }
 
         bool disposed;
 
-        CubeTexture dayTex;
-        CubeTexture nightTex;
+        Texture dayTex;
+        Texture nightTex;
 
         VertexBuffer box;
         IndexBuffer indexBuffer;
 
         VertexDeclaration vtxDecl;
 
-        Device device;
+        RenderSystem renderSystem;
 
         Effect effect;
         EffectHandle nightAlpha;
         EffectHandle day;
         EffectHandle night;
 
-        public unsafe SkyBox(Device dev)
+        public unsafe SkyBox(RenderSystem rs)
         {
-            device = dev;
+            renderSystem = rs;
 
             // sqrt(3)/3
             const float l = 1f / MathEx.Root3;
 
-            vtxDecl = new VertexDeclaration(device, D3DX.DeclaratorFromFVF(SkyVertex.Format));
-            box = new VertexBuffer(dev, sizeof(SkyVertex) * 8, Usage.WriteOnly, VertexPT1.Format, Pool.Managed);
+            vtxDecl = new VertexDeclaration(renderSystem, D3DX.DeclaratorFromFVF(SkyVertex.Format));
+            box = new VertexBuffer(rs, sizeof(SkyVertex) * 8, Usage.WriteOnly, VertexPT1.Format, Pool.Managed);
 
             SkyVertex* dst = (SkyVertex*)box.Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
 
@@ -66,9 +64,9 @@ namespace VirtualBicycle.Graphics
 
             box.Unlock();
 
-            indexBuffer = new IndexBuffer(dev, sizeof(ushort) * 36, Usage.WriteOnly, Pool.Managed, true);
+            indexBuffer = new IndexBuffer(rs, sizeof(ushort) * 36, Usage.WriteOnly, Pool.Managed, true);
 
-            ushort* ibDst = (ushort*)indexBuffer.Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
+            ushort* ibDst = (ushort*)indexBuffer.Lock(0, 0, LockMode.None).DataPointer.ToPointer();
 
             ibDst[0] = 0;
             ibDst[1] = 1;
@@ -189,7 +187,7 @@ namespace VirtualBicycle.Graphics
             ContentStreamReader sr = new ContentStreamReader(fl);
             string code = sr.ReadToEnd();
             string err;
-            effect = Effect.FromString(device, code, null, IncludeHandler.Instance, null, ShaderFlags.None, null, out err);
+            effect = Effect.FromString(renderSystem, code, null, IncludeHandler.Instance, null, ShaderFlags.None, null, out err);
 
             effect.Technique = new EffectHandle("DayNight");
 
@@ -213,13 +211,13 @@ namespace VirtualBicycle.Graphics
         {
             if (dayTex != null)
             {
-                Matrix view = device.GetTransform(TransformState.View);
+                Matrix view = renderSystem.GetTransform(TransformState.View);
                 Matrix oldView = view;
                 view.M41 = 0;
                 view.M42 = 0;
                 view.M43 = 0;
 
-                device.SetTransform(TransformState.View, view);
+                renderSystem.SetTransform(TransformState.View, view);
 
                 int passCount = effect.Begin(FX.DoNotSaveState | FX.DoNotSaveShaderState | FX.DoNotSaveSamplerState);
 
@@ -233,21 +231,21 @@ namespace VirtualBicycle.Graphics
                 {
                     effect.BeginPass(i);
 
-                    device.SetRenderState(RenderState.ZEnable, false);
-                    device.SetRenderState(RenderState.ZWriteEnable, false);
-                    device.SetRenderState<Cull>(RenderState.CullMode, Cull.None);
+                    renderSystem.SetRenderState(RenderState.ZEnable, false);
+                    renderSystem.SetRenderState(RenderState.ZWriteEnable, false);
+                    renderSystem.SetRenderState<Cull>(RenderState.CullMode, Cull.None);
 
-                    device.SetStreamSource(0, box, 0, sizeof(SkyVertex));
-                    device.VertexFormat = SkyVertex.Format;
-                    device.VertexDeclaration = vtxDecl;
+                    renderSystem.SetStreamSource(0, box, 0, sizeof(SkyVertex));
+                    renderSystem.VertexFormat = SkyVertex.Format;
+                    renderSystem.VertexDeclaration = vtxDecl;
 
-                    device.Indices = indexBuffer;
-                    device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 8, 0, 12);
+                    renderSystem.Indices = indexBuffer;
+                    renderSystem.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 8, 0, 12);
 
-                    device.SetRenderState(RenderState.ZEnable, true);
-                    device.SetRenderState(RenderState.ZWriteEnable, true);
+                    renderSystem.SetRenderState(RenderState.ZEnable, true);
+                    renderSystem.SetRenderState(RenderState.ZWriteEnable, true);
 
-                    device.SetTransform(TransformState.View, oldView);
+                    renderSystem.SetTransform(TransformState.View, oldView);
 
                     effect.EndPass();
                 }
@@ -271,7 +269,7 @@ namespace VirtualBicycle.Graphics
                     dayTex.Dispose();
                     dayTex = null;
                 }
-                this.dayTex = CubeTexture.FromStream(device, dayTexture.GetStream, Usage.None, Pool.Managed);
+                this.dayTex = CubeTexture.FromStream(renderSystem, dayTexture.GetStream, Usage.None, Pool.Managed);
             }
             if (nightTexture != null)
             {
@@ -280,7 +278,7 @@ namespace VirtualBicycle.Graphics
                     nightTex.Dispose();
                     nightTex = null;
                 }
-                this.nightTex = CubeTexture.FromStream(device, nightTexture.GetStream, Usage.None, Pool.Managed);
+                this.nightTex = CubeTexture.FromStream(renderSystem, nightTexture.GetStream, Usage.None, Pool.Managed);
             }
         }
 
@@ -293,7 +291,7 @@ namespace VirtualBicycle.Graphics
             {
                 FileLocation fl = FileSystem.Instance.Locate(dayTexFile, FileLocateRules.Default);
 
-                dayTex = CubeTexture.FromStream(device, fl.GetStream, Usage.None, Pool.Managed);
+                dayTex = CubeTexture.FromStream(renderSystem, fl.GetStream, Usage.None, Pool.Managed);
             }
 
             string nightTexFile = sect.GetString("NightTexture", null);
@@ -301,7 +299,7 @@ namespace VirtualBicycle.Graphics
             {
                 FileLocation fl = FileSystem.Instance.Locate(nightTexFile, FileLocateRules.Default);
 
-                nightTex = CubeTexture.FromStream(device, fl.GetStream, Usage.None, Pool.Managed);
+                nightTex = CubeTexture.FromStream(renderSystem, fl.GetStream, Usage.None, Pool.Managed);
             }
         }
 

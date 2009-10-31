@@ -165,6 +165,9 @@
     <Compile Include="Scene\TerrainTreeNode.cs" />
     <Compile Include="ShadowMap.cs" />
     <Compile Include="RenderSystem\VertexFormats.cs" />
+    <Compile Include="SkyBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="WaterSurface.cs" />
     <Compile Include="WeatherType.cs" />
   </ItemGroup>
