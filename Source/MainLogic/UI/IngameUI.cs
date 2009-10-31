@@ -38,26 +38,27 @@ namespace VirtualBicycle.UI
         StateIndicator stateIdi;
         PowerGraph powerGraph;
         IngameMenu ingameMenu;
+        GameFinishedUI finishedUI;
 
         DrawTextBox heartRateText;
         MenuPic heartPic;
 
         bool isMenuShown;
+        bool isFinishedUIShown;
 
         float heartInterval;
         float lastHeartInterval;
 
         float heartTime;
         float heartRate;
-        //int heartPulseCount;
-
-
 
         public bool IsMenuShown
         {
             get { return isMenuShown; }
             set
             {
+                if (IsFinishedUIShown)
+                    return;
                 if (isMenuShown != value)
                 {
                     if (value)
@@ -78,6 +79,28 @@ namespace VirtualBicycle.UI
             }
         }
 
+        public bool IsFinishedUIShown 
+        {
+            get { return isFinishedUIShown; }
+            set 
+            {
+                if (isFinishedUIShown != value) 
+                {
+                    if (value)
+                    {
+                        finishedUI.NotifyActivated();
+                    }
+                    else 
+                    {
+                        finishedUI.NotifyDeactivated();
+                    }
+
+                    isFinishedUIShown = value;
+                }
+            }
+        }
+
+
         #endregion
 
         public IngameUI(GameUI gameUI, Game game, World world, GameMainLogic logic)
@@ -93,6 +116,7 @@ namespace VirtualBicycle.UI
             this.stateIdi = new StateIndicator(logic, this, gameUI.Device, Game);
             this.powerGraph = new PowerGraph(logic, this, gameUI.Device, Game);
             this.ingameMenu = new IngameMenu(game, world, logic, gameUI, this);
+            this.finishedUI = new GameFinishedUI(game, world, logic, gameUI, this);
 
             this.loadScreen = new LoadingScreen(Game, gameUI, world.CreationParameters.LoadScreenConfig);
             this.world.CreationParameters.ProgressCallBack += this.loadScreen.SetProgressValue;
@@ -142,7 +166,7 @@ namespace VirtualBicycle.UI
                     {
                         float lerp = (120 - heartRate) / 30;
 
-                        Color a = Color.Green;
+                        Color a = Color.White;
                         Color b = Color.Yellow;
 
                         int dr = (int)(a.R * lerp + b.R * (1 - lerp));
@@ -170,7 +194,7 @@ namespace VirtualBicycle.UI
                     }
                     else
                     {
-                        heartPic.ModColor = Color.Green;
+                        heartPic.ModColor = Color.White;
                     }
 
 
@@ -184,6 +208,10 @@ namespace VirtualBicycle.UI
                     }
                 }
 
+            }
+            if (IsFinishedUIShown) 
+            {
+                finishedUI.Render(sprite);
             }
             if (IsMenuShown)
             {
@@ -227,6 +255,19 @@ namespace VirtualBicycle.UI
                 if (heartTime > 2.5f)
                 {
                     heartRate = 0;
+                }
+            }
+            if (IsFinishedUIShown)
+            {
+                finishedUI.Update(dt);
+                if (finishedUI.Finished)
+                {
+                    Game.GameUI.Pop();
+                    Game.CurrentWorld = null;
+                    world.Paused = true;
+                    world.Dispose();
+
+                    Game.GameUI.CurrentComponent = logic.UILogic.GetReportScreen();
                 }
             }
             if (IsMenuShown)

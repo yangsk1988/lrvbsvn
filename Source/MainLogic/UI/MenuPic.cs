@@ -252,6 +252,15 @@ namespace VirtualBicycle.UI
             float y = pos.Y / defaultHeight * Game.Window.ClientSize.Height;
             return new Vector2(x, y);
         }
+
+        public static Vector3 GetPosition(Game game, Vector3 pos)
+        {
+            const float defaultWidth = 1024f;
+            const float defaultHeight = 768f;
+            float x = pos.X / defaultWidth * game.Window.ClientSize.Width;
+            float y = pos.Y / defaultHeight * game.Window.ClientSize.Height;
+            return new Vector3(x, y, 0);
+        }
         #endregion
     }
 }

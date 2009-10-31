@@ -99,7 +99,7 @@ namespace VirtualBicycle.Logic
         /// <summary>
         /// 前后轮轴心之间的距离
         /// </summary>
-        public const float Wheelbase = 1.35f;
+        public const float Wheelbase = 1.25f;
 
         /// <summary>
         /// 转弯的时候的半径
@@ -310,10 +310,10 @@ namespace VirtualBicycle.Logic
         /// <param name="dt"></param>
         private void ProcessInput(float dt)
         {
-            if (!IsOutOfControl && !IsFreeFalling)
+            //如果是人类玩家
+            if (ownerType == BicycleOwner.Player)
             {
-                //如果是人类玩家
-                if (ownerType == BicycleOwner.Player)
+                if (!IsOutOfControl && !IsFreeFalling)
                 {
                     if (!isHumanInputBound)
                     {
@@ -321,15 +321,16 @@ namespace VirtualBicycle.Logic
 
                         isHumanInputBound = true;
                     }
-                    //ProcessKeyboardInput(dt);
                 }
-
-                //如果是电脑玩家
-                if (ownerType == BicycleOwner.Computer)
-                {
-                    bicycleGoalMgr.Update(dt);
-                }
+                //ProcessKeyboardInput(dt);
             }
+
+            //如果是电脑玩家
+            if (ownerType == BicycleOwner.Computer)
+            {
+                bicycleGoalMgr.Update(dt);
+            }
+
         }
         #endregion
 
@@ -390,29 +391,22 @@ namespace VirtualBicycle.Logic
             else if (IsOutOfControl && !IsFreeFalling)
             {
                 fallTime += dt;
-                if (fallTime > 2)
+                if (OwnerType == BicycleOwner.Player)
                 {
-                    Vector2 frontVector2 = new Vector2(front.X, front.Z);
-                    frontVector2.Normalize();
+                    if (fallTime > 2)
+                    {
+                        Vector2 frontVector2 = new Vector2(front.X, front.Z);
+                        frontVector2.Normalize();
 
-                    float theta = MathEx.Vector2DirAngle(frontVector2);
+                        float theta = MathEx.Vector2DirAngle(frontVector2);
 
-                    //if (frontVector2.Y < 0)
-                    //{
-                    //    theta = (float)Math.Acos(frontVector2.X);
-                    //}
-                    //else
-                    //{
-                    //    theta = MathEx.PIf * 2 - (float)Math.Acos(frontVector2.X);
-                    //}
+                        Orientation = Quaternion.RotationAxis(Vector3.UnitY, theta);
+                        Position = Position + Vector3.UnitY;
+                        RigidBody.LinearVelocity = Vector3.Zero;
+                        RigidBody.AngularVelocity = Vector3.Zero;
 
-
-                    Orientation = Quaternion.RotationAxis(Vector3.UnitY, theta);
-                    Position = Position + Vector3.UnitY;
-                    RigidBody.LinearVelocity = Vector3.Zero;
-                    RigidBody.AngularVelocity = Vector3.Zero;
-
-                    fallTime = 0;
+                        fallTime = 0;
+                    }
                 }
                 preSteeringAngle = float.MaxValue;
             }
@@ -434,7 +428,7 @@ namespace VirtualBicycle.Logic
             //计算LeanAngle相关
             //更改的仅仅是drawLeanAngle
             qLeanAngle.Enqueue(leanAngle);
-            if (qLeanAngle.Count > 15)
+            while (qLeanAngle.Count > 10)
             {
                 qLeanAngle.Dequeue();
             }
@@ -651,6 +645,11 @@ namespace VirtualBicycle.Logic
             }
         }
         #endregion
+
+        public bool RequiresAutoReset
+        {
+            get { return OwnerType == BicycleOwner.Computer && fallTime > 2 && IsOutOfControl && !IsFreeFalling; }
+        }
 
         public float Power
         {

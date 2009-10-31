@@ -33,7 +33,7 @@ namespace VirtualBicycle.Scene
         /// <summary>
         ///  保存D3D的Device对象引用
         /// </summary>
-        protected Device device;
+        protected RenderSystem renderSystem;
 
         /// <summary>
         ///  Cluster的包围球
@@ -58,7 +58,7 @@ namespace VirtualBicycle.Scene
             this.description.X = x;
             this.description.Y = y;
 
-            this.device = device;
+            this.renderSystem = device;
             this.CellUnit = cellUnit;
 
             this.boudingSphere.Center = new Vector3(

@@ -172,7 +172,7 @@ namespace VirtualBicycle.Logic.Goal
 
         public static float ComputeMaxV(float steeringRadius)
         {
-            return (float)Math.Sqrt(MathEx.GravityAcceleration * Bicycle.StaticFrictionFactor * steeringRadius * 0.03f);
+            return (float)Math.Sqrt(MathEx.GravityAcceleration * Bicycle.StaticFrictionFactor * steeringRadius * 0.1f);
         }
 
         private Vector3 GetMaxFrontVelocity(float steeringAngle)

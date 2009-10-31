@@ -12,7 +12,7 @@ namespace VirtualBicycle.Logic.Goal
     {
         #region Fields
         //自行车到达终点的判断距离
-        const float maxDisFinish = 3f;
+        const float maxDisFinish = 5f;
 
         private Bicycle bicycle;
 
@@ -25,22 +25,26 @@ namespace VirtualBicycle.Logic.Goal
         }
         private Vector3 desiredPos;
 
+        Vector3 initialPosition;
+
         //初始化的时候,车身指向目标的向量
         private Vector2 startingVector;
         #endregion
 
         #region Constructor
         public BicycleToSinglePoint(DynamicObject obj, GoalManager mgr, Vector3 point, BaseGoal fatherGoal) :
-            base(obj, mgr,fatherGoal)
+            base(obj, mgr, fatherGoal)
         {
             bicycle = (Bicycle)obj;
             desiredPos = point;
+            initialPosition = bicycle.Position;
         }
 
         public BicycleToSinglePoint(DynamicObject obj, GoalManager mgr, BaseGoal fatherGoal) :
             base(obj, mgr, fatherGoal)
         {
             bicycle = (Bicycle)obj;
+            initialPosition = bicycle.Position;
         }
         #endregion
 
@@ -84,9 +88,26 @@ namespace VirtualBicycle.Logic.Goal
                 return;
             }
 
+            if (bicycle.RequiresAutoReset) 
+            {
+                Vector3 newPos = desiredPos;
+                newPos.Y = bicycle.Position.Y + 2;
+                bicycle.Position = newPos;
+
+                Vector3 dir3 = desiredPos - initialPosition;
+                Vector2 dir = new Vector2(dir3.X, dir3.Z);
+                dir.Normalize();
+                Quaternion ori = Quaternion.RotationAxis(Vector3.UnitY, MathEx.Vector2DirAngle(dir));
+                bicycle.Orientation = ori;
+
+                bicycle.RigidBody.LinearVelocity = Vector3.Zero;
+                bicycle.RigidBody.AngularVelocity = Vector3.Zero;
+
+            }
+
             //首先把自行车和目标点投影到二维平面上
             Vector2 bicycleToPos = new Vector2(desiredPos.X, desiredPos.Z) -
-                                   new Vector2(bicycle.Position.X,bicycle.Position.Z);
+                                   new Vector2(bicycle.Position.X, bicycle.Position.Z);
             Vector2 bicycleDir = new Vector2(bicycle.Front.X, bicycle.Front.Z);
 
             bicycleDir = MathEx.GetRotateVector2(bicycleDir, bicycle.SteeringAngle);

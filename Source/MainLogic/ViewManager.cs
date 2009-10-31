@@ -44,6 +44,12 @@ namespace VirtualBicycle
         }
         #endregion
 
+        public bool IsFreeze
+        {
+            get;
+            set;
+        }
+
         public Bicycle CurrentBicycle
         {
             get { return currentBike; }
@@ -146,7 +152,7 @@ namespace VirtualBicycle
 
             frustum.Update();
 
-            if (CurrentBicycle != null)
+            if (CurrentBicycle != null && !IsFreeze)
             {
                 Vector3 up = CurrentBicycle.Up;
                 Vector3 front = CurrentBicycle.Front;
@@ -154,6 +160,7 @@ namespace VirtualBicycle
                 Quaternion q = Quaternion.RotationAxis(front, -CurrentBicycle.DrawLeanAngle);
                 Vector4 tmp = Vector3.Transform(up, q);
                 up = new Vector3(tmp.X, tmp.Y, tmp.Z);
+
 
                 fpsCamera.Position = CurrentBicycle.Position + up * 0.3f - front * 0.2f;
                 fpsCamera.Orientation = CurrentBicycle.RigidBody.Orientation;

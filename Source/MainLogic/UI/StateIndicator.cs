@@ -117,7 +117,7 @@ namespace VirtualBicycle.UI
 
 
             float v2;
-            if (qVelocity.Count > 30)
+            while (qVelocity.Count > 10)
             {
                 qVelocity.Dequeue();
             }

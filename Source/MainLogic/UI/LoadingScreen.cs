@@ -30,8 +30,7 @@ namespace VirtualBicycle.UI
             }
         }
 
-        FileLocation texLocation;
-        Texture backGround;
+        MenuPic picBackground;
 
         Rectangle progArea;
 
@@ -65,7 +64,15 @@ namespace VirtualBicycle.UI
 
             sect.GetRectangle("ProgressBarRegion", out progArea);
 
-            texLocation = FileSystem.Instance.Locate(Path.Combine(Paths.DataUI, sect["Background"]), FileLocateRules.Default);
+            picBackground = new MenuPic(Game, sect["Background"], "Loading Screen Background");
+            MenuPicDrawPara para;
+            para.Alpha = 1;
+            para.PosX = 1024f / 2;
+            para.PosY = 768f / 2;
+            para.desiredWidth = 1024f;
+            para.desiredHeight = 768f;
+            picBackground.firstDrawPara = para;
+            picBackground.SetCurrentPara(0);
 
             pbColor = sect.GetColorRGBInt("ProgressBarColor");
 
@@ -73,17 +80,32 @@ namespace VirtualBicycle.UI
 
             prgBar = new MenuPic(Game, "prgBar.png", "Progress Bar");
 
+            Vector2 pos = new Vector2(progArea.Left, progArea.Top + progArea.Height / 2);
+            //pos = MenuPic.GetPosition(Game, pos);
+
             prgBarPara.Alpha = 0.8f;
-            prgBarPara.PosX = progArea.Left;
-            prgBarPara.PosY = progArea.Top + progArea.Height / 2;
-            prgBarPara.desiredWidth = 0;
-            prgBarPara.desiredHeight = progArea.Height;
+            prgBarPara.PosX = pos.X;
+            prgBarPara.PosY = pos.Y;
+
+            pos = new Vector2(0, progArea.Height);
+            //pos = MenuPic.GetPosition(Game, pos);
+            prgBarPara.desiredWidth = pos.X;
+            prgBarPara.desiredHeight = pos.Y;
+
+
+            pos = new Vector2(progArea.Left + progArea.Width / 2, progArea.Top + progArea.Height / 2);
+            //pos = MenuPic.GetPosition(Game, pos);
 
             prgBarPara2.Alpha = 0.8f;
-            prgBarPara2.PosX = progArea.Left + progArea.Width / 2;
-            prgBarPara2.PosY = progArea.Top + progArea.Height / 2;
-            prgBarPara2.desiredWidth = progArea.Width;
-            prgBarPara2.desiredHeight = progArea.Height;
+            prgBarPara2.PosX = pos.X;
+            prgBarPara2.PosY = pos.Y;
+
+
+            pos = new Vector2(progArea.Width, progArea.Height);
+            //pos = MenuPic.GetPosition(Game, pos);
+
+            prgBarPara2.desiredWidth = pos.X;
+            prgBarPara2.desiredHeight = pos.Y;
 
             prgBar.firstDrawPara = prgBarPara;
             prgBar.nextDrawPara = prgBarPara2;
@@ -140,11 +162,9 @@ namespace VirtualBicycle.UI
         }
         protected override void render(Sprite sprite)
         {
-            if (backGround != null)
+            if (picBackground != null)
             {
-                sprite.Transform = Matrix.Identity;
-
-                sprite.Draw(backGround, bgColor);
+                picBackground.Render(sprite);
             }
 
             prgBar.Render(sprite);
@@ -162,39 +182,37 @@ namespace VirtualBicycle.UI
             PBVertex* ptr = (PBVertex*)vbOutline.Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
 
             ptr[0].dummy = 1.0f;
-            ptr[0].pos = new Vector3(progArea.Left - 3, progArea.Top - 3, 0);
+            ptr[0].pos = MenuPic.GetPosition(Game, new Vector3(progArea.Left - 3, progArea.Top - 3, 0));
             ptr[0].diffuse = pbColor;
 
             ptr[1].dummy = 1.0f;
-            ptr[1].pos = new Vector3(progArea.Right + 3, progArea.Top - 3, 0);
+            ptr[1].pos = MenuPic.GetPosition(Game, new Vector3(progArea.Right + 3, progArea.Top - 3, 0));
             ptr[1].diffuse = pbColor;
 
             ptr[2].dummy = 1.0f;
-            ptr[2].pos = new Vector3(progArea.Right + 3, progArea.Bottom + 3, 0);
+            ptr[2].pos = MenuPic.GetPosition(Game, new Vector3(progArea.Right + 3, progArea.Bottom + 3, 0));
             ptr[2].diffuse = pbColor;
 
             ptr[3].dummy = 1.0f;
-            ptr[3].pos = new Vector3(progArea.Left - 3, progArea.Bottom + 3, 0);
+            ptr[3].pos = MenuPic.GetPosition(Game, new Vector3(progArea.Left - 3, progArea.Bottom + 3, 0));
             ptr[3].diffuse = pbColor;
 
             ptr[4].dummy = 1.0f;
-            ptr[4].pos = new Vector3(progArea.Left - 3, progArea.Top - 3, 0);
+            ptr[4].pos = MenuPic.GetPosition(Game, new Vector3(progArea.Left - 3, progArea.Top - 3, 0));
             ptr[4].diffuse = pbColor;
 
 
             vbOutline.Unlock();
 
 
-            backGround = TextureLoader.LoadUITexture(device, texLocation);
-       
         }
 
         protected override void unload()
         {
             vbOutline.Dispose();
             vbOutline = null;
-            backGround.Dispose();
-            backGround = null;
+            picBackground.Dispose();
+            picBackground = null;
         }
     }
 }

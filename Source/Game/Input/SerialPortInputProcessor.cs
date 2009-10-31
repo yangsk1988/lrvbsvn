@@ -72,6 +72,9 @@ namespace VirtualBicycle.Input
         bool isResetPressed; 
         //float lastEnterTime;
 
+        int itemLeftCoolDown;
+        int itemRightCoolDown;
+
         short lastAngle;
         ushort lastWheel;
         float lastSpeed;
@@ -191,11 +194,27 @@ namespace VirtualBicycle.Input
 
                                     if (val > MathEx.Degree2Radian(30))
                                     {
-                                        Manager.OnItemMoveRight();
+                                        if (itemLeftCoolDown <= 0)
+                                        {
+                                            Manager.OnItemMoveRight();
+                                            itemLeftCoolDown = 60;
+                                        }
+                                        else
+                                        {
+                                            itemLeftCoolDown--;
+                                        }
                                     }
                                     else if (val < -MathEx.Degree2Radian(30))
                                     {
-                                        Manager.OnItemMoveLeft();
+                                        if (itemRightCoolDown <= 0)
+                                        {
+                                            Manager.OnItemMoveLeft();
+                                            itemRightCoolDown = 60;
+                                        }
+                                        else
+                                        {
+                                            itemRightCoolDown--;
+                                        }
                                     }
 
                                     lastAngle = angle;

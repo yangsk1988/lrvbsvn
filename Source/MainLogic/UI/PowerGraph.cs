@@ -65,7 +65,7 @@ namespace VirtualBicycle.UI
         Texture barTex;
 
         float[] powers = new float[BarCount];
-
+        float currentValue;
         int barUpdateFrame;
 
 
@@ -141,32 +141,30 @@ namespace VirtualBicycle.UI
 
         protected override void update(float dt)
         {
-
             barUpdateFrame++;
 
-            if (barUpdateFrame == 1)
+            if (barUpdateFrame == 5)
             {
                 for (int i = 1; i < BarCount; i++)
                 {
                     powers[i - 1] = powers[i];
                 }
 
-                powers[BarCount - 1] += CurrectBicycle.Power;
-                powers[BarCount - 1] *= 0.5f;
-
+                currentValue += CurrectBicycle.FrontVelocity.Length();
+                powers[BarCount - 1] = currentValue * 0.2f;
+                currentValue = 0;
                 barUpdateFrame = 0;
             }
             else
             {
-                powers[BarCount - 1] = CurrectBicycle.Power;
-
+                currentValue += CurrectBicycle.FrontVelocity.Length();
             }
 
             InstData* dst = (InstData*)instanceData.Lock(0, 0, LockFlags.None).DataPointer;
 
             for (int i = 0; i < BarCount; i++)
             {
-                dst->HeightRatio = Math.Min(powers[i] / 600f, 1);
+                dst->HeightRatio = Math.Min(powers[i] / Bicycle.maxBicycleSpeed, 1);
                 dst++;
             }
 

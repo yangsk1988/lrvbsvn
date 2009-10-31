@@ -18,6 +18,11 @@ namespace VirtualBicycle.Logic.Competition
         protected ViewManager playerView;
 
         //protected int CompetitionID;
+        public bool CannotWin
+        {
+            get;
+            protected set;
+        }
 
         public Bicycle CurrentBicycle
         {

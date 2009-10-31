@@ -52,9 +52,11 @@ namespace VirtualBicycle
             StringTableManager.Initialize();
             StringTableManager.Instance.Register(new StringTableCsfFormat());
 
-            ConfigurationManager.Initialize();
-            ConfigurationManager.Instance.Register(new ConfigurationIniFormat());
-
+            if (ConfigurationManager.Instance == null)
+            {
+                ConfigurationManager.Initialize();
+                ConfigurationManager.Instance.Register(new ConfigurationIniFormat());
+            }
 
             ImageManager.Initialize();
             ImageManager.Instance.RegisterImageFormat(new PngImageFormat());

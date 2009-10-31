@@ -14,6 +14,7 @@ using VirtualBicycle.Physics;
 using VirtualBicycle.Physics.Dynamics;
 using VirtualBicycle.Scene;
 using PM = VirtualBicycle.Physics.MathLib;
+using VirtualBicycle.UI;
 
 namespace VirtualBicycle.Logic.Competition
 {
@@ -150,14 +151,14 @@ namespace VirtualBicycle.Logic.Competition
             base.Initialize();
         }
 
-        protected void ResetPlayerBicycle(object sender, EventArgs e)
+        void ResetBicycle(Bicycle bike)
         {
             if (tempTest != null)
             {
                 float distance = float.MaxValue;
                 int nearestIndex = -1;
 
-                Vector3 pos = playerBicycle.Position;
+                Vector3 pos = bike.Position;
                 for (int i = 0; i < tempTest.Length; i++)
                 {
                     float d = Vector3.Distance(pos, tempTest[i]);
@@ -171,7 +172,7 @@ namespace VirtualBicycle.Logic.Competition
 
                 if (nearestIndex != -1)
                 {
-                    playerBicycle.Position = tempTest[nearestIndex] + Vector3.UnitY * 2;
+                    bike.Position = tempTest[nearestIndex] + Vector3.UnitY * 2;
 
                     if (nearestIndex < tempTest.Length - 1)
                     {
@@ -180,24 +181,37 @@ namespace VirtualBicycle.Logic.Competition
                         dir.Normalize();
 
                         Quaternion ori = Quaternion.RotationAxis(Vector3.UnitY, MathEx.Vector2DirAngle(dir));
-                        playerBicycle.Orientation = ori;
+                        bike.Orientation = ori;
 
-                        playerBicycle.RigidBody.LinearVelocity = Vector3.Zero;
-                        playerBicycle.RigidBody.AngularVelocity = Vector3.Zero;
+                        bike.RigidBody.LinearVelocity = Vector3.Zero;
+                        bike.RigidBody.AngularVelocity = Vector3.Zero;
 
                     }
                 }
             }
+
+        }
+        protected void ResetPlayerBicycle(object sender, EventArgs e)
+        {
+            ResetBicycle(playerBicycle);
         }
 
+        bool gameIsOver;
         void Win()
         {
-            game.GameUI.Pop();
-            base.game.CurrentWorld = null;
-            world.Paused = true;
-            world.Dispose();
+            if (!gameIsOver)
+            {
+                IngameUI igui = game.GameUI.CurrentComponent as IngameUI;
 
-            game.GameUI.CurrentComponent = logic.UILogic.GetReportScreen();
+                playerView.IsFreeze = true;
+                playerView.Mode = ViewMode.ThirdPersion;
+
+                if (igui != null)
+                {
+                    igui.IsFinishedUIShown = true;
+                }
+                gameIsOver = true;
+            }
         }
 
         public override void Update(float dt)
@@ -224,9 +238,17 @@ namespace VirtualBicycle.Logic.Competition
                 {
                     float dist = Vector3.Distance(playerBicycle.BoundingSphere.Center, destination.BoundingSphere.Center);
 
-                    if (dist < 6)                     
+                    if (dist < 6)
                     {
                         Win();
+                    }
+                    else
+                    {
+                        dist = Vector3.Distance(comBicycle.BoundingSphere.Center, destination.BoundingSphere.Center);
+                        if (dist < 6)
+                        {
+                            CannotWin = true;
+                        }
                     }
                 }
             }
