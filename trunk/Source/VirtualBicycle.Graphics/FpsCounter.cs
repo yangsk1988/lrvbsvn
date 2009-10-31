@@ -44,7 +44,7 @@ namespace VirtualBicycle.Graphics
 
             if (stat >= statMax)
             {
-                end = sw.ElapsedMilliseconds;// Environment.TickCount;
+                end = sw.ElapsedMilliseconds;
 
                 fps = 1000.0f * ((float)stat / (float)(end - begin));
                 stat = 0;
@@ -53,7 +53,7 @@ namespace VirtualBicycle.Graphics
         }
         void SetBegin()
         {
-            begin = sw.ElapsedMilliseconds;// Environment.TickCount;
+            begin = sw.ElapsedMilliseconds;
         }
 
         public override string ToString()

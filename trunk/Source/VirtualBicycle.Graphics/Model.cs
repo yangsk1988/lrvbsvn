@@ -25,7 +25,7 @@ namespace VirtualBicycle.Graphics
 
         protected MeshType[] entities;
         //protected Animation animation;
-        protected RenderSystem device;
+        protected RenderSystem renderSystem;
 
         TransformAnimationInstance transAnim;
         SkinAnimationInstance skinAnim;
@@ -56,34 +56,26 @@ namespace VirtualBicycle.Graphics
         protected ModelBase(RenderSystem dev, ResourceLocation rl)
             : base(ModelManager.Instance, rl.Name)
         {
-            device = dev;
+            renderSystem = dev;
             DataSource = rl;
         }
 
         protected ModelBase(RenderSystem rs)
         {
-            device = rs;
+            renderSystem = rs;
         }
-        protected ModelBase(RenderSystem rs, ModelBase<MeshType> refMdl)
-            : base(ModelManager.Instance, refMdl)
-        {
-        }
+
         protected ModelBase(RenderSystem rs, string name)
             : base(ModelManager.Instance, name)
         {
-            device = rs;
+            renderSystem = rs;
         }
 
-        protected ModelBase(RenderSystem rs, string name, bool allowdl)
-            : base(ModelManager.Instance, name, allowdl)
-        {
-            device = rs;
-        }
 
         [Browsable(false)]
         public RenderSystem RenderSystem
         {
-            get { return device; }
+            get { return renderSystem; }
         }
 
         public MeshType[] Entities
@@ -244,8 +236,8 @@ namespace VirtualBicycle.Graphics
         /// </summary>
         int[] renderOpEntId;
 
-        public Model(Device device, ResourceLocation rl)
-            : base(device, rl)
+        public Model(RenderSystem renderSystem, ResourceLocation rl)
+            : base(renderSystem, rl)
         {
             
         }
@@ -256,20 +248,20 @@ namespace VirtualBicycle.Graphics
         //    this.animation = animation;
         //    this.entities = meshes;
         //}
-        public Model(Device device, string name)
-            : base(device, name, false)
-        {
-        }
+        //public Model(RenderSystem device, string name)
+        //    : base(device, name, false)
+        //{
+        //}
 
-        public Model(Device device, GameMesh[] entities)
-            : base(device)
+        public Model(RenderSystem renderSystem, GameMesh[] entities)
+            : base(renderSystem)
         {
             this.entities = entities;
 
             TransformAnimation animData = new TransformAnimation(entities.Length);
             this.TransformAnim = new TransformAnimationInstance(animData);
         }
-        public Model(Device device, int entityCount)
+        public Model(RenderSystem device, int entityCount)
             : base(device)
         {
             this.entities = new GameMesh[entityCount];
@@ -293,33 +285,33 @@ namespace VirtualBicycle.Graphics
             }
         }
 
-        /// <summary>
-        ///  引用mdl的数据，但重新创建动画实例
-        /// </summary>
-        /// <param name="rs"></param>
-        /// <param name="mdl"></param>
-        public Model(Device dev, Model mdl)
-            : base(dev, mdl)
-        {
-            if (mdl.entities != null)
-            {
-                this.entities = new GameMesh[mdl.entities.Length];
-                for (int i = 0; i < entities.Length; i++)
-                {
-                    this.entities[i] = new GameMesh(dev, mdl.entities[i]);
-                }
-            }
+        ///// <summary>
+        /////  引用mdl的数据，但重新创建动画实例
+        ///// </summary>
+        ///// <param name="rs"></param>
+        ///// <param name="mdl"></param>
+        //public Model(RenderSystem dev, Model mdl)
+        //    : base(dev, mdl)
+        //{
+        //    if (mdl.entities != null)
+        //    {
+        //        this.entities = new GameMesh[mdl.entities.Length];
+        //        for (int i = 0; i < entities.Length; i++)
+        //        {
+        //            this.entities[i] = new GameMesh(dev, mdl.entities[i]);
+        //        }
+        //    }
 
-            base.TransformAnim = new TransformAnimationInstance(mdl.TransformAnim.Data);
+        //    base.TransformAnim = new TransformAnimationInstance(mdl.TransformAnim.Data);
 
-            if (mdl.SkinAnim != null)
-            {
-                base.SkinAnim = new SkinAnimationInstance(mdl.SkinAnim.Data);
-            }
-            //isResourceEntity = false;
-        }
+        //    if (mdl.SkinAnim != null)
+        //    {
+        //        base.SkinAnim = new SkinAnimationInstance(mdl.SkinAnim.Data);
+        //    }
+        //    //isResourceEntity = false;
+        //}
 
-        private Model(Device dev)
+        private Model(RenderSystem dev)
             : base(dev)
         {
             //isResourceEntity = true;
@@ -327,9 +319,9 @@ namespace VirtualBicycle.Graphics
 
         protected override GameMesh LoadMesh(BinaryDataReader data)
         {
-            MeshData md = new MeshData(device);
+            MeshData md = new MeshData(renderSystem);
             md.Load(data);
-            return new GameMesh(device, md);
+            return new GameMesh(renderSystem, md);
         }
         protected override BinaryDataWriter SaveMesh(GameMesh mesh)
         {

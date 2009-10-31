@@ -83,7 +83,6 @@ namespace VirtualBicycle.Graphics
             if (!buffered.TryGetValue(tmp, out gfont))
             {
                 gfont = new Font(rs, font);
-                //font = Factory.CreateFont(new System.Drawing.Font(name, fontSize, style));
             }
 
             return gfont;
@@ -91,17 +90,11 @@ namespace VirtualBicycle.Graphics
 
         public Font CreateInstance(RenderSystem rs, string name, float fontSize, System.Drawing.FontStyle style)
         {
-            //if (Factory == null)
-            //{
-            //    throw new InvalidOperationException();
-            //}
-
             Font font;
             FontDescription tmp = new FontDescription(name, fontSize, style);
             if (!buffered.TryGetValue(tmp, out font))
             {
                 font = new Font(rs, new System.Drawing.Font(name, fontSize, style));
-                //font = Factory.CreateFont(new System.Drawing.Font(name, fontSize, style));
             }
 
             return font;

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using VirtualBicycle.Graphics.Animation;
 using VirtualBicycle.Graphics;
-
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics
 {
@@ -94,9 +94,9 @@ namespace VirtualBicycle.Graphics
         #endregion
 
         byte[] buffer;
-        Device device;
+        RenderSystem device;
 
-        protected MeshData(Device dev)
+        protected MeshData(RenderSystem dev)
         {
             device = dev;
         }
@@ -104,7 +104,7 @@ namespace VirtualBicycle.Graphics
         #region 属性
 
         [Browsable(false)]
-        public Device Device
+        public RenderSystem Device
         {
             get { return device; }
             protected set { device = value; }
@@ -247,69 +247,69 @@ namespace VirtualBicycle.Graphics
 
         #region 方法
 
-        public static void BuildFromMesh(Mesh mesh, MeshData<MType> data, MType[][] mats)
-        {
-            void* src = mesh.LockVertexBuffer(LockFlags.None).DataPointer.ToPointer();
+        //public static void BuildFromMesh(Mesh mesh, MeshData<MType> data, MType[][] mats)
+        //{
+        //    void* src = mesh.LockVertexBuffer(LockFlags.None).DataPointer.ToPointer();
 
-            byte[] buffer = new byte[mesh.VertexCount * mesh.BytesPerVertex];
+        //    byte[] buffer = new byte[mesh.VertexCount * mesh.BytesPerVertex];
 
-            fixed (byte* dst = &buffer[0])
-            {
-                Memory.Copy(src, dst, buffer.Length);
-                data.SetData(dst, buffer.Length);
-            }
+        //    fixed (byte* dst = &buffer[0])
+        //    {
+        //        Memory.Copy(src, dst, buffer.Length);
+        //        data.SetData(dst, buffer.Length);
+        //    }
 
-            mesh.UnlockVertexBuffer();
+        //    mesh.UnlockVertexBuffer();
 
-            data.device = mesh.Device;
-            data.Format = mesh.VertexFormat;
-            data.Materials = mats;
-            data.MaterialAnimation = new MaterialAnimationInstance[mats.Length]; //{ new MaterialAnimationInstance(matAnimData) };
-            for (int i = 0; i < mats.Length; i++)
-            {
-                MaterialAnimation matAnimData = new MaterialAnimation(mats[i].Length, 0.025f);
-                data.MaterialAnimation[i] = new MaterialAnimationInstance(matAnimData);
-            }
-            data.VertexSize = mesh.BytesPerVertex;
-            data.VertexCount = mesh.VertexCount;
+        //    data.device = mesh.Device;
+        //    data.Format = mesh.VertexFormat;
+        //    data.Materials = mats;
+        //    data.MaterialAnimation = new MaterialAnimationInstance[mats.Length]; //{ new MaterialAnimationInstance(matAnimData) };
+        //    for (int i = 0; i < mats.Length; i++)
+        //    {
+        //        MaterialAnimation matAnimData = new MaterialAnimation(mats[i].Length, 0.025f);
+        //        data.MaterialAnimation[i] = new MaterialAnimationInstance(matAnimData);
+        //    }
+        //    data.VertexSize = mesh.BytesPerVertex;
+        //    data.VertexCount = mesh.VertexCount;
 
-            VertexElement[] elements = D3DX.DeclaratorFromFVF(mesh.VertexFormat);
+        //    VertexElement[] elements = D3DX.DeclaratorFromFVF(mesh.VertexFormat);
 
-            data.VertexElements = new VertexElement[elements.Length];
-            Array.Copy(elements, data.VertexElements, elements.Length);
+        //    data.VertexElements = new VertexElement[elements.Length];
+        //    Array.Copy(elements, data.VertexElements, elements.Length);
 
-            int faceCount = mesh.FaceCount;
+        //    int faceCount = mesh.FaceCount;
 
-            data.Faces = new MeshFace[faceCount];
+        //    data.Faces = new MeshFace[faceCount];
 
-            uint* ab = (uint*)mesh.LockAttributeBuffer(LockFlags.ReadOnly).DataPointer.ToPointer();
+        //    uint* ab = (uint*)mesh.LockAttributeBuffer(LockFlags.ReadOnly).DataPointer.ToPointer();
 
-            if ((mesh.CreationOptions & MeshFlags.Use32Bit) == MeshFlags.Use32Bit)
-            {
-                uint* ib = (uint*)mesh.LockIndexBuffer(LockFlags.ReadOnly).DataPointer.ToPointer();
-                for (int i = 0; i < faceCount; i++)
-                {
-                    int idxId = i * 3;
+        //    if ((mesh.CreationOptions & MeshFlags.Use32Bit) == MeshFlags.Use32Bit)
+        //    {
+        //        uint* ib = (uint*)mesh.LockIndexBuffer(LockFlags.ReadOnly).DataPointer.ToPointer();
+        //        for (int i = 0; i < faceCount; i++)
+        //        {
+        //            int idxId = i * 3;
 
-                    data.Faces[i] = new MeshFace((int)ib[idxId], (int)ib[idxId + 1], (int)ib[idxId + 2], (int)ab[i]);
-                }
-                mesh.UnlockIndexBuffer();
-            }
-            else
-            {
-                ushort* ib = (ushort*)mesh.LockIndexBuffer(LockFlags.ReadOnly).DataPointer.ToPointer();
-                for (int i = 0; i < faceCount; i++)
-                {
-                    int idxId = i * 3;
+        //            data.Faces[i] = new MeshFace((int)ib[idxId], (int)ib[idxId + 1], (int)ib[idxId + 2], (int)ab[i]);
+        //        }
+        //        mesh.UnlockIndexBuffer();
+        //    }
+        //    else
+        //    {
+        //        ushort* ib = (ushort*)mesh.LockIndexBuffer(LockFlags.ReadOnly).DataPointer.ToPointer();
+        //        for (int i = 0; i < faceCount; i++)
+        //        {
+        //            int idxId = i * 3;
 
-                    data.Faces[i] = new MeshFace(ib[idxId], ib[idxId + 1], ib[idxId + 2], (int)ab[i]);
-                }
-                mesh.UnlockIndexBuffer();
-            }
+        //            data.Faces[i] = new MeshFace(ib[idxId], ib[idxId + 1], ib[idxId + 2], (int)ab[i]);
+        //        }
+        //        mesh.UnlockIndexBuffer();
+        //    }
 
-            mesh.UnlockAttributeBuffer();
+        //    mesh.UnlockAttributeBuffer();
 
-        }
+        //}
 
         protected abstract MType LoadMaterial(Device device, BinaryDataReader matData);
         protected abstract BinaryDataWriter SaveMaterial(MType mat);
@@ -512,7 +512,7 @@ namespace VirtualBicycle.Graphics
 
     public unsafe class MeshData : MeshData<Material>
     {
-        public MeshData(Device dev)
+        public MeshData(RenderSystem dev)
             : base(dev)
         {
         }
@@ -578,7 +578,7 @@ namespace VirtualBicycle.Graphics
 
             for (int i = 0; i < ibs.Length; i++)
             {
-                if (ibs[i].Description.Format == SlimDX.Direct3D9.Format.Index16)
+                if (ibs[i].IndexSize == sizeof(ushort))
                 {
                     ushort* isrc = (ushort*)ibs[i].Lock(0, 0, LockFlags.ReadOnly).DataPointer.ToPointer();
 
@@ -605,7 +605,7 @@ namespace VirtualBicycle.Graphics
             }
         }
 
-        protected override Material LoadMaterial(Device device, BinaryDataReader matData)
+        protected override Material LoadMaterial(RenderSystem device, BinaryDataReader matData)
         {
             return Material.FromBinary(device, matData);
         }

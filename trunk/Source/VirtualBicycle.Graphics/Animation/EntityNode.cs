@@ -5,6 +5,7 @@ using System.Text;
 using SlimDX;
 using VirtualBicycle.Collections;
 using VirtualBicycle.Design;
+using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Graphics.Animation
 {

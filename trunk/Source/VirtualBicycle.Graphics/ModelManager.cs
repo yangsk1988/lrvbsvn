@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX.Direct3D9;
 using VirtualBicycle.Core;
-using VirtualBicycle.IO;
-using VBC = VirtualBicycle.Core;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics
 {
-    public class ModelManager : VirtualBicycle.Core.ResourceManager
+    public class ModelManager : ResourceManager
     {
         static ModelManager singleton;
 
@@ -34,12 +32,12 @@ namespace VirtualBicycle.Graphics
             : base(cacheSize)
         {
         }
-        public Model CreateInstance(Device device, ResourceLocation rl)
+        public ResourceHandle<Model> CreateInstance(RenderSystem device, ResourceLocation rl)
         {
-            VBC.Resource retrived = base.Exists(rl.Name);
+            Resource retrived = base.Exists(rl.Name);
             if (retrived == null)
             {
-                Model mdl = new Model(device, rl);// Model.FromFile(device, rl);
+                Model mdl = new Model(device, rl);
                 retrived = mdl;
                 base.NotifyResourceNew(mdl, CacheType.Static);
             }
@@ -47,48 +45,8 @@ namespace VirtualBicycle.Graphics
             {
                 retrived.Use();
             }
-            return new Model(device, (Model)retrived);
-
-
-            //Entry ent;
-            //if (instances.TryGetValue(rl.Name, out ent))
-            //{
-            //    ent.ReferenceCount++;
-            //    return new Model(rs, ent.Model);
-            //}
-
-            //Model model = Model.FromFile(rs, rl);
-
-            //ent = new Entry(model);
-            //instances.Add(rl.Name, ent);
-            //hashTable.Add(model, ent);
-
-            //return model;
+            return new ResourceHandle<Model>((Model)retrived);
         }
 
-        //protected override void dispose()
-        //{
-        //    Dictionary<string, Entry>.ValueCollection vals = instances.Values;
-        //    foreach (Entry mdl in vals)
-        //    {
-        //        mdl.Model.Dispose();
-        //    }
-        //    instances = null;
-        //}
-
-        public void DestoryInstance(Model model)
-        {
-            base.DestoryResource(model);
-            //Entry ent;
-            //if (hashTable.TryGetValue(model, out ent))
-            //{
-            //    ent.ReferenceCount--;
-            //    if (ent.ReferenceCount == 0)
-            //    {
-            //        ent.Model.Dispose();
-            //    }
-            //}
-            //model.Dispose();
-        }
     }
 }
