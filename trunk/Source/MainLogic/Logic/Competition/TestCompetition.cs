@@ -26,7 +26,8 @@ namespace VirtualBicycle.Logic.Competition
         BicycleManager bicycleManager;
 
         Bicycle playerBicycle;
-        Bicycle comBicycle;
+        //Bicycle comBicycle;
+        Bicycle[] comBicycles;
 
         ObjectManager objectManager;
         ObjectCreator objectCreator;
@@ -43,6 +44,16 @@ namespace VirtualBicycle.Logic.Competition
             this.logic = logic;
         }
 
+        private Bicycle AddComputerBicycle(Vector3 position, BicycleColor color) 
+        {
+            Bicycle bike = objectCreator.CreateBicycle(position, color);
+            bike.BuildPhysicsModel(world.PhysicsWorld);
+            bike.BicycleGoalMgr = new GoalManager(bike);
+            bike.OwnerType = Bicycle.BicycleOwner.Computer;
+            bicycleManager.RegisterBicycle(bike);
+            return bike;
+        }
+
         public override void Initialize()
         {
             #region 建立Bicycle和道路信息
@@ -50,7 +61,7 @@ namespace VirtualBicycle.Logic.Competition
             objectManager = new ObjectManager();
             objectCreator = new ObjectCreator(device, game.CurrentWorld, objectManager);
 
-            playerBicycle = objectCreator.CreateBicycle(new Vector3(2, 2, 2));
+            playerBicycle = objectCreator.CreateBicycle(new Vector3(2, 2, 2), BicycleColor.Red);
             playerBicycle.OwnerType = Bicycle.BicycleOwner.Player;
             playerBicycle.BuildPhysicsModel(world.PhysicsWorld);
             bicycleManager.RegisterBicycle(playerBicycle);
@@ -58,14 +69,18 @@ namespace VirtualBicycle.Logic.Competition
             //把当前的目标设置到CurrentBicycle上
             CurrentBicycle = playerBicycle;
 
-            comBicycle = objectCreator.CreateBicycle(new Vector3(10, 2, 10));
-            comBicycle.BuildPhysicsModel(world.PhysicsWorld);
-            comBicycle.BicycleGoalMgr = new GoalManager(comBicycle);
-            comBicycle.OwnerType = Bicycle.BicycleOwner.Computer;
-            bicycleManager.RegisterBicycle(comBicycle);
+            comBicycles = new Bicycle[3];
 
-            GoalManager goalMgr = comBicycle.BicycleGoalMgr;
-            BicycleThinkGoal thinkGoal = new BicycleThinkGoal(comBicycle, goalMgr, null);
+            comBicycles[0] = AddComputerBicycle(new Vector3(10, 2, 10), BicycleColor.Green);
+            comBicycles[1] = AddComputerBicycle(new Vector3(20, 2, 20), BicycleColor.Yellow);
+            comBicycles[2] = AddComputerBicycle(new Vector3(30, 2, 30), BicycleColor.Purple);
+
+            //comBicycle = objectCreator.CreateBicycle(new Vector3(10, 2, 10));
+            //comBicycle.BuildPhysicsModel(world.PhysicsWorld);
+            //comBicycle.BicycleGoalMgr = new GoalManager(comBicycle);
+            //comBicycle.OwnerType = Bicycle.BicycleOwner.Computer;
+            //bicycleManager.RegisterBicycle(comBicycle);
+
 
             //建立道路信息
             aiPathManager = new AIPathManager(SceneObjects);
@@ -74,13 +89,23 @@ namespace VirtualBicycle.Logic.Competition
             if (aiPathManager.AITrafficComponets.Count > 0)
             {
                 AIPort comBicycleStartPort = aiPathManager.GetPortOfUID(0);
-                comBicycle.Position = comBicycleStartPort.Position + new Vector3(0f, 2f, 0f);
-                comBicycle.Orientation = Quaternion.RotationAxis(Vector3.UnitY, MathEx.PIf);
+                //comBicycle.Position = comBicycleStartPort.Position + Vector3.UnitY * 2;
+                //comBicycle.Orientation = Quaternion.RotationAxis(Vector3.UnitY, MathEx.PIf);
 
-                thinkGoal.AddSubGoal(new BicycleToPorts(comBicycle, goalMgr, thinkGoal, aiPathManager, 0, aiPathManager.AIPorts.Count - 1));
-                goalMgr.GoalSeq.Enqueue(thinkGoal);
+                for (int i = 0; i < comBicycles.Length; i++)
+                {
+                    comBicycles[i].Position = comBicycleStartPort.Position + Vector3.UnitY * 2;
+                    comBicycles[i].Orientation = Quaternion.RotationAxis(Vector3.UnitY, MathEx.PIf);
 
-                playerBicycle.Position = comBicycle.Position + new Vector3(2f, 2f, 2f);
+                    GoalManager goalMgr = comBicycles[i].BicycleGoalMgr;
+                    BicycleThinkGoal thinkGoal = new BicycleThinkGoal(comBicycles[i], goalMgr, null);
+
+                    thinkGoal.AddSubGoal(new BicycleToPorts(comBicycles[i], goalMgr, thinkGoal, aiPathManager, 0, aiPathManager.AIPorts.Count - 1));
+                    goalMgr.GoalSeq.Enqueue(thinkGoal);
+                }
+
+
+                playerBicycle.Position = comBicycleStartPort.Position + new Vector3(2f, 2f, 2f);
                 playerBicycle.Orientation = Quaternion.RotationAxis(Vector3.UnitY, MathEx.PIf);
             }
             #endregion
@@ -136,9 +161,23 @@ namespace VirtualBicycle.Logic.Competition
                         dir.Normalize();
 
                         Quaternion ori = Quaternion.RotationAxis(Vector3.UnitY, MathEx.Vector2DirAngle(dir));
-                        comBicycle.Orientation = ori;
-                        playerBicycle.Orientation = ori;
 
+                        playerBicycle.Orientation = ori;
+                        playerBicycle.Position = tempTest[0] + Vector3.UnitY * 2;
+
+                        for (int j = 0; j < comBicycles.Length; j++)
+                        {
+                            comBicycles[j].Orientation = ori;
+
+                            if (j + 1 < tempTest.Length)
+                            {
+                                comBicycles[j].Position = tempTest[j + 1] + 2 * Vector3.UnitY;
+                            }
+                            else
+                            {
+                                comBicycles[j].Position = tempTest[tempTest.Length - 1] + (j + 3 - tempTest.Length) * Vector3.UnitY;
+                            }
+                        }
                         ResetPlayerBicycle(this, EventArgs.Empty);
                     }
                 }
@@ -218,14 +257,28 @@ namespace VirtualBicycle.Logic.Competition
         {
             if (world != null && world.IsValid)
             {
-                RigidBody body = comBicycle.RigidBody;
-                DefaultMotionState motionState = (DefaultMotionState)body.MotionState;
-                PM.Matrix worldTransform = motionState.GraphicsWorldTransform;
+                RigidBody body;
+                for (int i = 0; i < comBicycles.Length; i++) 
+                {
+                    body = comBicycles[i].RigidBody;
+                    DefaultMotionState motionState = (DefaultMotionState)body.MotionState;
+                    PM.Matrix worldTransform = motionState.GraphicsWorldTransform;
 
-                comBicycle.UpdateLogic(dt);
+                    comBicycles[i].UpdateLogic(dt);
 
-                if (!body.IsActive)
-                    body.Activate();
+                    if (!body.IsActive)
+                        body.Activate();
+
+                    if (destination != null)
+                    {
+                        float dist = Vector3.Distance(comBicycles[i].BoundingSphere.Center, destination.BoundingSphere.Center);
+                        if (dist < 6)
+                        {
+                            CannotWin = true;
+                        }
+                    }
+                }
+
 
                 playerBicycle.UpdateLogic(dt);
 
@@ -234,21 +287,13 @@ namespace VirtualBicycle.Logic.Competition
                 if (!body.IsActive)
                     body.Activate();
 
-                if (destination != null)
+                if (destination != null && !CannotWin)
                 {
                     float dist = Vector3.Distance(playerBicycle.BoundingSphere.Center, destination.BoundingSphere.Center);
 
                     if (dist < 6)
                     {
                         Win();
-                    }
-                    else
-                    {
-                        dist = Vector3.Distance(comBicycle.BoundingSphere.Center, destination.BoundingSphere.Center);
-                        if (dist < 6)
-                        {
-                            CannotWin = true;
-                        }
                     }
                 }
             }
@@ -260,7 +305,11 @@ namespace VirtualBicycle.Logic.Competition
         {
             Unload();
             playerBicycle.Dispose();
-            comBicycle.Dispose();
+
+            for (int i = 0; i < comBicycles.Length; i++)
+            {
+                comBicycles[i].Dispose();
+            }
         }
 
         public override void Unload()

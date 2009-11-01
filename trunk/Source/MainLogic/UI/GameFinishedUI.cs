@@ -22,6 +22,8 @@ namespace VirtualBicycle.UI
         MenuPic backgroundImage;
 
         float remainingTime;
+        bool winned;
+        bool infoLoaded;
 
         public bool Finished
         {
@@ -75,8 +77,14 @@ namespace VirtualBicycle.UI
 
         protected override void render(Sprite sprite)
         {
+            if (!infoLoaded) 
+            {
+                winned = logic.CurrentCompetition.CannotWin;
+                infoLoaded = true;
+            }
+
             backgroundImage.Render(sprite);
-            if (logic.CurrentCompetition.CannotWin)
+            if (winned)
             {
                 this.message.Render(sprite, "游戏结束。电脑赢了", true);
             }
