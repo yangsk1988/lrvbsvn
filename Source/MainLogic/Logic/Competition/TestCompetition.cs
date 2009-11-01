@@ -94,7 +94,7 @@ namespace VirtualBicycle.Logic.Competition
 
                 for (int i = 0; i < comBicycles.Length; i++)
                 {
-                    comBicycles[i].Position = comBicycleStartPort.Position + Vector3.UnitY * 2;
+                    comBicycles[i].Position = comBicycleStartPort.Position + Vector3.UnitY * (2 + i);
                     comBicycles[i].Orientation = Quaternion.RotationAxis(Vector3.UnitY, MathEx.PIf);
 
                 }
@@ -202,7 +202,7 @@ namespace VirtualBicycle.Logic.Competition
             base.Initialize();
         }
 
-        void ResetBicycle(Bicycle bike)
+        int GetNearestNodeIndex(Bicycle bike)
         {
             if (tempTest != null)
             {
@@ -220,6 +220,16 @@ namespace VirtualBicycle.Logic.Competition
                         nearestIndex = i;
                     }
                 }
+
+                return nearestIndex;
+            }
+            return -1;
+        }
+        void ResetBicycle(Bicycle bike)
+        {
+            if (tempTest != null)
+            {
+                int nearestIndex = GetNearestNodeIndex(bike);
 
                 if (nearestIndex != -1)
                 {
@@ -265,10 +275,44 @@ namespace VirtualBicycle.Logic.Competition
             }
         }
 
+        int Comparison(Pair<Bicycle, int> a, Pair<Bicycle, int> b)
+        {
+            return b.second.CompareTo(a.second);
+        }
+        void CheckRank()
+        {
+            List<Pair<Bicycle, int>> rankList = new List<Pair<Bicycle, int>>();
+
+            if (tempTest != null)
+            {
+                for (int i = 0; i < comBicycles.Length; i++)
+                {
+                    int idx = GetNearestNodeIndex(comBicycles[i]);
+                    if (idx != -1)
+                    {
+                        rankList.Add(new Pair<Bicycle, int>(comBicycles[i], idx));
+                    }
+                }
+            }
+            int idx2 = GetNearestNodeIndex(playerBicycle);
+            rankList.Add(new Pair<Bicycle, int>(playerBicycle, idx2));
+
+            rankList.Sort(Comparison);
+
+            for (int i = 0; i < rankList.Count; i++) 
+            {
+                rankList[i].first.Rank = i + 1;
+            }
+        }
         public override void Update(float dt)
         {
             if (world != null && world.IsValid)
             {
+                if (!gameIsOver)
+                {
+                    CheckRank();
+                }
+
                 RigidBody body;
                 for (int i = 0; i < comBicycles.Length; i++) 
                 {

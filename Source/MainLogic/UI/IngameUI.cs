@@ -267,6 +267,8 @@ namespace VirtualBicycle.UI
                     world.Paused = true;
                     world.Dispose();
 
+                    ReportScreen repScrn = logic.UILogic.GetReportScreen();
+                    repScrn.Rank = logic.CurrentCompetition.CurrentBicycle.Rank;
                     Game.GameUI.CurrentComponent = logic.UILogic.GetReportScreen();
                 }
             }
