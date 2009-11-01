@@ -17,6 +17,15 @@ using PM = VirtualBicycle.Physics.MathLib;
 
 namespace VirtualBicycle.Logic
 {
+    public enum BicycleColor 
+    {
+        Red,
+        Yellow,
+        Blue,
+        Purple,
+        Green
+    }
+
     public class Bicycle : DynamicObject
     {
         #region Fields
@@ -230,12 +239,35 @@ namespace VirtualBicycle.Logic
         }
 
         public Bicycle(Device device)
+            : this(device, BicycleOwner.Player)
+        { 
+        }
+
+        public Bicycle(Device device, BicycleColor color) 
         {
-            FileLocation fl = FileSystem.Instance.Locate(Path.Combine(VirtualBicycle.IO.Paths.Models, "bicycle.mesh"), FileLocateRules.Default);
+            string fileName = "bicycle.mesh";
+            switch (color) 
+            {
+                case BicycleColor.Red:
+                    fileName = "bicycle.mesh";
+                    break;
+                case BicycleColor.Green:
+                    fileName = "bicycle_green.mesh";
+                    break;
+                case BicycleColor.Blue:
+                    fileName = "bicycle_blue.mesh";
+                    break;
+                case BicycleColor.Purple:
+                    fileName = "bicycle_purple.mesh";
+                    break;
+                case BicycleColor.Yellow:
+                    fileName = "bicycle_yellow.mesh";
+                    break;
+            }
+            FileLocation fl = FileSystem.Instance.Locate(Path.Combine(VirtualBicycle.IO.Paths.Models, fileName), FileLocateRules.Default);
             ModelL0 = ModelManager.Instance.CreateInstance(device, fl);
             mass = 70;
-
-        }
+        } 
 
         public Bicycle(Device device, BicycleOwner owner)
         {

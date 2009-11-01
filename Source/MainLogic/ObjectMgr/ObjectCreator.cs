@@ -27,13 +27,13 @@ namespace VirtualBicycle.ObjectMgr
             throw new NotImplementedException();
         }
 
-        public Bicycle CreateBicycle(Vector3 pos)
+        public Bicycle CreateBicycle(Vector3 pos, BicycleColor color)
         {
             int clusterX;
             int clusterY;
             GameScene scene = world.Scene;
 
-            Bicycle bicycle = new Bicycle(device);
+            Bicycle bicycle = new Bicycle(device, color);
             bicycle.Position = pos;
 
             scene.GetClusterCoord(pos.X, pos.Y, out clusterX, out clusterY);

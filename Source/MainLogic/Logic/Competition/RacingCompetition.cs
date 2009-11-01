@@ -74,7 +74,7 @@ namespace VirtualBicycle.Logic.Competition
         private void PlaceRegisterBicycle(Vector3 startPos,Vector3 endPos,int PlayerID)
         {
             //建立Bicycle
-            Bicycle bicycle = objectCreator.CreateBicycle(Vector3.Zero);
+            Bicycle bicycle = objectCreator.CreateBicycle(Vector3.Zero, BicycleColor.Red);
 
             //设置Bicycle的位置和方向
             Vector2 dir = new Vector2(endPos.X - startPos.X, endPos.Z - startPos.Z);
