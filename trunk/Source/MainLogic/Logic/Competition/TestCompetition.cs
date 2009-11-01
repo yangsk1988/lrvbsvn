@@ -97,11 +97,6 @@ namespace VirtualBicycle.Logic.Competition
                     comBicycles[i].Position = comBicycleStartPort.Position + Vector3.UnitY * 2;
                     comBicycles[i].Orientation = Quaternion.RotationAxis(Vector3.UnitY, MathEx.PIf);
 
-                    GoalManager goalMgr = comBicycles[i].BicycleGoalMgr;
-                    BicycleThinkGoal thinkGoal = new BicycleThinkGoal(comBicycles[i], goalMgr, null);
-
-                    thinkGoal.AddSubGoal(new BicycleToPorts(comBicycles[i], goalMgr, thinkGoal, aiPathManager, 0, aiPathManager.AIPorts.Count - 1));
-                    goalMgr.GoalSeq.Enqueue(thinkGoal);
                 }
 
 
@@ -151,34 +146,51 @@ namespace VirtualBicycle.Logic.Competition
 
                         tempTest = new Vector3[nodes.Count];
 
+                        Vector3 refPos = aiPathManager.GetPortOfUID(0).Position;
+                        int nearest = 1;
+
+                        float mindist = float.MaxValue;
                         for (int j = 0; j < nodes.Count; j++)
                         {
                             tempTest[j] = nodes[j].Position;
+                            
+                            float dist = Vector3.Distance(tempTest[j], refPos);
+                            if (dist < mindist) 
+                            {
+                                mindist = dist;
+                                nearest = j;
+                            }
                         }
 
-                        Vector3 dir3 = tempTest[1] - tempTest[0];
+                        Vector3 dir3;
+                        if (nearest > 0)
+                            dir3 = tempTest[nearest] - tempTest[nearest - 1];
+                        else
+                            dir3 = tempTest[nearest + 1] - tempTest[nearest];
+
                         Vector2 dir = new Vector2(dir3.X, dir3.Z);
                         dir.Normalize();
 
                         Quaternion ori = Quaternion.RotationAxis(Vector3.UnitY, MathEx.Vector2DirAngle(dir));
 
+                        Vector3 right = Vector3.Cross(dir3, Vector3.UnitY);
+                        right.Normalize();
+
                         playerBicycle.Orientation = ori;
-                        playerBicycle.Position = tempTest[0] + Vector3.UnitY * 2;
+                        playerBicycle.Position = refPos + Vector3.UnitY * 2 - right;
 
                         for (int j = 0; j < comBicycles.Length; j++)
                         {
                             comBicycles[j].Orientation = ori;
+                            comBicycles[j].Position = refPos + right * (-0.5f + 0.5f * j) + Vector3.UnitY * 2;
 
-                            if (j + 1 < tempTest.Length)
-                            {
-                                comBicycles[j].Position = tempTest[j + 1] + 2 * Vector3.UnitY;
-                            }
-                            else
-                            {
-                                comBicycles[j].Position = tempTest[tempTest.Length - 1] + (j + 3 - tempTest.Length) * Vector3.UnitY;
-                            }
+                            GoalManager goalMgr = comBicycles[j].BicycleGoalMgr;
+                            BicycleThinkGoal thinkGoal = new BicycleThinkGoal(comBicycles[j], goalMgr, null);
+
+                            thinkGoal.AddSubGoal(new BicycleToPorts(comBicycles[j], goalMgr, thinkGoal, aiPathManager, 0, aiPathManager.AIPorts.Count - 1));
+                            goalMgr.GoalSeq.Enqueue(thinkGoal);
                         }
-                        ResetPlayerBicycle(this, EventArgs.Empty);
+                        //ResetPlayerBicycle(this, EventArgs.Empty);
                     }
                 }
                 if (destination != null && tempTest != null) 
@@ -287,7 +299,7 @@ namespace VirtualBicycle.Logic.Competition
                 if (!body.IsActive)
                     body.Activate();
 
-                if (destination != null && !CannotWin)
+                if (destination != null)
                 {
                     float dist = Vector3.Distance(playerBicycle.BoundingSphere.Center, destination.BoundingSphere.Center);
 
