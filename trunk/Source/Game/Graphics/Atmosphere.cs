@@ -191,7 +191,7 @@ namespace VirtualBicycle.Graphics
         static readonly string DayLengthTag = "DayLength";
 
         static readonly string StartRealtimeTag = "StartWithRealTime";
-
+        static readonly string StartTimeTag = "StartTime";
         static readonly string WeatherTypeTag = "WeatherType";
 
         static readonly string SkyTag = "Sky";
@@ -222,6 +222,13 @@ namespace VirtualBicycle.Graphics
             ContentBinaryReader br = data.GetData(SkyTag);
             skyName = br.ReadStringUnicode();
             br.Close();
+
+            br = data.TryGetData(StartTimeTag);
+            if (br != null)
+            {
+                TimeSpan startTime = TimeSpan.Parse(br.ReadStringUnicode());
+                StartTime = startTime;
+            }
 
             br = data.GetData(AmbientTag);
             ambientColor.Red = br.ReadSingle();
@@ -263,6 +270,10 @@ namespace VirtualBicycle.Graphics
 
             ContentBinaryWriter bw = data.AddEntry(SkyTag);
             bw.WriteStringUnicode(skyName);
+            bw.Close();
+
+            bw = data.AddEntry(StartTimeTag);
+            bw.WriteStringUnicode(StartTime.ToString());
             bw.Close();
 
             bw = data.AddEntry(AmbientTag);
