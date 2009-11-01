@@ -37,8 +37,9 @@ namespace VirtualBicycle.UI
         GameMainLogic logic;
         GameUI gameUI;
 
-        int curIndex;
+        int curIndex = 2;
         DrawTextBox selectItemTB;
+        DrawTextBox rankAlerTitle;
         #endregion
 
         #region Constructor
@@ -60,6 +61,22 @@ namespace VirtualBicycle.UI
 
         private void RenderGrid(Sprite sprite)
         {
+            rankAlerTitle.Text = "您本次比赛被评为：";
+            switch (Rank)
+            {
+                case 1:
+                    rankAlerTitle.Text += "环法高手";
+                    break;
+                case 2:
+                    rankAlerTitle.Text += "疯狂的赛车";
+                    break;
+                case 3:
+                    rankAlerTitle.Text += "校园车手";
+                    break;
+                case 4:
+                    rankAlerTitle.Text += "送报小童";
+                    break;
+            }
             if (pics[curIndex].Detail == StringTableManager.StringTable["GUI:RMHighscores"])
             {
                 selectItemTB.Render(sprite, StringTableManager.StringTable["GUI:RMHighscores"], true);
@@ -98,6 +115,13 @@ namespace VirtualBicycle.UI
         bool isMoveLeft = true;
         float usedAnimationTime = 0f;
         float curTime = 0;
+
+        int rank;
+        public int Rank
+        {
+            get { return rank; }
+            set { rank = value; }
+        }
 
         protected override void update(float dt)
         {
@@ -371,7 +395,7 @@ namespace VirtualBicycle.UI
             for (int i = 1; i <= 4; i++)
             {
                 System.Drawing.Color color;
-                if (i == 1)
+                if (i == Rank)
                 {
                     color = System.Drawing.Color.Red;
                 }
@@ -392,7 +416,7 @@ namespace VirtualBicycle.UI
                 rankGrid.AddTextBox(i, i, 2, 2, rankTimeTB);
             }
 
-            DrawTextBox rankAlerTitle = new DrawTextBox(Game, device, "您本次比赛的评价为: 环法高手", UIFontName, 22, Color.Black);
+            rankAlerTitle = new DrawTextBox(Game, device, "", UIFontName, 22, Color.Black);
             rankGrid.AddTextBox(8, 8, 0, 2, rankAlerTitle);
         }
 

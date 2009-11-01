@@ -22,6 +22,14 @@ namespace VirtualBicycle.UI
         {
             get { return rect; }
             set { rect = value; }
+        
+        }
+
+
+        public string Text
+        {
+            get { return text; }
+            set { text = value; }
         }
         #endregion
 
