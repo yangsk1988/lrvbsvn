@@ -365,8 +365,15 @@ namespace VirtualBicycle.Graphics
             currentLight.Specular = light.Specular;
             currentLight.Type = LightType.Directional;
 
+            if (info.StartTime == TimeSpan.Zero)
+            {
+                sunAngle = 3 * MathEx.PIf / 4;
+            }
+            else 
+            {
+                sunAngle = MathEx.PIf * (float)(info.StartTime - new TimeSpan(6, 0, 0)).TotalSeconds / 86400f;
+            }
 
-            sunAngle = 3 * MathEx.PIf / 4;
             light.Direction = new Vector3(-(float)Math.Cos(sunAngle), -(float)Math.Sin(sunAngle), 0f);
             currentLight.Direction = light.Direction;
 
