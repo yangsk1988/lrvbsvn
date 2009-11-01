@@ -13,8 +13,8 @@ using VirtualBicycle.ObjectMgr;
 using VirtualBicycle.Physics;
 using VirtualBicycle.Physics.Dynamics;
 using VirtualBicycle.Scene;
-using PM = VirtualBicycle.Physics.MathLib;
 using VirtualBicycle.UI;
+using PM = VirtualBicycle.Physics.MathLib;
 
 namespace VirtualBicycle.Logic.Competition
 {
