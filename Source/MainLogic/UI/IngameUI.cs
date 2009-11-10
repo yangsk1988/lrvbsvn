@@ -269,7 +269,7 @@ namespace VirtualBicycle.UI
 
                     ReportScreen repScrn = logic.UILogic.GetReportScreen();
                     repScrn.Rank = logic.CurrentCompetition.CurrentBicycle.Rank;
-                    Game.GameUI.CurrentComponent = logic.UILogic.GetReportScreen();
+                    Game.GameUI.CurrentComponent = repScrn;
                 }
             }
             if (IsMenuShown)

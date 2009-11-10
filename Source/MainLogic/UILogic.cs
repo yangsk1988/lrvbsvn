@@ -20,10 +20,11 @@ namespace VirtualBicycle
 
         public ReportScreen GetReportScreen() 
         {
-            if (reportScreen == null) 
+            if (reportScreen != null) 
             {
-                reportScreen = new ReportScreen(Game, Game.GameUI, logic);
+                reportScreen.Unload();
             }
+            reportScreen = new ReportScreen(Game, Game.GameUI, logic); 
             return reportScreen;
         }
         public MapSelectScreen GetMapSelectScreen()
