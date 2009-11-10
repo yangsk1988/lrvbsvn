@@ -42,6 +42,8 @@ namespace VirtualBicycle.UI
         DrawTextBox rankAlerTitle;
         #endregion
 
+
+
         #region Constructor
         public ReportScreen(Game game, GameUI gameUI, GameMainLogic logic)
             : base(game)
@@ -258,11 +260,13 @@ namespace VirtualBicycle.UI
         {
             pics = new List<MenuPic>();
             //设置图标列表
+            pics.Add(new MenuPic(Game, "report_rank.png", StringTableManager.StringTable["GUI:RMRank"]));
+
             pics.Add(new MenuPic(Game, "report_curve.png", StringTableManager.StringTable["GUI:RMGraph"]));
 
             pics.Add(new MenuPic(Game, "report_heroes.png", StringTableManager.StringTable["GUI:RMHighscores"]));
 
-            pics.Add(new MenuPic(Game, "report_rank.png", StringTableManager.StringTable["GUI:RMRank"]));
+            
         }
 
         private void LoadGridPic()

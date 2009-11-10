@@ -182,44 +182,71 @@ namespace VirtualBicycle.Input
                             case DataType.ResetDataTag:
                                 return;
                             case DataType.HandlebarDataTag:
-
-                                short angle = (short)(dta.byte1 | (dta.byte2 << 8));
-
-                                if (lastAngle != angle)
                                 {
+                                    short angle = (short)(dta.byte1 | (dta.byte2 << 8));
+
                                     float val = MathEx.PiOver2 * (float)angle / 256f;
                                     float lstval = MathEx.PiOver2 * (float)lastAngle / 256f;
 
-                                    Manager.OnHandlebarRotated(val, val - lstval);
-
-                                    if (val > MathEx.Degree2Radian(30))
+                                    if (lastAngle != angle)
                                     {
-                                        if (itemLeftCoolDown <= 0)
+                                        Manager.OnHandlebarRotated(val, val - lstval);
+
+                                        lastAngle = angle;
+                                    }
+
+                                    float SlowSwitchAngle = MathEx.Degree2Radian(20);
+                                    float FastSwitchAngle = MathEx.Degree2Radian(45);
+
+                                    if (val > SlowSwitchAngle && val < FastSwitchAngle)
+                                    {
+                                        if (itemLeftCoolDown-- <= 0)
                                         {
                                             Manager.OnItemMoveRight();
-                                            itemLeftCoolDown = 60;
-                                        }
-                                        else
-                                        {
-                                            itemLeftCoolDown--;
+                                            itemLeftCoolDown = 30;
                                         }
                                     }
-                                    else if (val < -MathEx.Degree2Radian(30))
+                                    else if (val < -SlowSwitchAngle && val > -FastSwitchAngle)
                                     {
-                                        if (itemRightCoolDown <= 0)
+                                        if (itemRightCoolDown-- <= 0)
                                         {
                                             Manager.OnItemMoveLeft();
-                                            itemRightCoolDown = 60;
-                                        }
-                                        else
-                                        {
-                                            itemRightCoolDown--;
+                                            itemRightCoolDown = 30;
                                         }
                                     }
+                                    else if (val >= FastSwitchAngle)
+                                    {
+                                        if (lstval > SlowSwitchAngle && lstval < FastSwitchAngle)
+                                        {
+                                            itemLeftCoolDown = 0;
+                                        }
 
-                                    lastAngle = angle;
+                                        if (itemLeftCoolDown-- <= 0)
+                                        {
+                                            Manager.OnItemMoveRight();
+                                            itemLeftCoolDown = 10;
+                                        }
+                                    }
+                                    else if (val <= -FastSwitchAngle)
+                                    {
+                                        if (lstval < -SlowSwitchAngle && lstval > -FastSwitchAngle)
+                                        {
+                                            itemRightCoolDown = 0;
+                                        }
+
+                                        if (itemRightCoolDown-- <= 0)
+                                        {
+                                            Manager.OnItemMoveLeft();
+                                            itemRightCoolDown = 10;
+                                        }
+                                    }
+                                    else 
+                                    {
+                                        itemLeftCoolDown = 0;
+                                        itemRightCoolDown = 0;
+                                    }
+                                    break;
                                 }
-                                break;
                             case DataType.WheelDataTag:
                                 if (dataDt > float.Epsilon)
                                 {
@@ -298,7 +325,7 @@ namespace VirtualBicycle.Input
                                 
                                 if ((dta.byte2 & (0x80)) == 1)
                                 {
-                                    angle = 0;
+                                    short angle = 0;
 
                                     if (lastAngle != angle)
                                     {
@@ -354,7 +381,7 @@ namespace VirtualBicycle.Input
                                 {
                                     if (!isResetPressed)
                                     {
-                                        port.Write(ResetDataTag);
+                                        //port.Write(ResetDataTag);
                                         Manager.OnReset();
 
                                         isResetPressed = true;

@@ -102,7 +102,7 @@ namespace VirtualBicycle.Scene
                 return false;
             }
 
-            Cluster neightbour = GameScene.ClusterTable[desc];
+            Cluster neightbour = GameScene.ClusterTable.TryGetCluster(desc);
 
             if (neightbour != null)             
             {
