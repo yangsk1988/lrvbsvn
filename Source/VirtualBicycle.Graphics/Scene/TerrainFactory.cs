@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX.Direct3D9;
-using VirtualBicycle.IO;
+using VirtualBicycle.Vfs;
 using VirtualBicycle.Logic;
+using VirtualBicycle.Graphics;
 
 namespace VirtualBicycle.Scene
 {
@@ -40,7 +40,7 @@ namespace VirtualBicycle.Scene
 
         #endregion
 
-        public TerrainFactory(Device device, InGameObjectManager mgr)
+        public TerrainFactory(RenderSystem device, InGameObjectManager mgr)
             : base(mgr)
         {
             this.device = device;

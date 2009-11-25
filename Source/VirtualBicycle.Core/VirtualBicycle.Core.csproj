@@ -96,6 +96,7 @@
     <Compile Include="GameTime.cs" />
     <Compile Include="GenerationTable.cs" />
     <Compile Include="IUpdatable.cs" />
+    <Compile Include="LanguageParser.cs" />
     <Compile Include="MathLib\BoundingBox.cs" />
     <Compile Include="MathLib\BoundingFrustum.cs" />
     <Compile Include="MathLib\BoundingSphere.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="MathLib\Vector3.cs" />
     <Compile Include="MathLib\Vector4.cs" />
     <Compile Include="MathLib\Viewport.cs" />
+    <Compile Include="Media\PixelFormat.cs" />
     <Compile Include="Memory.cs" />
     <Compile Include="Network\IClient.cs" />
     <Compile Include="Network\INetworkObject.cs" />
@@ -166,7 +168,6 @@
   <ItemGroup>
     <Folder Include="Graphic\" />
     <Folder Include="Input\" />
-    <Folder Include="Media\" />
     <Folder Include="Physics\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

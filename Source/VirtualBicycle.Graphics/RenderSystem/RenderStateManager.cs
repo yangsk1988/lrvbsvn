@@ -29,7 +29,7 @@ namespace VirtualBicycle.Graphics
             get;
             set;
         }
-        public abstract Blend AlphaDestinationBlend
+        public abstract Blend DestinationBlendAlpha
         {
             get;
             set;
@@ -39,7 +39,7 @@ namespace VirtualBicycle.Graphics
             get;
             set;
         }
-        public abstract Blend AlphaSourceBlend
+        public abstract Blend SourceBlendAlpha
         {
             get;
             set;

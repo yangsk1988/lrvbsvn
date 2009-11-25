@@ -1064,7 +1064,7 @@ namespace VirtualBicycle.Graphics
             vertexSize = sizeof(VertexPNT1);
             int vbSize = vertexSize * vertices.Length;
 
-            vertexBuffer = new VertexBuffer(dev, vbSize, Usage.None, VertexPNT1.Format, Pool.Managed);
+            vertexBuffer = new VertexBuffer(dev, vbSize, Usage.None, VertexPNT1.Format);
 
             void* vdst = vertexBuffer.Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
 
@@ -1079,11 +1079,11 @@ namespace VirtualBicycle.Graphics
             int ibSize = sizeof(uint) * indices.Length;
 
             indexBuffers = new IndexBuffer[1];
-            indexBuffers[0] = new IndexBuffer(dev, ibSize, Usage.None, Pool.Managed, false);
+            indexBuffers[0] = new IndexBuffer(dev, ibSize, Usage.None,  false);
 
             void* idst = indexBuffers[0].Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
 
-            indexBuffers[0].Lock(0, 0, LockFlags.None);
+            indexBuffers[0].Lock(0, 0, LockMode.None);
 
             fixed (int* src = &indices[0])
             {

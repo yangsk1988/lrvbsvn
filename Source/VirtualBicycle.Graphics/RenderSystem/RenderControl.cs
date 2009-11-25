@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Windows.Forms;
 using VirtualBicycle.Graphics;
 using SD = System.Drawing;
 
@@ -18,18 +17,7 @@ namespace VirtualBicycle.Graphics
         RenderSystem renderSystem;
 
         FpsCounter fpsCounter;
-        Control control;
 
-        protected RenderControl(RenderSystem rs, Control ctl, PresentParameters pm)
-            : this(rs, pm)
-        {
-            this.control = ctl;
-        }
-        protected RenderControl(RenderSystem rs, Control ctl, PresentParameters pm, RenderTarget rt)
-            : this(rs, pm, rt)
-        {
-            this.control = ctl;
-        }
         protected RenderControl(RenderSystem rs, PresentParameters pm, RenderTarget rt)
             : this(rs, pm)
         {
@@ -40,14 +28,9 @@ namespace VirtualBicycle.Graphics
             this.presentParams = pm;
             this.renderSystem = rs;
             this.fpsCounter = new FpsCounter();
-            this.control = pm.Control;
 
         }
 
-        public Control TargetControl
-        {
-            get { return control; }
-        }
         public RenderTarget RenderTarget
         {
             get { return renderTarget; }
@@ -120,41 +103,15 @@ namespace VirtualBicycle.Graphics
     /// </summary>
     public abstract class RenderWindow : RenderControl
     {
-        public class RenderForm : Form
-        {
-            public RenderForm(SD.Size size)
-            {
-                this.ClientSize = size;
-                this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.Opaque, true);
-            }
-            //public IntPtr Handle
-            //{
-            //    get { return base.Handle; }
-            //}
-            
-        }
 
-        protected RenderWindow(RenderSystem rs, Form form, PresentParameters pm, RenderTarget rt)
-            : base(rs, form, pm, rt)
+        protected RenderWindow(RenderSystem rs, PresentParameters pm, RenderTarget rt)
+            : base(rs, pm, rt)
         {
-            this.form = form;
-        }
-        protected RenderWindow(RenderSystem rs, Form form, PresentParameters pm)
-            : base(rs, form, pm)
-        {
-            this.form = form;
         }
         protected RenderWindow(RenderSystem rs, PresentParameters pm)
-            : base(rs, new RenderForm(new SD.Size(pm.BackBufferWidth, pm.BackBufferHeight)), pm)
+            : base(rs, pm)
         {
-            this.form = (Form)TargetControl;
         }
 
-        Form form;
-
-        public Form Window 
-        {
-            get { return form; }
-        }
     }
 }

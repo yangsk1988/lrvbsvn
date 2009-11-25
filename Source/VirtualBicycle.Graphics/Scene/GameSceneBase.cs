@@ -396,7 +396,7 @@ namespace VirtualBicycle.Scene
         ///  见接口<see cref="ISceneRenderer"/>
         /// </summary>
         /// <param name="target"></param>
-        void ISceneRenderer.RenderScenePost(Surface target)
+        void ISceneRenderer.RenderScenePost(BackBuffer target)
         {
             device.SetRenderTarget(0, target);
 

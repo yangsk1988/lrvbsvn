@@ -46,7 +46,7 @@ namespace VirtualBicycle.Graphics
 
 
         public abstract RenderTarget CreateRenderTarget(int width, int height, PixelFormat clrFmt, DepthFormat depthFmt);
-        public abstract RenderTarget CreateRenderTarget(Surface backBuffer, Surface depthBuffer, int width, int height);
+        public abstract RenderTarget CreateRenderTarget(BackBuffer backBuffer, BackBuffer depthBuffer, int width, int height);
 
         //public abstract Sprite CreateSprite();
 

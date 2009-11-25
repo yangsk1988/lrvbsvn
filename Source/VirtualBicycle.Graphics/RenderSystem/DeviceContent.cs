@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Collections;
 using VirtualBicycle.Media;
-using System.Windows.Forms;
 
 namespace VirtualBicycle.Graphics
 {
@@ -20,27 +19,26 @@ namespace VirtualBicycle.Graphics
 
         PresentInterval presentInterval;
 
-        DepthFormat depthFormat;
+        DepthFormat depthBufferFormat;
 
-        PixelFormat pixelFormat;
+        ImagePixelFormat colorBufferFormat;
 
-        Control ctl;
-
-        public Control Control
+        public object Target
         {
-            get { return ctl; }
-            set { ctl = value; }
+            get;
+            set;
         }
-        public PixelFormat BackBufferFormat
+
+        public ImagePixelFormat BackBufferFormat
         {
-            get { return pixelFormat; }
-            set { pixelFormat = value; }
+            get { return colorBufferFormat; }
+            set { colorBufferFormat = value; }
         }
 
         public DepthFormat DepthFormat
         {
-            get { return depthFormat; }
-            set { depthFormat = value; }
+            get { return depthBufferFormat; }
+            set { depthBufferFormat = value; }
         }
 
         public PresentInterval PresentInterval
