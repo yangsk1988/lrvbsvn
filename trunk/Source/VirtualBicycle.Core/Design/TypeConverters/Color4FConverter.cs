@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
-using System.Drawing;
-using System.Globalization;
-using System.Reflection;
-using System.Text;
-using VirtualBicycle.MathLib;
+
 
 namespace VirtualBicycle.Design
 {
+#if !XBOX
+    using System.ComponentModel;
+    using System.ComponentModel.Design.Serialization;
+    using System.Drawing;
+    using System.Globalization;
+    using System.Reflection;
+    using System.Text;
+    using VirtualBicycle.MathLib;
+#endif
+
     public class Color4FConverter : ExpandableObjectConverter
     {
+#if !XBOX
         // Methods
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -45,7 +50,7 @@ namespace VirtualBicycle.Design
             string s = value as string;
             if (s != null)
             {
-           
+
                 s = s.Trim();
                 converter = TypeDescriptor.GetConverter(typeof(float));
                 char[] separator = new char[] { culture.TextInfo.ListSeparator[0] };
@@ -58,7 +63,7 @@ namespace VirtualBicycle.Design
                         return new Color4F(result);
                     }
                     TypeConverter converter2 = TypeDescriptor.GetConverter(typeof(Color));
-                    return new Color4F((Color)converter2.ConvertFromString(context, culture, s));
+                    return new Color4F(((Color)converter2.ConvertFromString(context, culture, s)).ToArgb());
                 }
                 if (strArray.Length == 3)
                 {
@@ -151,8 +156,7 @@ namespace VirtualBicycle.Design
         {
             return true;
         }
+        
+#endif
     }
-
-
-
 }

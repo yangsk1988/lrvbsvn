@@ -1,7 +1,4 @@
-#region Using Statements
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-#endregion
+using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Graphics.ParticleSystem
 {
@@ -36,20 +33,16 @@ namespace VirtualBicycle.Graphics.ParticleSystem
         /// </summary>
         public static readonly VertexElement[] VertexElements =
         {
-            new VertexElement(0, 0, VertexElementFormat.Vector3,
-                                    VertexElementMethod.Default,
+            new VertexElement( 0, VertexElementFormat.Vector3,
                                     VertexElementUsage.Position, 0),
 
-            new VertexElement(0, 12, VertexElementFormat.Vector3,
-                                     VertexElementMethod.Default,
+            new VertexElement(12, VertexElementFormat.Vector3,
                                      VertexElementUsage.Normal, 0),
 
-            new VertexElement(0, 24, VertexElementFormat.Color,
-                                     VertexElementMethod.Default,
+            new VertexElement(24, VertexElementFormat.Color,
                                      VertexElementUsage.Color, 0),
 
-            new VertexElement(0, 28, VertexElementFormat.Single,
-                                     VertexElementMethod.Default,
+            new VertexElement( 28, VertexElementFormat.Single,
                                      VertexElementUsage.TextureCoordinate, 0),
         };
 
@@ -60,4 +53,3 @@ namespace VirtualBicycle.Graphics.ParticleSystem
         public const int SizeInBytes = 32;
     }
 }
-

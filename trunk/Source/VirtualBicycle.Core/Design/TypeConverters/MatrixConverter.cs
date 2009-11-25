@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
@@ -10,8 +9,14 @@ using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Design
 {
+#if !XBOX
+    using System.ComponentModel.Design.Serialization;
+#endif
+
     public class MatrixConverter : MathTypeConverter
     {
+#if !XBOX
+
         // Methods
         public MatrixConverter()
         {
@@ -51,7 +56,7 @@ namespace VirtualBicycle.Design
             }
             return new Matrix((float)propertyValues["M11"], (float)propertyValues["M12"], (float)propertyValues["M13"], (float)propertyValues["M14"], (float)propertyValues["M21"], (float)propertyValues["M22"], (float)propertyValues["M23"], (float)propertyValues["M24"], (float)propertyValues["M31"], (float)propertyValues["M32"], (float)propertyValues["M33"], (float)propertyValues["M34"], (float)propertyValues["M41"], (float)propertyValues["M42"], (float)propertyValues["M43"], (float)propertyValues["M44"]);
         }
+#endif
+
     }
-
-
 }

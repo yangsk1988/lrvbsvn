@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Drawing;
+using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Config
 {
@@ -126,9 +126,9 @@ namespace VirtualBicycle.Config
         public abstract string[] GetPaths(string key);
         public abstract void GetRectangle(string key, out Rectangle rect);
 
-        public abstract bool TryGetColorRGBA(string key, out Color clr);
-        public abstract Color GetColorRGBA(string key, Color def);
-        public abstract Color GetColorRGBA(string key);
+        public abstract bool TryGetColorRGBA(string key, out ColorValue clr);
+        public abstract ColorValue GetColorRGBA(string key, ColorValue def);
+        public abstract ColorValue GetColorRGBA(string key);
         public abstract int GetColorRGBInt(string key);
         public abstract int GetColorRGBInt(string key, int def);
 

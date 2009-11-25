@@ -39,14 +39,19 @@ namespace VirtualBicycle.Core
         {
             opQueue = new Queue<ResourceOperation>();
 
+             
             processThread = new Thread(Main);
             processThread.Name = "AsyncProcessor";
+
+#if !XBOX
             processThread.SetApartmentState(ApartmentState.MTA);
+#endif
+
             processThread.Start();
         }
 
         [MTAThread()]
-        private void Main(object state) 
+        private void Main() 
         {
             while (!Disposed)
             {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Vfs;
-using System.Drawing;
+using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Config
 {
@@ -50,146 +50,6 @@ namespace VirtualBicycle.Config
 
         #region Parser
 
-        //public override CameoInfo GetCameo(FileLocateRule rule)
-        //{
-        //    CameoInfo res = new CameoInfo();
-        //    string cameoName = GetString("Cameo", "xxicon.shp");
-        //    string altCameoName = GetString("AltCameo", cameoName);
-
-        //    string ext = Path.GetExtension(cameoName);
-        //    if (ext.Length == 0)
-        //    {
-        //        ext = ".shp";
-        //        cameoName += ext;
-        //    }
-        //    string altExt = Path.GetExtension(altCameoName);
-        //    if (altExt.Length == 0)
-        //    {
-        //        altExt = ".shp";
-        //        altCameoName += ext;
-        //    }
-
-
-        //    res.FileNames = new string[] { FileSystem.Cameo_Mix + cameoName, FileSystem.CameoOld_Mix + cameoName };
-        //    res.AltFileNames = new string[] { FileSystem.Cameo_Mix + altCameoName, FileSystem.CameoOld_Mix + altCameoName };
-        //    res.LocateRule = rule;
-
-        //    res.HasTransparentColor = GetBool("HasTransparentColor", true);
-
-        //    if (CaseInsensitiveStringComparer.Compare(ext, ".shp"))
-        //    {
-        //        res.UsePalette = true;
-        //        res.FilePalettes = new string[] { FileSystem.CacheOldMix + "cameo.pal" };
-
-        //        if (res.HasTransparentColor)
-        //        {
-        //            res.PaletteTransparentIndex = GetInt("TransparentIndex", 0);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (res.HasTransparentColor)
-        //        {
-        //            Color tranClr;
-        //            if (TryGetColorRGBA("CameoTransparent", out tranClr))
-        //            {
-        //                res.TransparentColor = tranClr;
-        //            }
-        //        }
-        //    }
-        //    return res;
-        //}
-
-        //public override UIImageInformation GetImage(string key, FileLocateRule rule)
-        //{
-        //    UIImageInformation res = new UIImageInformation();
-        //    res.FileNames = GetPaths(key + "Image");
-        //    res.LocateRule = rule;
-
-        //    string[] pals;
-        //    if (TryGetPaths(key + "Palette", out pals))
-        //    {
-        //        res.UsePalette = true;
-        //        res.FilePalettes = pals;
-
-        //        res.Frame = GetInt(key + "Frame", 1) - 1;
-        //    }
-
-        //    Color tranClr;
-        //    if (TryGetColorRGBA(key + "Transparent", out tranClr))
-        //    {
-        //        res.HasTransparentColor = true;
-        //        res.TransparentColor = tranClr;
-        //    }
-        //    return res;
-        //}
-
-        //public override UIImageInformation GetImage(FileLocateRule rule)
-        //{
-        //    UIImageInformation res = new UIImageInformation();
-        //    res.FileNames = GetPaths("Image");
-        //    res.LocateRule = rule;
-
-        //    string[] pals;
-        //    if (TryGetPaths("ImagePalette", out pals))
-        //    {
-        //        res.UsePalette = true;
-        //        res.FilePalettes = pals;
-
-        //        res.Frame = GetInt("Frame", 1) - 1;
-        //    }
-
-        //    Color tranClr;
-        //    if (TryGetColorRGBA("Transparent", out tranClr))
-        //    {
-        //        res.HasTransparentColor = true;
-        //        res.TransparentColor = tranClr;
-        //    }
-        //    return res;
-        //}
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <remarks>SHP是唯一允许的Anim</remarks>
-        ///// <param name="rule"></param>
-        ///// <returns></returns>
-        //public override ImageBase GetImage(FileLocateRule rule)
-        //{
-        //    FileLocation fl;
-        //    ImageBase res;
-        //    Color tranClr;
-
-        //    string[] paths = GetPaths("Image");
-
-        //    string[] pals;
-        //    if (TryGetPaths("ImagePalette", out pals))
-        //    {
-        //        fl = FileSystem.Instance.Locate(paths, rule);
-        //        ShpAnim shp = AnimManager.Instance.CreateInstance(fl) as ShpAnim; // ShpAnim.FromFile(fl);
-
-        //        if (shp == null)
-        //            throw new NotSupportedException();
-
-        //        ResourceLocation pall = FileSystem.Instance.Locate(pals, rule);
-        //        shp.Palette = Palette.FromFile(pall);
-
-        //        int frame = GetInt("Frame", 1) - 1;
-
-        //        res = shp.GetImage(frame);
-        //        if (TryGetColorRGBA("Transparent", out tranClr))
-        //            res.MakeTransparent(tranClr);
-        //        shp.Dispose();
-        //        return res;
-        //    }
-        //    fl = FileSystem.Instance.Locate(paths, rule);
-        //    res = ImageManager.Instance.CreateInstance(fl);
-
-
-        //    if (TryGetColorRGBA("Transparent", out tranClr))
-        //        res.MakeTransparent(tranClr);
-        //    return res;
-        //}
-
         public override bool TryGetSubSection(string key, out ConfigurationSection sect)
         {
             if (ParentConfig == null)
@@ -224,20 +84,6 @@ namespace VirtualBicycle.Config
                 for (int i = 0; i < pams.Length; i++)
                 {
                     pams[i] = FileNameTokens.Instance.Filter(pams[i]);
-                    //pams[i] = pams[i].Trim();
-
-                    //pams[i] = pams[i].Replace("<s>", Game.Suffix);
-                    //pams[i] = pams[i].Replace("<d>", new string(new char[] { Path.DirectorySeparatorChar }));
-                    //pams[i] = pams[i].Replace("<mix>", FileSystem.dotMix);
-                    //pams[i] = pams[i].Replace("<ra2.mix>", FileSystem.Ra2_Mix);
-                    //pams[i] = pams[i].Replace("<theme.mix>", FileSystem.Theme_Mix);
-                    //pams[i] = pams[i].Replace("<multi.mix>", FileSystem.Multi_Mix);
-                    //pams[i] = pams[i].Replace("<lang.mix>", FileSystem.LangMix);
-                    //pams[i] = pams[i].Replace("<local.mix>", FileSystem.LocalMix);
-                    //pams[i] = pams[i].Replace("<neutral.mix>", FileSystem.NeutralMix);
-                    //pams[i] = pams[i].Replace("<cache.mix>", FileSystem.CacheMix);
-                    //pams[i] = pams[i].Replace("<load.mix>", FileSystem.LoadMix);
-                    //pams[i] = pams[i].Replace("<conq.mix>", FileSystem.ConquerMix);
                 }
                 res = pams;
                 return true;
@@ -268,27 +114,27 @@ namespace VirtualBicycle.Config
 
         }
 
-        public override bool TryGetColorRGBA(string key, out Color clr)
+        public override bool TryGetColorRGBA(string key, out ColorValue clr)
         {
             string v;
             if (this.TryGetValue(key, out v))
             {
                 string[] val = v.Split(ValueSeprater);
-                clr = Color.FromArgb(byte.Parse(val[3]), byte.Parse(val[0]), byte.Parse(val[1]), byte.Parse(val[2]));
+                clr = new ColorValue(byte.Parse(val[3]), byte.Parse(val[0]), byte.Parse(val[1]), byte.Parse(val[2]));
                 return true;
             }
 
-            clr = default(Color);
+            clr = default(ColorValue);
             return false;
         }
-        public override Color GetColorRGBA(string key, Color def)
+        public override ColorValue GetColorRGBA(string key, ColorValue def)
         {
             string v;
             if (this.TryGetValue(key, out v))
             {
                 string[] val = v.Split(ValueSeprater);
 
-                return Color.FromArgb(byte.Parse(val[3]), 
+                return new ColorValue(byte.Parse(val[3]), 
                     byte.Parse(val[0]),
                     byte.Parse(val[1]),
                     byte.Parse(val[2]));
@@ -296,12 +142,12 @@ namespace VirtualBicycle.Config
 
             return def;
         }
-        public override Color GetColorRGBA(string key)
+        public override ColorValue GetColorRGBA(string key)
         {
             string v = this[key];
             string[] val = v.Split(ValueSeprater);
 
-            return Color.FromArgb(byte.Parse(val[3]), 
+            return new ColorValue(byte.Parse(val[3]), 
                 byte.Parse(val[0]), 
                 byte.Parse(val[1]), 
                 byte.Parse(val[2]));

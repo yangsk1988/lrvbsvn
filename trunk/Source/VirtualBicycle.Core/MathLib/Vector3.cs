@@ -616,7 +616,7 @@ namespace VirtualBicycle.MathLib
 
             return (float)Math.Sqrt(x * x + y * y + z * z);
         }
-       
+
         /// <summary>
         /// Calculates the distance between two vectors.
         /// </summary>
@@ -1204,8 +1204,8 @@ namespace VirtualBicycle.MathLib
         /// <param name="normalsOut">The transformed <see cref="Vector3"/>s.</param>
         /// <param name="outputStride">The stride in bytes between vectors in the output.</param>
         /// <param name="count">The number of vectors to transform.</param>
-        public static void TransformNormal(Vector3* normalsIn, int inputStride, Matrix* transformation, Vector3* normalsOut, 
-            int outputStride, int count) 
+        public static void TransformNormal(Vector3* normalsIn, int inputStride, Matrix* transformation, Vector3* normalsOut,
+            int outputStride, int count)
         {
             Matrix t = *transformation;
             byte* input = (byte*)normalsIn;
@@ -1292,7 +1292,7 @@ namespace VirtualBicycle.MathLib
         /// <param name="view">The view matrix.</param>
         /// <param name="world">The world matrix.</param>
         /// <returns>The vector in screen space.</returns>
-        public static Vector3 Project(Vector3 vector, Viewport viewport, Matrix projection, Matrix view, Matrix world) 
+        public static Vector3 Project(Vector3 vector, Viewport viewport, Matrix projection, Matrix view, Matrix world)
         {
             throw new NotImplementedException();
         }

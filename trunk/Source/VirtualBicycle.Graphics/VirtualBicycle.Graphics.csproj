@@ -34,9 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -50,7 +47,6 @@
     <Compile Include="Atmosphere.cs" />
     <Compile Include="Collections\SamplerStateCollection.cs" />
     <Compile Include="Desgin\MatrixEditControl.cs">
-      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Desgin\MatrixEditControl.designer.cs">
       <DependentUpon>MatrixEditControl.cs</DependentUpon>

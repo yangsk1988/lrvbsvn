@@ -114,26 +114,26 @@ namespace VirtualBicycle.MathLib
 
         public bool Contains(Point value)
         {
-            return (this.X <= value.X) && 
-                (value.X < (this.X + this.Width)) && 
-                (this.Y <= value.Y) && 
+            return (this.X <= value.X) &&
+                (value.X < (this.X + this.Width)) &&
+                (this.Y <= value.Y) &&
                 (value.Y < (this.Y + this.Height));
         }
 
         public void Contains(ref Point value, out bool result)
         {
             result = (this.X <= value.X) &&
-                (value.X < (this.X + this.Width)) && 
-                (this.Y <= value.Y) && 
+                (value.X < (this.X + this.Width)) &&
+                (this.Y <= value.Y) &&
                 (value.Y < (this.Y + this.Height));
         }
 
         public bool Contains(Rectangle value)
         {
-            return (this.X <= value.X) && 
-                ((value.X + value.Width) <= 
+            return (this.X <= value.X) &&
+                ((value.X + value.Width) <=
                 (this.X + this.Width)) &&
-                (this.Y <= value.Y) && 
+                (this.Y <= value.Y) &&
                 ((value.Y + value.Height) <= (this.Y + this.Height));
         }
 
@@ -141,36 +141,26 @@ namespace VirtualBicycle.MathLib
         {
             result = (this.X <= value.X) &&
                 ((value.X + value.Width) <= (this.X + this.Width)) &&
-                (this.Y <= value.Y) && 
+                (this.Y <= value.Y) &&
                 ((value.Y + value.Height) <= (this.Y + this.Height));
         }
 
         public bool Intersects(Rectangle value)
         {
-            return (value.X < (this.X + this.Width)) && 
-                (this.X < (value.X + value.Width)) && 
-                (value.Y < (this.Y + this.Height)) && 
+            return (value.X < (this.X + this.Width)) &&
+                (this.X < (value.X + value.Width)) &&
+                (value.Y < (this.Y + this.Height)) &&
                 (this.Y < (value.Y + value.Height));
         }
 
         public void Intersects(ref Rectangle value, out bool result)
         {
-            result = (value.X < (this.X + this.Width)) && 
-                (this.X < (value.X + value.Width)) && 
-                (value.Y < (this.Y + this.Height)) && 
+            result = (value.X < (this.X + this.Width)) &&
+                (this.X < (value.X + value.Width)) &&
+                (value.Y < (this.Y + this.Height)) &&
                 (this.Y < (value.Y + value.Height));
         }
 
-
-
-        public static explicit operator System.Drawing.Rectangle(Rectangle rect)
-        {
-            return new System.Drawing.Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
-        }
-        public static explicit operator Rectangle(System.Drawing.Rectangle rect)
-        {
-            return new Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
-        }
 
         public static Rectangle Intersect(Rectangle a, Rectangle b)
         {
@@ -339,7 +329,7 @@ namespace VirtualBicycle.MathLib
         public float Height;
 
 
-        
+
         public RectangleF(float x, float y, float width, float height)
         {
             this.X = x;

@@ -7,7 +7,7 @@ using System.Text;
 using VirtualBicycle.Design;
 
 namespace VirtualBicycle.MathLib
-{	
+{
     /// <summary>
     /// Defines a four dimensional mathematical quaternion.
     /// </summary>
@@ -102,7 +102,7 @@ namespace VirtualBicycle.MathLib
         /// </summary>
         public Vector3 Axis
         {
-            get 
+            get
             {
                 float len = LengthSquared();
                 if (len > float.Epsilon)
@@ -158,9 +158,9 @@ namespace VirtualBicycle.MathLib
         /// Calculates the length of the quaternion.
         /// </summary>
         /// <returns>The length of the quaternion.</returns>
-        public float Length() 
+        public float Length()
         {
-            return (float)Math.Sqrt(X * X + Y * Y + Z * Z + W * W); 
+            return (float)Math.Sqrt(X * X + Y * Y + Z * Z + W * W);
         }
 
         /// <summary>
@@ -256,7 +256,7 @@ namespace VirtualBicycle.MathLib
         {
             return Slerp(
                 Slerp(source1, source2, weight1 + weight2),
-                Slerp(source1, source3, weight1 + weight2), 
+                Slerp(source1, source3, weight1 + weight2),
                 weight2 / (weight1 + weight2));
         }
 
@@ -270,7 +270,7 @@ namespace VirtualBicycle.MathLib
         /// <param name="weight1">Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in <paramref name="source2"/>).</param>
         /// <param name="weight2">Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in <paramref name="source3"/>).</param>
         /// <param name="result">When the method completes, contains a new <see cref="Quaternion"/> containing the 4D Cartesian coordinates of the specified point.</param>
-        public static void Barycentric(ref Quaternion source1, ref Quaternion source2, ref Quaternion source3, float weight1, float weight2, out Quaternion result) 
+        public static void Barycentric(ref Quaternion source1, ref Quaternion source2, ref Quaternion source3, float weight1, float weight2, out Quaternion result)
         {
             result = Slerp(
                 Slerp(source1, source2, weight1 + weight2),
@@ -412,9 +412,9 @@ namespace VirtualBicycle.MathLib
         /// </summary>
         /// <param name="quaternion">The quaternion to exponentiate.</param>
         /// <returns>The exponentiated quaternion.</returns>
-        public static Quaternion Exponential(Quaternion quaternion) 
+        public static Quaternion Exponential(Quaternion quaternion)
         {
-            throw new NotImplementedException(); 
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -422,7 +422,7 @@ namespace VirtualBicycle.MathLib
         /// </summary>
         /// <param name="quaternion">The quaternion to exponentiate.</param>
         /// <param name="result">When the method completes, contains the exponentiated quaternion.</param>
-        public static void Exponential(ref Quaternion quaternion, out Quaternion result) 
+        public static void Exponential(ref Quaternion quaternion, out Quaternion result)
         {
             throw new NotImplementedException();
         }
@@ -548,7 +548,7 @@ namespace VirtualBicycle.MathLib
         /// </summary>
         /// <param name="quaternion">The quaternion whose logarithm will be calculated.</param>
         /// <returns>The natural logarithm of the quaternion.</returns>
-        public static Quaternion Logarithm(Quaternion quaternion) 
+        public static Quaternion Logarithm(Quaternion quaternion)
         {
             throw new NotImplementedException();
         }
@@ -818,7 +818,7 @@ namespace VirtualBicycle.MathLib
         public static void RotationMatrix(ref Matrix matrix, out Quaternion result)
         {
             float scale = matrix.M11 + matrix.M22 + matrix.M33;
-            float sqrt; 
+            float sqrt;
             float half;
 
             if (scale > 0.0f)
@@ -1016,7 +1016,7 @@ namespace VirtualBicycle.MathLib
         /// <param name="source4">Fourth source quaternion.</param>
         /// <param name="amount">Value between 0 and 1 indicating the weight of interpolation.</param>
         /// <returns>The spherical quadrangle interpolation of the quaternions.</returns>
-        public static Quaternion Squad(Quaternion source1, Quaternion source2, Quaternion source3, Quaternion source4, float amount) 
+        public static Quaternion Squad(Quaternion source1, Quaternion source2, Quaternion source3, Quaternion source4, float amount)
         {
             throw new NotImplementedException();
         }

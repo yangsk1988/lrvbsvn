@@ -2,16 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
 using VirtualBicycle.MathLib;
-
+   
 namespace VirtualBicycle.Design
 {
+#if !XBOX
+    using System.ComponentModel.Design.Serialization;
+#endif
+
     public class PlaneConverter : MathTypeConverter
     {
+#if !XBOX
+
         // Methods
         public PlaneConverter()
         {
@@ -46,7 +51,7 @@ namespace VirtualBicycle.Design
             }
             return new Plane((Vector3)propertyValues["Normal"], (float)propertyValues["D"]);
         }
+        
+#endif
     }
-
-
 }

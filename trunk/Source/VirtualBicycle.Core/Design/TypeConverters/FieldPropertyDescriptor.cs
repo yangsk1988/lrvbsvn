@@ -8,6 +8,7 @@ namespace VirtualBicycle.Design
 {
     internal class FieldPropertyDescriptor : MemberPropertyDescriptor
     {
+
         // Fields
         private FieldInfo _field;
 
@@ -37,6 +38,6 @@ namespace VirtualBicycle.Design
                 return this._field.FieldType;
             }
         }
-    }
     
+    }
 }

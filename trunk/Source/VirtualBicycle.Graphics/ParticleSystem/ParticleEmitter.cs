@@ -1,7 +1,5 @@
-#region Using Statements
 using System;
-using Microsoft.Xna.Framework;
-#endregion
+using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Graphics.ParticleSystem
 {

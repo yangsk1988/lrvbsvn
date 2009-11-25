@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
@@ -10,8 +9,14 @@ using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Design
 {
+#if !XBOX
+    using System.ComponentModel.Design.Serialization;
+#endif
+
     public class Vector2Converter : MathTypeConverter
     {
+#if !XBOX
+
         // Methods
         public Vector2Converter()
         {
@@ -60,7 +65,7 @@ namespace VirtualBicycle.Design
             }
             return new Vector2((float)propertyValues["X"], (float)propertyValues["Y"]);
         }
+   
+#endif
     }
-
-
 }

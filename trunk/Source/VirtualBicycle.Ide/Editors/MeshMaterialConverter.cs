@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
+using System.Text;
 using VirtualBicycle.Ide.Editors.EditableObjects;
 
 namespace VirtualBicycle.Ide.Editors

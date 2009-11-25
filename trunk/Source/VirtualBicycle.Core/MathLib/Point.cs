@@ -67,22 +67,9 @@ namespace VirtualBicycle.MathLib
             return true;
         }
 
-        public static explicit operator System.Drawing.Point(Point p)
-        {
-            return new System.Drawing.Point(p.X, p.Y);
-        }
-
-        public static explicit operator Point(System.Drawing.Point p)
-        {
-            return new Point(p.X, p.Y);
-        }
-
         static Point()
         {
             _zero = new Point();
         }
     }
-
- 
-
 }

@@ -35,6 +35,13 @@ namespace VirtualBicycle.IO
         //    base.Close();
         //}
 
+        public unsafe Half ReadHalf() 
+        {
+            short v = ReadInt16();
+
+            return *(Half*)&v;
+        }
+
         public void ReadMatrix(out Matrix mat)
         {
             mat.M11 = ReadSingle();
@@ -254,6 +261,11 @@ namespace VirtualBicycle.IO
             {
                 Write((ushort)str[i]);
             }
+        }
+
+        public unsafe void Write(Half value)
+        {
+            Write(*(short*)&value);
         }
 
         public void Write(ref Matrix mat)

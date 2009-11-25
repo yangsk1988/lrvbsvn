@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using VirtualBicycle.Core;
 
 namespace VirtualBicycle.Collections
 {
@@ -33,7 +34,7 @@ namespace VirtualBicycle.Collections
         }
     }
 
-    [Serializable, ComVisible(false), DebuggerTypeProxy(typeof(System_QueueDebugView<>)), DebuggerDisplay("Count = {Count}")]
+    [Serializable, DebuggerTypeProxy(typeof(System_QueueDebugView<>)), DebuggerDisplay("Count = {Count}")]
     public class FastQueue<T> : IEnumerable<T>, IEnumerable
     {
         [Serializable, StructLayout(LayoutKind.Sequential)]
