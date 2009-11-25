@@ -291,7 +291,7 @@ namespace VirtualBicycle.Graphics
         Light currentLight;
 
         FogMode fogMode;
-        Color fogColor;
+        ColorValue fogColor;
         int currentFogColor;
 
         float fogStart;
@@ -341,7 +341,7 @@ namespace VirtualBicycle.Graphics
             fogStart = info.FogStart;
             fogEnd = info.FogEnd;
             fogDensity = info.FogDensity;
-            fogColor = Color.FromArgb(info.fogColor);
+            fogColor = new ColorValue(info.fogColor);
             currentFogColor = info.fogColor;
 
             if (info.HasSky)
@@ -366,7 +366,7 @@ namespace VirtualBicycle.Graphics
             fogStart = info.FogStart;
             fogEnd = info.FogEnd;
             fogDensity = info.FogDensity;
-            fogColor = Color.FromArgb(info.fogColor);
+            fogColor = new ColorValue(info.fogColor);
             currentFogColor = info.fogColor;
         }
 
@@ -450,7 +450,7 @@ namespace VirtualBicycle.Graphics
             }
         }
 
-        int MultiplyColor(ref Color clr, float bgn)
+        int MultiplyColor(ref ColorValue clr, float bgn)
         {
             return (0xff << 24) | ((int)(clr.R * bgn) << 16) | ((int)(clr.G * bgn) << 8) | (int)(clr.B * bgn);
         }

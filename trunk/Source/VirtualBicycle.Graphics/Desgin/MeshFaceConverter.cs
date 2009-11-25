@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Drawing.Design;
 using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using System.Collections;
@@ -11,10 +10,9 @@ using VirtualBicycle.Graphics;
 
 namespace VirtualBicycle.Design
 {
-    
     public class MeshFaceConverter : ExpandableObjectConverter
     {
-
+#if !XBOX
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return ((sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType));
@@ -44,8 +42,8 @@ namespace VirtualBicycle.Design
                 int idxA = (int)converter.ConvertFromString(context, culture, stringArray[0]);
                 int idxB = (int)converter.ConvertFromString(context, culture, stringArray[1]);
                 int idxC = (int)converter.ConvertFromString(context, culture, stringArray[2]);
-                int matId = (int)converter.ConvertFromString(context, culture, stringArray[3]);               
-                
+                int matId = (int)converter.ConvertFromString(context, culture, stringArray[3]);
+
                 //ValueType modopt(Vector2) modopt(IsBoxed) type = new Vector2();
                 return new MeshFace(idxA, idxB, idxC, matId);
             }
@@ -112,14 +110,6 @@ namespace VirtualBicycle.Design
             //ValueType modopt(Vector2) modopt(IsBoxed) type = new Vector2();
             return new MeshFace((int)propertyValues["IndexA"], (int)propertyValues["IndexB"], (int)propertyValues["IndexC"], (int)propertyValues["MaterialID"]);
         }
-
-        //public override bool GetPaintValueSupported(System.ComponentModel.ITypeDescriptorContext context)
-        //{
-        //    return true;
-        //}
-        //public override void PaintValue(PaintValueEventArgs e)
-        //{
-            
-        //}
+#endif
     }
 }

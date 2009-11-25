@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
-using VirtualBicycle.IO;
 using VirtualBicycle.Scene;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics.Effects
 {
@@ -18,11 +16,8 @@ namespace VirtualBicycle.Graphics.Effects
     public abstract class PostEffectFactory
     {
         public abstract PostEffect CreateInstance();
+     
         public abstract void DestroyInstance(PostEffect fx);
-        //public abstract string Name
-        //{
-        //    get;
-        //}
     }
 
 
@@ -72,7 +67,7 @@ namespace VirtualBicycle.Graphics.Effects
     public abstract class ModelEffect : EffectBase
     {
 
-        public static Effect LoadEffect(Device device, string filename)
+        public static Effect LoadEffect(RenderSystem device, string filename)
         {
             FileLocation fl = FileSystem.Instance.Locate(FileSystem.CombinePath(Paths.Effects, filename), FileLocateRules.Default);
             ContentStreamReader sr = new ContentStreamReader(fl);
