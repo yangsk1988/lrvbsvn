@@ -8,7 +8,7 @@ using VirtualBicycle.Design;
 
 namespace VirtualBicycle.MathLib
 {
-    [Serializable, StructLayout(LayoutKind.Sequential), TypeConverter(typeof(SizeConverter)), ComVisible(true)]
+    [Serializable, StructLayout(LayoutKind.Sequential), TypeConverter(typeof(SizeConverter))]
     public struct Size
     {
         public static readonly Size Empty;
@@ -49,10 +49,6 @@ namespace VirtualBicycle.MathLib
         public static explicit operator Point(Size size)
         {
             return new Point(size.Width, size.Height);
-        }
-        public static explicit operator System.Drawing.Point(Size size)
-        {
-            return new System.Drawing.Point(size.Width, size.Height);
         }
 
         [Browsable(false)]
@@ -113,17 +109,6 @@ namespace VirtualBicycle.MathLib
             Empty = new Size();
         }
 
-        public static explicit operator System.Drawing.Size(Size s)
-        {
-            return new System.Drawing.Size(s.Width, s.Height);
-        }
 
-        public static explicit operator Size(System.Drawing.Size s)
-        {
-            return new Size(s.Width, s.Height);
-        }
     }
-
-
-
 }

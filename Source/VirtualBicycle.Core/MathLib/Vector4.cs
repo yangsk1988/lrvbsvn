@@ -201,7 +201,7 @@ namespace VirtualBicycle.MathLib
         /// <returns>The length of the vector.</returns>
         public float Length()
         {
-            return (float) Math.Sqrt(X * X + Y * Y + Z * Z + W * W);
+            return (float)Math.Sqrt(X * X + Y * Y + Z * Z + W * W);
         }
 
         /// <summary>
@@ -545,7 +545,7 @@ namespace VirtualBicycle.MathLib
             vector.W = (((value1.W * part1) + (value2.W * part2)) + (tangent1.W * part3)) + (tangent2.W * part4);
 
             return vector;
-        }	
+        }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
@@ -982,7 +982,7 @@ namespace VirtualBicycle.MathLib
         {
             return new Vector4(-value.X, -value.Y, -value.Z, -value.W);
         }
-	
+
 
         /// <summary>
         /// Scales a vector by the given value.
@@ -1045,7 +1045,7 @@ namespace VirtualBicycle.MathLib
         /// <returns>The string representation of the value of this instance.</returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.CurrentCulture, "X:{0} Y:{1} Z:{2} W:{3}", 
+            return string.Format(CultureInfo.CurrentCulture, "X:{0} Y:{1} Z:{2} W:{3}",
                 X.ToString(CultureInfo.CurrentCulture),
                 Y.ToString(CultureInfo.CurrentCulture), Z.ToString(CultureInfo.CurrentCulture),
                 W.ToString(CultureInfo.CurrentCulture));

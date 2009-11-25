@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
 using System.Globalization;
+using System.Text;
 
 namespace VirtualBicycle.Design
 {
+#if !XBOX
+    using System.ComponentModel.Design.Serialization;
+#endif
+
     public class MathTypeConverter : ExpandableObjectConverter
     {
+#if !XBOX
+
         // Fields
         protected PropertyDescriptorCollection propertyDescriptions;
         protected bool supportStringConvert = true;
@@ -88,7 +93,6 @@ namespace VirtualBicycle.Design
         {
             return true;
         }
+#endif
     }
-
-
 }

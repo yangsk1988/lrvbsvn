@@ -383,7 +383,7 @@ namespace VirtualBicycle.MathLib
 
             float cos = Vector3.Dot(dir, plane.Normal);
 
-            if (cos < float.Epsilon) 
+            if (cos < float.Epsilon)
             {
                 intersectPoint = Vector3.Zero;
                 return false;
@@ -462,7 +462,7 @@ namespace VirtualBicycle.MathLib
         /// <param name="plane">The source plane.</param>
         /// <param name="scale">The scaling factor.</param>
         /// <returns>The scaled plane.</returns>
-        public static Plane Multiply(Plane plane, float scale) 
+        public static Plane Multiply(Plane plane, float scale)
         {
             plane.D *= scale;
             plane.Normal.X *= scale;
@@ -477,7 +477,7 @@ namespace VirtualBicycle.MathLib
         /// <param name="plane">The source plane.</param>
         /// <param name="scale">The scaling factor.</param>
         /// <param name="result">When the method completes, contains the scaled plane.</param>
-        public static void Multiply(ref Plane plane, float scale, out Plane result) 
+        public static void Multiply(ref Plane plane, float scale, out Plane result)
         {
             result.D = plane.D * scale;
             result.Normal.X = plane.Normal.X * scale;
@@ -491,7 +491,7 @@ namespace VirtualBicycle.MathLib
         /// <param name="plane">The source plane.</param>
         /// <param name="scale">The scaling factor.</param>
         /// <returns>The scaled plane.</returns>
-        public static Plane operator *(Plane plane, float scale) 
+        public static Plane operator *(Plane plane, float scale)
         {
             plane.D *= scale;
             plane.Normal.X *= scale;

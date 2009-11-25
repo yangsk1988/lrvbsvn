@@ -1,21 +1,5 @@
-/************************************************************************************ 
- *
- * Microsoft XNA Community Game Platform
- * Copyright (C) Microsoft Corporation. All rights reserved.
- * 
- * ===================================================================================
- * Modified by: Ohan Oda (ohan@cs.columbia.edu)
- * 
- *************************************************************************************/
-
-#region Using Statements
 using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-
-using VirtualBicycle.Shaders;
-#endregion
+using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Graphics.ParticleSystem
 {
@@ -820,7 +804,7 @@ namespace VirtualBicycle.Graphics.ParticleSystem
             velocity *= emitterVelocitySensitivity;
 
             // Add in some random amount of horizontal velocity.
-            float horizontalVelocity = MathHelper.Lerp(minHorizontalVelocity,
+            float horizontalVelocity = MathEx.Lerp(minHorizontalVelocity,
                                                        maxHorizontalVelocity,
                                                        (float)random.NextDouble());
 

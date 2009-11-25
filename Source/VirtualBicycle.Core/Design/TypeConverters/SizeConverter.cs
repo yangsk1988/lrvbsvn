@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
@@ -10,8 +9,14 @@ using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Design
 {
+#if !XBOX
+    using System.ComponentModel.Design.Serialization;
+#endif
+
     public class SizeConverter : TypeConverter
     {
+#if !XBOX
+
         // Methods
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -121,8 +126,7 @@ namespace VirtualBicycle.Design
         //{
         //    return true;
         //}
+#endif
+
     }
-
- 
-
 }

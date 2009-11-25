@@ -101,6 +101,9 @@ namespace VirtualBicycle.Ide
             ConverterManager.Instance.Register(new NormalMapConverter());
             ConverterManager.Instance.Register(new XText2ModelConverter());
             ConverterManager.Instance.Register(new DemConverter());
+            ConverterManager.Instance.Register(new TDmp32To16Converter());
+            ConverterManager.Instance.Register(new TDmp32To8Converter());
+            //ConverterManager.Instance.Register(new TDmp32To32iConverter());
 
             ConverterManager.Instance.Register(new Mesh2MeshConverter());
 

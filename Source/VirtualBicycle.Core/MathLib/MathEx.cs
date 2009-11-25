@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 
 namespace VirtualBicycle.MathLib
 {
@@ -524,18 +523,18 @@ namespace VirtualBicycle.MathLib
                             m.M13 * p.X + m.M23 * p.Y + m.M33 * p.Z + m.M43);
         }
 
-        public static void MatrixTranspose3x3(ref Matrix m, out Matrix3x3 ret)
-        {
-            ret.M11 = m.M11;
-            ret.M12 = m.M21;
-            ret.M13 = m.M31;
-            ret.M21 = m.M12;
-            ret.M22 = m.M22;
-            ret.M23 = m.M32;
-            ret.M31 = m.M13;
-            ret.M32 = m.M23;
-            ret.M33 = m.M33;
-        }
+        //public static void MatrixTranspose3x3(ref Matrix m, out Matrix3x3 ret)
+        //{
+        //    ret.M11 = m.M11;
+        //    ret.M12 = m.M21;
+        //    ret.M13 = m.M31;
+        //    ret.M21 = m.M12;
+        //    ret.M22 = m.M22;
+        //    ret.M23 = m.M32;
+        //    ret.M31 = m.M13;
+        //    ret.M32 = m.M23;
+        //    ret.M33 = m.M33;
+        //}
 
         #endregion
 

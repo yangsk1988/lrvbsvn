@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Drawing;
+using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Config
 {
@@ -69,17 +69,17 @@ namespace VirtualBicycle.Config
             throw new NotImplementedException();
         }
 
-        public override bool TryGetColorRGBA(string key, out Color clr)
+        public override bool TryGetColorRGBA(string key, out ColorValue clr)
         {
             throw new NotImplementedException();
         }
 
-        public override Color GetColorRGBA(string key, Color def)
+        public override ColorValue GetColorRGBA(string key, ColorValue def)
         {
             throw new NotImplementedException();
         }
 
-        public override Color GetColorRGBA(string key)
+        public override ColorValue GetColorRGBA(string key)
         {
             throw new NotImplementedException();
         }

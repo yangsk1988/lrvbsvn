@@ -96,7 +96,7 @@ namespace VirtualBicycle.MathLib
             uint num3 = (uint)(g << 8);
             uint num2 = b;
             uint num = (uint)(a << 24);
-            return (((num4 | num3) | num2) | num);            
+            return (((num4 | num3) | num2) | num);
         }
         private static uint PackHelper(int r, int g, int b, int a)
         {
@@ -1234,15 +1234,6 @@ namespace VirtualBicycle.MathLib
                 return new ColorValue(0);
             }
         }
-        public static explicit operator System.Drawing.Color(ColorValue clr)
-        {
-            return System.Drawing.Color.FromArgb((int)clr.packedValue);
-        }
-        public static explicit operator ColorValue(System.Drawing.Color clr) 
-        {
-            return new ColorValue((uint)clr.ToArgb());
-        }
+
     }
-
-
 }

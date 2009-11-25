@@ -31,8 +31,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.prgLabel = new System.Windows.Forms.Label();
-            this.statLabel = new System.Windows.Forms.Label();
             this.fileListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
@@ -42,6 +40,7 @@
             this.removeButton = new System.Windows.Forms.Button();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.progressBar2 = new System.Windows.Forms.ProgressBar();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -57,14 +56,13 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.progressBar1, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.prgLabel, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.statLabel, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.fileListView, 1, 4);
             this.tableLayoutPanel1.Controls.Add(this.okButton, 2, 9);
             this.tableLayoutPanel1.Controls.Add(this.cancelButton, 3, 9);
             this.tableLayoutPanel1.Controls.Add(this.addButton, 2, 8);
             this.tableLayoutPanel1.Controls.Add(this.removeButton, 3, 8);
             this.tableLayoutPanel1.Controls.Add(this.propertyGrid1, 2, 4);
+            this.tableLayoutPanel1.Controls.Add(this.progressBar2, 1, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -104,27 +102,6 @@
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(843, 24);
             this.progressBar1.TabIndex = 1;
-            // 
-            // prgLabel
-            // 
-            this.prgLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.prgLabel.Location = new System.Drawing.Point(13, 293);
-            this.prgLabel.Name = "prgLabel";
-            this.prgLabel.Size = new System.Drawing.Size(419, 30);
-            this.prgLabel.TabIndex = 2;
-            this.prgLabel.Text = "label1";
-            this.prgLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // statLabel
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.statLabel, 2);
-            this.statLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.statLabel.Location = new System.Drawing.Point(438, 293);
-            this.statLabel.Name = "statLabel";
-            this.statLabel.Size = new System.Drawing.Size(418, 30);
-            this.statLabel.TabIndex = 3;
-            this.statLabel.Text = "label2";
-            this.statLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // fileListView
             // 
@@ -209,6 +186,16 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Multiselect = true;
+            // 
+            // progressBar2
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.progressBar2, 3);
+            this.progressBar2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.progressBar2.Location = new System.Drawing.Point(13, 296);
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(843, 24);
+            this.progressBar2.TabIndex = 15;
             // 
             // DemConvDlg
             // 
@@ -233,8 +220,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label prgLabel;
-        private System.Windows.Forms.Label statLabel;
         private System.Windows.Forms.ListView fileListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -244,5 +229,6 @@
         private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ProgressBar progressBar2;
     }
 }

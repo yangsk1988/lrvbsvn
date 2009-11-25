@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
-using System.Drawing.Design;
 
 namespace VirtualBicycle.Design
 {
+#if !XBOX
+    using System.Drawing.Design;
+#endif
+
     public class ArrayConverter<ItemEditorType, ItemType> : TypeConverter
         where ItemEditorType : UITypeEditor
     {
+#if !XBOX
         class ArrayPropertyDescriptor : TypeConverter.SimplePropertyDescriptor
         {
             // Fields
@@ -67,5 +71,7 @@ namespace VirtualBicycle.Design
         {
             return true;
         }
+#endif
+
     }
 }

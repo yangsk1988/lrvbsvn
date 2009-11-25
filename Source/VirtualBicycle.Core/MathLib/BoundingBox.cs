@@ -55,7 +55,7 @@ namespace VirtualBicycle.MathLib
             return vectorArray;
         }
 
-        public PlaneIntersectionType Intersects(Plane plane) 
+        public PlaneIntersectionType Intersects(Plane plane)
         {
             return Intersects(this, plane);
         }
@@ -211,7 +211,7 @@ namespace VirtualBicycle.MathLib
         {
             return Plane.Intersects(plane, box);
         }
-        
+
         /// <summary>
         /// Determines whether a box intersects the specified object.
         /// </summary>

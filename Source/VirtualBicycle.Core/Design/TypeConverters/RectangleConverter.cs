@@ -1,17 +1,22 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using VirtualBicycle.MathLib;
-using System.Globalization;
-using System.Collections;
 
 namespace VirtualBicycle.Design
 {
+#if !XBOX
+    using System.ComponentModel.Design.Serialization;
+#endif
+
     public class RectangleConverter : MathTypeConverter
     {
+#if !XBOX
+
         // Methods
         public RectangleConverter()
         {
@@ -47,8 +52,7 @@ namespace VirtualBicycle.Design
             }
             return new Rectangle((int)propertyValues["X"], (int)propertyValues["Y"], (int)propertyValues["Width"], (int)propertyValues["Height"]);
         }
+   
+#endif
     }
-
- 
-
 }

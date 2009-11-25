@@ -856,7 +856,7 @@ namespace VirtualBicycle.MathLib
         /// <param name="left">The first matrix array to multiply.</param>
         /// <param name="right">The second matrix array to multiply.</param>
         /// <param name="result">The array of products of the two matrices.</param>
-        public static void Multiply(Matrix* left, Matrix* right, Matrix* result, int count) 
+        public static void Multiply(Matrix* left, Matrix* right, Matrix* result, int count)
         {
             while (--count > 0)
             {
@@ -4207,7 +4207,7 @@ namespace VirtualBicycle.MathLib
         {
             return !Matrix.Equals(ref left, ref right);
         }
-        
+
         #endregion
 
         /// <summary>

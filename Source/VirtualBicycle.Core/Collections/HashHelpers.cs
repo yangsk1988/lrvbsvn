@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Runtime.ConstrainedExecution;
+//using System.Runtime.ConstrainedExecution;
 
 namespace VirtualBicycle.Collections
 {
@@ -17,7 +17,7 @@ namespace VirtualBicycle.Collections
              };
 
         // Methods
-        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+        //[ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
         internal static int GetPrime(int min)
         {
             if (min < 0)
@@ -42,7 +42,7 @@ namespace VirtualBicycle.Collections
             return min;
         }
 
-        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
+        //[ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
         internal static bool IsPrime(int candidate)
         {
             if ((candidate & 1) == 0)
@@ -60,7 +60,4 @@ namespace VirtualBicycle.Collections
             return true;
         }
     }
-
- 
-
 }

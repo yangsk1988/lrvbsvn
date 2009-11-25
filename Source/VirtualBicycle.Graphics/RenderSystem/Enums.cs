@@ -680,13 +680,13 @@ namespace VirtualBicycle.Graphics
         Vector4 = 3
     }
 
-    public enum VertexElementMethod : byte
-    {
-        Default = 0,
-        LookUp = 5,
-        LookUpPresampled = 6,
-        UV = 4
-    }
+    //public enum VertexElementMethod : byte
+    //{
+    //    Default = 0,
+    //    LookUp = 5,
+    //    LookUpPresampled = 6,
+    //    UV = 4
+    //}
  
     public enum VertexElementUsage : byte
     {

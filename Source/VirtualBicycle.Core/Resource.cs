@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text;
 using VirtualBicycle.Collections;
+using VirtualBicycle.Design;
 using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Core
@@ -361,7 +362,7 @@ namespace VirtualBicycle.Core
         /// <returns></returns>
         public static int GetHashCode(string name)
         {
-            return name.ToUpperInvariant().GetHashCode();
+            return name.ToUpper().GetHashCode();
         }
 
 
@@ -394,7 +395,7 @@ namespace VirtualBicycle.Core
         /// <summary>
         ///  获取该资源的状态
         /// </summary>
-        [Browsable(false)]
+        [BrowsableAttribute(false)]
         public ResourceState State
         {
             get
@@ -418,8 +419,8 @@ namespace VirtualBicycle.Core
             return base.GetHashCode();
         }
 
-        [Browsable(false)]
-        public string HashString
+        [BrowsableAttribute(false)]
+       public string HashString
         {
             get { return hashString; }
         }
@@ -457,7 +458,8 @@ namespace VirtualBicycle.Core
         /// <summary>
         ///  获得管理该资源的资源管理器
         /// </summary>
-        [Browsable(false)]
+        
+        [BrowsableAttribute(false)]
         public ResourceManager Manager
         {
             get { return manager; }
@@ -465,7 +467,7 @@ namespace VirtualBicycle.Core
         /// <summary>
         ///  获取该资源是否不受管理
         /// </summary>
-        [Browsable(false)]
+        [BrowsableAttribute(false)]
         public bool IsManaged
         {
             get { return manager != null; }
@@ -475,7 +477,7 @@ namespace VirtualBicycle.Core
         /// <summary>
         ///  获取一个System.Boolean，表示该资源是否已经加载
         /// </summary>
-        [Browsable(false)]
+        [BrowsableAttribute(false)]
         public bool IsLoaded
         {
             get { return resState == ResourceState.Loaded; }
@@ -501,7 +503,7 @@ namespace VirtualBicycle.Core
         /// <summary>
         ///  获取一个System.Boolean，表示该资源是否可被释放
         /// </summary>
-        [Browsable(false)]
+        [BrowsableAttribute(false)]
         public virtual bool IsUnloadable
         {
             get { return true; }
@@ -589,7 +591,7 @@ namespace VirtualBicycle.Core
         /// <summary>
         ///  获取一个System.Boolean，表示该资源是否已经销毁
         /// </summary>
-        [Browsable(false)]
+        [BrowsableAttribute(false)]
         public bool Disposed
         {
             get;

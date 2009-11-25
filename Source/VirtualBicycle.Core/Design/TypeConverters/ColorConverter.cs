@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
-using System.Globalization;
-using System.Reflection;
-using System.Text;
-using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Design
 {
+#if !XBOX
+    using System.ComponentModel;
+    using System.ComponentModel.Design.Serialization;
+    using System.Globalization;
+    using System.Reflection;
+    using System.Text;
+    using VirtualBicycle.MathLib;
+#endif
+
     public class ColorConverter : MathTypeConverter
     {
+#if !XBOX
+
         // Methods
         public ColorConverter()
         {
@@ -60,7 +65,8 @@ namespace VirtualBicycle.Design
             }
             return new ColorValue((byte)propertyValues["R"], (byte)propertyValues["G"], (byte)propertyValues["B"], (byte)propertyValues["A"]);
         }
+        
+#endif
     }
-
 
 }

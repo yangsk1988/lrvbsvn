@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -86,18 +85,6 @@ namespace VirtualBicycle.MathLib
         /// <summary>
         /// Initializes a new instance of the <see cref="Color4F"/> structure.
         /// </summary>
-        /// <param name="color">The color whose components should be converted.</param>
-        public Color4F(Color color)
-        {
-            this.Alpha = (float)color.A / 255f;
-            this.Red = (float)color.R / 255f;
-            this.Green = (float)color.G / 255f;
-            this.Blue = (float)color.B / 255f;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Color4F"/> structure.
-        /// </summary>
         /// <param name="alpha">The alpha component of the color.</param>
         /// <param name="red">The red component of the color.</param>
         /// <param name="green">The green component of the color.</param>
@@ -151,15 +138,6 @@ namespace VirtualBicycle.MathLib
             this.Red = red;
             this.Green = green;
             this.Blue = blue;
-        }
-
-        /// <summary>
-        /// Converts the color to a <see cref="System::Drawing::Color"/>.
-        /// </summary>
-        /// <returns>The <see cref="System::Drawing::Color"/> that is equivalent to this instance.</returns>
-        public Color ToColor()
-        {
-            return Color.FromArgb((int)(this.Alpha * 255f), (int)(this.Red * 255f), (int)(this.Green * 255f), (int)(this.Blue * 255f));
         }
 
         /// <summary>
@@ -534,15 +512,6 @@ namespace VirtualBicycle.MathLib
             return value.ToVector4();
         }
 
-        /// <summary>
-        /// Performs an explicit conversion from <see cref="Color"/> to <see cref="Color4F"/>.
-        /// </summary>
-        /// <param name="value">The value to be converted.</param>
-        /// <returns>The converted value.</returns>
-        public static explicit operator Color4F(Color value)
-        {
-            return new Color4F(value);
-        }
 
         /// <summary>
         /// Performs an explicit conversion from <see cref="System::Int32"/> to <see cref="Color4F"/>.
@@ -574,15 +543,6 @@ namespace VirtualBicycle.MathLib
             return new Color4F(value);
         }
 
-        /// <summary>
-        /// Performs an implicit conversion from <see cref="Color4F"/> to <see cref="System::Drawing::Color"/>.
-        /// </summary>
-        /// <param name="value">The value to be converted.</param>
-        /// <returns>The converted value.</returns>
-        public static explicit operator Color(Color4F value)
-        {
-            return value.ToColor();
-        }
 
         /// <summary>
         /// Performs an implicit conversion from <see cref="Color4F"/> to <see cref="ColorValue"/>.

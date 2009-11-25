@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
+using System.Text;
 using VirtualBicycle.Collections;
+using VirtualBicycle.Design;
 
 namespace VirtualBicycle.MathLib
 {
@@ -171,7 +172,7 @@ namespace VirtualBicycle.MathLib
                 this.internalValue = value;
             }
         }
-    } 
+    }
 
     [Serializable, TypeConverter(typeof(ExpandableObjectConverter))]
     public class Curve
@@ -452,6 +453,4 @@ namespace VirtualBicycle.MathLib
             }
         }
     }
-
-
 }

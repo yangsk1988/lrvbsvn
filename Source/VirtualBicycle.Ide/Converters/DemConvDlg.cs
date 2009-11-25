@@ -11,6 +11,29 @@ namespace VirtualBicycle.Ide.Converters
 {
     public partial class DemConvDlg : Form
     {
+        class ProgressCBK : IItemProgressCallback
+        {
+            DemConvDlg parent;
+            public ProgressCBK(DemConvDlg parent)
+            {
+                this.parent = parent;
+            }
+
+            #region IItemProgressCallback 成员
+
+            public void Invoke(int current, int total)
+            {
+                if (current <= total)
+                {
+                    parent.progressBar2.Maximum = total;
+                    parent.progressBar2.Value = current;
+                    Application.DoEvents();
+                }
+            }
+
+            #endregion
+        }
+
         DemConverter converter;
         DemParameters conParams;
 
@@ -64,15 +87,23 @@ namespace VirtualBicycle.Ide.Converters
             okButton.Enabled = false;
             cancelButton.Enabled = false;
 
+            converter.Parameters = conParams;
+            converter.ProgressCBK = new ProgressCBK(this);
+
+            progressBar1.Maximum = fileListView.Items.Count;
+
             for (int i = 0; i < fileListView.Items.Count; i++)
             {
                 string fileName = (string)fileListView.Items[i].Tag;
+                string destFileName = Path.Combine(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName) + ".tdmp");
 
                 DevFileLocation sfl = new DevFileLocation(fileName);
+                DevFileLocation dfl = new DevFileLocation(destFileName);
 
-                converter.Convert(sfl, null);
+                converter.Convert(sfl, dfl);
+                progressBar1.Value = i + 1;
 
-
+                Application.DoEvents();
             }
 
             propertyGrid1.Enabled = true;

@@ -1,4 +1,5 @@
 using System;
+using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Graphics.ParticleSystem
 {

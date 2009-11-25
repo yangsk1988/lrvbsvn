@@ -8,6 +8,7 @@ namespace VirtualBicycle.Design
 {
     internal abstract class MemberPropertyDescriptor : PropertyDescriptor
     {
+
         // Fields
         private MemberInfo _member;
 
@@ -59,6 +60,7 @@ namespace VirtualBicycle.Design
                 return false;
             }
         }
+
     }
     internal class PropertyPropertyDescriptor : MemberPropertyDescriptor
     {
@@ -92,6 +94,5 @@ namespace VirtualBicycle.Design
             }
         }
     }
-
 
 }

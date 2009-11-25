@@ -62,7 +62,7 @@ namespace VirtualBicycle.Core
         ManageState manageState;
 
         [MTAThread()]
-        private void GenerationUpdate_Main(object state)
+        private void GenerationUpdate_Main()
         {
             const int passTimeLimit = 4000;
 
@@ -146,7 +146,7 @@ namespace VirtualBicycle.Core
         }
 
         [MTAThread()]
-        private void Manage_Main(object state)
+        private void Manage_Main()
         {
             while (!Disposed)
             {
@@ -229,12 +229,16 @@ namespace VirtualBicycle.Core
 
             guThread = new Thread(GenerationUpdate_Main);
             guThread.Name = "Generation Update Thread for" + manager.ToString();
+#if !XBOX
             guThread.SetApartmentState(ApartmentState.MTA);
+#endif
             guThread.Start();
 
             mgrThread = new Thread(Manage_Main);
             mgrThread.Name = "Resource Management Thread for" + manager.ToString();
+#if !XBOX
             mgrThread.SetApartmentState(ApartmentState.MTA);
+#endif
             mgrThread.Start();
         }
 

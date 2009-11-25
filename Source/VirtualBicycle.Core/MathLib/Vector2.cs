@@ -120,7 +120,7 @@ namespace VirtualBicycle.MathLib
         /// Calculates the length of the vector.
         /// </summary>
         /// <returns>The length of the vector.</returns>
-        public float Length() 
+        public float Length()
         {
             return (float)Math.Sqrt(X * X + Y * Y);
         }
@@ -424,7 +424,7 @@ namespace VirtualBicycle.MathLib
             vector.Y = (((value1.Y * part1) + (value2.Y * part2)) + (tangent1.Y * part3)) + (tangent2.Y * part4);
 
             return vector;
-        }	
+        }
 
         /// <summary>
         /// Performs a Hermite spline interpolation.
@@ -1050,7 +1050,7 @@ namespace VirtualBicycle.MathLib
         /// <returns>The string representation of the value of this instance.</returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.CurrentCulture, 
+            return string.Format(CultureInfo.CurrentCulture,
                 "X:{0} Y:{1}", X.ToString(CultureInfo.CurrentCulture), Y.ToString(CultureInfo.CurrentCulture));
         }
 

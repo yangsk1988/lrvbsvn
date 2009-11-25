@@ -112,10 +112,12 @@
     <Compile Include="Converters\ProgressDlg.Designer.cs">
       <DependentUpon>ProgressDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Converters\TDmp32To16Converter.cs" />
     <Compile Include="Converters\Xml2ModelConverter.cs" />
     <Compile Include="Converters\XmlModelParser.cs" />
     <Compile Include="Converters\XText2ModelConverter.cs" />
     <Compile Include="Converters\Xml2ModelConverter2.cs" />
+    <Compile Include="Converters\TDmp32To8Converter.cs" />
     <Compile Include="DesignerManager.cs" />
     <Compile Include="Designers\CsfDesignerFactory.cs" />
     <Compile Include="Designers\InputNumberDlg.cs">
