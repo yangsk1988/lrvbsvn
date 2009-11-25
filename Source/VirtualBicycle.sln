@@ -247,6 +247,16 @@ Global
 		{AE28499E-7D28-42AC-8CE6-4F93753342AD}.Release|x86.ActiveCfg = Release|x86
 		{AE28499E-7D28-42AC-8CE6-4F93753342AD}.Release|x86.Build.0 = Release|x86
 		{AE28499E-7D28-42AC-8CE6-4F93753342AD}.Release|Xbox 360.ActiveCfg = Release|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|Win32.ActiveCfg = Debug|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|x86.ActiveCfg = Debug|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|Xbox 360.ActiveCfg = Debug|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|Any CPU.ActiveCfg = Release|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|Win32.ActiveCfg = Release|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|x86.ActiveCfg = Release|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|Xbox 360.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
