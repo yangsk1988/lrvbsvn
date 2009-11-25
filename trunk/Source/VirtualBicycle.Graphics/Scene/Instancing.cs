@@ -46,11 +46,11 @@ namespace VirtualBicycle.Scene
     /// <summary>
     ///  几何体实例化渲染器
     /// </summary>
-    public  class Instancing:UnmanagedResource
+    public  class Instancing : UnmanagedResource
     {
         public const int MaxInstances = 25;
 
-        Device device;
+        RenderSystem device;
 
         VertexBuffer instanceData;
 
@@ -61,7 +61,7 @@ namespace VirtualBicycle.Scene
         ///  创建新的几何体实例化渲染器
         /// </summary>
         /// <param name="device"></param>
-        public Instancing(Device device)
+        public Instancing(RenderSystem device)
         {
             this.device = device;
 

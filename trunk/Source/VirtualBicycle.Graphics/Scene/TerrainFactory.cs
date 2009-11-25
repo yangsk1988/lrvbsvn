@@ -17,13 +17,13 @@ namespace VirtualBicycle.Scene
         
         #region 字段
 
-        Device device;
+        RenderSystem device;
 
         #endregion
 
         #region 属性
 
-        public Device Device
+        public RenderSystem Device
         {
             get { return device; }
         }

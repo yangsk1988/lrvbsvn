@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX.Direct3D9;
 
 namespace VirtualBicycle.Graphics.Effects
 {
@@ -9,7 +8,7 @@ namespace VirtualBicycle.Graphics.Effects
     {
         static EffectManager singleton;
 
-        public static void Initialize(Device device)
+        public static void Initialize(RenderSystem device)
         {
             singleton = new EffectManager();
 

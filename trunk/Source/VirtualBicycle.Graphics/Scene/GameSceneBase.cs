@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
 using VirtualBicycle.Collections;
 using VirtualBicycle.Config;
 using VirtualBicycle.Graphics;
@@ -20,7 +17,7 @@ namespace VirtualBicycle.Scene
     {
         const int MaxInstance = 25;
 
-        Device device;
+        RenderSystem renderSystem;
 
         /// <summary>
         ///  坐标系指示的VertexBuffer
@@ -43,8 +40,6 @@ namespace VirtualBicycle.Scene
         Instancing instancing;
 
         protected FastList<CType> visibleClusters;
-
-
 
         /// <summary>
         ///  按效果批次分组，一个效果批次有一个RenderOperation列表
@@ -168,7 +163,7 @@ namespace VirtualBicycle.Scene
 
             ConfigurationSection sect = config[configName];
 
-            SkyBox result = new SkyBox(device);
+            SkyBox result = new SkyBox(renderSystem);
 
             FileLocation day = FileSystem.Instance.Locate(Path.Combine(Paths.DataSkybox, sect["DayTexture"]), FileLocateRules.Default);
             FileLocation night = FileSystem.Instance.Locate(Path.Combine(Paths.DataSkybox, sect["NightTexture"]), FileLocateRules.Default);
@@ -183,7 +178,7 @@ namespace VirtualBicycle.Scene
         /// </summary>
         void BuildAxis()
         {
-            axis = new VertexBuffer(device, sizeof(VertexPC) * 6, Usage.None, VertexPC.Format, Pool.Managed);
+            axis = new VertexBuffer(renderSystem, sizeof(VertexPC) * 6, Usage.None, VertexPC.Format, Pool.Managed);
             VertexPC* dst = (VertexPC*)axis.Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
 
             Vector3 centre = new Vector3();
@@ -191,12 +186,12 @@ namespace VirtualBicycle.Scene
 
             float ext = 100;
 
-            dst[0] = new VertexPC { pos = centre, diffuse = Color.Red.ToArgb() };
-            dst[1] = new VertexPC { pos = new Vector3(ext + centre.X, centre.Y, centre.Z), diffuse = Color.Red.ToArgb() };
-            dst[2] = new VertexPC { pos = centre, diffuse = Color.Green.ToArgb() };
-            dst[3] = new VertexPC { pos = new Vector3(centre.X, centre.Y + ext, centre.Z), diffuse = Color.Green.ToArgb() };
-            dst[4] = new VertexPC { pos = centre, diffuse = Color.Blue.ToArgb() };
-            dst[5] = new VertexPC { pos = new Vector3(centre.X, centre.Y, centre.Z + ext), diffuse = Color.Blue.ToArgb() };
+            dst[0] = new VertexPC { pos = centre, diffuse = (int)ColorValue.Red.PackedValue };
+            dst[1] = new VertexPC { pos = new Vector3(ext + centre.X, centre.Y, centre.Z), diffuse = (int)ColorValue.Red.PackedValue };
+            dst[2] = new VertexPC { pos = centre, diffuse = (int)ColorValue.Green.PackedValue };
+            dst[3] = new VertexPC { pos = new Vector3(centre.X, centre.Y + ext, centre.Z), diffuse = (int)ColorValue.Green.PackedValue };
+            dst[4] = new VertexPC { pos = centre, diffuse = (int)ColorValue.Blue.PackedValue };
+            dst[5] = new VertexPC { pos = new Vector3(centre.X, centre.Y, centre.Z + ext), diffuse = (int)ColorValue.Blue.PackedValue };
 
             axis.Unlock();
 
@@ -210,14 +205,14 @@ namespace VirtualBicycle.Scene
             axisOp.Transformation = Matrix.Identity;
             axisOp.Geomentry.VertexBuffer = axis; ;
             axisOp.Geomentry.VertexCount = 6;
-            axisOp.Geomentry.VertexDeclaration = new VertexDeclaration(device, D3DX.DeclaratorFromFVF(VertexPC.Format));
+            axisOp.Geomentry.VertexDeclaration = new VertexDeclaration(renderSystem, D3DX.DeclaratorFromFVF(VertexPC.Format));
             axisOp.Geomentry.VertexSize = sizeof(VertexPC);
         }
 
 
-        public GameSceneBase(Device device, SDType data)
+        public GameSceneBase(RenderSystem device, SDType data)
         {
-            this.device = device;
+            this.renderSystem = device;
             //this.clusterTable = data.ClusterTable;
             this.cameraList = new List<ICamera>();
             this.Atmosphere = new Atmosphere(device, data.AtmosphereData, this.LoadSkybox);
@@ -396,27 +391,27 @@ namespace VirtualBicycle.Scene
         ///  见接口<see cref="ISceneRenderer"/>
         /// </summary>
         /// <param name="target"></param>
-        void ISceneRenderer.RenderScenePost(BackBuffer target)
+        void ISceneRenderer.RenderScenePost(RenderTarget target)
         {
-            device.SetRenderTarget(0, target);
+            renderSystem.SetRenderTarget(0, target);
 
-            device.Clear(ClearFlags.ZBuffer | ClearFlags.Target, 0, 1, 0);
+            renderSystem.Clear(ClearFlags.DepthBuffer | ClearFlags.Target, 0, 1, 0);
 
 
-            device.SetTransform(TransformState.Projection, EffectParams.CurrentCamera.ProjectionMatrix);
-            device.SetTransform(TransformState.World, Matrix.Identity);
-            device.SetTransform(TransformState.View, EffectParams.CurrentCamera.ViewMatrix);
+            renderSystem.SetTransform(TransformState.Projection, EffectParams.CurrentCamera.ProjectionMatrix);
+            renderSystem.SetTransform(TransformState.World, Matrix.Identity);
+            renderSystem.SetTransform(TransformState.View, EffectParams.CurrentCamera.ViewMatrix);
 
 
             Atmosphere.Render();
 
-            device.PixelShader = null;
-            device.VertexShader = null;
+            renderSystem.PixelShader = null;
+            renderSystem.VertexShader = null;
 
 
-            device.SetRenderState(RenderState.AlphaBlendEnable, false);
-            device.SetRenderState(RenderState.Lighting, false);
-            device.SetTexture(0, null);
+            renderSystem.SetRenderState(RenderState.AlphaBlendEnable, false);
+            renderSystem.SetRenderState(RenderState.Lighting, false);
+            renderSystem.SetTexture(0, null);
 
             #region 处理一般的Op
             foreach (KeyValuePair<string, FastList<RenderOperation>> e1 in batchTable)
@@ -450,8 +445,8 @@ namespace VirtualBicycle.Scene
                             }
                             else
                             {
-                                device.PixelShader = null;
-                                device.VertexShader = null;
+                                renderSystem.PixelShader = null;
+                                renderSystem.VertexShader = null;
                                 ModelEffect effect = effects[e2.Key];
 
                                 if (effect == null)
@@ -466,8 +461,8 @@ namespace VirtualBicycle.Scene
                                 if (gm.VertexCount == 0)
                                     continue;
 
-                                device.SetRenderState(RenderState.AlphaTestEnable, mate.IsTransparent);
-                                device.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
+                                renderSystem.SetRenderState(RenderState.AlphaTestEnable, mate.IsTransparent);
+                                renderSystem.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
 
                                 int passCount = effect.BeginInst();
 
@@ -487,18 +482,18 @@ namespace VirtualBicycle.Scene
 
                                         effect.SetupInstancing(mate);
 
-                                        device.VertexFormat = gm.Format;
-                                        device.VertexDeclaration = instancing.GetInstancingDecl(gm.VertexDeclaration);
+                                        renderSystem.VertexFormat = gm.Format;
+                                        renderSystem.VertexDeclaration = instancing.GetInstancingDecl(gm.VertexDeclaration);
 
                                         int rendered = instancing.Setup(opList, index);
-                                        device.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
-                                        device.SetStreamSourceFrequency(0, rendered, StreamSource.IndexedData);
+                                        renderSystem.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
+                                        renderSystem.SetStreamSourceFrequency(0, rendered, StreamSource.IndexedData);
 
                                         remainingInst -= rendered;
                                         index += rendered;
 
-                                        device.Indices = gm.IndexBuffer;
-                                        device.DrawIndexedPrimitives(gm.PrimitiveType,
+                                        renderSystem.Indices = gm.IndexBuffer;
+                                        renderSystem.DrawIndexedPrimitives(gm.PrimitiveType,
                                             gm.BaseVertex, 0,
                                             gm.VertexCount, gm.BaseIndexStart,
                                             gm.PrimCount);
@@ -539,8 +534,10 @@ namespace VirtualBicycle.Scene
 
         void RenderList(string name, FastList<RenderOperation> opList)
         {
-            device.PixelShader = null;
-            device.VertexShader = null;
+            RenderStateManager states = renderSystem.RenderStates;
+
+            renderSystem.PixelShader = null;
+            renderSystem.VertexShader = null;
             ModelEffect effect = effects[name];
 
             if (effect == null)
@@ -570,26 +567,27 @@ namespace VirtualBicycle.Scene
                         mate = Material.DefaultMaterial;
 
                     //device.SetRenderState(RenderState.ZWriteEnable, !mate.IsTransparent);
-                    device.SetRenderState(RenderState.AlphaTestEnable, mate.IsTransparent);
-                    device.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
+                    states.AlphaBlendEnable = !mate.IsTransparent;
+                    states.CullMode = mate.CullMode;
 
                     effect.Setup(mate, ref op);
 
-                    device.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
-                    device.VertexFormat = gm.Format;
-                    device.VertexDeclaration = gm.VertexDeclaration;
+                    
+                    renderSystem.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
+                    renderSystem.VertexFormat = gm.Format;
+                    renderSystem.VertexDeclaration = gm.VertexDeclaration;
 
                     if (gm.UseIndices)
                     {
-                        device.Indices = gm.IndexBuffer;
-                        device.DrawIndexedPrimitives(gm.PrimitiveType,
+                        renderSystem.Indices = gm.IndexBuffer;
+                        renderSystem.DrawIndexedPrimitives(gm.PrimitiveType,
                             gm.BaseVertex, 0,
                             gm.VertexCount, gm.BaseIndexStart,
                             gm.PrimCount);
                     }
                     else
                     {
-                        device.DrawPrimitives(gm.PrimitiveType, 0, gm.PrimCount);
+                        renderSystem.DrawPrimitives(gm.PrimitiveType, 0, gm.PrimCount);
                     }
                 } // for (int j = 0; j < opList.Count; j++)
                 effect.EndPass();
@@ -622,25 +620,25 @@ namespace VirtualBicycle.Scene
                     mate = Material.DefaultMaterial;
 
                 //device.SetRenderState(RenderState.AlphaTestEnable, mate.IsTransparent);
-                device.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
+                renderSystem.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
 
                 effect.SetupShadowPass(mate, ref op);
 
-                device.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
-                device.VertexFormat = gm.Format;
-                device.VertexDeclaration = gm.VertexDeclaration;
+                renderSystem.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
+                renderSystem.VertexFormat = gm.Format;
+                renderSystem.VertexDeclaration = gm.VertexDeclaration;
 
                 if (gm.UseIndices)
                 {
-                    device.Indices = gm.IndexBuffer;
-                    device.DrawIndexedPrimitives(gm.PrimitiveType,
+                    renderSystem.Indices = gm.IndexBuffer;
+                    renderSystem.DrawIndexedPrimitives(gm.PrimitiveType,
                         gm.BaseVertex, 0,
                         gm.VertexCount, gm.BaseIndexStart,
                         gm.PrimCount);
                 }
                 else
                 {
-                    device.DrawPrimitives(gm.PrimitiveType, 0, gm.PrimCount);
+                    renderSystem.DrawPrimitives(gm.PrimitiveType, 0, gm.PrimCount);
                 }
             }
 
@@ -691,10 +689,10 @@ namespace VirtualBicycle.Scene
                 PreRender();
 
 
-                device.PixelShader = null;
-                device.VertexShader = null;
+                renderSystem.PixelShader = null;
+                renderSystem.VertexShader = null;
 
-                device.SetRenderState(RenderState.ZEnable, true);
+                renderSystem.SetRenderState(RenderState.ZEnable, true);
 
                 #region Shadow Map Gen
                 shadowMap.Begin(Atmosphere.LightDirection, EffectParams.CurrentCamera);
@@ -741,7 +739,7 @@ namespace VirtualBicycle.Scene
                                     if (gm.VertexCount == 0)
                                         continue;
 
-                                    device.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
+                                    renderSystem.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
 
                                     effect.BeginShadowPass();
 
@@ -757,19 +755,19 @@ namespace VirtualBicycle.Scene
                                         RenderOperation op = new RenderOperation();
                                         effect.Setup(mate, ref op);
 
-                                        device.VertexFormat = gm.Format;
-                                        device.VertexDeclaration = instancing.GetInstancingDecl(gm.VertexDeclaration);
+                                        renderSystem.VertexFormat = gm.Format;
+                                        renderSystem.VertexDeclaration = instancing.GetInstancingDecl(gm.VertexDeclaration);
 
                                         int rendered = instancing.Setup(opList, index);
 
-                                        device.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
-                                        device.SetStreamSourceFrequency(0, rendered, StreamSource.IndexedData);
+                                        renderSystem.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
+                                        renderSystem.SetStreamSourceFrequency(0, rendered, StreamSource.IndexedData);
 
                                         remainingInst -= rendered;
                                         index += rendered;
 
-                                        device.Indices = gm.IndexBuffer;
-                                        device.DrawIndexedPrimitives(gm.PrimitiveType,
+                                        renderSystem.Indices = gm.IndexBuffer;
+                                        renderSystem.DrawIndexedPrimitives(gm.PrimitiveType,
                                             gm.BaseVertex, 0,
                                             gm.VertexCount, gm.BaseIndexStart,
                                             gm.PrimCount);

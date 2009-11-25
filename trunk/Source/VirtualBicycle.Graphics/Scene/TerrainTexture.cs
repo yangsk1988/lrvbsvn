@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
-using SlimDX.Direct3D9;
 using VirtualBicycle.Core;
 using VirtualBicycle.Graphics;
-using VirtualBicycle.IO;
-using VBC = VirtualBicycle.Core;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Scene
 {
-    public class TerrainTexture : GameTexture
+    public class TerrainTexture : Texture
     {
         bool isDisplacement;
 
         #region 构造函数
 
-        public TerrainTexture(VBC.ResourceManager mgr, Texture texture, bool isDisp)
+        public TerrainTexture(ResourceManager mgr, Texture texture, bool isDisp)
             : base(mgr, texture)
         {
             isDisplacement = isDisp;
@@ -28,14 +26,14 @@ namespace VirtualBicycle.Scene
         ///  创建资源引用 
         /// </summary>
         /// <param name="texture"></param>
-        public TerrainTexture(VBC.ResourceManager mgr, TerrainTexture texture)
+        public TerrainTexture(ResourceManager mgr, TerrainTexture texture)
             : base(mgr, texture)
         {
             isDisplacement = texture.isDisplacement;
         }
 
-        public TerrainTexture(VBC.ResourceManager mgr, Device device, ResourceLocation rl, Usage usage, Pool pool, bool isDisp)
-            : base(mgr, device, rl, usage, pool)
+        public TerrainTexture(ResourceManager mgr, RenderSystem device, ResourceLocation rl, TextureUsage usage, bool isDisp)
+            : base(mgr, device, rl, usage)
         {
             isDisplacement = isDisp;
         }

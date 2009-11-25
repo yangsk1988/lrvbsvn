@@ -142,7 +142,6 @@
     <Compile Include="Scene\OctreeSceneNode.cs" />
     <Compile Include="Scene\PassInfo.cs" />
     <Compile Include="Scene\PostRenderer.cs" />
-    <Compile Include="Scene\RigidBodyManager.cs" />
     <Compile Include="Scene\SceneData.cs" />
     <Compile Include="Scene\SceneDataBase.cs" />
     <Compile Include="Scene\SceneManager.cs" />

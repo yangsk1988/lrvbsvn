@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using SlimDX;
 using VirtualBicycle.Collections;
 using VirtualBicycle.Design;
 using VirtualBicycle.MathLib;

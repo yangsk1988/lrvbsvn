@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
-using VirtualBicycle.IO;
+using VirtualBicycle.Vfs;
 using VirtualBicycle.Scene;
 
 namespace VirtualBicycle.Graphics.Effects
@@ -12,9 +10,9 @@ namespace VirtualBicycle.Graphics.Effects
     {
         static readonly string typeName = "TerrainRendering";
 
-        Device device;
+        RenderSystem device;
 
-        public TerrainRenderingEffectFactory(Device device)
+        public TerrainRenderingEffectFactory(RenderSystem device)
         {
             this.device = device;
         }

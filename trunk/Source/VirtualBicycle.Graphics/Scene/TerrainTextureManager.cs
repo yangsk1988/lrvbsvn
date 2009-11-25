@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX.Direct3D9;
 using VirtualBicycle.Core;
 using VirtualBicycle.Graphics;
-using VirtualBicycle.IO;
-using VBC = VirtualBicycle.Core;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Scene
 {
     /// <summary>
     ///  负责管理DisplacementMap，ColorMap，NormalMap以及IndexMap
     /// </summary>
-    public class TerrainTextureManager : VBC.ResourceManager
+    public class TerrainTextureManager : ResourceManager
     {
         static int defaultCacheSize = 128 * 1048576;
 
@@ -51,7 +49,7 @@ namespace VirtualBicycle.Scene
         private TerrainTextureManager(int cacheSize)
             : base(cacheSize)
         {
-            CreationUsage = Usage.None;
+            CreationUsage = TextureUsage.Static;
         }
 
         #region 属性
@@ -59,16 +57,7 @@ namespace VirtualBicycle.Scene
         /// <summary>
         ///  获取或设置新创建纹理的用法(Usage)
         /// </summary>
-        public Usage CreationUsage
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        ///  获取或设置新创建纹理的资源管理方式(Pool)
-        /// </summary>
-        public Pool CreationPool
+        public TextureUsage CreationUsage
         {
             get;
             set;
@@ -84,12 +73,12 @@ namespace VirtualBicycle.Scene
         /// <param name="device"></param>
         /// <param name="rl"></param>
         /// <returns></returns>
-        public TerrainTexture CreateInstance(Device device, ResourceLocation rl, bool isDisp)
+        public TerrainTexture CreateInstance(RenderSystem device, ResourceLocation rl, bool isDisp)
         {
-            VBC.Resource retrived = base.Exists(rl.Name);
+            Resource retrived = base.Exists(rl.Name);
             if (retrived == null)
             {
-                TerrainTexture tex = new TerrainTexture(this, device, rl, CreationUsage, CreationPool, isDisp);
+                TerrainTexture tex = new TerrainTexture(this, device, rl, CreationUsage, isDisp);
                 retrived = tex;
                 base.NotifyResourceNew(tex, CacheType.Static);
 

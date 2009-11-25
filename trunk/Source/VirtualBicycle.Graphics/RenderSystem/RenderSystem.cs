@@ -275,6 +275,8 @@ namespace VirtualBicycle.Graphics
                 primitiveCount += op[i].Geomentry.PrimCount;
                 vertexCount += op[i].Geomentry.VertexCount;
             }
+
+
         }
 
         /// <summary>

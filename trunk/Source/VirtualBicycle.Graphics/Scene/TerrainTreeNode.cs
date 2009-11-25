@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
 using VirtualBicycle.Collections;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.MathLib;
