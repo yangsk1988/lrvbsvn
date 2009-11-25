@@ -10,11 +10,11 @@ namespace VirtualBicycle.Graphics
     /// </summary>
     public abstract class RenderTarget
     {
-        protected Surface colorBuffer;
-        protected Surface depthStencilBuffer;
+        protected BackBuffer colorBuffer;
+        protected BackBuffer depthStencilBuffer;
 
         protected RenderTarget(RenderSystem renderSystem, int width, int height,
-            PixelFormat clrBufFormat, PixelFormat depBufFmt)
+            ImagePixelFormat clrBufFormat, DepthFormat depBufFmt)
         {
             Width = width;
             Height = height;
@@ -41,7 +41,7 @@ namespace VirtualBicycle.Graphics
             get;
             private set;
         }
-        public PixelFormat ColorBufferFormat
+        public ImagePixelFormat ColorBufferFormat
         {
             get;
             private set;

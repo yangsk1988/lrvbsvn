@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Text;
-using System.Windows.Forms;
-using System.Windows.Forms.Design;
-using SlimDX;
 using VirtualBicycle.MathLib;
-using VirtualBicycle.UI;
 
 namespace VirtualBicycle.Design
 {
+#if !XBOX
+    using System.Windows.Forms;
+    using System.Windows.Forms.Design;
+    using System.Drawing;
+    using System.Data;
+
     public partial class MatrixEditControl : UserControl, IEditControl<Matrix>
     {
         enum TransformationType
@@ -281,7 +281,7 @@ namespace VirtualBicycle.Design
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-             switch (comboBox1.SelectedIndex)
+            switch (comboBox1.SelectedIndex)
             {
                 case (int)TransformationType.None:
                     propertyGrid1.SelectedObject = new NoTransformation();
@@ -324,4 +324,5 @@ namespace VirtualBicycle.Design
             edSvc.CloseDropDown();
         }
     }
+#endif
 }

@@ -28,8 +28,8 @@ namespace VirtualBicycle.Graphics
         Texture shadowDepthMap;
         Texture shadowRt;
 
-        Surface shadowRtSurface;
-        Surface shadowDepSurface;
+        BackBuffer shadowRtSurface;
+        BackBuffer shadowDepSurface;
 
         public const int ShadowMapLength = 1024;
 
@@ -88,8 +88,8 @@ namespace VirtualBicycle.Graphics
         }
 
 
-        Surface stdDepth;
-        Surface stdRenderTarget;
+        BackBuffer stdDepth;
+        BackBuffer stdRenderTarget;
         Viewport stdVp;
 
         public Matrix LightProjection;

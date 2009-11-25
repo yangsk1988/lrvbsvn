@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
 using VirtualBicycle.CollisionModel;
 using VirtualBicycle.CollisionModel.Dispatch;
 using VirtualBicycle.CollisionModel.Shapes;

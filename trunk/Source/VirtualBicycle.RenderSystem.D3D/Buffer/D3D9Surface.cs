@@ -6,7 +6,7 @@ using D3D = SlimDX.Direct3D9;
 
 namespace VirtualBicycle.Graphics.D3D9
 {
-    internal class D3D9Surface : Surface
+    internal class D3D9Surface : BackBuffer
     {
         D3D.Surface surface;
 

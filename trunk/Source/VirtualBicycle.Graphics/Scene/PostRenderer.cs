@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Graphics.Effects;
-using VirtualBicycle.Vfs;
 using VirtualBicycle.Graphics;
+using VirtualBicycle.Graphics.Effects;
+using VirtualBicycle.MathLib;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Scene
 {
@@ -16,7 +17,7 @@ namespace VirtualBicycle.Scene
         ///  正常渲染场景
         /// </summary>
         /// <param name="target">场景渲染目标</param>
-        void RenderScenePost(Surface target);
+        void RenderScenePost(BackBuffer target);
     }
 
     /// <summary>
@@ -29,7 +30,7 @@ namespace VirtualBicycle.Scene
         /// </summary>
         /// <param name="renderer">实现ISceneRenderer可以渲染场景的对象</param>
         /// <param name="screenTarget">渲染目标</param>
-        void Render(ISceneRenderer renderer, Surface screenTarget);
+        void Render(ISceneRenderer renderer, BackBuffer screenTarget);
     }
 
     /// <summary>
@@ -53,13 +54,13 @@ namespace VirtualBicycle.Scene
                 get { return Vector4.SizeInBytes + Vector2.SizeInBytes; }
             }
         }
-        Device device;
+        RenderSystem device;
 
         Texture colorTarget;
         Texture bloom;
 
-        Surface clrRt;
-        Surface blmRt;
+        BackBuffer clrRt;
+        BackBuffer blmRt;
 
         Effect bloomEffect;
         Effect compEffect;
@@ -142,10 +143,13 @@ namespace VirtualBicycle.Scene
         /// </summary>
         /// <param name="renderer"></param>
         /// <param name="screenTarget"></param>
-        public void Render(ISceneRenderer renderer, Surface screenTarget)
+        public void Render(ISceneRenderer renderer, RenderTarget screenTarget)
         {
+            RenderStateManager states = device.RenderStates;
+
             renderer.RenderScenePost(clrRt);
-            device.SetRenderState<Cull>(RenderState.CullMode, Cull.None);
+
+            states.CullMode = CullMode.None;
 
             #region 分离高光
             device.SetRenderTarget(0, blmRt);
@@ -187,8 +191,10 @@ namespace VirtualBicycle.Scene
 
             #region 合成
 
+
             device.SetRenderTarget(0, screenTarget);
 
+            
             device.VertexShader = null;
             device.PixelShader = null;
 
@@ -198,12 +204,14 @@ namespace VirtualBicycle.Scene
             spr.Draw(colorTarget, -1);
             spr.End();
 
-            device.SetRenderState(RenderState.AlphaBlendEnable, true);
-            device.SetRenderState<BlendOperation>(RenderState.BlendOperation, BlendOperation.Add);
-            device.SetRenderState<Blend>(RenderState.DestinationBlend, Blend.One);
-            device.SetRenderState<Blend>(RenderState.DestinationBlendAlpha, Blend.One);
-            device.SetRenderState<Blend>(RenderState.SourceBlend, Blend.One);
-            device.SetRenderState<Blend>(RenderState.SourceBlendAlpha, Blend.One);
+            states.AlphaBlendEnable = true;
+            states.BlendFunction = BlendFunction.Add;
+            
+            states.DestinationBlend = Blend.One;
+            states.DestinationBlendAlpha = Blend.One;
+            states.SourceBlend = Blend.One;
+            states.SourceBlendAlpha = Blend.One;
+
 
 
             compEffect.Begin(FX.DoNotSaveState | FX.DoNotSaveShaderState | FX.DoNotSaveSamplerState);
@@ -216,7 +224,8 @@ namespace VirtualBicycle.Scene
 
             compEffect.EndPass();
             compEffect.End();
-            device.SetRenderState(RenderState.AlphaBlendEnable, false);
+
+            states.AlphaBlendEnable = false;
 
             #endregion
 
@@ -224,7 +233,7 @@ namespace VirtualBicycle.Scene
 
         protected unsafe override void loadUnmanagedResources()
         {
-            Surface s = device.GetBackBuffer(0, 0);
+            BackBuffer s = device.GetBackBuffer(0, 0);
             SurfaceDescription desc = s.Description;
 
             Size blmSize = new Size(512, 512);

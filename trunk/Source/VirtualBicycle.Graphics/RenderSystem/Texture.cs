@@ -12,7 +12,6 @@ namespace VirtualBicycle.Graphics
     {
         static TextureType[] convTable;
         
-
         static Texture()
         {
             convTable = new TextureType[4];
@@ -42,7 +41,7 @@ namespace VirtualBicycle.Graphics
             this.RenderSystem = rs;
         }
 
-        protected Texture(RenderSystem rs, Surface[] surface, TextureUsage usage)
+        protected Texture(RenderSystem rs, BackBuffer[] surface, TextureUsage usage)
         {
             this.RenderSystem = rs;
             this.SurfaceCount = surface.Length;

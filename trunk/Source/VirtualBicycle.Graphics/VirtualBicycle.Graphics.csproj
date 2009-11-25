@@ -50,7 +50,7 @@
     <Compile Include="FpsCounter.cs" />
     <Compile Include="RenderSystem\Buffer\HardwareBuffer.cs" />
     <Compile Include="RenderSystem\Buffer\IndexBuffer.cs" />
-    <Compile Include="RenderSystem\Buffer\Surface.cs" />
+    <Compile Include="RenderSystem\Buffer\BackBuffer.cs" />
     <Compile Include="RenderSystem\Buffer\VertexBuffer.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Collections\BoneCollection.cs" />
@@ -73,6 +73,7 @@
     <Compile Include="Geometry\Torus.cs" />
     <Compile Include="IRenderable.cs" />
     <Compile Include="Mesh.cs" />
+    <Compile Include="RenderSystem\Buffer\DepthBuffer.cs" />
     <Compile Include="RenderSystem\Material.cs" />
     <Compile Include="MeshSimplifier.cs" />
     <Compile Include="Model.cs" />

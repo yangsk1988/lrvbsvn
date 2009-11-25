@@ -99,7 +99,7 @@ namespace VirtualBicycle.Graphics.D3D9
         {
             return new D3D9RenderTarget(d3dRenderSys, width, height, clrFmt, depthFmt);
         }
-        public override RenderTarget CreateRenderTarget(Surface backBuffer, Surface depthBuffer, int width, int height)
+        public override RenderTarget CreateRenderTarget(BackBuffer backBuffer, BackBuffer depthBuffer, int width, int height)
         {
             D3D9Surface d3dcb = (D3D9Surface)backBuffer;
             D3D9Surface d3ddb = (D3D9Surface)depthBuffer;

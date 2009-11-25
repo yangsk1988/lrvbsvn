@@ -71,7 +71,7 @@ namespace VirtualBicycle.Graphics.D3D9
             }
         }
 
-        public override Blend AlphaDestinationBlend
+        public override Blend DestinationBlendAlpha
         {
             get
             {
@@ -99,7 +99,7 @@ namespace VirtualBicycle.Graphics.D3D9
             }
         }
 
-        public override Blend AlphaSourceBlend
+        public override Blend SourceBlendAlpha
         {
             get
             {

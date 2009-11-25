@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using VirtualBicycle.Media;
 
 namespace VirtualBicycle.Graphics
 {
     /// <summary>
     ///  表示纹理中的Surface，在这里通常是RenderTarget
     /// </summary>
-    public abstract class Surface : HardwareBuffer
+    public abstract class BackBuffer : HardwareBuffer
     {
         //static Surface()
         //{
@@ -39,35 +40,19 @@ namespace VirtualBicycle.Graphics
             private set;
         }
 
-        public SurfaceType Type
+        public ImagePixelFormat ColorFormat
         {
             get;
             private set;
         }
 
-        public PixelFormat ColorFormat
-        {
-            get;
-            private set;
-        }
-
-        public bool IsLockable
-        {
-            get;
-            private set;
-        }
-
-        protected Surface(int width, int height, BufferUsage usage, PixelFormat format)
-            : base(usage, PixelUtil.GetMemorySize(width, height, 1, format), false)
+        protected BackBuffer(int width, int height, BufferUsage usage, PixelFormat format)
+            : base(usage, PixelFormat.GetMemorySize(width, height, 1, format), false)
         {
             Width = width;
             Height = height;
 
             ColorFormat = format;
-            DepthFormat = DepthFormat.Unknown;
-            Type = SurfaceType.ColorBuffer;
-            IsLockable = format == PixelFormat.Depth16Lockable || format == PixelFormat.Depth32Lockable;
-
         }
 
         //static int[] bytesPP;

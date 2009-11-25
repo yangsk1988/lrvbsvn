@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using SlimDX;
 using VirtualBicycle.Collections;
 using VirtualBicycle.CollisionModel.Dispatch;
 using VirtualBicycle.CollisionModel.Shapes;
 using VirtualBicycle.Graphics;
-using VirtualBicycle.IO;
+using VirtualBicycle.Vfs;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.Physics;
 using VirtualBicycle.Physics.Dynamics;

@@ -70,10 +70,10 @@ namespace VirtualBicycle.Scene
             LoadUnmanagedResources();
 
             this.idElements = new VertexElement[4];
-            this.idElements[0] = new VertexElement(1, 0, DeclarationType.Float3, DeclarationMethod.Default, DeclarationUsage.TextureCoordinate, 8);
-            this.idElements[1] = new VertexElement(1, (short)Vector3.SizeInBytes, DeclarationType.Float3, DeclarationMethod.Default, DeclarationUsage.TextureCoordinate, 9);
-            this.idElements[2] = new VertexElement(1, (short)(Vector3.SizeInBytes * 2), DeclarationType.Float3, DeclarationMethod.Default, DeclarationUsage.TextureCoordinate, 10);
-            this.idElements[3] = new VertexElement(1, (short)(Vector3.SizeInBytes * 3), DeclarationType.Float3, DeclarationMethod.Default, DeclarationUsage.TextureCoordinate, 11);
+            this.idElements[0] = new VertexElement(1, 0, DeclarationType.Float3,  DeclarationUsage.TextureCoordinate, 8);
+            this.idElements[1] = new VertexElement(1, (short)Vector3.SizeInBytes, DeclarationType.Float3,  DeclarationUsage.TextureCoordinate, 9);
+            this.idElements[2] = new VertexElement(1, (short)(Vector3.SizeInBytes * 2), DeclarationType.Float3, DeclarationUsage.TextureCoordinate, 10);
+            this.idElements[3] = new VertexElement(1, (short)(Vector3.SizeInBytes * 3), DeclarationType.Float3,  DeclarationUsage.TextureCoordinate, 11);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace VirtualBicycle.Scene
         /// </remarks>
         public unsafe int Setup(FastList<RenderOperation> opList, int index)
         {
-            InstanceData* dst = (InstanceData*)instanceData.Lock(0, 0, LockFlags.None).DataPointer;
+            InstanceData* dst = (InstanceData*)instanceData.Lock(0, 0, LockMode.None).DataPointer;
 
             int count = 0;
             for (int i = index; i < opList.Count && count < MaxInstances; i++)

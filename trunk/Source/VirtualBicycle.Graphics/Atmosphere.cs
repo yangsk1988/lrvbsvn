@@ -117,12 +117,12 @@ namespace VirtualBicycle.Graphics
             get { return fogDensity; }
             set { fogDensity = value; }
         }
-        public int fogColor;
+        public uint fogColor;
 
-        public Color FogColor
+        public ColorValue FogColor
         {
-            get { return Color.FromArgb(fogColor); }
-            set { fogColor = value.ToArgb(); }
+            get { return new ColorValue(fogColor); }
+            set { fogColor = value.PackedValue; }
         }
 
         [Browsable(false)]
@@ -153,15 +153,15 @@ namespace VirtualBicycle.Graphics
 
             skyName = sect.GetString("Sky", "DefaultSkyBox");
 
-            ambientColor = new Color4(
+            ambientColor = new Color4F(
                     sect.GetSingle("AmbientRed", 0.3f),
                     sect.GetSingle("AmbientGreen", 0.3f),
                     sect.GetSingle("AmbientBlue", 0.3f));
-            diffuseColor = new Color4(
+            diffuseColor = new Color4F(
                     sect.GetSingle("DiffuseRed", 0.6f),
                     sect.GetSingle("DiffuseGreen", 0.6f),
                     sect.GetSingle("DiffuseBlue", 0.6f));
-            specularColor = new Color4(
+            specularColor = new Color4F(
                     sect.GetSingle("SpecularRed", 0.0f),
                     sect.GetSingle("SpecularGreen", 0.0f),
                     sect.GetSingle("SpecularBlue", 0.0f));
@@ -171,13 +171,14 @@ namespace VirtualBicycle.Graphics
             fogDensity = sect.GetSingle("FogDensity", 0.002f);
             fogStart = sect.GetSingle("FogStart", 150f);
             fogEnd = sect.GetSingle("FogEnd", 200);
-            fogColor = sect.GetColorRGBA("FogColor", Color.DarkGray).ToArgb();
+            fogColor = sect.GetColorRGBA("FogColor", ColorValue.DarkGray).PackedValue;
 
 
         }
 
         #endregion
 
+        #region IO Tags
         static readonly string DayLengthTag = "DayLength";
         static readonly string StartRealtimeTag = "StartWithRealTime";
         static readonly string WeatherTypeTag = "WeatherType";
@@ -190,6 +191,7 @@ namespace VirtualBicycle.Graphics
         static readonly string FogStartTag = "FogStart";
         static readonly string FogEndTag = "FogEnd";
         static readonly string FogColorTag = "FogColor";
+        #endregion
 
         public void ReadData(BinaryDataReader data)
         {
@@ -228,7 +230,7 @@ namespace VirtualBicycle.Graphics
             fogDensity = data.GetDataSingle(FogDensityTag);
             fogStart = data.GetDataSingle(FogStartTag);
             fogEnd = data.GetDataSingle(FogEndTag);
-            fogColor = data.GetDataInt32(FogColorTag);
+            fogColor = data.GetDataUInt32(FogColorTag);
         }
 
         public BinaryDataWriter WriteData()
@@ -292,7 +294,7 @@ namespace VirtualBicycle.Graphics
 
         FogMode fogMode;
         ColorValue fogColor;
-        int currentFogColor;
+        uint currentFogColor;
 
         float fogStart;
         float fogEnd;
@@ -416,7 +418,7 @@ namespace VirtualBicycle.Graphics
         /// <summary>
         ///  获取或设置雾的颜色
         /// </summary>
-        public int FogColor
+        public uint FogColor
         {
             get { return currentFogColor; }
             set { currentFogColor = value; }
@@ -450,9 +452,9 @@ namespace VirtualBicycle.Graphics
             }
         }
 
-        int MultiplyColor(ref ColorValue clr, float bgn)
+        uint MultiplyColor(ref ColorValue clr, float bgn)
         {
-            return (0xff << 24) | ((int)(clr.R * bgn) << 16) | ((int)(clr.G * bgn) << 8) | (int)(clr.B * bgn);
+            return ((uint)0xff << 24) | ((uint)(clr.R * bgn) << 16) | ((uint)(clr.G * bgn) << 8) | (uint)(clr.B * bgn);
         }
 
         /// <summary>
@@ -496,8 +498,6 @@ namespace VirtualBicycle.Graphics
                 sunAngle = 90;
             }
 
-            //Color currFogClr = fogColor;
-
 
             if (skyBox != null)
             {
@@ -531,7 +531,7 @@ namespace VirtualBicycle.Graphics
                 else if (angle > fadeRange && angle < 180 - fadeRange)
                 {
                     currentLight.Diffuse = light.Diffuse;
-                    currentFogColor = fogColor.ToArgb();
+                    currentFogColor = fogColor.PackedValue;
 
                     skyBox.DayNightLerpParam = 0;
                 }

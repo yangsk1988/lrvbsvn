@@ -28,7 +28,7 @@ namespace VirtualBicycle
         Vector3 Top { get; }
         Vector3 Right { get; }
 
-        Surface RenderTarget { get; }
+        BackBuffer RenderTarget { get; }
     }
 
 
@@ -57,7 +57,7 @@ namespace VirtualBicycle
 
         protected bool isProjDirty;
 
-        public Surface RenderTarget
+        public BackBuffer RenderTarget
         {
             get;
             set;
@@ -172,8 +172,8 @@ namespace VirtualBicycle
         /// </summary>
         public Matrix ViewMatrix
         {
-            get { return frustum.view; }
-            protected set { frustum.view = value; }
+            get { return frustum.View; }
+            protected set { frustum.View = value; }
         }
 
         /// <summary>
@@ -181,8 +181,8 @@ namespace VirtualBicycle
         /// </summary>
         public Matrix ProjectionMatrix
         {
-            get { return frustum.proj; }
-            protected set { frustum.proj = value; }
+            get { return frustum.Projection; }
+            protected set { frustum.Projection = value; }
         }
 
         /// <summary>
@@ -227,7 +227,7 @@ namespace VirtualBicycle
             NearPlaneWidth = NearPlaneHeight * AspectRatio;
 
 
-            frustum.proj = Matrix.PerspectiveRH(NearPlaneWidth, NearPlaneHeight, near, far);
+            frustum.Projection = Matrix.PerspectiveRH(NearPlaneWidth, NearPlaneHeight, near, far);
 
             isProjDirty = false;
         }
@@ -251,7 +251,7 @@ namespace VirtualBicycle
             top = MathEx.GetMatrixUp(ref m);
             right = MathEx.GetMatrixRight(ref m);
 
-            frustum.view = Matrix.LookAtRH(position, position + front, top);
+            frustum.View = Matrix.LookAtRH(position, position + front, top);
 
             frustum.Update();
         }
@@ -551,7 +551,7 @@ namespace VirtualBicycle
         /// </summary>
         private void UpdateMatrices()
         {
-            Frustum.view = Matrix.LookAtRH(this.Position, this.LookAt, this.top);
+            Frustum.View = Matrix.LookAtRH(this.Position, this.LookAt, this.top);
             //projection = Matrix.CreatePerspectiveFieldOfView(FieldOfView,
             //    AspectRatio, NearPlaneDistance, FarPlaneDistance);
         }
