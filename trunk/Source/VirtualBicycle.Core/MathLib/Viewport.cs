@@ -72,6 +72,45 @@ namespace VirtualBicycle.MathLib
             set { maxZ = value; }
         }
 
+        private static bool WithinEpsilon(float a, float b)
+        {
+            float num = a - b;
+            return ((-float.Epsilon <= num) && (num <= float.Epsilon));
+        }
+
+
+        public Vector3 Unproject(Vector3 source, Matrix projection, Matrix view, Matrix world)
+        {
+            Matrix matrix = Matrix.Invert(Matrix.Multiply(Matrix.Multiply(world, view), projection));
+            source.X = (((source.X - this.X) / ((float)this.Width)) * 2f) - 1f;
+            source.Y = -((((source.Y - this.Y) / ((float)this.Height)) * 2f) - 1f);
+            source.Z = (source.Z - this.minZ) / (this.maxZ - this.minZ);
+            Vector3 vector = Vector3.TransformSimple(source, matrix);
+            float a = (((source.X * matrix.M14) + (source.Y * matrix.M24)) + (source.Z * matrix.M34)) + matrix.M44;
+
+            if (!WithinEpsilon(a, 1f))
+            {
+                vector = vector / a;
+            }
+            return vector;
+        }
+
+        public Vector3 Project(Vector3 source, Matrix projection, Matrix view, Matrix world)
+        {
+            Matrix matrix = Matrix.Multiply(Matrix.Multiply(world, view), projection);
+            Vector3 vector = Vector3.TransformSimple(source, matrix);
+            float a = (((source.X * matrix.M14) + (source.Y * matrix.M24)) + (source.Z * matrix.M34)) + matrix.M44;
+            if (!WithinEpsilon(a, 1f))
+            {
+                vector = vector / a;
+            }
+            vector.X = (((vector.X + 1f) * 0.5f) * this.Width) + this.X;
+            vector.Y = (((-vector.Y + 1f) * 0.5f) * this.Height) + this.Y;
+            vector.Z = (vector.Z * (this.maxZ - this.minZ)) + this.minZ;
+            return vector;
+        }
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Viewport"/> structure.
         /// </summary>

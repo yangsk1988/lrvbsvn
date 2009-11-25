@@ -806,6 +806,16 @@ namespace VirtualBicycle.MathLib
             return result;
         }
 
+        public static Vector3 TransformSimple(Vector3 position, Matrix matrix)
+        {
+            Vector3 vector;
+            vector.X = position.X * matrix.M11 + position.Y * matrix.M21 + position.Z * matrix.M31 + matrix.M41;
+            vector.Y = position.X * matrix.M12 + position.Y * matrix.M22 + position.Z * matrix.M32 + matrix.M42;
+            vector.Z = position.X * matrix.M13 + position.Y * matrix.M23 + position.Z * matrix.M33 + matrix.M43;
+            return vector;
+        }
+
+ 
         /// <summary>
         /// Transforms a 3D vector by the given <see cref="Matrix"/>.
         /// </summary>

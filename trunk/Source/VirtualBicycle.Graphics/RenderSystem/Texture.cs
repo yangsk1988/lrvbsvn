@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Core;
+using VirtualBicycle.Media;
 
 namespace VirtualBicycle.Graphics
 {
@@ -52,7 +53,7 @@ namespace VirtualBicycle.Graphics
             this.Type = TextureType.Texture2D;
             this.Format = surface[0].ColorFormat;
             this.BytesPerPixel = Image.GetBytesPerPixel(Format);
-            this.ContentSize = PixelUtil.GetMemorySize(Width, Height, 1, Format);
+            this.ContentSize = PixelFormat.GetMemorySize(Width, Height, 1, Format);
 
             this.Usage = usage;
 
@@ -73,7 +74,7 @@ namespace VirtualBicycle.Graphics
             this.Usage = usage;
         }
 
-        protected Texture(RenderSystem rs, int width, int height, int depth, int surfaceCount, PixelFormat format, TextureUsage usage)
+        protected Texture(RenderSystem rs, int width, int height, int depth, int surfaceCount, ImagePixelFormat format, TextureUsage usage)
         {
             this.RenderSystem = rs;
             this.SurfaceCount = surfaceCount;
@@ -204,7 +205,7 @@ namespace VirtualBicycle.Graphics
             private set;
         }
 
-        public PixelFormat Format
+        public ImagePixelFormat Format
         {
             get;
             private set;

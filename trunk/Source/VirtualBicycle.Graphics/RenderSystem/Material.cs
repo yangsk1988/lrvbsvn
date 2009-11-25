@@ -4,8 +4,10 @@ using System.IO;
 using System.Text;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VirtualBicycle.IO;
 using VirtualBicycle.Graphics.Effects;
+using VirtualBicycle.IO;
+using VirtualBicycle.MathLib;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics
 {
@@ -29,10 +31,9 @@ namespace VirtualBicycle.Graphics
         static readonly string CullModeTag = "CullMode";
         #endregion
 
-
         #region Properties
 
-        public Cull CullMode
+        public CullMode CullMode
         {
             get;
             set;
@@ -50,7 +51,7 @@ namespace VirtualBicycle.Graphics
 
         protected virtual void ReadData(BinaryDataReader data)
         {
-            CullMode = (Cull)data.GetDataInt32(CullModeTag, 0);
+            CullMode = (CullMode)data.GetDataInt32(CullModeTag, 0);
             IsTransparent = data.GetDataBool(IsTransparentTag, false);
         }
 
@@ -81,7 +82,11 @@ namespace VirtualBicycle.Graphics
         #endregion
 
         #region Field
-        protected internal Material mat;
+        protected Color4F ambient;
+        protected Color4F diffuse;
+        protected Color4F specular;
+        protected Color4F emissive;
+        protected float power;
 
         protected string[] textureFiles = new string[MaxTexLayers];
 
@@ -98,41 +103,36 @@ namespace VirtualBicycle.Graphics
         #region 属性
 
 
-        public Color4 Ambient
+        public Color4F Ambient
         {
-            get { return mat.Ambient; }
-            set { mat.Ambient = value; }
+            get { return ambient; }
+            set { ambient = value; }
         }
 
-        public Color4 Diffuse
+        public Color4F Diffuse
         {
-            get { return mat.Diffuse; }
-            set { mat.Diffuse = value; }
+            get { return diffuse; }
+            set { diffuse = value; }
         }
 
-        public Color4 Specular
+        public Color4F Specular
         {
-            get { return mat.Specular; }
-            set { mat.Specular = value; }
+            get { return specular; }
+            set { specular = value; }
         }
 
-        public Color4 Emissive
+        public Color4F Emissive
         {
-            get { return mat.Emissive; }
-            set { mat.Emissive = value; }
+            get { return emissive; }
+            set { emissive = value; }
         }
 
         public float Power
         {
-            get { return mat.Power; }
-            set { mat.Power = value; }
+            get { return power; }
+            set { power = value; }
         }
         
-        public Material D3DMaterial
-        {
-            get { return mat; }
-            set { mat = value; }
-        }
         public ModelEffect Effect
         {
             get;
@@ -354,7 +354,7 @@ namespace VirtualBicycle.Graphics
         #region Constructors
         static Material()
         {
-            Color4 clr;
+            Color4F clr;
             clr.Alpha = 1;
             clr.Blue = 1;
             clr.Green = 1;
@@ -371,11 +371,11 @@ namespace VirtualBicycle.Graphics
             DefaultMatColor.Specular = clr;
 
             DefaultMaterial = new Material(null);
-            DefaultMaterial.CullMode = Cull.None;
+            DefaultMaterial.CullMode = CullMode.None;
             DefaultMaterial.mat = DefaultMatColor;
         }
 
-        public Material(Device dev)
+        public Material(RenderSystem dev)
         {
             device = dev;
         }

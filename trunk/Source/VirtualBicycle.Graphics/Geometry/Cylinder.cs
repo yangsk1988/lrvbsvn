@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Graphics.Geometry
 {
@@ -38,19 +39,19 @@ namespace VirtualBicycle.Graphics.Geometry
 
             PrimitiveMesh mesh = new PrimitiveMesh();
 
-            List<VertexPositionNormal> vertices = new List<VertexPositionNormal>();
+            List<VertexPN> vertices = new List<VertexPN>();
 
             // Add top center vertex
-            VertexPositionNormal topCenter = new VertexPositionNormal();
-            topCenter.Position = new Vector3(0, height / 2, 0);
-            topCenter.Normal = new Vector3(0, 1, 0);
+            VertexPN topCenter;
+            topCenter.pos = new Vector3(0, height / 2, 0);
+            topCenter.n = new Vector3(0, 1, 0);
 
             vertices.Add(topCenter);
 
             // Add bottom center vertex
-            VertexPositionNormal bottomCenter = new VertexPositionNormal();
-            bottomCenter.Position = new Vector3(0, -height / 2, 0);
-            bottomCenter.Normal = new Vector3(0, -1, 0);
+            VertexPN bottomCenter;
+            bottomCenter.pos = new Vector3(0, -height / 2, 0);
+            bottomCenter.n = new Vector3(0, -1, 0);
 
             vertices.Add(bottomCenter);
 
@@ -71,29 +72,29 @@ namespace VirtualBicycle.Graphics.Geometry
                     cos = (float)Math.Cos(angle);
                     sin = (float)Math.Sin(angle);
 
-                    VertexPositionNormal topSide = new VertexPositionNormal();
-                    topSide.Position = new Vector3(cos * top, height / 2, sin * top);
-                    topSide.Normal = Vector3.Normalize(topSide.Position - topCenter.Position);
+                    VertexPN topSide;
+                    topSide.pos = new Vector3(cos * top, height / 2, sin * top);
+                    topSide.n = Vector3.Normalize(topSide.pos - topCenter.pos);
 
-                    VertexPositionNormal topSide2 = new VertexPositionNormal();
-                    topSide2.Position = new Vector3(cos * top, height / 2, sin * top);
-                    topSide2.Normal = topCenter.Normal;
+                    VertexPN topSide2;
+                    topSide2.pos = new Vector3(cos * top, height / 2, sin * top);
+                    topSide2.n = topCenter.n;
 
                     // Add bottom side vertices
-                    VertexPositionNormal bottomSide = new VertexPositionNormal();
-                    bottomSide.Position = new Vector3(cos * bottom, -height / 2, sin * bottom);
-                    bottomSide.Normal = Vector3.Normalize(bottomSide.Position - bottomCenter.Position);
+                    VertexPN bottomSide;
+                    bottomSide.pos = new Vector3(cos * bottom, -height / 2, sin * bottom);
+                    bottomSide.n = Vector3.Normalize(bottomSide.pos - bottomCenter.pos);
 
-                    VertexPositionNormal bottomSide2 = new VertexPositionNormal();
-                    bottomSide2.Position = new Vector3(cos * bottom, -height / 2, sin * bottom);
-                    bottomSide2.Normal = bottomCenter.Normal;
+                    VertexPN bottomSide2;
+                    bottomSide2.pos = new Vector3(cos * bottom, -height / 2, sin * bottom);
+                    bottomSide2.n = bottomCenter.n;
 
                     if (tilted)
                     {
-                        v = topSide.Normal;
+                        v = topSide.n;
                         u = Vector3.Cross(v, down);
-                        mat = Matrix.CreateTranslation(v) * Matrix.CreateFromAxisAngle(u, -rotAngle);
-                        topSide.Normal = bottomSide.Normal = Vector3.Normalize(mat.Translation);
+                        mat = Matrix.Translation(v) * Matrix.RotationAxis(u, -rotAngle);
+                        topSide.n = bottomSide.n = Vector3.Normalize(mat.TranslationValue);
                     }
 
                     vertices.Add(topSide);
@@ -110,22 +111,22 @@ namespace VirtualBicycle.Graphics.Geometry
                     cos = (float)Math.Cos(angle);
                     sin = (float)Math.Sin(angle);
 
-                    VertexPositionNormal topSide = new VertexPositionNormal();
-                    topSide.Position = topCenter.Position;
+                    VertexPN topSide;
+                    topSide.pos = topCenter.pos;
 
                     // Add bottom side vertices
-                    VertexPositionNormal bottomSide = new VertexPositionNormal();
-                    bottomSide.Position = new Vector3(cos * bottom, -height / 2, sin * bottom);
-                    bottomSide.Normal = Vector3.Normalize(bottomSide.Position - bottomCenter.Position);
+                    VertexPN bottomSide;
+                    bottomSide.pos = new Vector3(cos * bottom, -height / 2, sin * bottom);
+                    bottomSide.n = Vector3.Normalize(bottomSide.pos - bottomCenter.pos);
 
-                    VertexPositionNormal bottomSide2 = new VertexPositionNormal();
-                    bottomSide2.Position = new Vector3(cos * bottom, -height / 2, sin * bottom);
-                    bottomSide2.Normal = bottomCenter.Normal;
+                    VertexPN bottomSide2;
+                    bottomSide2.pos = new Vector3(cos * bottom, -height / 2, sin * bottom);
+                    bottomSide2.n = bottomCenter.n;
 
-                    v = bottomSide.Normal;
+                    v = bottomSide.n;
                     u = Vector3.Cross(v, down);
-                    mat = Matrix.CreateTranslation(v) * Matrix.CreateFromAxisAngle(u, rotAngle);
-                    topSide.Normal = bottomSide.Normal = Vector3.Normalize(mat.Translation);
+                    mat = Matrix.Translation(v) * Matrix.RotationAxis(u, rotAngle);
+                    topSide.n = bottomSide.n = Vector3.Normalize(mat.TranslationValue);
 
                     vertices.Add(topSide);
                     vertices.Add(bottomSide);
@@ -134,7 +135,7 @@ namespace VirtualBicycle.Graphics.Geometry
             }
 
             mesh.VertexDeclaration = new VertexDeclaration(State.Device,
-                VertexPositionNormal.VertexElements);
+                VertexPN.Elements);
 
             mesh.VertexBuffer = new VertexBuffer(State.Device,
                 VertexPositionNormal.SizeInBytes * vertices.Count, BufferUsage.None);
