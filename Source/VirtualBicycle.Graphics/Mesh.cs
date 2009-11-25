@@ -867,7 +867,7 @@ namespace VirtualBicycle.Graphics
         /// </summary>
         /// <param name="dev"></param>
         /// <param name="data">网格数据</param>
-        public unsafe void BuildFromData(Device dev, MeshData data)
+        public unsafe void BuildFromData(RenderSystem dev, MeshData data)
         {
             this.name = data.Name;
 
@@ -987,7 +987,7 @@ namespace VirtualBicycle.Graphics
         /// <param name="dev"></param>
         /// <param name="stm"></param>
         /// <returns></returns>
-        public static GameMesh FromStream(Device dev, Stream stm)
+        public static GameMesh FromStream(RenderSystem dev, Stream stm)
         {
             MeshData data = new MeshData(dev);
             data.Load(stm);

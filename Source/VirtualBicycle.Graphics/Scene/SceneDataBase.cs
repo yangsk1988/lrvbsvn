@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
 using VirtualBicycle.Graphics;
-using VirtualBicycle.IO;
 using VirtualBicycle.Logic;
 using VirtualBicycle.Logic.Traffic;
+using VirtualBicycle.MathLib;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Scene
 {
@@ -38,7 +37,7 @@ namespace VirtualBicycle.Scene
 
         protected SceneObject[] sceneObjects;
 
-        protected Device device;
+        protected RenderSystem device;
 
         protected BoundingBox boundingBox;
 
@@ -102,7 +101,7 @@ namespace VirtualBicycle.Scene
         }
         #endregion
 
-        public SceneDataBase(Device device, InGameObjectManager mgr)
+        public SceneDataBase(RenderSystem device, InGameObjectManager mgr)
         {
             this.ObjectManager = mgr;
             this.device = device;

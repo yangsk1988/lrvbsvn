@@ -92,7 +92,7 @@ namespace VirtualBicycle.Scene
             return effect;
         }
 
-        public PostRenderer(Device device)
+        public PostRenderer(RenderSystem device)
         {
             this.device = device;
 

@@ -16,7 +16,7 @@ namespace VirtualBicycle.Scene
     {
         #region Fields
 
-        Device device;
+        RenderSystem device;
 
         Cluster parentCluster;
 
@@ -65,7 +65,7 @@ namespace VirtualBicycle.Scene
         #endregion
 
         #region Constructor
-        protected SceneManagerBase(Device dev, Cluster cluster)
+        protected SceneManagerBase(RenderSystem dev, Cluster cluster)
         {
             this.device = dev;
 
@@ -338,7 +338,7 @@ namespace VirtualBicycle.Scene
 
         #region 构造函数
 
-        public SceneManager(Device device, Cluster cluster, Atmosphere atmos)
+        public SceneManager(RenderSystem device, Cluster cluster, Atmosphere atmos)
             : base(device, cluster)
         {
         }

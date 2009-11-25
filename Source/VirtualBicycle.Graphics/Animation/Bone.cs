@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX;
 using VirtualBicycle.Collections;
+using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Graphics.Animation
 {

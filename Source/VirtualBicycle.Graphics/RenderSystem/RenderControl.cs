@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Graphics;
-using SD = System.Drawing;
 
 namespace VirtualBicycle.Graphics
 {

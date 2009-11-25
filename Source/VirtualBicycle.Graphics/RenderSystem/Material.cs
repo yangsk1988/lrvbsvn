@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
 using VirtualBicycle.Graphics.Effects;
-using VirtualBicycle.IO;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.Vfs;
 
@@ -334,7 +331,7 @@ namespace VirtualBicycle.Graphics
     /// <summary>
     ///  材质
     /// </summary>
-    public class Material : MeshMaterialBase<GameTexture>, IComparable<Material>
+    public class Material : MeshMaterialBase<Texture>, IComparable<Material>
     {
         #region Constants
 
@@ -383,7 +380,7 @@ namespace VirtualBicycle.Graphics
 
         #region Fields
 
-        protected Device device;
+        protected RenderSystem device;
         #endregion
 
         #region IComparable<MeshMaterial> 成员
@@ -400,7 +397,7 @@ namespace VirtualBicycle.Graphics
         /// <summary>
         ///  重写以适应不同环境下的使用
         /// </summary>
-        GameTexture LoadTexture(string fileName)
+        Texture LoadTexture(string fileName)
         {
             fileName = fileName.Trim();
             if (!string.IsNullOrEmpty(fileName))
@@ -418,7 +415,7 @@ namespace VirtualBicycle.Graphics
             }
             return null;
         }
-        protected override GameTexture LoadTexture(ContentBinaryReader br, bool isEmbeded, int index)
+        protected override Texture LoadTexture(ContentBinaryReader br, bool isEmbeded, int index)
         {
             if (isEmbeded)
             {
@@ -433,7 +430,7 @@ namespace VirtualBicycle.Graphics
             }
         }
 
-        protected override void SaveTexture(ContentBinaryWriter bw, GameTexture tex, bool isEmbeded, int index)
+        protected override void SaveTexture(ContentBinaryWriter bw, Texture tex, bool isEmbeded, int index)
         {
             if (isEmbeded)
             {
@@ -446,7 +443,7 @@ namespace VirtualBicycle.Graphics
         {
             return EffectManager.Instance.GetModelEffect(name);
         }
-        public static Material FromBinary(Device dev, BinaryDataReader data)
+        public static Material FromBinary(RenderSystem dev, BinaryDataReader data)
         {
             Material res = new Material(dev);
 
@@ -462,7 +459,7 @@ namespace VirtualBicycle.Graphics
             return data;
         }
 
-        protected override void DestroyTexture(GameTexture tex)
+        protected override void DestroyTexture(Texture tex)
         {
             TextureManager.Instance.DestroyInstance(tex);
         }

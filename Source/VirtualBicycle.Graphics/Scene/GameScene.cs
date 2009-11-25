@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
 using VirtualBicycle.Collections;
 using VirtualBicycle.Config;
 using VirtualBicycle.Graphics;
@@ -35,7 +32,7 @@ namespace VirtualBicycle.Scene
         /// <param name="device">d3d设备</param>
         /// <param name="data">构建场景的数据</param>
         /// <param name="cbk">进度指示回调</param>
-        public GameScene(Device device, SceneData data, ProgressCallBack cbk)
+        public GameScene(RenderSystem device, SceneData data, ProgressCallBack cbk)
             : base(device, data)
         {
             int size = (data.SceneSize - 1) / Cluster.ClusterLength;

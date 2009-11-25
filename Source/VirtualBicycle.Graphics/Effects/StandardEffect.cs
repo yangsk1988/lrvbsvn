@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
-using VirtualBicycle.IO;
+using VirtualBicycle.Vfs;
 using VirtualBicycle.Scene;
 
 namespace VirtualBicycle.Graphics.Effects
@@ -21,9 +18,9 @@ namespace VirtualBicycle.Graphics.Effects
 
 
 
-        Device device;
+        RenderSystem device;
 
-        public StandardEffectFactory(Device dev)
+        public StandardEffectFactory(RenderSystem dev)
         {
             device = dev;
         }
@@ -43,7 +40,7 @@ namespace VirtualBicycle.Graphics.Effects
     {
         bool stateSetted;
 
-        Device device;
+        RenderSystem device;
 
         Effect effect;
         Effect effectInst;
@@ -75,7 +72,7 @@ namespace VirtualBicycle.Graphics.Effects
 
         Texture noTexture;
 
-        public unsafe StandardEffect(Device dev)
+        public unsafe StandardEffect(RenderSystem dev)
             : base(false, StandardEffectFactory.Name)
         {
             device = dev;

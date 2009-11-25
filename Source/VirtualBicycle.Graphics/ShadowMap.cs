@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
 using VirtualBicycle.Graphics.Effects;
-using VirtualBicycle.IO;
+using VirtualBicycle.MathLib;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics
 {
@@ -19,9 +18,13 @@ namespace VirtualBicycle.Graphics
             public float dummy;
             public Vector2 tex1;
 
-            public static VertexFormat Format
+            static readonly VertexElement[] elements;
+
+            static TestVertex ()
             {
-                get { return VertexFormat.PositionRhw | VertexFormat.Texture1; }
+                elements = new VertexElement[2];
+                elements[0] = new VertexElement(0, VertexElementFormat.Vector4, VertexElementUsage.PositionTransformed);
+                elements[1] = new VertexElement(elements[0].Offset, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0);
             }
         }
 
@@ -36,7 +39,7 @@ namespace VirtualBicycle.Graphics
         VertexBuffer pip;
 
         Viewport smVp;
-        Device device;
+        RenderSystem device;
 
         public DefaultSMGenEffect DefaultSMGen
         {
@@ -44,7 +47,7 @@ namespace VirtualBicycle.Graphics
             private set;
         }
 
-        public unsafe ShadowMap(Device dev)
+        public unsafe ShadowMap(RenderSystem dev)
         {
             device = dev;
 

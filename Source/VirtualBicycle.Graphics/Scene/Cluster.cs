@@ -53,7 +53,7 @@ namespace VirtualBicycle.Scene
         /// </summary>
         /// <param name="x">以地形单位为单位</param>
         /// <param name="y">以地形单位为单位</param>
-        public Cluster(GameScene scene, Device device, int x, int y, float cellUnit)
+        public Cluster(GameScene scene, RenderSystem device, int x, int y, float cellUnit)
         {
             this.description.X = x;
             this.description.Y = y;

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX.Direct3D9;
 using System.IO;
-using VirtualBicycle.IO;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics.Effects
 {

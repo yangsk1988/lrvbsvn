@@ -139,7 +139,7 @@ namespace VirtualBicycle.Scene
     {
         #region 构造函数
 
-        public SceneData(Device device, InGameObjectManager mgr)
+        public SceneData(RenderSystem device, InGameObjectManager mgr)
             : base(device, mgr)
         {
 
@@ -149,12 +149,12 @@ namespace VirtualBicycle.Scene
 
         #region 静态方法
 
-        public static SceneData FromFile(Device device, InGameObjectManager mgr, string file, ProgressCallBack cbk)
+        public static SceneData FromFile(RenderSystem device, InGameObjectManager mgr, string file, ProgressCallBack cbk)
         {
             return FromFile(device, mgr, new FileLocation(file), cbk);
         }
 
-        public static SceneData FromFile(Device device, InGameObjectManager mgr, FileLocation fl, ProgressCallBack cbk)
+        public static SceneData FromFile(RenderSystem device, InGameObjectManager mgr, FileLocation fl, ProgressCallBack cbk)
         {
             ContentBinaryReader br = new ContentBinaryReader(fl);
 

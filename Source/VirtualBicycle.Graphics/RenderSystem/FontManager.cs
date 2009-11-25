@@ -26,55 +26,15 @@ namespace VirtualBicycle.Graphics
                 return singleton;
             }
         }
-
-        //struct FontDescription
-        //{
-        //    public string name;
-        //    public float fontSize;
-        //    public FontStyle style;
-
-        //    public FontDescription(string name, float fontSize, FontStyle style)
-        //    {
-        //        this.name = name;
-        //        this.fontSize = fontSize;
-        //        this.style = style;
-               
-        //    }
-
-        //    public override int GetHashCode()
-        //    {
-        //        return name.GetHashCode() + fontSize.GetHashCode() + (int)style;
-        //    }
-        //    public override bool Equals(object obj)
-        //    {
-        //        if (obj is FontDescription)
-        //        {
-        //            FontDescription b = (FontDescription)obj;
-        //            return name == b.name && fontSize == b.fontSize && style == b.style;
-        //        }
-        //        return false;
-        //    }
-        //    public override string ToString()
-        //    {
-        //        return name;
-        //    }
-
-        //    public static bool operator ==(FontDescription a, FontDescription b)
-        //    {
-        //        return a.name == b.name && a.fontSize == b.fontSize && a.style == b.style;
-        //    }
-        //    public static bool operator !=(FontDescription a, FontDescription b)
-        //    {
-        //        return a.name != b.name || a.fontSize != b.fontSize || a.style != b.style;
-        //    }
-        //}
-
+        
         Dictionary<string, Font> loadedFonts;
 
         private FontManager()
         {
             loadedFonts = new Dictionary<string, Font>();
         }
+
+
 
         //public Font CreateInstance(RenderSystem rs, System.Drawing.Font font)
         //{

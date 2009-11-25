@@ -25,7 +25,7 @@ namespace VirtualBicycle.Scene
         Vector3 min;
         Vector3 max;
 
-        public OctreeSceneManager(Cluster cluster, Device dev, OctreeBox range, float minBVSize)
+        public OctreeSceneManager(Cluster cluster, RenderSystem dev, OctreeBox range, float minBVSize)
             : base(dev, cluster)
         {
             this.range = range;

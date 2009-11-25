@@ -124,16 +124,19 @@ namespace VirtualBicycle.Scene
 
         struct TerrainVertex
         {
+            static VertexElement[] elements;
+
+            static TerrainVertex()
+            {
+                elements = new VertexElement[1];
+                elements[0] = new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position);
+            }
+
             public Vector3 position;
 
             public static int Size
             {
                 get { return Vector3.SizeInBytes; }
-            }
-
-            public static VertexFormat Format
-            {
-                get { return VertexFormat.Position; }
             }
         }
 
@@ -194,7 +197,7 @@ namespace VirtualBicycle.Scene
 
         TerrainSettings terrainSettings;
 
-        Device device;
+        RenderSystem device;
 
         VertexBuffer vertexBuffer;
         VertexDeclaration vtxDecl;
@@ -257,7 +260,7 @@ namespace VirtualBicycle.Scene
         }
 
         [Browsable(false)]
-        public Device Device
+        public RenderSystem Device
         {
             get { return device; }
         }
@@ -304,7 +307,7 @@ namespace VirtualBicycle.Scene
 
         #region 构造函数
 
-        public Terrain(Device device, float cellUnit, TerrainSettings terrData)
+        public Terrain(RenderSystem device, float cellUnit, TerrainSettings terrData)
             : base(true)
         {
             this.bfsQueue = new Queue<TerrainTreeNode>();
