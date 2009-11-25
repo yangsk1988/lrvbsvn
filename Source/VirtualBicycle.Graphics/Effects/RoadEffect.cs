@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using SlimDX.Direct3D9;
-using VirtualBicycle.IO;
-using System.Drawing;
-using SlimDX;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics.Effects
 {
@@ -19,9 +16,9 @@ namespace VirtualBicycle.Graphics.Effects
         }
 
 
-        Device device;
+        RenderSystem device;
 
-        public RoadEffectFactory(Device dev)
+        public RoadEffectFactory(RenderSystem dev)
         {
             device = dev;
         }

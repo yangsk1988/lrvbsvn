@@ -64,6 +64,13 @@
     <Compile Include="Config\XmlSection.cs" />
     <Compile Include="Design\ArrayConverter.cs" />
     <Compile Include="Design\IEditControl.cs" />
+    <Compile Include="Design\MatrixEditControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Design\MatrixEditControl.designer.cs">
+      <DependentUpon>MatrixEditControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Design\MatrixEditor.cs" />
     <Compile Include="Design\TypeConverters\BoundingBoxConverter.cs" />
     <Compile Include="Design\TypeConverters\BoundingSphereConverter.cs" />
     <Compile Include="Design\TypeConverters\Color4FConverter.cs" />
@@ -149,6 +156,12 @@
     <Compile Include="Vfs\Location.cs" />
     <Compile Include="Vfs\Paths.cs" />
     <Compile Include="Vfs\Streams.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Design\MatrixEditControl.resx">
+      <DependentUpon>MatrixEditControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Graphic\" />

@@ -11,6 +11,7 @@ namespace VirtualBicycle.Design
 {
     public class MatrixEditor : UITypeEditor
     {
+#if !XBOX
         MatrixEditControl ui;
 
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
@@ -25,7 +26,7 @@ namespace VirtualBicycle.Design
                 Type tpe = asm.GetType("VirtualBicycle.Ide.DevStringTable", true);
                 PropertyInfo stProp = tpe.GetProperty("Instance", BindingFlags.Public | BindingFlags.Static);
 
-                ui = new MatrixEditControl((StringTable)stProp.GetValue(null, null));                
+                ui = new MatrixEditControl((StringTable)stProp.GetValue(null, null));
             }
 
             //m_ui.SetStates((DockAreas)value);
@@ -33,7 +34,7 @@ namespace VirtualBicycle.Design
             IWindowsFormsEditorService edSvc = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
             ui.Service = edSvc;
             edSvc.DropDownControl(ui);
-            
+
             //ui.Value = null;
             Matrix mat = ui.Value;
             ui.Reset();
@@ -44,5 +45,6 @@ namespace VirtualBicycle.Design
         {
             get { return true; }
         }
+#endif
     }
 }

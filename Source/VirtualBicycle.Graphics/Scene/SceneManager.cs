@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
 using VirtualBicycle.Collections;
 using VirtualBicycle.CollisionModel.Shapes;
 using VirtualBicycle.Graphics;
