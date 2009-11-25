@@ -132,11 +132,6 @@ namespace VirtualBicycle.Graphics
             set;
         }
 
-        public VertexFormat Format
-        {
-            get;
-            set;
-        }
 
         [Browsable(false)]
         public IntPtr Data
@@ -206,7 +201,7 @@ namespace VirtualBicycle.Graphics
         [Browsable(false)]
         public bool HasTexCoord1
         {
-            get { return (Format & VertexFormat.Texture1) == VertexFormat.Texture1; }
+            get { return (VertexFormat.Texture1) == VertexFormat.Texture1; }
         }
         [Browsable(false)]
         public bool HasTexCoord2
@@ -250,7 +245,7 @@ namespace VirtualBicycle.Graphics
 
         //public static void BuildFromMesh(Mesh mesh, MeshData<MType> data, MType[][] mats)
         //{
-        //    void* src = mesh.LockVertexBuffer(LockFlags.None).DataPointer.ToPointer();
+        //    void* src = mesh.LockVertexBuffer(LockMode.None).ToPointer();
 
         //    byte[] buffer = new byte[mesh.VertexCount * mesh.BytesPerVertex];
 
@@ -283,11 +278,11 @@ namespace VirtualBicycle.Graphics
 
         //    data.Faces = new MeshFace[faceCount];
 
-        //    uint* ab = (uint*)mesh.LockAttributeBuffer(LockFlags.ReadOnly).DataPointer.ToPointer();
+        //    uint* ab = (uint*)mesh.LockAttributeBuffer(LockMode.ReadOnly).ToPointer();
 
         //    if ((mesh.CreationOptions & MeshFlags.Use32Bit) == MeshFlags.Use32Bit)
         //    {
-        //        uint* ib = (uint*)mesh.LockIndexBuffer(LockFlags.ReadOnly).DataPointer.ToPointer();
+        //        uint* ib = (uint*)mesh.LockIndexBuffer(LockMode.ReadOnly).ToPointer();
         //        for (int i = 0; i < faceCount; i++)
         //        {
         //            int idxId = i * 3;
@@ -298,7 +293,7 @@ namespace VirtualBicycle.Graphics
         //    }
         //    else
         //    {
-        //        ushort* ib = (ushort*)mesh.LockIndexBuffer(LockFlags.ReadOnly).DataPointer.ToPointer();
+        //        ushort* ib = (ushort*)mesh.LockIndexBuffer(LockMode.ReadOnly).ToPointer();
         //        for (int i = 0; i < faceCount; i++)
         //        {
         //            int idxId = i * 3;
@@ -521,14 +516,13 @@ namespace VirtualBicycle.Graphics
         public MeshData(GameMesh mesh)
             : base(mesh.RenderSystem)
         {
-            this.Format = mesh.Format;
             this.Materials = mesh.Materials;
             this.MaterialAnimation = mesh.MaterialAnimation;
             this.Name = mesh.Name;
             this.VertexCount = mesh.VertexCount;
             this.VertexSize = mesh.VertexSize;
 
-            void* src = mesh.VertexBuffer.Lock(0, 0, LockMode.ReadOnly).DataPointer.ToPointer();
+            void* src = mesh.VertexBuffer.Lock(0, 0, LockMode.ReadOnly).ToPointer();
 
             SetData(src, VertexSize * VertexCount);
 
@@ -581,7 +575,7 @@ namespace VirtualBicycle.Graphics
             {
                 if (ibs[i].IndexSize == sizeof(ushort))
                 {
-                    ushort* isrc = (ushort*)ibs[i].Lock(0, 0, LockFlags.ReadOnly).DataPointer.ToPointer();
+                    ushort* isrc = (ushort*)ibs[i].Lock(0, 0, LockMode.ReadOnly);
 
                     for (int j = 0; j < partPrimCount[i]; j++)
                     {
@@ -593,7 +587,7 @@ namespace VirtualBicycle.Graphics
                 }
                 else
                 {
-                    int* isrc = (int*)ibs[i].Lock(0, 0, LockFlags.ReadOnly).DataPointer.ToPointer();
+                    int* isrc = (int*)ibs[i].Lock(0, 0, LockMode.ReadOnly);
 
                     for (int j = 0; j < partPrimCount[i]; j++)
                     {
@@ -690,7 +684,7 @@ namespace VirtualBicycle.Graphics
         //        mesh = new Mesh(dev, faceCount, vertexCount, MeshFlags.Managed | MeshFlags.Use32Bit, data.Format);
         //    }
 
-        //    void* vdst = mesh.LockVertexBuffer(LockFlags.None).DataPointer.ToPointer();
+        //    void* vdst = mesh.LockVertexBuffer(LockMode.None).ToPointer();
 
         //    Memory.Copy(data.Data.ToPointer(), vdst, vertexCount * data.VertexSize);
 
@@ -717,11 +711,11 @@ namespace VirtualBicycle.Graphics
         //    }
 
 
-        //    uint* ab = (uint*)mesh.LockAttributeBuffer(LockFlags.None).DataPointer.ToPointer();
+        //    uint* ab = (uint*)mesh.LockAttributeBuffer(LockMode.None).ToPointer();
 
         //    if (useIndex16)
         //    {
-        //        ushort* ib = (ushort*)mesh.LockIndexBuffer(LockFlags.None).DataPointer.ToPointer();
+        //        ushort* ib = (ushort*)mesh.LockIndexBuffer(LockMode.None).ToPointer();
 
         //        int faceIdx = 0;
         //        for (int i = 0; i < matCount; i++)
@@ -744,7 +738,7 @@ namespace VirtualBicycle.Graphics
         //    }
         //    else
         //    {
-        //        uint* ib = (uint*)mesh.LockIndexBuffer(LockFlags.None).DataPointer.ToPointer();
+        //        uint* ib = (uint*)mesh.LockIndexBuffer(LockMode.None).ToPointer();
 
         //        int faceIdx = 0;
         //        for (int i = 0; i < matCount; i++)
@@ -790,9 +784,9 @@ namespace VirtualBicycle.Graphics
 
             for (int i = 0; i < indexBuffers.Length; i++)
             {
-                if (indexBuffers[i].Description.Format == SlimDX.Direct3D9.Format.Index16)
+                if (indexBuffers[i].IndexSize == sizeof(short))
                 {
-                    ushort* isrc = (ushort*)indexBuffers[i].Lock(0, 0, LockFlags.ReadOnly).DataPointer.ToPointer();
+                    ushort* isrc = (ushort*)indexBuffers[i].Lock(0, 0, LockMode.ReadOnly);
 
                     for (int j = 0; j < partPrimCount[i]; j++)
                     {
@@ -809,7 +803,7 @@ namespace VirtualBicycle.Graphics
                 }
                 else
                 {
-                    int* isrc = (int*)indexBuffers[i].Lock(0, 0, LockFlags.ReadOnly).DataPointer.ToPointer();
+                    int* isrc = (int*)indexBuffers[i].Lock(0, 0, LockMode.ReadOnly);
 
                     for (int j = 0; j < partPrimCount[i]; j++)
                     {
@@ -838,7 +832,7 @@ namespace VirtualBicycle.Graphics
 
             VertexBuffer vb = VertexBuffer;
 
-            byte* src = (byte*)vb.Lock(0, 0, LockFlags.ReadOnly).DataPointer.ToPointer();
+            byte* src = (byte*)vb.Lock(0, 0, LockMode.ReadOnly).ToPointer();
 
             for (int i = 0; i < indices.Length; i += 3)
             {
@@ -852,11 +846,11 @@ namespace VirtualBicycle.Graphics
 
         public int CalculateSizeInBytes()
         {
-            int size = vertexBuffer.Description.SizeInBytes;
+            int size = vertexBuffer.Size;
 
             for (int i = 0; i < indexBuffers.Length; i++)
             {
-                size += indexBuffers[i].Description.SizeInBytes;
+                size += indexBuffers[i].Size;
             }
 
             return size + 256;
@@ -885,9 +879,9 @@ namespace VirtualBicycle.Graphics
 
             this.vtxDecl = new VertexDeclaration(dev, data.VertexElements);
 
-            this.vertexBuffer = new VertexBuffer(dev, vertexSize * vertexCount, Usage.None, data.Format, Pool.Managed);
+            this.vertexBuffer = new VertexBuffer(dev, vertexSize * vertexCount, BufferUsage.None, data.Format);
 
-            void* vdst = vertexBuffer.Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
+            void* vdst = vertexBuffer.Lock(0, 0, LockMode.None).ToPointer();
 
             Memory.Copy(data.Data.ToPointer(), vdst, vertexSize * vertexCount);
 
@@ -929,9 +923,9 @@ namespace VirtualBicycle.Graphics
                     }
 
                     List<int> idx = indices[i];
-                    indexBuffers[i] = new IndexBuffer(dev, idx.Count * sizeof(ushort), Usage.None, Pool.Managed, true);
+                    indexBuffers[i] = new IndexBuffer(dev, idx.Count * sizeof(ushort), BufferUsage.None, true);
 
-                    ushort* ib = (ushort*)indexBuffers[i].Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
+                    ushort* ib = (ushort*)indexBuffers[i].Lock(0, 0, LockMode.None);
                     for (int j = 0; j < idx.Count; j++)
                     {
                         ib[j] = (ushort)idx[j];
@@ -958,9 +952,9 @@ namespace VirtualBicycle.Graphics
                         Memory.Zero(dst, vertexCount);
                     }
                     List<int> idx = indices[i];
-                    indexBuffers[i] = new IndexBuffer(dev, idx.Count * sizeof(uint), Usage.None, Pool.Managed, false);
+                    indexBuffers[i] = new IndexBuffer(dev, idx.Count * sizeof(uint), BufferUsage.Static, false);
 
-                    uint* ib = (uint*)indexBuffers[i].Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
+                    uint* ib = (uint*)indexBuffers[i].Lock(0, 0, LockMode.None);
                     for (int j = 0; j < idx.Count; j++)
                     {
                         ib[j] = (uint)idx[j];
@@ -1054,19 +1048,17 @@ namespace VirtualBicycle.Graphics
         public GameMesh(RenderSystem dev, VertexPNT1[] vertices, int[] indices, Material[][] materials)
         {
             this.renderSystem = dev;
-            this.vtxFormat = VertexPNT1.Format;
+            this.vtxDecl = new VertexDeclaration(dev, VertexPNT1.Elements);
             this.materials = materials;
 
             this.matAnims = new MaterialAnimationInstance[materials.Length];
 
-            this.vtxDecl = new VertexDeclaration(dev, D3DX.DeclaratorFromFVF(VertexPNT1.Format));
-
             vertexSize = sizeof(VertexPNT1);
             int vbSize = vertexSize * vertices.Length;
 
-            vertexBuffer = new VertexBuffer(dev, vbSize, Usage.None, VertexPNT1.Format);
+            vertexBuffer = new VertexBuffer(dev, vbSize, BufferUsage.None, VertexPNT1.Format);
 
-            void* vdst = vertexBuffer.Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
+            void* vdst = vertexBuffer.Lock(0, 0, LockMode.None).ToPointer();
 
             fixed (VertexPNT1* src = &vertices[0])
             {
@@ -1079,9 +1071,9 @@ namespace VirtualBicycle.Graphics
             int ibSize = sizeof(uint) * indices.Length;
 
             indexBuffers = new IndexBuffer[1];
-            indexBuffers[0] = new IndexBuffer(dev, ibSize, Usage.None,  false);
+            indexBuffers[0] = new IndexBuffer(dev, ibSize, BufferUsage.None,  false);
 
-            void* idst = indexBuffers[0].Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
+            void* idst = indexBuffers[0].Lock(0, 0, LockMode.None).ToPointer();
 
             indexBuffers[0].Lock(0, 0, LockMode.None);
 

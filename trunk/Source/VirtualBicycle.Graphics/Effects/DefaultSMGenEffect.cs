@@ -41,7 +41,7 @@ namespace VirtualBicycle.Graphics.Effects
 
         EffectHandle ehMVP;
 
-        public DefaultSMGenEffect(Device device)
+        public DefaultSMGenEffect(RenderSystem device)
             : base(false, "DefaultSMGenEffect")
         {
             FileLocation fl = FileSystem.Instance.Locate(FileSystem.CombinePath(Paths.Effects, "HardwareShadowMap.fx"), FileLocateRules.Default);

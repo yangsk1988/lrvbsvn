@@ -178,8 +178,8 @@ namespace VirtualBicycle.Scene
         /// </summary>
         void BuildAxis()
         {
-            axis = new VertexBuffer(renderSystem, sizeof(VertexPC) * 6, Usage.None, VertexPC.Format, Pool.Managed);
-            VertexPC* dst = (VertexPC*)axis.Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
+            axis = new VertexBuffer(renderSystem, sizeof(VertexPC) * 6, BufferUsage.None, VertexPC.Format);
+            VertexPC* dst = (VertexPC*)axis.Lock(0, 0, LockMode.None);
 
             Vector3 centre = new Vector3();
             //centre.Y += 15;
@@ -197,7 +197,7 @@ namespace VirtualBicycle.Scene
 
 
             axisOp.Geomentry = new GeomentryData(null);
-            axisOp.Geomentry.Format = VertexPC.Format;
+
             axisOp.Geomentry.IndexBuffer = null;
             axisOp.Material = Material.DefaultMaterial;
             axisOp.Geomentry.PrimCount = 3;
@@ -205,7 +205,7 @@ namespace VirtualBicycle.Scene
             axisOp.Transformation = Matrix.Identity;
             axisOp.Geomentry.VertexBuffer = axis; ;
             axisOp.Geomentry.VertexCount = 6;
-            axisOp.Geomentry.VertexDeclaration = new VertexDeclaration(renderSystem, D3DX.DeclaratorFromFVF(VertexPC.Format));
+            axisOp.Geomentry.VertexDeclaration = new VertexDeclaration(renderSystem, VertexPC.Elements);
             axisOp.Geomentry.VertexSize = sizeof(VertexPC);
         }
 

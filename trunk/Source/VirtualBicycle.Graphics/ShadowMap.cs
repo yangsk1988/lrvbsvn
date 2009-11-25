@@ -78,7 +78,7 @@ namespace VirtualBicycle.Graphics
 
             pip = new VertexBuffer(dev, sizeof(TestVertex) * 4, Usage.None, TestVertex.Format, Pool.Managed);
 
-            TestVertex* ptr = (TestVertex*)pip.Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
+            TestVertex* ptr = (TestVertex*)pip.Lock(0, 0, LockMode.None);
             ptr[0] = new TestVertex { pos = new Vector3(0, 0, 0), tex1 = new Vector2(0, 0), dummy = 0 };
             ptr[1] = new TestVertex { pos = new Vector3(0, 512, 0), tex1 = new Vector2(0, 1), dummy = 0 };
             ptr[2] = new TestVertex { pos = new Vector3(512, 0, 0), tex1 = new Vector2(1, 0), dummy = 0 };

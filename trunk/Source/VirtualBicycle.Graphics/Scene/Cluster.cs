@@ -31,7 +31,6 @@ namespace VirtualBicycle.Scene
         protected ClusterDescription description;
 
         /// <summary>
-        ///  保存D3D的Device对象引用
         /// </summary>
         protected RenderSystem renderSystem;
 

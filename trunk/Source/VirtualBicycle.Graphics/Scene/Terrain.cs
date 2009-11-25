@@ -132,6 +132,11 @@ namespace VirtualBicycle.Scene
                 elements[0] = new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position);
             }
 
+            public VertexElement[] Elements 
+            {
+                get { return elements; }
+            }
+
             public Vector3 position;
 
             public static int Size
@@ -211,8 +216,8 @@ namespace VirtualBicycle.Scene
         TerrainTexture normalMap;
         TerrainTexture indexMap;
 
-        protected GameTexture[] detailMaps = new GameTexture[DetailLayerCount];
-        protected GameTexture[] detailNrmMaps = new GameTexture[DetailLayerCount];
+        protected Texture[] detailMaps = new Texture[DetailLayerCount];
+        protected Texture[] detailNrmMaps = new Texture[DetailLayerCount];
         protected string[] detailMapName = new string[DetailLayerCount]
         {
             "TerrainDefault",
@@ -329,9 +334,9 @@ namespace VirtualBicycle.Scene
             if (SharedVertexBuffer == null)
             {
                 SharedVertexBuffer = new VertexBuffer(device, TerrainVertex.Size * TerrainSize * TerrainSize,
-                    Usage.None, TerrainVertex.Format, Pool.Managed);
+                    Usage.None, TerrainVertex.Format);
 
-                TerrainVertex* pointer = (TerrainVertex*)SharedVertexBuffer.Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
+                TerrainVertex* pointer = (TerrainVertex*)SharedVertexBuffer.Lock(0, 0, LockMode.None).ToPointer();
 
                 for (int i = 0; i < TerrainSize; i++)
                 {
@@ -377,9 +382,9 @@ namespace VirtualBicycle.Scene
                         levelPrimConut[k] = MathEx.Sqr(levelLength) * 2;
                         levelVertexCount[k] = MathEx.Sqr(levelLength + 1);
 
-                        SharedIndexBuffers[k] = new IndexBuffer(device, sizeof(int) * indexCount, Usage.None, Pool.Managed, false);
+                        SharedIndexBuffers[k] = new IndexBuffer(device, sizeof(int) * indexCount, BufferUsage.Static, false);
 
-                        int* iptr = (int*)SharedIndexBuffers[k].Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
+                        int* iptr = (int*)SharedIndexBuffers[k].Lock(0, 0, LockMode.None).ToPointer();
 
                         for (int i = 0; i < levelLength; i++)
                         {
@@ -416,7 +421,7 @@ namespace VirtualBicycle.Scene
 
                         SharedIndexBuffers[k] = new IndexBuffer(device, sizeof(int) * indexCount, Usage.None, Pool.Managed, false);
 
-                        int* iptr = (int*)SharedIndexBuffers[k].Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
+                        int* iptr = (int*)SharedIndexBuffers[k].Lock(0, 0, LockMode.None).ToPointer();
 
                         #region 四个角
 
@@ -686,13 +691,13 @@ namespace VirtualBicycle.Scene
             worldTrans = Matrix.Identity;
 
             material = new Material(device);
-            material.CullMode = Cull.Counterclockwise;
+            material.CullMode = CullMode.CounterClockwise;
 
-            material.mat.Ambient = terrData.MaterialAmbient;
-            material.mat.Diffuse = terrData.MaterialDiffuse;
-            material.mat.Emissive = terrData.MaterialEmissive;
-            material.mat.Specular = terrData.MaterialSpecular;
-            material.mat.Power = terrData.MaterialPower;
+            material.Ambient = terrData.MaterialAmbient;
+            material.Diffuse = terrData.MaterialDiffuse;
+            material.Emissive = terrData.MaterialEmissive;
+            material.Specular = terrData.MaterialSpecular;
+            material.Power = terrData.MaterialPower;
             material.SetEffect(GetTerrainEffect());
         }
 
@@ -707,13 +712,7 @@ namespace VirtualBicycle.Scene
 
         VertexDeclaration GetVertexDeclaration()
         {
-            VertexElement[] element = new VertexElement[2]
-            {
-                new VertexElement(0, 0, DeclarationType.Float3, DeclarationMethod.Default, DeclarationUsage.Position, 0),
-                VertexElement.VertexDeclarationEnd
-            };
-
-            return new VertexDeclaration(device, element);
+            return new VertexDeclaration(device, TerrainVertex.Elements);
         }
 
         protected virtual ModelEffect GetTerrainEffect()
@@ -721,12 +720,12 @@ namespace VirtualBicycle.Scene
             return EffectManager.Instance.GetModelEffect("TerrainRendering");
         }
 
-        public GameTexture GetDetailMap(int index)
+        public Texture GetDetailMap(int index)
         {
             return detailMaps[index];
         }
 
-        public GameTexture GetDetailNrmMap(int index)
+        public Texture GetDetailNrmMap(int index)
         {
             return detailNrmMaps[index];
         }
@@ -826,7 +825,7 @@ namespace VirtualBicycle.Scene
         {
             Texture d3ddm = displacementMap.GetTexture;
 
-            float* dmData = (float*)d3ddm.LockRectangle(0, LockFlags.ReadOnly).Data.DataPointer.ToPointer();
+            float* dmData = (float*)d3ddm.Lock(0, LockMode.ReadOnly).Pointer.ToPointer();
 
             TerrainBlock[] blocks = new TerrainBlock[blockCount];
 
@@ -996,7 +995,7 @@ namespace VirtualBicycle.Scene
 
             Texture dm = DisplacementMap.GetTexture;
 
-            float* data = (float*)dm.LockRectangle(0, LockFlags.ReadOnly).Data.DataPointer.ToPointer();
+            float* data = (float*)dm.Lock(0, LockMode.ReadOnly);
 
             for (int i = 0; i < blockEdgeCount; i++)
             {
@@ -1015,7 +1014,7 @@ namespace VirtualBicycle.Scene
                 Memory.Copy(data, dst, desc.Width * desc.Height * 4);
             }
 
-            dm.UnlockRectangle(0);
+            dm.Unlock(0);
         }
 
         public void ReleaseCollisionModel()
