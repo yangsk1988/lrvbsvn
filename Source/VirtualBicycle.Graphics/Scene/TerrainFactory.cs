@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Vfs;
-using VirtualBicycle.Logic;
 using VirtualBicycle.Graphics;
 
 namespace VirtualBicycle.Scene
 {
-    public class TerrainFactory : InGameObjectFactory
+    public class TerrainFactory : ObjectFactory
     {
         #region 常量
 
@@ -40,7 +39,7 @@ namespace VirtualBicycle.Scene
 
         #endregion
 
-        public TerrainFactory(RenderSystem device, InGameObjectManager mgr)
+        public TerrainFactory(RenderSystem device, ObjectTypeManager mgr)
             : base(mgr)
         {
             this.device = device;

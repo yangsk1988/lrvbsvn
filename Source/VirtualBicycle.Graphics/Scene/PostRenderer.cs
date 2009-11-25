@@ -44,10 +44,20 @@ namespace VirtualBicycle.Scene
 
             public Vector2 TexCoord;
 
-            public static VertexFormat Format
+            static readonly VertexElement[] elements;
+
+            static RectVertex()
             {
-                get { return VertexFormat.PositionRhw | VertexFormat.Texture1; }
+                elements = new VertexElement[2];
+                elements[0] = new VertexElement(0, VertexElementFormat.Vector4, VertexElementUsage.PositionTransformed);
+                elements[1] = new VertexElement(1, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0);
             }
+
+            public static VertexElement[] Elements 
+            {
+                get { return elements; }
+            }
+
 
             public static int Size
             {
@@ -250,9 +260,9 @@ namespace VirtualBicycle.Scene
             blmRt = bloom.GetSurfaceLevel(0);
 
 
-            quad = new VertexBuffer(device, RectVertex.Size * 4, Usage.None, RectVertex.Format, Pool.Managed);
+            quad = new VertexBuffer(device, RectVertex.Size * 4, Usage.None, RectVertex.Format);
 
-            RectVertex* vdst = (RectVertex*)quad.Lock(0, 0, LockFlags.None).DataPointer;
+            RectVertex* vdst = (RectVertex*)quad.Lock(0, 0, LockMode.None);
             vdst[0].Position = new Vector4(0, 0, 0, 1);
             vdst[0].TexCoord = new Vector2(0, 0);
             vdst[1].Position = new Vector4(scrnSize.Width, 0, 0, 1);
@@ -264,8 +274,8 @@ namespace VirtualBicycle.Scene
             quad.Unlock();
 
 
-            smallQuad = new VertexBuffer(device, RectVertex.Size * 4, Usage.None, RectVertex.Format, Pool.Managed);
-            vdst = (RectVertex*)smallQuad.Lock(0, 0, LockFlags.None).DataPointer;
+            smallQuad = new VertexBuffer(device, RectVertex.Size * 4, Usage.None, RectVertex.Format);
+            vdst = (RectVertex*)smallQuad.Lock(0, 0, LockMode.None);
             vdst[0].Position = new Vector4(0, 0, 0, 1);
             vdst[0].TexCoord = new Vector2(0, 0);
             vdst[1].Position = new Vector4(blmSize.Width, 0, 0, 1);
@@ -278,7 +288,7 @@ namespace VirtualBicycle.Scene
 
 
             indexBuffer = new IndexBuffer(device, sizeof(int) * 6, Usage.None, Pool.Managed, false);
-            int* idst = (int*)indexBuffer.Lock(0, 0, LockFlags.None).DataPointer;
+            int* idst = (int*)indexBuffer.Lock(0, 0, LockMode.None);
 
             idst[0] = 0;
             idst[1] = 1;

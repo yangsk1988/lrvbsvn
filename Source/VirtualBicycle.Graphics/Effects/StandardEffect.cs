@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Vfs;
 using VirtualBicycle.Scene;
+using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Graphics.Effects
 {
@@ -77,9 +78,9 @@ namespace VirtualBicycle.Graphics.Effects
         {
             device = dev;
 
-            noTexture = new Texture(dev, 1, 1, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
-            *((int*)noTexture.LockRectangle(0, LockFlags.None).Data.DataPointer.ToPointer()) = Color.Gray.ToArgb();
-            noTexture.UnlockRectangle(0);
+            noTexture = new Texture(dev, 1, 1, 1, Usage.None, Format.A8R8G8B8);
+            *((int*)noTexture.Lock(0, LockMode.None).Pointer) = (int)ColorValue.Gray.PackedValue;
+            noTexture.Unlock(0);
 
           
             effect = LoadEffect(dev, "Standard.fx");

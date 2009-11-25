@@ -35,7 +35,7 @@ namespace VirtualBicycle.Graphics.Effects
 
     public class TerrainRenderingEffect : ModelEffect
     {
-        Device device;
+        RenderSystem device;
         Effect effect;
         Effect effectInst;
 
@@ -74,7 +74,7 @@ namespace VirtualBicycle.Graphics.Effects
 
         bool stateSetted;
 
-        public TerrainRenderingEffect(Device device)
+        public TerrainRenderingEffect(RenderSystem device)
             : base(false, TerrainRenderingEffectFactory.Name)
         {
             this.device = device;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Text;
 using VirtualBicycle.Config;
 using VirtualBicycle.MathLib;
@@ -443,7 +442,7 @@ namespace VirtualBicycle.Graphics
 
                 states.FogStart = fogStart;
                 states.FogEnd = fogEnd;
-                states.FogColor = currentFogColor;
+                states.FogColor = new ColorValue(currentFogColor);
                 states.FogDensity = fogDensity;
             }
             else

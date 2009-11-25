@@ -5,8 +5,6 @@ using System.IO.Compression;
 using System.Text;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.Vfs;
-using VirtualBicycle.Logic;
-using VirtualBicycle.Logic.Traffic;
 using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Scene
@@ -30,22 +28,22 @@ namespace VirtualBicycle.Scene
             get;
             protected set;
         }
-        public Color4 MaterialAmbient
+        public Color4F MaterialAmbient
         {
             get;
             protected set;
         }
-        public Color4 MaterialDiffuse
+        public Color4F MaterialDiffuse
         {
             get;
             protected set;
         }
-        public Color4 MaterialSpecular
+        public Color4F MaterialSpecular
         {
             get;
             protected set;
         }
-        public Color4 MaterialEmissive
+        public Color4F MaterialEmissive
         {
             get;
             protected set;
@@ -64,22 +62,22 @@ namespace VirtualBicycle.Scene
             HeightScale = value;
         }
 
-        public void SetMaterialAmbient(Color4 color)
+        public void SetMaterialAmbient(Color4F color)
         {
             MaterialAmbient = color;
         }
 
-        public void SetMaterialDiffuse(Color4 color)
+        public void SetMaterialDiffuse(Color4F color)
         {
             MaterialDiffuse = color;
         }
 
-        public void SetMaterialSpecular(Color4 color)
+        public void SetMaterialSpecular(Color4F color)
         {
             MaterialSpecular = color;
         }
 
-        public void SetMaterialEmissive(Color4 color)
+        public void SetMaterialEmissive(Color4F color)
         {
             MaterialEmissive = color;
         }
@@ -95,16 +93,45 @@ namespace VirtualBicycle.Scene
 
             ContentBinaryReader br = data.GetData("Material");
 
-            Material mat;
-            br.ReadMaterial(out mat);
+
+            Color4F color;
+            color.Alpha = br.ReadSingle();
+            color.Red = br.ReadSingle();
+            color.Green = br.ReadSingle();
+            color.Blue = br.ReadSingle();
+
+            this.MaterialAmbient = color;
+
+
+            color.Alpha = br.ReadSingle();
+            color.Red = br.ReadSingle();
+            color.Green = br.ReadSingle();
+            color.Blue = br.ReadSingle();
+
+            this.MaterialDiffuse = color;
+
+
+            color.Alpha = br.ReadSingle();
+            color.Red = br.ReadSingle();
+            color.Green = br.ReadSingle();
+            color.Blue = br.ReadSingle();
+
+            this.MaterialSpecular = color;
+
+
+            color.Alpha = br.ReadSingle();
+            color.Red = br.ReadSingle();
+            color.Green = br.ReadSingle();
+            color.Blue = br.ReadSingle();
+
+            this.MaterialEmissive = color;
+
+
+
+            this.MaterialPower = br.ReadSingle();
 
             br.Close();
 
-            this.MaterialAmbient = mat.Ambient;
-            this.MaterialDiffuse = mat.Diffuse;
-            this.MaterialEmissive = mat.Emissive;
-            this.MaterialSpecular = mat.Specular;
-            this.MaterialPower = mat.Power;
         }
         public virtual BinaryDataWriter WriteData()
         {
@@ -114,15 +141,38 @@ namespace VirtualBicycle.Scene
 
             ContentBinaryWriter bw = data.AddEntry(MaterialTag);
 
-            Material mat = new Material();
-            mat.Ambient = MaterialAmbient;
-            mat.Diffuse = MaterialDiffuse;
-            mat.Emissive = MaterialEmissive;
-            mat.Specular = MaterialSpecular;
-            mat.Power = MaterialPower;
+            //Material mat = new Material();
+            //mat.Ambient = MaterialAmbient;
+            //mat.Diffuse = MaterialDiffuse;
+            //mat.Emissive = MaterialEmissive;
+            //mat.Specular = MaterialSpecular;
+            //mat.Power = MaterialPower;
 
-            bw.Write(ref mat);
+            Color4F color = MaterialAmbient;
+            bw.Write(color.Alpha);
+            bw.Write(color.Red);
+            bw.Write(color.Green);
+            bw.Write(color.Blue);
 
+            color = MaterialDiffuse;
+            bw.Write(color.Alpha);
+            bw.Write(color.Red);
+            bw.Write(color.Green);
+            bw.Write(color.Blue);
+
+            color = MaterialSpecular;
+            bw.Write(color.Alpha);
+            bw.Write(color.Red);
+            bw.Write(color.Green);
+            bw.Write(color.Blue);
+
+            color = MaterialEmissive;
+            bw.Write(color.Alpha);
+            bw.Write(color.Red);
+            bw.Write(color.Green);
+            bw.Write(color.Blue);
+
+            bw.Write(MaterialPower);
             bw.Close();
 
             return data;
@@ -139,7 +189,7 @@ namespace VirtualBicycle.Scene
     {
         #region 构造函数
 
-        public SceneData(RenderSystem device, InGameObjectManager mgr)
+        public SceneData(RenderSystem device, ObjectTypeManager mgr)
             : base(device, mgr)
         {
 
@@ -149,12 +199,12 @@ namespace VirtualBicycle.Scene
 
         #region 静态方法
 
-        public static SceneData FromFile(RenderSystem device, InGameObjectManager mgr, string file, ProgressCallBack cbk)
+        public static SceneData FromFile(RenderSystem device, ObjectTypeManager mgr, string file, ProgressCallBack cbk)
         {
             return FromFile(device, mgr, new FileLocation(file), cbk);
         }
 
-        public static SceneData FromFile(RenderSystem device, InGameObjectManager mgr, FileLocation fl, ProgressCallBack cbk)
+        public static SceneData FromFile(RenderSystem device, ObjectTypeManager mgr, FileLocation fl, ProgressCallBack cbk)
         {
             ContentBinaryReader br = new ContentBinaryReader(fl);
 

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using VirtualBicycle.Graphics;
-using VirtualBicycle.Logic;
-using VirtualBicycle.Logic.Traffic;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Scene
 {
+    public delegate void ProgressCallBack(int current, int total);
+
     public class SceneDataBase : IDisposable
     {
         #region 常量
@@ -57,7 +57,7 @@ namespace VirtualBicycle.Scene
             protected set;
         }
 
-        public InGameObjectManager ObjectManager
+        public ObjectTypeManager ObjectManager
         {
             get;
             private set;
@@ -101,7 +101,7 @@ namespace VirtualBicycle.Scene
         }
         #endregion
 
-        public SceneDataBase(RenderSystem device, InGameObjectManager mgr)
+        public SceneDataBase(RenderSystem device, ObjectTypeManager mgr)
         {
             this.ObjectManager = mgr;
             this.device = device;

@@ -81,7 +81,6 @@ namespace VirtualBicycle.Graphics
         public virtual void Dispose(bool disposing)
         {
             RenderSystem = null;
-            ConstantTable = null;
         }
 
         public void Dispose()

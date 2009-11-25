@@ -23,8 +23,8 @@ namespace VirtualBicycle.Graphics.ParticleSystem
         protected float maxVerticalVelocity;
         protected Vector3 gravity;
         protected float endVelocity;
-        protected Color minColor;
-        protected Color maxColor;
+        protected ColorValue minColor;
+        protected ColorValue maxColor;
         protected float minRotateSpeed;
         protected float maxRotateSpeed;
         protected float minStartSize;
@@ -48,7 +48,7 @@ namespace VirtualBicycle.Graphics.ParticleSystem
         /// A vertex buffer holding our particles. This contains the same data as
         /// the particles array, but copied across to where the GPU can access it.
         /// </summary>
-        DynamicVertexBuffer vertexBuffer;
+        VertexBuffer vertexBuffer;
 
         /// <summary>
         /// Vertex declaration describes the format of our ParticleVertex structure.

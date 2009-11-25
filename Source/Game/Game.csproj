@@ -145,7 +145,6 @@
     <Compile Include="UI\LanguageParser.cs" />
     <Compile Include="UI\LevelInfo.cs" />
     <Compile Include="UI\UIComponent.cs" />
-    <Compile Include="View.cs" />
     <Compile Include="World.cs" />
     <Compile Include="Scene\DynamicObject.cs" />
     <Compile Include="Graphics\Effects\Effect.cs" />

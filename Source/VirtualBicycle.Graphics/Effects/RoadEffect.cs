@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Vfs;
+using VirtualBicycle.MathLib;
 
 namespace VirtualBicycle.Graphics.Effects
 {
@@ -38,7 +39,7 @@ namespace VirtualBicycle.Graphics.Effects
     {
         bool stateSetted;
 
-        Device device;
+        RenderSystem device;
 
         Effect effect;
         EffectHandle tlParamLa;
@@ -67,14 +68,14 @@ namespace VirtualBicycle.Graphics.Effects
 
         Texture noTexture;
 
-        public unsafe RoadEffect(Device dev)
+        public unsafe RoadEffect(RenderSystem dev)
             : base(false, RoadEffectFactory.Name)
         {
             device = dev;
 
             noTexture = new Texture(dev, 1, 1, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
-            *((int*)noTexture.LockRectangle(0, LockFlags.None).Data.DataPointer.ToPointer()) = Color.Gray.ToArgb();
-            noTexture.UnlockRectangle(0);
+            *((int*)noTexture.Lock(0, LockMode.None).Pointer) = (int)ColorValue.Gray.PackedValue;
+            noTexture.Unlock(0);
 
             FileLocation fl = FileSystem.Instance.Locate(FileSystem.CombinePath(Paths.Effects, "Road.fx"), FileLocateRules.Default);
             ContentStreamReader sr = new ContentStreamReader(fl);

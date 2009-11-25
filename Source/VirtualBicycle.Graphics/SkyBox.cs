@@ -18,6 +18,19 @@ namespace VirtualBicycle.Graphics
             public Vector3 pos;
             public Vector3 texCoord;
 
+            static readonly VertexElement[] elements;
+
+            static SkyVertex() 
+            {
+                elements = new VertexElement[2];
+                elements[0] = new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position);
+                elements[1] = new VertexElement(1, VertexElementFormat.Vector3, VertexElementUsage.TextureCoordinate, 0);
+            }
+
+            public VertexElement[] Elements 
+            {
+                get { return elements; }
+            }
             //public static VertexFormat Format
             //{
             //    get { return (VertexFormat)((int)VertexFormat.Position | (int)VertexFormat.Texture1 | Utils.GetTexCoordSize3Format(0)); }
@@ -48,10 +61,10 @@ namespace VirtualBicycle.Graphics
             // sqrt(3)/3
             const float l = 1f / MathEx.Root3;
 
-            vtxDecl = new VertexDeclaration(renderSystem, D3DX.DeclaratorFromFVF(SkyVertex.Format));
+            vtxDecl = new VertexDeclaration(renderSystem, SkyVertex.Elements);
             box = new VertexBuffer(rs, sizeof(SkyVertex) * 8, Usage.WriteOnly, VertexPT1.Format, Pool.Managed);
 
-            SkyVertex* dst = (SkyVertex*)box.Lock(0, 0, LockFlags.None).DataPointer.ToPointer();
+            SkyVertex* dst = (SkyVertex*)box.Lock(0, 0, LockMode.None);
 
             dst[0] = new SkyVertex { pos = new Vector3(-50f, -50f, -50f), texCoord = new Vector3(-l, -l, -l) };
             dst[1] = new SkyVertex { pos = new Vector3(50f, -50f, -50f), texCoord = new Vector3(l, -l, -l) };
@@ -66,7 +79,7 @@ namespace VirtualBicycle.Graphics
 
             indexBuffer = new IndexBuffer(rs, sizeof(ushort) * 36, Usage.WriteOnly, Pool.Managed, true);
 
-            ushort* ibDst = (ushort*)indexBuffer.Lock(0, 0, LockMode.None).DataPointer.ToPointer();
+            ushort* ibDst = (ushort*)indexBuffer.Lock(0, 0, LockMode.None);
 
             ibDst[0] = 0;
             ibDst[1] = 1;

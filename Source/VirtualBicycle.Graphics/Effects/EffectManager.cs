@@ -14,10 +14,10 @@ namespace VirtualBicycle.Graphics.Effects
 
             EngineConsole.Instance.Write("特效系统启动。", ConsoleMessageType.Information);
 
-            singleton.RegisterModelEffectType(StandardEffectFactory.Name, new StandardEffectFactory(device));
-            singleton.RegisterModelEffectType(TerrainRenderingEffectFactory.Name, new TerrainRenderingEffectFactory(device));
+            //singleton.RegisterModelEffectType(StandardEffectFactory.Name, new StandardEffectFactory(device));
+            //singleton.RegisterModelEffectType(TerrainRenderingEffectFactory.Name, new TerrainRenderingEffectFactory(device));
 
-            singleton.RegisterModelEffectType(RoadEffectFactory.Name, new RoadEffectFactory(device));
+            //singleton.RegisterModelEffectType(RoadEffectFactory.Name, new RoadEffectFactory(device));
         }
 
 

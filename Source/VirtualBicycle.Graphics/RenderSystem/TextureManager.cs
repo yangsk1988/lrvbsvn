@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Core;
 using VirtualBicycle.Vfs;
+using VirtualBicycle.Media;
 
 namespace VirtualBicycle.Graphics
 {
@@ -61,7 +62,7 @@ namespace VirtualBicycle.Graphics
             return Factory.CreateTexture(image, CreationUsage);
         }
         /// <remarks>以这种方式创建的资源不会被管理</remarks>
-        public Texture CreateInstance(int width, int height, int surfaceCount, PixelFormat format)
+        public Texture CreateInstance(int width, int height, int surfaceCount, ImagePixelFormat format)
         {
             if (Factory == null)
             {
@@ -71,7 +72,7 @@ namespace VirtualBicycle.Graphics
             return Factory.CreateTexture(width, height, surfaceCount, CreationUsage, format);
         }
         /// <remarks>以这种方式创建的资源不会被管理</remarks>
-        public Texture CreateInstance(int width, int height, int depth, int surfaceCount, PixelFormat format)
+        public Texture CreateInstance(int width, int height, int depth, int surfaceCount, ImagePixelFormat format)
         {
             if (Factory == null)
             {
