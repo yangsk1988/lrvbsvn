@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过下列属性集
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Plugin.BitmapFont")]
+[assembly: AssemblyTitle("Plugin.CsfTools")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lenovo")]
-[assembly: AssemblyProduct("Plugin.BitmapFont")]
+[assembly: AssemblyProduct("Plugin.CsfTools")]
 [assembly: AssemblyCopyright("Copyright © Lenovo 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("224a49a6-8fbe-4b4d-8ee0-b6bc4abe932d")]
+[assembly: Guid("98a7410b-81d2-44de-9b1b-378de993b98e")]
 
 // 程序集的版本信息由下面四个值组成:
 //

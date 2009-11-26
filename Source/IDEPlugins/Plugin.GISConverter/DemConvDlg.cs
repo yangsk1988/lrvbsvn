@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using VirtualBicycle.Ide;
 
-namespace Plugin.GISConverter
+namespace Plugin.GISTools
 {
     partial class DemConvDlg : Form
     {
