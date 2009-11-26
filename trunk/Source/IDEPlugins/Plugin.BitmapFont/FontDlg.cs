@@ -9,7 +9,7 @@ using VirtualBicycle.Ide.Converters;
 
 namespace Plugin.BitmapFont
 {
-    public partial class FontDlg : Form
+    partial class FontDlg : Form
     {
         public FontDlg(FontFamily[] fonts)
         {

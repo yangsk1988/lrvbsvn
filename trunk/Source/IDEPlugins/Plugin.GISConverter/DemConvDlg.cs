@@ -10,7 +10,7 @@ using VirtualBicycle.Ide;
 
 namespace Plugin.GISConverter
 {
-    public partial class DemConvDlg : Form
+    partial class DemConvDlg : Form
     {
         class ProgressCBK : IItemProgressCallback
         {

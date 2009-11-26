@@ -58,6 +58,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TDmp32To16Converter.cs" />
+    <Compile Include="TDmp32To8Converter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Game\Game.csproj">
