@@ -12,7 +12,7 @@ using VirtualBicycle.Ide;
 using VirtualBicycle.Ide.Converters;
 using VirtualBicycle.IO;
 
-namespace Plugin.GISConverter
+namespace Plugin.GISTools
 {
     class DemParameters
     {

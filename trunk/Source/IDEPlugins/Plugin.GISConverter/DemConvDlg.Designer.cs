@@ -1,4 +1,4 @@
-﻿namespace Plugin.GISConverter
+﻿namespace Plugin.GISTools
 {
     partial class DemConvDlg
     {
@@ -86,7 +86,7 @@
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.tableLayoutPanel1.SetColumnSpan(this.pictureBox1, 3);
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::Plugin.GISConverter.Properties.Resources.worldMap;
+            this.pictureBox1.Image = global::Plugin.GISTools.Properties.Resources.worldMap;
             this.pictureBox1.Location = new System.Drawing.Point(13, 13);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(843, 277);

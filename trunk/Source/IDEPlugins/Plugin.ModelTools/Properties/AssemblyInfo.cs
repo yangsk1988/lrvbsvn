@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过下列属性集
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Plugin.GISTools")]
+[assembly: AssemblyTitle("Plugin.ModelTools")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lenovo")]
-[assembly: AssemblyProduct("Plugin.GISTools")]
+[assembly: AssemblyProduct("Plugin.ModelTools")]
 [assembly: AssemblyCopyright("Copyright © Lenovo 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("3a8e2a3a-5bc2-4e79-a95f-5bd4decdd85f")]
+[assembly: Guid("2d73f56f-7d2a-4dd8-ba7b-0a5d7fc7015f")]
 
 // 程序集的版本信息由下面四个值组成:
 //

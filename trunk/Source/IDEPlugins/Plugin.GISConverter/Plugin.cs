@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using VirtualBicycle.Ide;
-using System.Drawing;
 
-namespace Plugin.GISConverter
+namespace Plugin.GISTools
 {
     public class Plugin : IPlugin
     {
