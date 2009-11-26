@@ -39,9 +39,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualBicycle.RenderSystem
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IDEPlugins", "IDEPlugins", "{28DB5D72-71E8-4E92-A1C8-2CC5F45300A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.GISConverter", "IDEPlugins\Plugin.GISConverter\Plugin.GISConverter.csproj", "{8F9419AA-EA51-4759-BADC-59D984FFA3B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.GISTools", "IDEPlugins\Plugin.GISTools\Plugin.GISTools.csproj", "{8F9419AA-EA51-4759-BADC-59D984FFA3B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.BitmapFont", "IDEPlugins\Plugin.BitmapFont\Plugin.BitmapFont.csproj", "{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.BitmapFontTools", "IDEPlugins\Plugin.BitmapFontTools\Plugin.BitmapFontTools.csproj", "{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.CsfTools", "IDEPlugins\Plugin.CsfTools\Plugin.CsfTools.csproj", "{40CA55CF-4A50-45CB-8166-06DE5F77316F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.ModelTools", "IDEPlugins\Plugin.ModelTools\Plugin.ModelTools.csproj", "{78198102-0C5B-4F8A-A001-CF55747DC044}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -291,6 +295,34 @@ Global
 		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Release|Win32.ActiveCfg = Release|Any CPU
 		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Release|x86.ActiveCfg = Release|Any CPU
 		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Release|Xbox 360.ActiveCfg = Release|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Debug|Xbox 360.ActiveCfg = Debug|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Release|Win32.ActiveCfg = Release|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Release|x86.ActiveCfg = Release|Any CPU
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F}.Release|Xbox 360.ActiveCfg = Release|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Debug|Xbox 360.ActiveCfg = Debug|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Release|Win32.ActiveCfg = Release|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Release|x86.ActiveCfg = Release|Any CPU
+		{78198102-0C5B-4F8A-A001-CF55747DC044}.Release|Xbox 360.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -313,5 +345,7 @@ Global
 		{19321CCC-6A9B-4002-9966-197F960B41D0} = {829D130D-7C4F-424A-AFB1-B9064C4320EA}
 		{8F9419AA-EA51-4759-BADC-59D984FFA3B3} = {28DB5D72-71E8-4E92-A1C8-2CC5F45300A9}
 		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0} = {28DB5D72-71E8-4E92-A1C8-2CC5F45300A9}
+		{40CA55CF-4A50-45CB-8166-06DE5F77316F} = {28DB5D72-71E8-4E92-A1C8-2CC5F45300A9}
+		{78198102-0C5B-4F8A-A001-CF55747DC044} = {28DB5D72-71E8-4E92-A1C8-2CC5F45300A9}
 	EndGlobalSection
 EndGlobal
