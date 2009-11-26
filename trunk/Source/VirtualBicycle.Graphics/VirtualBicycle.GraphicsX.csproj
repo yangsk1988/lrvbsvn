@@ -191,6 +191,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VirtualBicycle.Core\VirtualBicycle.CoreX.csproj">
+      <Project>{5E3D9108-7C6A-4DF0-A01A-8697645B7FF7}</Project>
+      <Name>VirtualBicycle.CoreX</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Core\" />
     <Folder Include="EffectSystem\" />
   </ItemGroup>

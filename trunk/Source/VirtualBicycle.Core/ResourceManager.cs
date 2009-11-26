@@ -133,34 +133,10 @@ namespace VirtualBicycle.Core
         ///  提示资源管理器已经创建了一个新资源，将它放入管理范围
         /// </summary>
         /// <param name="res"></param>
-        protected void NotifyResourceNew(Resource res, CacheType ctype)
+        protected void NotifyResourceNew(Resource res)
         {
             hashTable.Add(res.HashString, res);
             genTable.AddResource(res);
-
-            if (ctype != CacheType.None)
-            {
-                int size = res.GetSize();
-
-                CacheMemory cm;
-                if (size == 0)
-                {
-                    cm = Cache.Instance.Allocate();
-                }
-                else
-                {
-                    if (ctype == CacheType.Dynamic)
-                    {
-                        cm = Cache.Instance.Allocate(CacheType.Dynamic, size);
-                    }
-                    else
-                    {
-                        EngineConsole.Instance.Write("正在为资源" + res.HashString + "分为静态缓存空间。");
-                        cm = Cache.Instance.Allocate(CacheType.Static, size);
-                    }
-                }
-                res.SetCache(cm);
-            }
         }
 
         /// <summary>

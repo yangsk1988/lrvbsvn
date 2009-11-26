@@ -2,8 +2,6 @@
 {
     partial class MatrixEditControl
     {
-#if !XBOX
-
         /// <summary> 
         /// 必需的设计器变量。
         /// </summary>
@@ -169,6 +167,5 @@
         private System.Windows.Forms.PropertyGrid propertyGrid1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Button button1;
-#endif
     }
 }
