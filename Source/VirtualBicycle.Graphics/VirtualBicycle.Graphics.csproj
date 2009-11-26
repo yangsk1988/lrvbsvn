@@ -128,6 +128,10 @@
     <Compile Include="WeatherType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VirtualBicycle.Collision\VirtualBicycle.Collision.csproj">
+      <Project>{ED6CFF26-7985-4156-8E04-30D01BA33655}</Project>
+      <Name>VirtualBicycle.Collision</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VirtualBicycle.Core\VirtualBicycle.Core.csproj">
       <Project>{767AFD72-02F7-4543-B193-A2E19645A4B9}</Project>
       <Name>VirtualBicycle.Core</Name>
