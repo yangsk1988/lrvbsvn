@@ -60,170 +60,9 @@ namespace VirtualBicycle.Ide.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap CheckGrammarHS {
-            get {
-                object obj = ResourceManager.GetObject("CheckGrammarHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap ConflictHS {
-            get {
-                object obj = ResourceManager.GetObject("ConflictHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap ConflictHS1 {
-            get {
-                object obj = ResourceManager.GetObject("ConflictHS1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap DeleteHS {
-            get {
-                object obj = ResourceManager.GetObject("DeleteHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap DeleteHS1 {
-            get {
-                object obj = ResourceManager.GetObject("DeleteHS1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap DeleteNodeTool {
-            get {
-                object obj = ResourceManager.GetObject("DeleteNodeTool", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap devlogo {
             get {
                 object obj = ResourceManager.GetObject("devlogo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap DisplayInColorHS {
-            get {
-                object obj = ResourceManager.GetObject("DisplayInColorHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap Edit_RedoHS {
-            get {
-                object obj = ResourceManager.GetObject("Edit_RedoHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap Edit_UndoHS {
-            get {
-                object obj = ResourceManager.GetObject("Edit_UndoHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap EditTableHS {
-            get {
-                object obj = ResourceManager.GetObject("EditTableHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap fitRoad {
-            get {
-                object obj = ResourceManager.GetObject("fitRoad", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap gird {
-            get {
-                object obj = ResourceManager.GetObject("gird", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap GoToNextHS {
-            get {
-                object obj = ResourceManager.GetObject("GoToNextHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap GoToNextMessage {
-            get {
-                object obj = ResourceManager.GetObject("GoToNextMessage", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap GoToPrevious {
-            get {
-                object obj = ResourceManager.GetObject("GoToPrevious", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap GoToPreviousMessage {
-            get {
-                object obj = ResourceManager.GetObject("GoToPreviousMessage", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap imoprtDispMap {
-            get {
-                object obj = ResourceManager.GetObject("imoprtDispMap", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap importColorMap {
-            get {
-                object obj = ResourceManager.GetObject("importColorMap", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap importIndexMap {
-            get {
-                object obj = ResourceManager.GetObject("importIndexMap", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap importNrmMap {
-            get {
-                object obj = ResourceManager.GetObject("importNrmMap", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap LineColorHS {
-            get {
-                object obj = ResourceManager.GetObject("LineColorHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap List_BulletsHS {
-            get {
-                object obj = ResourceManager.GetObject("List_BulletsHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap lowerTerrain {
-            get {
-                object obj = ResourceManager.GetObject("lowerTerrain", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -232,20 +71,6 @@ namespace VirtualBicycle.Ide.Properties {
             get {
                 object obj = ResourceManager.GetObject("moveMarker", resourceCulture);
                 return ((byte[])(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap moveNodeTool {
-            get {
-                object obj = ResourceManager.GetObject("moveNodeTool", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap moveTool {
-            get {
-                object obj = ResourceManager.GetObject("moveTool", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -263,23 +88,9 @@ namespace VirtualBicycle.Ide.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap newNode {
-            get {
-                object obj = ResourceManager.GetObject("newNode", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap openHS {
             get {
                 object obj = ResourceManager.GetObject("openHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap paintMaterial {
-            get {
-                object obj = ResourceManager.GetObject("paintMaterial", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -301,27 +112,6 @@ namespace VirtualBicycle.Ide.Properties {
         internal static System.Drawing.Bitmap PointerHS {
             get {
                 object obj = ResourceManager.GetObject("PointerHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap PropertiesHS {
-            get {
-                object obj = ResourceManager.GetObject("PropertiesHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap raiseTerrain {
-            get {
-                object obj = ResourceManager.GetObject("raiseTerrain", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap rotateTool {
-            get {
-                object obj = ResourceManager.GetObject("rotateTool", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -354,37 +144,9 @@ namespace VirtualBicycle.Ide.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap selectPort {
-            get {
-                object obj = ResourceManager.GetObject("selectPort", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap SelectRoadNode {
-            get {
-                object obj = ResourceManager.GetObject("SelectRoadNode", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap smoothTerrain {
-            get {
-                object obj = ResourceManager.GetObject("smoothTerrain", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap StopHS {
             get {
                 object obj = ResourceManager.GetObject("StopHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap streightenTool {
-            get {
-                object obj = ResourceManager.GetObject("streightenTool", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
