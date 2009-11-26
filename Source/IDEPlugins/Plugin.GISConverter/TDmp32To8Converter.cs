@@ -4,11 +4,13 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using SlimDX;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Converters;
 using VirtualBicycle.IO;
 
-namespace VirtualBicycle.Ide.Converters
+namespace Plugin.GISConverter
 {
-    class TDmp32To32iConverter : ConverterBase
+    class TDmp32To8Converter : ConverterBase
     {
         public override void ShowDialog(object sender, EventArgs e)
         {
@@ -78,14 +80,14 @@ namespace VirtualBicycle.Ide.Converters
             result.AddEntry("width", width);
             result.AddEntry("height", height);
 
-            result.AddEntry("bits", 32);
+            result.AddEntry("bits", 8);
 
             Stream dataStream = result.AddEntryStream("data");
 
             ContentBinaryWriter bw = new ContentBinaryWriter(dataStream);
             for (int i = 0; i < demData.Length; i++)
             {
-                bw.Write((int)(demData[i] * int.MaxValue));
+                bw.Write((byte)(demData[i] * 255));
             }
 
             bw.Close();
@@ -97,7 +99,7 @@ namespace VirtualBicycle.Ide.Converters
 
         public override string Name
         {
-            get { return "TDmp 32 to 32i Converter"; }
+            get { return "TDmp 32 to 8 Converter"; }
         }
 
         public override string[] SourceExt

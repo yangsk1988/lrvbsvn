@@ -4,9 +4,11 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using SlimDX;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Converters;
 using VirtualBicycle.IO;
 
-namespace VirtualBicycle.Ide.Converters
+namespace Plugin.GISConverter
 {
     class TDmp32To16Converter : ConverterBase
     {

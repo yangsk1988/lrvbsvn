@@ -11,7 +11,7 @@ using VirtualBicycle.IO;
 
 namespace Plugin.BitmapFont
 {
-    public class FontConverter : ConverterBase
+    class FontConverter : ConverterBase
     {        
         FontFamily currentFont;
 

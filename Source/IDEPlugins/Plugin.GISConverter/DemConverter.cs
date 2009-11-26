@@ -14,7 +14,7 @@ using VirtualBicycle.IO;
 
 namespace Plugin.GISConverter
 {
-    public class DemParameters
+    class DemParameters
     {
         const int DefaultRescaleSize = 3000;
         const float DefaultCellSize = 2;
@@ -68,12 +68,12 @@ namespace Plugin.GISConverter
         }
     }
 
-    public interface IItemProgressCallback 
+    interface IItemProgressCallback 
     {
         void Invoke(int current, int total);
     }
 
-    public class DemConverter : ConverterBase
+    class DemConverter : ConverterBase
     {
         const int NoValue = -9999;
 
