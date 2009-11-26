@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Designers;
 using VirtualBicycle.IO;
 
-namespace VirtualBicycle.Ide.Designers
+namespace Plugin.CsfTools
 {
     public class CsfDesignerFactory : DesignerAbstractFactory
     {

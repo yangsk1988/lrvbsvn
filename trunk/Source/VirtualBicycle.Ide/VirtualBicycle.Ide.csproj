@@ -109,7 +109,6 @@
     <Compile Include="Converters\XText2ModelConverter.cs" />
     <Compile Include="Converters\Xml2ModelConverter2.cs" />
     <Compile Include="DesignerManager.cs" />
-    <Compile Include="Designers\CsfDesignerFactory.cs" />
     <Compile Include="Designers\InputNumberDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,13 +163,6 @@
       <DependentUpon>WorldDesigner.cs</DependentUpon>
     </Compile>
     <Compile Include="Designers\WorldBuilder\WorldDesignerFactory.cs" />
-    <Compile Include="Designers\CsfDesigner.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Designers\CsfDesigner.Designer.cs">
-      <DependentUpon>CsfDesigner.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Designers\CsfDesignerConfigs.cs" />
     <Compile Include="Designers\DocumentBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,12 +174,6 @@
     </Compile>
     <Compile Include="Designers\EmbededMeshDocument.Designer.cs">
       <DependentUpon>EmbededMeshDocument.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Designers\frmCsfEntryEdit.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Designers\frmCsfEntryEdit.Designer.cs">
-      <DependentUpon>frmCsfEntryEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Designers\GeneralDocumentBase.cs">
       <SubType>Form</SubType>
@@ -318,16 +304,8 @@
       <DependentUpon>ProgressDlg.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Designers\CsfDesigner.resx">
-      <DependentUpon>CsfDesigner.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Designers\EmbededMeshDocument.resx">
       <DependentUpon>EmbededMeshDocument.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Designers\frmCsfEntryEdit.resx">
-      <DependentUpon>frmCsfEntryEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Designers\InputNumberDlg.resx">
@@ -439,7 +417,6 @@
     </Compile>
     <Compile Include="TemplateManager.cs" />
     <Compile Include="Templates\TemplateBase.cs" />
-    <Compile Include="Templates\CsfTemplate.cs" />
     <Compile Include="Templates\WorldTemplate.cs" />
     <Compile Include="TerrainRenderingEditEffect.cs" />
     <Compile Include="ToolManager.cs" />

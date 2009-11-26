@@ -1,4 +1,4 @@
-﻿namespace VirtualBicycle.Ide.Designers
+﻿namespace Plugin.CsfTools
 {
     partial class CsfDesigner
     {
@@ -210,7 +210,7 @@
             // newEntryTool
             // 
             this.newEntryTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.newEntryTool.Image = global::VirtualBicycle.Ide.Properties.Resources.List_BulletsHS;
+            this.newEntryTool.Image = global::Plugin.CsfTools.Properties.Resources.List_BulletsHS;
             this.newEntryTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newEntryTool.Name = "newEntryTool";
             this.newEntryTool.Size = new System.Drawing.Size(23, 22);
@@ -221,7 +221,7 @@
             // 
             this.editEntryTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.editEntryTool.Enabled = false;
-            this.editEntryTool.Image = global::VirtualBicycle.Ide.Properties.Resources.EditTableHS;
+            this.editEntryTool.Image = global::Plugin.CsfTools.Properties.Resources.EditTableHS;
             this.editEntryTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editEntryTool.Name = "editEntryTool";
             this.editEntryTool.Size = new System.Drawing.Size(23, 22);
@@ -232,7 +232,7 @@
             // 
             this.delEntryTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.delEntryTool.Enabled = false;
-            this.delEntryTool.Image = global::VirtualBicycle.Ide.Properties.Resources.DeleteHS;
+            this.delEntryTool.Image = global::Plugin.CsfTools.Properties.Resources.DeleteHS;
             this.delEntryTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.delEntryTool.Name = "delEntryTool";
             this.delEntryTool.Size = new System.Drawing.Size(23, 22);

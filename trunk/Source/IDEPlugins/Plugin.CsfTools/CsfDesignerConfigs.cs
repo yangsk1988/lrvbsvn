@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml.Serialization;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Designers;
 
-namespace VirtualBicycle.Ide.Designers
+namespace Plugin.CsfTools
 {
     /// <summary>
     /// singleton
