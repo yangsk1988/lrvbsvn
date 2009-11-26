@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using VirtualBicycle.Ide;
+using VirtualBicycle;
 
 namespace Plugin.ModelTools
 {
@@ -13,6 +14,10 @@ namespace Plugin.ModelTools
 
         public void Load()
         {
+            GraphicsDevice.Initialize(Program.MainForm);
+
+            Engine.Initialize(GraphicsDevice.Instance.Device);
+
             ConverterManager.Instance.Register(new XText2ModelConverter());
 
             ConverterManager.Instance.Register(new Xml2ModelConverter());
@@ -21,7 +26,7 @@ namespace Plugin.ModelTools
 
         public void Unload()
         {
-
+            DesignerManager.Instance.RegisterDesigner(new ModelDesignerFactory());
         }
 
         public string Name

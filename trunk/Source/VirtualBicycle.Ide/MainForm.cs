@@ -66,7 +66,6 @@ namespace VirtualBicycle.Ide
             LanguageParser.ParseLanguage(DevStringTable.Instance, menuStripMain);
             LanguageParser.ParseLanguage(DevStringTable.Instance, toolStripMain);
 
-            //GraphicsDevice.Initialize(this);
 
             if (File.Exists(ConfigFile))
             {
@@ -77,16 +76,12 @@ namespace VirtualBicycle.Ide
                 configs = new BasicConfigs();
             }
 
+            FileSystem.Instance.AddWorkingDir(Application.StartupPath);
+            FileSystem.Instance.AddWorkingDir(@"..\..\..\Content");
+            PlatformManager.Instance.RegisterPlatform(PresetedPlatform.VirtualBike, PresetedPlatform.VirtualBikeName);
 
             PluginManager.Initiailze(null, splash.PluginProgressCallBack);
 
-            PlatformManager.Instance.RegisterPlatform(PresetedPlatform.VirtualBike, PresetedPlatform.VirtualBikeName);
-
-            //DesignerManager.Instance.RegisterDesigner(new ModelDesignerFactory());
-            //DesignerManager.Instance.RegisterDesigner(new WorldDesignerFactory());
-
-
-            //TemplateManager.Instance.RegisterTemplate(new WorldTemplate());
 
             ToolManager.Instance.RegisterToolType(new PropertyWndFactory());
             ToolManager.Instance.RegisterToolType(new ExplorerWndFactory());
@@ -103,16 +98,10 @@ namespace VirtualBicycle.Ide
             //{
             //    Ra2FileSystem.Instance.AddWorkingDir(configs.RA2YRPath);
             //}
-            //FileSystem.Instance.AddWorkingDir(Application.StartupPath);
-            //FileSystem.Instance.AddWorkingDir(@"..\..\..\Content");
 
-            //Engine.Initialize(GraphicsDevice.Instance.Device);
 
-            IdeLogicModManager.Initialize();
 
-            //EffectManager.Instance.RegisterModelEffectType(TerrainRenderingEditEffectFactory.Name,
-            //    new TerrainRenderingEditEffectFactory(GraphicsDevice.Instance.Device));
-            //EffectManager.Instance.LoadEffects();
+            EffectManager.Instance.LoadEffects();
 
             ConverterBase[] converters = ConverterManager.Instance.GetAllConverters();
 
