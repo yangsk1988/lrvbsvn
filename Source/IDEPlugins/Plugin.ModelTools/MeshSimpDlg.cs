@@ -8,12 +8,12 @@ using System.Text;
 using System.Windows.Forms;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle.Ide.Editors.EditableObjects;
+using VirtualBicycle;
 using VirtualBicycle.Graphics;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Designers;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.UI;
-using VirtualBicycle;
 
 namespace Plugin.ModelTools
 {

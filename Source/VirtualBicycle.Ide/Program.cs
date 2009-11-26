@@ -30,7 +30,7 @@ namespace VirtualBicycle.Ide
         }
     }
 
-    static class Program
+    public static class Program
     {
         static Icon defaultIcon;
         //static StringTable strTable;
