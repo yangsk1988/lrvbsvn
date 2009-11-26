@@ -4,37 +4,34 @@ using System.Drawing;
 using System.Text;
 using VirtualBicycle.Ide;
 
-namespace Plugin.BitmapFontTools
+namespace Plugin.ModelTools
 {
     public class Plugin : IPlugin
     {
         #region IPlugin 成员
 
-        FontConverter fntConverter;
 
         public void Load()
         {
-            if (fntConverter == null)
-            {
-                fntConverter = new FontConverter();
-            }
+            ConverterManager.Instance.Register(new XText2ModelConverter());
 
-            ConverterManager.Instance.Register(fntConverter);
+            ConverterManager.Instance.Register(new Xml2ModelConverter());
+            ConverterManager.Instance.Register(new Xml2ModelConverter2());
         }
 
         public void Unload()
         {
-            ConverterManager.Instance.Unregister(fntConverter);
+
         }
 
         public string Name
         {
-            get { return "Bitmap Font Tools"; }
+            get { return "Model Plugin"; }
         }
 
         public Icon PluginIcon
         {
-            get { return Properties.Resources.font; }
+            get { return null; }
         }
 
         public bool IsListed

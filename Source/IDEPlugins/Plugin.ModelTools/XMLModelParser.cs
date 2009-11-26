@@ -12,7 +12,7 @@ using VirtualBicycle.Collections;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.Graphics.Animation;
 
-namespace VirtualBicycle.Ide.Converters
+namespace Plugin.ModelTools
 {
     public struct Index3i
     {

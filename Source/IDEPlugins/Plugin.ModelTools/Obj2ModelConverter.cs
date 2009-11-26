@@ -4,15 +4,16 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using VirtualBicycle.Ide.Editors.EditableObjects;
 using SlimDX;
 using SlimDX.Direct3D9;
 using VirtualBicycle.Graphics;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.IO;
+using VirtualBicycle.Ide.Converters;
 using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Editors.EditableObjects;
+using VirtualBicycle.IO;
+using VirtualBicycle.MathLib;
 
-namespace VirtualBicycle.Ide.Converters
+namespace Plugin.ModelTools
 {
     [Obsolete ()]
     class Obj2ModelConverter : ConverterBase

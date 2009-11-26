@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 using SlimDX;
 using SlimDX.Direct3D9;
+using VirtualBicycle.Ide;
 using VirtualBicycle.Ide.Converters;
 using VirtualBicycle.Ide.Designers;
 using VirtualBicycle.Ide.Editors.EditableObjects;
+using VirtualBicycle.Collections;
+using VirtualBicycle.Graphics;
 using VirtualBicycle.Graphics.Animation;
 using VirtualBicycle.IO;
-using VirtualBicycle.MathLib;
 
-namespace VirtualBicycle.Ide.Converters
+namespace Plugin.ModelTools
 {
-    public class XText2ModelConverter : ConverterBase
+    public unsafe class Xml2ModelConverter2 : ConverterBase
     {
-        const string CsfKey = "GUI:X2Mesh";
+        const string CsfKey = "GUI:Xml2Mesh2";
 
         public override void ShowDialog(object sender, EventArgs e)
         {
@@ -43,44 +46,15 @@ namespace VirtualBicycle.Ide.Converters
             }
         }
 
+
         public override void Convert(ResourceLocation source, ResourceLocation dest)
         {
-            Mesh mesh = Mesh.FromStream(GraphicsDevice.Instance.Device, source.GetStream, MeshFlags.Managed);
+            XmlModelParser parser = new XmlModelParser();
 
-            ExtendedMaterial[] mats = mesh.GetMaterials();
-            EditableMeshMaterial[][] outMats = new EditableMeshMaterial[mats.Length][];
-            for (int i = 0; i < mats.Length; i++)
-            {
-                outMats[i] = new EditableMeshMaterial[1];
-                outMats[i][0] = new EditableMeshMaterial();
-                outMats[i][0].D3DMaterial = mats[i].MaterialD3D;
-                outMats[i][0].TextureFile1 = mats[i].TextureFileName;
-            }
+            ParsedXmlModel model = parser.Parse(source.GetStream);
 
 
-            string name = string.Empty;
-            FileLocation fl = source as FileLocation;
-            if (fl != null)
-            {
-                name = Path.GetFileNameWithoutExtension(fl.Path);
-            }
-            EditableMesh outMesh = new EditableMesh(name, mesh, outMats);
 
-            EditableModel outMdl = new EditableModel();
-
-            mesh.Dispose();
-
-            outMdl.Entities = new EditableMesh[] { outMesh };
-
-            TransformAnimation transAnim = new TransformAnimation(1);
-            transAnim.Nodes[0].Transforms = new Matrix[1] { Matrix.RotationX(-MathEx.PIf / 2) };
-
-            outMdl.SetTransformAnimInst(new TransformAnimationInstance(transAnim));            
-
-            EditableModel.ToFile(outMdl, dest);
-
-
-            outMdl.Dispose();
         }
 
         public override string Name
@@ -90,7 +64,7 @@ namespace VirtualBicycle.Ide.Converters
 
         public override string[] SourceExt
         {
-            get { return new string[] { ".x" }; }
+            get { return new string[] { ".xml" }; }
         }
         public override string[] DestExt
         {
@@ -99,12 +73,12 @@ namespace VirtualBicycle.Ide.Converters
 
         public override string SourceDesc
         {
-            get { return DevStringTable.Instance["DOCS:MeshDesc"]; }
+            get { return DevStringTable.Instance["Docs:XMLDesc"]; }
         }
 
         public override string DestDesc
         {
-            get { return DevStringTable.Instance["Docs:XTextDesc"]; }
+            get { return DevStringTable.Instance["DOCS:MeshDesc"]; }
         }
     }
 }

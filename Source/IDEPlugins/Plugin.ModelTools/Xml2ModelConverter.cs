@@ -15,7 +15,7 @@ using VirtualBicycle.Graphics;
 using VirtualBicycle.Graphics.Animation;
 using VirtualBicycle.IO;
 
-namespace VirtualBicycle.Ide.Converters
+namespace Plugin.ModelTools
 {
     public unsafe class Xml2ModelConverter : ConverterBase
     {
