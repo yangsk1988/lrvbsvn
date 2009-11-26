@@ -61,7 +61,6 @@
     <Compile Include="AsyncProcessor.cs" />
     <Compile Include="Design\Dummy.cs" />
     <Compile Include="DummyAttributes.cs" />
-    <Compile Include="Cache.cs" />
     <Compile Include="CaseInsensitiveStringComparer.cs" />
     <Compile Include="Collections\CollectionBase.cs" />
     <Compile Include="Collections\CurveKeyCollection.cs" />
