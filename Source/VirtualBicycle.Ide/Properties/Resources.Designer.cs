@@ -67,13 +67,6 @@ namespace VirtualBicycle.Ide.Properties {
             }
         }
         
-        internal static byte[] moveMarker {
-            get {
-                object obj = ResourceManager.GetObject("moveMarker", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap New {
             get {
                 object obj = ResourceManager.GetObject("New", resourceCulture);
@@ -109,20 +102,6 @@ namespace VirtualBicycle.Ide.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap PointerHS {
-            get {
-                object obj = ResourceManager.GetObject("PointerHS", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static byte[] rotationMark {
-            get {
-                object obj = ResourceManager.GetObject("rotationMark", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap SaveAllHS {
             get {
                 object obj = ResourceManager.GetObject("SaveAllHS", resourceCulture);
@@ -134,13 +113,6 @@ namespace VirtualBicycle.Ide.Properties {
             get {
                 object obj = ResourceManager.GetObject("saveHS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static byte[] selectionMarker {
-            get {
-                object obj = ResourceManager.GetObject("selectionMarker", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         

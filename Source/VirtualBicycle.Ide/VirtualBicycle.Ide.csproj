@@ -273,15 +273,6 @@
     <None Include="Resources\openHS.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\DeleteHS.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\EditTableHS.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\List_BulletsHS.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\StopHS.png" />
   </ItemGroup>
   <ItemGroup>
@@ -297,43 +288,6 @@
     <None Include="Resources\NewItem.PNG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\gird.png" />
-    <None Include="Resources\lowerTerrain.png" />
-    <None Include="Resources\moveMarker.mesh" />
-    <None Include="Resources\paintMaterial.png" />
-    <None Include="Resources\raiseTerrain.png" />
-    <None Include="Resources\rotationMark.mesh" />
-    <None Include="Resources\selectionMarker.mesh" />
-    <None Include="Resources\smoothTerrain.png" />
-    <None Include="Resources\Edit_RedoHS.png" />
-    <None Include="Resources\Edit_UndoHS.png" />
-    <None Include="Resources\GoToNextHS.png" />
-    <None Include="Resources\GoToPrevious.png" />
-    <None Include="Resources\GoToPreviousMessage.png" />
-    <None Include="Resources\importNrmMap.png" />
-    <None Include="Resources\importColorMap.png" />
-    <None Include="Resources\PointerHS.png" />
-    <None Include="Resources\LineColorHS.png" />
-    <None Include="Resources\DisplayInColorHS.png" />
-    <None Include="Resources\imoprtDispMap.png" />
-    <None Include="Resources\imoprtDispMap1.png" />
-    <None Include="Resources\importIndexMap.png" />
-    <None Include="Resources\PropertiesHS.png" />
-    <None Include="Resources\GoToNextMessage.png" />
-    <None Include="Resources\rotateTool.png" />
-    <None Include="Resources\moveTool.png" />
-    <None Include="Resources\streightenTool.png" />
-    <None Include="Resources\fitRoad.png" />
-    <None Include="Resources\SelectRoadNode.png" />
-    <None Include="Resources\DeleteHS1.png" />
-    <None Include="Resources\moveNodeTool.png" />
-    <None Include="Resources\DeleteNodeTool.png" />
-    <None Include="Resources\ConflictHS.png" />
-    <None Include="Resources\ConflictHS1.png" />
-    <None Include="Resources\selectPort.png" />
-    <None Include="Resources\newNode.png" />
-    <None Include="Resources\CheckGrammarHS.png" />
-    <None Include="Resources\worldMap.jpg" />
     <Content Include="WeifenLuo.WinFormsUI.Docking.dll" />
   </ItemGroup>
   <ItemGroup>
