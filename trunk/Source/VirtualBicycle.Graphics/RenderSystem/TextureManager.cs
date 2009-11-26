@@ -46,21 +46,6 @@ namespace VirtualBicycle.Graphics
             set;
         }
 
-        /// <summary>
-        ///  
-        /// </summary>
-        /// <param name="image"></param>
-        /// <returns></returns>
-        /// <remarks>以这种方式创建的资源不会被管理</remarks>
-        public Texture CreateInstance(Image image)
-        {
-            if (Factory == null)
-            {
-                throw new InvalidOperationException();
-            }
-
-            return Factory.CreateTexture(image, CreationUsage);
-        }
         /// <remarks>以这种方式创建的资源不会被管理</remarks>
         public Texture CreateInstance(int width, int height, int surfaceCount, ImagePixelFormat format)
         {
@@ -102,7 +87,7 @@ namespace VirtualBicycle.Graphics
             {
                 Texture tex = Factory.CreateTexture(fl, CreationUsage);
                 retrived = tex;
-                base.NotifyResourceNew(tex, CacheType.Static);
+                base.NotifyResourceNew(tex);
             }
             else
             {

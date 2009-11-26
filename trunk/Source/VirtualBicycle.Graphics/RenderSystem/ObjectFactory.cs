@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Vfs;
 using VirtualBicycle.Media;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics
 {
@@ -25,8 +25,6 @@ namespace VirtualBicycle.Graphics
 
         public abstract Texture CreateTexture(ResourceLocation rl, TextureUsage usage);
 
-        public abstract Texture CreateTexture(Image image, TextureUsage usage);
-        //public abstract Texture CreateTexture(ImageLoader image, TextureUsage usage);
         public abstract Texture CreateTexture(int width, int height, int levelCount, TextureUsage usage, ImagePixelFormat format);
 
         //public abstract Texture CreateTexture(Surface[] surfaces);
@@ -42,12 +40,12 @@ namespace VirtualBicycle.Graphics
         /// <param name="format"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public abstract Texture CreateTexture(int width, int height, int depth, int levelCount, TextureUsage usage, PixelFormat format);
-        public abstract Texture CreateTexture(int length, int levelCount, TextureUsage usage, PixelFormat format);
+        public abstract Texture CreateTexture(int width, int height, int depth, int levelCount, TextureUsage usage, ImagePixelFormat format);
+        public abstract Texture CreateTexture(int length, int levelCount, TextureUsage usage, ImagePixelFormat format);
 
 
-        public abstract RenderTarget CreateRenderTarget(int width, int height, PixelFormat clrFmt, DepthFormat depthFmt);
-        public abstract RenderTarget CreateRenderTarget(BackBuffer backBuffer, BackBuffer depthBuffer, int width, int height);
+        public abstract RenderTarget CreateRenderTarget(int width, int height, ImagePixelFormat clrFmt, DepthFormat depthFmt);
+        public abstract RenderTarget CreateRenderTarget(BackBuffer backBuffer, DepthBuffer depthBuffer, int width, int height);
 
         //public abstract Sprite CreateSprite();
 
@@ -62,9 +60,6 @@ namespace VirtualBicycle.Graphics
         {
             return CreateIndexBuffer(type, count, usage, false);
         }
-
-        //public abstract Line CreateLine();
-        //public abstract Font CreateFont(System.Drawing.Font font);
 
         public abstract VertexDeclaration CreateVertexDeclaration(VertexElement[] elements);
 
