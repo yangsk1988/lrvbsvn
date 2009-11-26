@@ -1,4 +1,4 @@
-﻿namespace Plugin.BitmapFont
+﻿namespace Plugin.BitmapFontTools
 {
     partial class FontDlg
     {

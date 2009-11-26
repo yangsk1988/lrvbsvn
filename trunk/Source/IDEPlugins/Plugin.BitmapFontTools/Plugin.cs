@@ -4,23 +4,23 @@ using System.Drawing;
 using System.Text;
 using VirtualBicycle.Ide;
 
-namespace Plugin.BitmapFont
+namespace Plugin.BitmapFontTools
 {
     public class Plugin : IPlugin
     {
         #region IPlugin 成员
 
-        FontConverter demConverter;
+        FontConverter fntConverter;
 
         public void Load()
         {
-            demConverter = new FontConverter();
-            ConverterManager.Instance.Register(demConverter);
+            fntConverter = new FontConverter();
+            ConverterManager.Instance.Register(fntConverter);
         }
 
         public void Unload()
         {
-            ConverterManager.Instance.Unregister(demConverter);
+            ConverterManager.Instance.Unregister(fntConverter);
         }
 
         public string Name

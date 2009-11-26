@@ -9,7 +9,7 @@ using VirtualBicycle.Ide;
 using VirtualBicycle.Ide.Converters;
 using VirtualBicycle.IO;
 
-namespace Plugin.BitmapFont
+namespace Plugin.BitmapFontTools
 {
     class FontConverter : ConverterBase
     {        

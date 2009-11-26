@@ -46,4 +46,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>Copy $(TargetPath) $(SolutionDir)VirtualBicycle.Ide\bin\Plugins\$(TargetFileName)
+Copy $(TargetDir)$(TargetName).pdb $(SolutionDir)VirtualBicycle.Ide\bin\Plugins\$(TargetName).pdb
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>
