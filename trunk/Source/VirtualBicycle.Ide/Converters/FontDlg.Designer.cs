@@ -117,7 +117,6 @@
             // 
             // folderBrowserDialog1
             // 
-            this.folderBrowserDialog1.RootFolder = System.Environment.SpecialFolder.Startup;
             this.folderBrowserDialog1.ShowNewFolderButton = false;
             // 
             // FontDlg
