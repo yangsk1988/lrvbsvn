@@ -20,6 +20,7 @@ namespace VirtualBicycle.Ide
             label1.Visible = true;
             label2.Visible = true;
             progressBar1.Visible = true;
+            pictureBox1.Visible = true;
 
             progressBar1.Maximum = count;
             progressBar1.Value = index;
@@ -30,7 +31,7 @@ namespace VirtualBicycle.Ide
 
                 if (plugin.PluginIcon != null)
                 {
-                    pictureBox1.Image = Bitmap.FromHicon(plugin.PluginIcon.Handle);
+                    pictureBox1.Image = plugin.PluginIcon.ToBitmap();
                 }
                 else
                 {

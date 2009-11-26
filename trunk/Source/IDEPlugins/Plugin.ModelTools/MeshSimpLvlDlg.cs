@@ -6,8 +6,9 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using SlimDX.Direct3D9;
+using VirtualBicycle.Ide;
 
-namespace VirtualBicycle.Ide.Converters
+namespace Plugin.ModelTools
 {
     public partial class MeshSimpLvlDlg : Form
     {

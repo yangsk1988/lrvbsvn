@@ -7,15 +7,14 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using VirtualBicycle.Ide.Converters;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle.Ide.Designers.WorldBuilder;
-using VirtualBicycle.Ide.Projects;
-using VirtualBicycle.Ide.Templates;
-using VirtualBicycle.Ide.Tools;
 using VirtualBicycle;
 using VirtualBicycle.Config;
 using VirtualBicycle.Graphics.Effects;
+using VirtualBicycle.Ide.Converters;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Projects;
+using VirtualBicycle.Ide.Templates;
+using VirtualBicycle.Ide.Tools;
 using VirtualBicycle.IO;
 using VirtualBicycle.Media;
 using VirtualBicycle.UI;
@@ -67,7 +66,7 @@ namespace VirtualBicycle.Ide
             LanguageParser.ParseLanguage(DevStringTable.Instance, menuStripMain);
             LanguageParser.ParseLanguage(DevStringTable.Instance, toolStripMain);
 
-            GraphicsDevice.Initialize(this);
+            //GraphicsDevice.Initialize(this);
 
             if (File.Exists(ConfigFile))
             {
@@ -83,22 +82,18 @@ namespace VirtualBicycle.Ide
 
             PlatformManager.Instance.RegisterPlatform(PresetedPlatform.VirtualBike, PresetedPlatform.VirtualBikeName);
 
-            DesignerManager.Instance.RegisterDesigner(new ModelDesignerFactory());
-            DesignerManager.Instance.RegisterDesigner(new WorldDesignerFactory());
+            //DesignerManager.Instance.RegisterDesigner(new ModelDesignerFactory());
+            //DesignerManager.Instance.RegisterDesigner(new WorldDesignerFactory());
 
 
-            TemplateManager.Instance.RegisterTemplate(new WorldTemplate());
+            //TemplateManager.Instance.RegisterTemplate(new WorldTemplate());
 
             ToolManager.Instance.RegisterToolType(new PropertyWndFactory());
             ToolManager.Instance.RegisterToolType(new ExplorerWndFactory());
             ToolManager.Instance.RegisterToolType(new ToolBoxFactory());
 
-            ConverterManager.Instance.Register(new Xml2ModelConverter());
-            ConverterManager.Instance.Register(new Xml2ModelConverter2());
             ConverterManager.Instance.Register(new DispMapConverter());
             ConverterManager.Instance.Register(new NormalMapConverter());
-            ConverterManager.Instance.Register(new XText2ModelConverter());
-
 
             //if (configs.GamePath.Length > 0)
             //{
@@ -108,16 +103,16 @@ namespace VirtualBicycle.Ide
             //{
             //    Ra2FileSystem.Instance.AddWorkingDir(configs.RA2YRPath);
             //}
-            FileSystem.Instance.AddWorkingDir(Application.StartupPath);
-            FileSystem.Instance.AddWorkingDir(@"..\..\..\Content");
+            //FileSystem.Instance.AddWorkingDir(Application.StartupPath);
+            //FileSystem.Instance.AddWorkingDir(@"..\..\..\Content");
 
-            Engine.Initialize(GraphicsDevice.Instance.Device);
+            //Engine.Initialize(GraphicsDevice.Instance.Device);
 
             IdeLogicModManager.Initialize();
 
-            EffectManager.Instance.RegisterModelEffectType(TerrainRenderingEditEffectFactory.Name,
-                new TerrainRenderingEditEffectFactory(GraphicsDevice.Instance.Device));
-            EffectManager.Instance.LoadEffects();
+            //EffectManager.Instance.RegisterModelEffectType(TerrainRenderingEditEffectFactory.Name,
+            //    new TerrainRenderingEditEffectFactory(GraphicsDevice.Instance.Device));
+            //EffectManager.Instance.LoadEffects();
 
             ConverterBase[] converters = ConverterManager.Instance.GetAllConverters();
 

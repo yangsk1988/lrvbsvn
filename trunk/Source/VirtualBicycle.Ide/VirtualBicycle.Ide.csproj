@@ -78,18 +78,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converters\DispMapConverter.cs" />
-    <Compile Include="Converters\MeshSimpDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Converters\MeshSimpDlg.Designer.cs">
-      <DependentUpon>MeshSimpDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Converters\MeshSimpLvlDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Converters\MeshSimpLvlDlg.Designer.cs">
-      <DependentUpon>MeshSimpLvlDlg.cs</DependentUpon>
-    </Compile>
     <Compile Include="Converters\NormalMapConvDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,17 +85,12 @@
       <DependentUpon>NormalMapConvDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Converters\NormalMapConverter.cs" />
-    <Compile Include="Converters\Obj2ModelConverter.cs" />
     <Compile Include="Converters\ProgressDlg.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Converters\ProgressDlg.Designer.cs">
       <DependentUpon>ProgressDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="Converters\Xml2ModelConverter.cs" />
-    <Compile Include="Converters\XmlModelParser.cs" />
-    <Compile Include="Converters\XText2ModelConverter.cs" />
-    <Compile Include="Converters\Xml2ModelConverter2.cs" />
     <Compile Include="DesignerManager.cs" />
     <Compile Include="Designers\InputNumberDlg.cs">
       <SubType>Form</SubType>
@@ -115,86 +98,17 @@
     <Compile Include="Designers\InputNumberDlg.Designer.cs">
       <DependentUpon>InputNumberDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="Designers\NewWorldForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Designers\NewWorldForm.Designer.cs">
-      <DependentUpon>NewWorldForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Designers\ScenePropertyDesigner.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Designers\ScenePropertyDesigner.Designer.cs">
-      <DependentUpon>ScenePropertyDesigner.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Designers\SelectDetailMapForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Designers\SelectDetailMapForm.Designer.cs">
-      <DependentUpon>SelectDetailMapForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Designers\WorldBuilder\EditableTerrainFactory.cs" />
-    <Compile Include="Designers\WorldBuilder\FakeSmallBox.cs" />
-    <Compile Include="Designers\WorldBuilder\FakeLogicalArea.cs" />
-    <Compile Include="Designers\WorldBuilder\MoveSplineNodeTool.cs" />
-    <Compile Include="Designers\WorldBuilder\MoveTool.cs" />
-    <Compile Include="Designers\WorldBuilder\PaintHelper.cs" />
-    <Compile Include="Designers\WorldBuilder\PlaceSmallBox.cs" />
-    <Compile Include="Designers\WorldBuilder\PlaceBuilding.cs" />
-    <Compile Include="Designers\WorldBuilder\PlaceCrossing.cs" />
-    <Compile Include="Designers\WorldBuilder\PlaceLogicalArea.cs" />
-    <Compile Include="Designers\WorldBuilder\PlaceRoadSpline.cs" />
-    <Compile Include="Designers\WorldBuilder\PlaceTO.cs" />
-    <Compile Include="Designers\WorldBuilder\PlaceTree.cs" />
-    <Compile Include="Designers\WorldBuilder\RotateTool.cs" />
-    <Compile Include="Designers\WorldBuilder\SelectPortTool.cs" />
-    <Compile Include="Designers\WorldBuilder\SelectRoadNodeTool.cs" />
-    <Compile Include="Designers\WorldBuilder\SelectTool.cs" />
-    <Compile Include="Designers\WorldBuilder\TerrainMaterialTool.cs" />
-    <Compile Include="Designers\WorldBuilder\TerrainShapeTool.cs" />
-    <Compile Include="Designers\WorldBuilder\ToolCategories.cs" />
-    <Compile Include="Designers\WorldBuilder\ViewCamera.cs" />
-    <Compile Include="Designers\WorldBuilder\WBTool.cs" />
-    <Compile Include="Designers\WorldBuilder\WBToolBoxItem.cs" />
-    <Compile Include="Designers\WorldBuilder\WorldDesigner.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Designers\WorldBuilder\WorldDesigner.Designer.cs">
-      <DependentUpon>WorldDesigner.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Designers\WorldBuilder\WorldDesignerFactory.cs" />
     <Compile Include="Designers\DocumentBase.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Designers\DocumentConfigBase.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Designers\EmbededMeshDocument.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Designers\EmbededMeshDocument.Designer.cs">
-      <DependentUpon>EmbededMeshDocument.cs</DependentUpon>
-    </Compile>
     <Compile Include="Designers\GeneralDocumentBase.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Designers\GraphicsDevive.cs" />
     <Compile Include="Designers\Interfaces.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Designers\ModelDesigner.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Designers\ModelDesigner.Designer.cs">
-      <DependentUpon>ModelDesigner.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Designers\ModelDesignerConfigs.cs" />
-    <Compile Include="Designers\ModelDesignerFactory.cs" />
-    <Compile Include="Designers\VertexElementDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Designers\VertexElementDlg.Designer.cs">
-      <DependentUpon>VertexElementDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="DevUtils.cs">
       <SubType>Code</SubType>
@@ -212,48 +126,6 @@
       <DependentUpon>Color4EditControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Editors\Color4Editor.cs" />
-    <Compile Include="Editors\EditableObjects\EditableCluster.cs" />
-    <Compile Include="Editors\EditableObjects\EditableClusterTable.cs" />
-    <Compile Include="Editors\EditableObjects\EditableGameScene.cs" />
-    <Compile Include="Editors\EditableObjects\EditableMesh.cs" />
-    <Compile Include="Editors\EditableObjects\EditableMeshMaterial.cs" />
-    <Compile Include="Editors\EditableObjects\EditableModel.cs" />
-    <Compile Include="Editors\EditableObjects\EditableSceneData.cs" />
-    <Compile Include="Editors\EditableObjects\EditableTerrain.cs" />
-    <Compile Include="Editors\EditableObjects\EditableTerrainData.cs" />
-    <Compile Include="Editors\EditableObjects\EditableTrack.cs" />
-    <Compile Include="Editors\EditableObjects\SceneProperty.cs" />
-    <Compile Include="Editors\EmbededMeshEditor.cs" />
-    <Compile Include="Editors\MeshArrayConverter.cs" />
-    <Compile Include="Editors\MeshArrayEditControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Editors\MeshArrayEditControl.Designer.cs">
-      <DependentUpon>MeshArrayEditControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\MeshArrayEditor.cs" />
-    <Compile Include="Editors\MeshMaterialConverter.cs" />
-    <Compile Include="Editors\ModelEditControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Editors\ModelEditControl.Designer.cs">
-      <DependentUpon>ModelEditControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\ModelEditor.cs" />
-    <Compile Include="Editors\TextureEditControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Editors\TextureEditControl.Designer.cs">
-      <DependentUpon>TextureEditControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\TextureEditor.cs" />
-    <Compile Include="Editors\VertexFormatEditor.cs" />
-    <Compile Include="Editors\VertexFormatEditorControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Editors\VertexFormatEditorControl.Designer.cs">
-      <DependentUpon>VertexFormatEditorControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="IdeLogicModManager.cs" />
     <Compile Include="IPlugin.cs" />
     <Compile Include="Localization.cs" />
@@ -288,14 +160,6 @@
       <DependentUpon>ConvDlg.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Converters\MeshSimpDlg.resx">
-      <DependentUpon>MeshSimpDlg.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Converters\MeshSimpLvlDlg.resx">
-      <DependentUpon>MeshSimpLvlDlg.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Converters\NormalMapConvDlg.resx">
       <DependentUpon>NormalMapConvDlg.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -304,36 +168,8 @@
       <DependentUpon>ProgressDlg.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Designers\EmbededMeshDocument.resx">
-      <DependentUpon>EmbededMeshDocument.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Designers\InputNumberDlg.resx">
       <DependentUpon>InputNumberDlg.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Designers\ModelDesigner.resx">
-      <DependentUpon>ModelDesigner.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Designers\NewWorldForm.resx">
-      <DependentUpon>NewWorldForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Designers\ScenePropertyDesigner.resx">
-      <DependentUpon>ScenePropertyDesigner.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Designers\SelectDetailMapForm.resx">
-      <DependentUpon>SelectDetailMapForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Designers\VertexElementDlg.resx">
-      <DependentUpon>VertexElementDlg.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Designers\WorldBuilder\WorldDesigner.resx">
-      <DependentUpon>WorldDesigner.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Editors\ArrayView.resx">
@@ -342,22 +178,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editors\Color4EditControl.resx">
       <DependentUpon>Color4EditControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editors\MeshArrayEditControl.resx">
-      <DependentUpon>MeshArrayEditControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editors\ModelEditControl.resx">
-      <DependentUpon>ModelEditControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editors\TextureEditControl.resx">
-      <DependentUpon>TextureEditControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Editors\VertexFormatEditorControl.resx">
-      <DependentUpon>VertexFormatEditorControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -417,8 +237,6 @@
     </Compile>
     <Compile Include="TemplateManager.cs" />
     <Compile Include="Templates\TemplateBase.cs" />
-    <Compile Include="Templates\WorldTemplate.cs" />
-    <Compile Include="TerrainRenderingEditEffect.cs" />
     <Compile Include="ToolManager.cs" />
     <Compile Include="Tools\ExplorerWindow.cs">
       <SubType>Form</SubType>
@@ -538,6 +356,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Build\" />
+    <Folder Include="Editors\EditableObjects\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

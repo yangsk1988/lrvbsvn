@@ -1,4 +1,4 @@
-﻿namespace VirtualBicycle.Ide.Converters
+﻿namespace Plugin.ModelTools
 {
     partial class MeshSimpLvlDlg
     {

@@ -29,10 +29,18 @@ namespace VirtualBicycle.Ide
         }
         public void Register(ConverterBase fac)
         {
+            if (fac == null) 
+            {
+                throw new ArgumentNullException("fac");
+            }
             converters.Add(fac);
         }
-        public void Unregister(ConverterBase fac) 
+        public void Unregister(ConverterBase fac)
         {
+            if (fac == null)
+            {
+                throw new ArgumentNullException("fac");
+            }
             converters.Remove(fac);
         }
 

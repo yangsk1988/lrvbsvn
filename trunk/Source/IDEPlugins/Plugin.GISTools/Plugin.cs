@@ -16,15 +16,15 @@ namespace Plugin.GISTools
 
         public void Load()
         {
-            if (demConverter != null)
+            if (demConverter == null)
             {
                 demConverter = new DemConverter();
             }
-            if (tdmp32to8 != null)
+            if (tdmp32to8 == null)
             {
                 tdmp32to8 = new TDmp32To8Converter();
             }
-            if (tdmp32to16 != null)
+            if (tdmp32to16 == null)
             {
                 tdmp32to16 = new TDmp32To16Converter();
             }

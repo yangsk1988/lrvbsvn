@@ -15,7 +15,7 @@ using VirtualBicycle.MathLib;
 using VirtualBicycle.UI;
 using VirtualBicycle;
 
-namespace VirtualBicycle.Ide.Converters
+namespace Plugin.ModelTools
 {
     public partial class MeshSimpDlg : Form
     {
