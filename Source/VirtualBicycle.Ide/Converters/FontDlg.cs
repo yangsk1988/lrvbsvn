@@ -16,7 +16,7 @@ namespace VirtualBicycle.Ide.Converters
 
             for (int i = 0; i < fonts.Length; i++)
             {
-                checkedListBox1.Items.Add(fonts[i].ToString());
+                checkedListBox1.Items.Add(fonts[i]);
             }
 
             DialogResult = DialogResult.Cancel;

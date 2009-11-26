@@ -42,7 +42,7 @@ namespace VirtualBicycle.Ide.Converters
                 pd.Show();
                 for (int i = 0; i < fonts.Length; i++)
                 {
-                    string dest = Path.Combine(path, Path.GetFileNameWithoutExtension(fonts[i].Name) + ".png");
+                    string dest = Path.Combine(path, Path.GetFileNameWithoutExtension(fonts[i].Name) + ".fnt");
                     currentFont = fonts[i];
                     Convert(null, new DevFileLocation(dest));
                     pd.Value = i;
