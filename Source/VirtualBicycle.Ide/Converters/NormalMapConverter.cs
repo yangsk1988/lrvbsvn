@@ -18,8 +18,6 @@ namespace VirtualBicycle.Ide.Converters
             SwapXZ,
         }
 
-
-
         public NormalMapConverter()
         {
             Type = ConversionType.SwapYZ;
