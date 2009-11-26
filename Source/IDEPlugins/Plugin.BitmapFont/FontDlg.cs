@@ -5,8 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using VirtualBicycle.Ide.Converters;
 
-namespace VirtualBicycle.Ide.Converters
+namespace Plugin.BitmapFont
 {
     public partial class FontDlg : Form
     {

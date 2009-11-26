@@ -1,4 +1,4 @@
-﻿namespace VirtualBicycle.Ide.Converters
+﻿namespace Plugin.BitmapFont
 {
     partial class FontDlg
     {

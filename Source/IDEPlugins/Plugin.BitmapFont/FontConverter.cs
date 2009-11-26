@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Converters;
 using VirtualBicycle.IO;
-using System.Drawing.Imaging;
 
-namespace VirtualBicycle.Ide.Converters
+namespace Plugin.BitmapFont
 {
     public class FontConverter : ConverterBase
     {        

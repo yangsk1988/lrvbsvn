@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IDEPlugins", "IDEPlugins", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.GISConverter", "IDEPlugins\Plugin.GISConverter\Plugin.GISConverter.csproj", "{8F9419AA-EA51-4759-BADC-59D984FFA3B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.BitmapFont", "IDEPlugins\Plugin.BitmapFont\Plugin.BitmapFont.csproj", "{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -275,6 +277,20 @@ Global
 		{8F9419AA-EA51-4759-BADC-59D984FFA3B3}.Release|Win32.ActiveCfg = Release|Any CPU
 		{8F9419AA-EA51-4759-BADC-59D984FFA3B3}.Release|x86.ActiveCfg = Release|Any CPU
 		{8F9419AA-EA51-4759-BADC-59D984FFA3B3}.Release|Xbox 360.ActiveCfg = Release|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Debug|Xbox 360.ActiveCfg = Debug|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Release|Win32.ActiveCfg = Release|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Release|x86.ActiveCfg = Release|Any CPU
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0}.Release|Xbox 360.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -296,5 +312,6 @@ Global
 		{7538293E-884D-476E-839C-EC7E3536A43C} = {829D130D-7C4F-424A-AFB1-B9064C4320EA}
 		{19321CCC-6A9B-4002-9966-197F960B41D0} = {829D130D-7C4F-424A-AFB1-B9064C4320EA}
 		{8F9419AA-EA51-4759-BADC-59D984FFA3B3} = {28DB5D72-71E8-4E92-A1C8-2CC5F45300A9}
+		{F3B19A80-1849-45B2-B21D-A9A68E2E47D0} = {28DB5D72-71E8-4E92-A1C8-2CC5F45300A9}
 	EndGlobalSection
 EndGlobal
