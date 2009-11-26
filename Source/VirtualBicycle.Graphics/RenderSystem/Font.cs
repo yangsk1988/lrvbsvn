@@ -196,10 +196,17 @@ namespace VirtualBicycle.Graphics
             for (int i = 0; i < text.Length; i++)
             {
                 char ch = text[i];
-                if (ch >= codeStart && ch <= codeEnd)
+                if (ch != '\n')
                 {
-                    sprite.Draw(chars[ch].Map, x, y, (int)ColorValue.White.PackedValue);
-                    x += (int)(chars[ch].Width * scale);
+                    if (ch >= codeStart && ch <= codeEnd)
+                    {
+                        sprite.Draw(chars[ch].Map, x, y, (int)ColorValue.White.PackedValue);
+                        x += (int)(chars[ch].Width * scale);
+                    }
+                }
+                else 
+                {
+                    y += origHeight;
                 }
             }
         }
