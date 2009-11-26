@@ -79,7 +79,7 @@ namespace VirtualBicycle.Ide
             }
 
 
-            PluginManager.Initiailze(null, null);
+            PluginManager.Initiailze(null, splash.PluginProgressCallBack);
 
             PlatformManager.Instance.RegisterPlatform(PresetedPlatform.VirtualBike, PresetedPlatform.VirtualBikeName);
 
@@ -100,7 +100,7 @@ namespace VirtualBicycle.Ide
             ConverterManager.Instance.Register(new DispMapConverter());
             ConverterManager.Instance.Register(new NormalMapConverter());
             ConverterManager.Instance.Register(new XText2ModelConverter());
-            ConverterManager.Instance.Register(new DemConverter());
+            //ConverterManager.Instance.Register(new DemConverter());
             ConverterManager.Instance.Register(new TDmp32To16Converter());
             ConverterManager.Instance.Register(new TDmp32To8Converter());
             ConverterManager.Instance.Register(new VirtualBicycle.Ide.Converters.FontConverter());
