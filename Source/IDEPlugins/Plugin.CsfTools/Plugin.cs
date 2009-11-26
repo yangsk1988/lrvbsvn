@@ -35,7 +35,7 @@ namespace Plugin.CsfTools
 
         public string Name
         {
-            get { return "GIS Converter"; }
+            get { return "Csf Plugin"; }
         }
 
         public Icon PluginIcon
