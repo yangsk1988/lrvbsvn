@@ -103,7 +103,6 @@ namespace VirtualBicycle.Ide
             //ConverterManager.Instance.Register(new DemConverter());
             ConverterManager.Instance.Register(new TDmp32To16Converter());
             ConverterManager.Instance.Register(new TDmp32To8Converter());
-            ConverterManager.Instance.Register(new VirtualBicycle.Ide.Converters.FontConverter());
 
             ConverterManager.Instance.Register(new Mesh2MeshConverter());
 
