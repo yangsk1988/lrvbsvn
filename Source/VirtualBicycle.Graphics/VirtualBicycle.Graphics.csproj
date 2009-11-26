@@ -99,7 +99,6 @@
     <Compile Include="Scene\ClusterTableBase.cs" />
     <Compile Include="Scene\DynamicObject.cs" />
     <Compile Include="Scene\Entity.cs" />
-    <Compile Include="Scene\FixedJointManager.cs" />
     <Compile Include="Scene\GameScene.cs" />
     <Compile Include="Scene\GameSceneBase.cs" />
     <Compile Include="Scene\IFindObjectCallBack.cs" />
