@@ -145,43 +145,45 @@ namespace VirtualBicycle.Core
             }
         }
 
-        class ResoueceCacheReader : ResourceOperation
-        {
-            public ResoueceCacheReader(Resource resource)
-                : base(resource)
-            {
+        #region Cache
+        //class ResoueceCacheReader : ResourceOperation
+        //{
+        //    public ResoueceCacheReader(Resource resource)
+        //        : base(resource)
+        //    {
 
-            }
+        //    }
 
-            public override void Process()
-            {
-                if (Resource != null)
-                {
-                    Stream stream = Resource.cacheMem.ResourceLocation.GetStream;
-                    Resource.ReadCacheData(new VirtualStream(stream));
-                    if (Resource.State == ResourceState.Loading)
-                        Resource.State = ResourceState.Loaded;
-                }
-            }
-        }
-        class ResoueceCacheWriter : ResourceOperation
-        {
-            public ResoueceCacheWriter(Resource resource)
-                : base(resource)
-            {
+        //    public override void Process()
+        //    {
+        //        if (Resource != null)
+        //        {
+        //            Stream stream = Resource.cacheMem.ResourceLocation.GetStream;
+        //            Resource.ReadCacheData(new VirtualStream(stream));
+        //            if (Resource.State == ResourceState.Loading)
+        //                Resource.State = ResourceState.Loaded;
+        //        }
+        //    }
+        //}
+        //class ResoueceCacheWriter : ResourceOperation
+        //{
+        //    public ResoueceCacheWriter(Resource resource)
+        //        : base(resource)
+        //    {
 
-            }
+        //    }
 
-            public override void Process()
-            {
-                if (Resource != null)
-                {
-                    Stream stream = Resource.cacheMem.ResourceLocation.GetStream;
+        //    public override void Process()
+        //    {
+        //        if (Resource != null)
+        //        {
+        //            Stream stream = Resource.cacheMem.ResourceLocation.GetStream;
 
-                    Resource.WriteCacheData(new VirtualStream(stream));
-                }
-            }
-        }
+        //            Resource.WriteCacheData(new VirtualStream(stream));
+        //        }
+        //    }
+        //}
+        #endregion
         #endregion
 
         /// <summary>
@@ -244,13 +246,13 @@ namespace VirtualBicycle.Core
 
                 lock (syncHelper)
                 {
-                    while (timeQueue.Count > 5)                    
+                    while (timeQueue.Count > 5)
                         timeQueue.Dequeue();
-                    
+
                     if (timeQueue.Count > 0)
                     {
                         result = 0;
-                        for (int i = 0; i < timeQueue.Count; i++) 
+                        for (int i = 0; i < timeQueue.Count; i++)
                         {
                             result += timeQueue.GetElement(i);
                         }
@@ -290,7 +292,7 @@ namespace VirtualBicycle.Core
                 lock (syncHelper)
                 {
                     notEmpty = (timeQueue.Count > 0);
-                    if (notEmpty) 
+                    if (notEmpty)
                         topVal = timeQueue.Tail();
                 }
 
@@ -315,14 +317,10 @@ namespace VirtualBicycle.Core
 
         int refCount;
 
-        protected CacheMemory cacheMem;
-
         ResourceState resState;
 
         ResourceLoader resourceLoader;
         ResourceUnloader resourceUnloader;
-        ResoueceCacheReader resourceCReader;
-        ResoueceCacheWriter resourceCWriter;
         object syncHelper = new object();
 
 
@@ -365,32 +363,33 @@ namespace VirtualBicycle.Core
             return name.ToUpper().GetHashCode();
         }
 
+        #region Cache
+        //public bool HasCache
+        //{
+        //    get { return cacheMem.ResourceLocation != null; }
+        //}
 
-        public bool HasCache
-        {
-            get { return cacheMem.ResourceLocation != null; }
-        }
+        //public virtual void SetCache(CacheMemory rl)
+        //{
+        //    Stream stm = rl.ResourceLocation.GetStream;
+        //    WriteCacheData(new VirtualStream(stm));
 
-        public virtual void SetCache(CacheMemory rl)
-        {
-            Stream stm = rl.ResourceLocation.GetStream;
-            WriteCacheData(new VirtualStream(stm));
+        //    cacheMem = rl;
+        //}
 
-            cacheMem = rl;
-        }
+        //public CacheMemory GetCache()
+        //{
+        //    return cacheMem;
+        //}
 
-        public CacheMemory GetCache()
-        {
-            return cacheMem;
-        }
-
-        public virtual void ResetCache()
-        {
-            cacheMem = new CacheMemory();
-        }
+        //public virtual void ResetCache()
+        //{
+        //    cacheMem = new CacheMemory();
+        //}
 
         protected abstract void ReadCacheData(Stream stream);
         protected abstract void WriteCacheData(Stream stream);
+        #endregion
 
         /// <summary>
         ///  获取该资源的状态
@@ -420,7 +419,7 @@ namespace VirtualBicycle.Core
         }
 
         [BrowsableAttribute(false)]
-       public string HashString
+        public string HashString
         {
             get { return hashString; }
         }
@@ -432,8 +431,6 @@ namespace VirtualBicycle.Core
         {
             resourceLoader = new ResourceLoader(this);
             resourceUnloader = new ResourceUnloader(this);
-            resourceCReader = new ResoueceCacheReader(this);
-            resourceCWriter = new ResoueceCacheWriter(this);
         }
 
         protected Resource(ResourceManager manager, string hashString)
@@ -458,7 +455,7 @@ namespace VirtualBicycle.Core
         /// <summary>
         ///  获得管理该资源的资源管理器
         /// </summary>
-        
+
         [BrowsableAttribute(false)]
         public ResourceManager Manager
         {
@@ -536,10 +533,10 @@ namespace VirtualBicycle.Core
 
                 State = ResourceState.Loading;
 
-                if (HasCache)
-                    manager.AddTask(resourceCReader);
-                else
-                    manager.AddTask(resourceLoader);
+                //if (HasCache)
+                //    manager.AddTask(resourceCReader);
+                //else
+                manager.AddTask(resourceLoader);
 
                 manager.NotifyResourceLoaded(this);
             }
@@ -554,8 +551,8 @@ namespace VirtualBicycle.Core
             {
                 State = ResourceState.Unloading;
 
-                if (HasCache)
-                    manager.AddTask(resourceCWriter);
+                //if (HasCache)
+                //    manager.AddTask(resourceCWriter);
                 manager.AddTask(resourceUnloader);
 
                 manager.NotifyResourceUnloaded(this);
@@ -582,8 +579,8 @@ namespace VirtualBicycle.Core
         {
             if (disposing && IsManaged)
             {
-                Cache.Instance.Release(cacheMem);
-                ResetCache();
+                //Cache.Instance.Release(cacheMem);
+                //ResetCache();
 
                 manager.NotifyResourceFinalizing(this);
             }

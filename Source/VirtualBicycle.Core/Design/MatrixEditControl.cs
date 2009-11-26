@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using VirtualBicycle.MathLib;
+    using System.Data;
+    using System.Drawing;
+    using System.Windows.Forms;
+    using System.Windows.Forms.Design;
 
 namespace VirtualBicycle.Design
 {
-#if !XBOX
-    using System.Windows.Forms;
-    using System.Windows.Forms.Design;
-    using System.Drawing;
-    using System.Data;
-
     public partial class MatrixEditControl : UserControl, IEditControl<Matrix>
     {
         enum TransformationType
@@ -324,5 +322,4 @@ namespace VirtualBicycle.Design
             edSvc.CloseDropDown();
         }
     }
-#endif
 }
