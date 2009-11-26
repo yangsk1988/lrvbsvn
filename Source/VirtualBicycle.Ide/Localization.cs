@@ -6,7 +6,7 @@ using System.ComponentModel;
 namespace VirtualBicycle.Ide
 {
     [AttributeUsage(AttributeTargets.All)]
-    internal sealed class LocalizedDescriptionAttribute : DescriptionAttribute
+    public sealed class LocalizedDescriptionAttribute : DescriptionAttribute
     {
         private bool initialized = false;
 
@@ -35,7 +35,7 @@ namespace VirtualBicycle.Ide
     }
 
     [AttributeUsage(AttributeTargets.All)]
-    internal sealed class LocalizedCategoryAttribute : CategoryAttribute
+    public sealed class LocalizedCategoryAttribute : CategoryAttribute
     {
         public LocalizedCategoryAttribute(string key)
             : base(key)

@@ -83,13 +83,11 @@ namespace VirtualBicycle.Ide
 
             PlatformManager.Instance.RegisterPlatform(PresetedPlatform.VirtualBike, PresetedPlatform.VirtualBikeName);
 
-            DesignerManager.Instance.RegisterDesigner(new CsfDesignerFactory());
             DesignerManager.Instance.RegisterDesigner(new ModelDesignerFactory());
             DesignerManager.Instance.RegisterDesigner(new WorldDesignerFactory());
 
 
             TemplateManager.Instance.RegisterTemplate(new WorldTemplate());
-            TemplateManager.Instance.RegisterTemplate(new CsfTemplate());
 
             ToolManager.Instance.RegisterToolType(new PropertyWndFactory());
             ToolManager.Instance.RegisterToolType(new ExplorerWndFactory());

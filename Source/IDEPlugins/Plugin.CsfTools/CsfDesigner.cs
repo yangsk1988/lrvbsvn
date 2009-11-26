@@ -9,11 +9,13 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using VirtualBicycle;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Designers;
 using VirtualBicycle.IO;
 using VirtualBicycle.UI;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace VirtualBicycle.Ide.Designers
+namespace Plugin.CsfTools
 {
     public partial class CsfDesigner : GeneralDocumentBase
     {

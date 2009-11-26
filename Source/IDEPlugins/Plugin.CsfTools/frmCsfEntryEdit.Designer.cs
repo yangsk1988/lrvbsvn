@@ -1,4 +1,4 @@
-﻿namespace VirtualBicycle.Ide.Designers
+﻿namespace Plugin.CsfTools
 {
     partial class frmCsfEntryEdit
     {

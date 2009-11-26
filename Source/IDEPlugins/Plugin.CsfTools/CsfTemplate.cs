@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
 using VirtualBicycle;
+using VirtualBicycle.Ide;
 using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Templates;
 
-namespace VirtualBicycle.Ide.Templates
+namespace Plugin.CsfTools
 {
     public class CsfTemplate : FileTemplateBase
     {
@@ -43,7 +45,7 @@ namespace VirtualBicycle.Ide.Templates
 
         public override int Platform
         {
-            get { return PresetedPlatform.VirtualBike | PresetedPlatform.YurisRevenge | PresetedPlatform.Ra2Reload; }
+            get { return PresetedPlatform.All; }
         }
 
         public override string Name
