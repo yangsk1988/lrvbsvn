@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{88F2DDB5-3C4A-4D3D-A9FF-6A5DA19BB9B7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Plugin.WorldBuilder</RootNamespace>
+    <AssemblyName>Plugin.WorldBuilder</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SlimDX, Version=2.0.5.39, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\SlimDX.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.2.2987.1315, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\VirtualBicycle.Ide\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Designer\EditableTerrainFactory.cs" />
+    <Compile Include="Designer\FakeLogicalArea.cs" />
+    <Compile Include="Designer\FakeSmallBox.cs" />
+    <Compile Include="Designer\MoveSplineNodeTool.cs" />
+    <Compile Include="Designer\MoveTool.cs" />
+    <Compile Include="Designer\NewWorldForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Designer\NewWorldForm.Designer.cs">
+      <DependentUpon>NewWorldForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\PaintHelper.cs" />
+    <Compile Include="Designer\PlaceBuilding.cs" />
+    <Compile Include="Designer\PlaceCrossing.cs" />
+    <Compile Include="Designer\PlaceLogicalArea.cs" />
+    <Compile Include="Designer\PlaceRoadSpline.cs" />
+    <Compile Include="Designer\PlaceSmallBox.cs" />
+    <Compile Include="Designer\PlaceTO.cs" />
+    <Compile Include="Designer\PlaceTree.cs" />
+    <Compile Include="Designer\RotateTool.cs" />
+    <Compile Include="Designer\ScenePropertyDesigner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Designer\ScenePropertyDesigner.Designer.cs">
+      <DependentUpon>ScenePropertyDesigner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\SelectDetailMapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Designer\SelectDetailMapForm.Designer.cs">
+      <DependentUpon>SelectDetailMapForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\SelectPortTool.cs" />
+    <Compile Include="Designer\SelectRoadNodeTool.cs" />
+    <Compile Include="Designer\SelectTool.cs" />
+    <Compile Include="Designer\TerrainMaterialTool.cs" />
+    <Compile Include="Designer\TerrainShapeTool.cs" />
+    <Compile Include="Designer\ToolCategories.cs" />
+    <Compile Include="Designer\ViewCamera.cs" />
+    <Compile Include="Designer\WBTool.cs" />
+    <Compile Include="Designer\WBToolBoxItem.cs" />
+    <Compile Include="Designer\WorldDesigner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Designer\WorldDesigner.Designer.cs">
+      <DependentUpon>WorldDesigner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Designer\WorldDesignerFactory.cs" />
+    <Compile Include="EditableObjects\EditableCluster.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditableObjects\EditableClusterTable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditableObjects\EditableGameScene.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditableObjects\EditableSceneData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditableObjects\EditableTerrain.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditableObjects\EditableTerrainData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditableObjects\EditableTrack.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EditableObjects\SceneProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IdeLogicModManager.cs" />
+    <Compile Include="Plugin.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\WorldTemplate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TerrainRenderingEditEffect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Game\Game.csproj">
+      <Project>{1DA1C1E6-DDD6-4F45-9CF4-7465F4931F2F}</Project>
+      <Name>Game</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\VirtualBicycle.Ide\VirtualBicycle.Ide.csproj">
+      <Project>{AA72D449-B468-4698-A28D-926E2225FC5A}</Project>
+      <Name>VirtualBicycle.Ide</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugin.Common\Plugin.Common.csproj">
+      <Project>{FBD89143-7A75-4EF8-B697-80446030DFD7}</Project>
+      <Name>Plugin.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Plugin.ModelTools\Plugin.ModelTools.csproj">
+      <Project>{78198102-0C5B-4F8A-A001-CF55747DC044}</Project>
+      <Name>Plugin.ModelTools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Designer\NewWorldForm.resx">
+      <DependentUpon>NewWorldForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Designer\ScenePropertyDesigner.resx">
+      <DependentUpon>ScenePropertyDesigner.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Designer\SelectDetailMapForm.resx">
+      <DependentUpon>SelectDetailMapForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Designer\WorldDesigner.resx">
+      <DependentUpon>WorldDesigner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ConflictHS1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeleteNodeTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DisplayInColorHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fitRoad.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GoToNextHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GoToNextMessage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GoToPrevious.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GoToPreviousMessage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\imoprtDispMap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\imoprtDispMap1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\importColorMap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\importIndexMap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\importNrmMap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LineColorHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lowerTerrain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moveNodeTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\moveTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\newNode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paintMaterial.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PointerHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PropertiesHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rotateTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\selectPort.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectRoadNode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\smoothTerrain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\streightenTool.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ConflictHS.png" />
+    <None Include="Resources\moveMarker.mesh" />
+    <None Include="Resources\rotationMark.mesh" />
+    <None Include="Resources\selectionMarker.mesh" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit_RedoHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit_UndoHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\New.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeleteHS1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\raiseTerrain.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>Copy $(TargetPath) $(SolutionDir)VirtualBicycle.Ide\bin\Plugins\$(TargetFileName)
+Copy $(TargetDir)$(TargetName).pdb $(SolutionDir)VirtualBicycle.Ide\bin\Plugins\$(TargetName).pdb
+</PostBuildEvent>
+  </PropertyGroup>
+</Project>
