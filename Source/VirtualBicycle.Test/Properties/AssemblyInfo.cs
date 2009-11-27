@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过下列属性集
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("VirtualBicycle.Test")]
+[assembly: AssemblyTitle("Apoc3D.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lenovo")]
-[assembly: AssemblyProduct("VirtualBicycle.Test")]
+[assembly: AssemblyProduct("Apoc3D.Test")]
 [assembly: AssemblyCopyright("Copyright © Lenovo 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

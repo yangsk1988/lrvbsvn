@@ -19,9 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Graphics", "VirtualB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.RenderSystem.D3D", "VirtualBicycle.RenderSystem.D3D\Apoc3D.RenderSystem.D3D.csproj", "{B71B0226-0214-4A50-9F10-88F00E86A66A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualBicycle.Test.ResourceManagerTest", "VirtualBicycle.Test.ResourceManagerTest\VirtualBicycle.Test.ResourceManagerTest.csproj", "{621F2E13-789D-4F96-BCDD-1363372AE347}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Test.ResourceManagerTest", "VirtualBicycle.Test.ResourceManagerTest\Apoc3D.Test.ResourceManagerTest.csproj", "{621F2E13-789D-4F96-BCDD-1363372AE347}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualBicycle.Test", "VirtualBicycle.Test\VirtualBicycle.Test.csproj", "{7D00610C-17B7-4711-8B09-2224FFBB123E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Test", "VirtualBicycle.Test\Apoc3D.Test.csproj", "{7D00610C-17B7-4711-8B09-2224FFBB123E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PC", "PC", "{778DBF59-440B-4317-9808-D5AC892914F3}"
 EndProject
@@ -365,16 +365,6 @@ Global
 		{F10370E7-3F24-4D01-89F3-1341917418F8}.Release|x86.ActiveCfg = Release|Xbox 360
 		{F10370E7-3F24-4D01-89F3-1341917418F8}.Release|Xbox 360.ActiveCfg = Release|Xbox 360
 		{F10370E7-3F24-4D01-89F3-1341917418F8}.Release|Xbox 360.Build.0 = Release|Xbox 360
-		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|Win32.ActiveCfg = Debug|x86
-		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|x86.ActiveCfg = Debug|x86
-		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|Xbox 360.ActiveCfg = Debug|x86
-		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|Any CPU.ActiveCfg = Release|x86
-		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|Win32.ActiveCfg = Release|x86
-		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|x86.ActiveCfg = Release|x86
-		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|Xbox 360.ActiveCfg = Release|x86
 		{7C3F7EE7-7E67-462B-80C8-588331703AE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7C3F7EE7-7E67-462B-80C8-588331703AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C3F7EE7-7E67-462B-80C8-588331703AE9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -403,6 +393,16 @@ Global
 		{610523B4-A5A6-4D3A-A10F-DAFE02D49B9D}.Release|x86.ActiveCfg = Release|Xbox 360
 		{610523B4-A5A6-4D3A-A10F-DAFE02D49B9D}.Release|Xbox 360.ActiveCfg = Release|Xbox 360
 		{610523B4-A5A6-4D3A-A10F-DAFE02D49B9D}.Release|Xbox 360.Build.0 = Release|Xbox 360
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|Win32.ActiveCfg = Debug|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|x86.ActiveCfg = Debug|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Debug|Xbox 360.ActiveCfg = Debug|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|Any CPU.ActiveCfg = Release|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|Win32.ActiveCfg = Release|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|x86.ActiveCfg = Release|x86
+		{D3BA300A-52E1-4231-B224-46296EBD81A1}.Release|Xbox 360.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
