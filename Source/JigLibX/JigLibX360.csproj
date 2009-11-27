@@ -169,9 +169,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VirtualBicycle.Core\VirtualBicycle.CoreX.csproj">
+    <ProjectReference Include="..\VirtualBicycle.Core\Apoc3D.CoreX.csproj">
       <Project>{5E3D9108-7C6A-4DF0-A01A-8697645B7FF7}</Project>
-      <Name>VirtualBicycle.CoreX</Name>
+      <Name>Apoc3D.CoreX</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

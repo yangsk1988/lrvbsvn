@@ -6,11 +6,11 @@ using VirtualBicycle.Core;
 // 有关程序集的常规信息通过下列属性集
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("VirtualBicycle.Core")]
+[assembly: AssemblyTitle("Apoc3D.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lenovo")]
-[assembly: AssemblyProduct("VirtualBicycle.Core")]
+[assembly: AssemblyProduct("Apoc3D.Core")]
 [assembly: AssemblyCopyright("Copyright © Lenovo 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

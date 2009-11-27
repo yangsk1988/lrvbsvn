@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VirtualBicycle.RenderSystem.Xna")]
-[assembly: AssemblyProduct("VirtualBicycle.RenderSystem.Xna")]
+[assembly: AssemblyTitle("Apoc3D.RenderSystem.Xna")]
+[assembly: AssemblyProduct("Apoc3D.RenderSystem.Xna")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("Lenovo")]
 [assembly: AssemblyCopyright("Copyright © Lenovo 2009")]

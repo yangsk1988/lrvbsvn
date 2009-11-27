@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">Xbox 360</Platform>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VirtualBicycle.Core</RootNamespace>
-    <AssemblyName>VirtualBicycle.Core</AssemblyName>
+    <RootNamespace>Apoc3D.Core</RootNamespace>
+    <AssemblyName>Apoc3D.Core</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <XnaFrameworkVersion>v3.0</XnaFrameworkVersion>
     <XnaPlatform>Xbox 360</XnaPlatform>

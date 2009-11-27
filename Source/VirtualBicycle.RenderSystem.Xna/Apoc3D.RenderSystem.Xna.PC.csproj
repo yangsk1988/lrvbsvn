@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VirtualBicycle.RenderSystem.Xna</RootNamespace>
-    <AssemblyName>VirtualBicycle.RenderSystem.Xna</AssemblyName>
+    <RootNamespace>Apoc3D.RenderSystem.Xna</RootNamespace>
+    <AssemblyName>Apoc3D.RenderSystem.Xna</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <XnaFrameworkVersion>v3.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>

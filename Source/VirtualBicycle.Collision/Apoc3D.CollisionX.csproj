@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">Xbox 360</Platform>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VirtualBicycle.CollisionX</RootNamespace>
-    <AssemblyName>VirtualBicycle.CollisionX</AssemblyName>
+    <RootNamespace>Apoc3D.CollisionX</RootNamespace>
+    <AssemblyName>Apoc3D.CollisionX</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <XnaFrameworkVersion>v3.0</XnaFrameworkVersion>
     <XnaPlatform>Xbox 360</XnaPlatform>
@@ -63,9 +63,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VirtualBicycle.Core\VirtualBicycle.CoreX.csproj">
+    <ProjectReference Include="..\VirtualBicycle.Core\Apoc3D.CoreX.csproj">
       <Project>{5E3D9108-7C6A-4DF0-A01A-8697645B7FF7}</Project>
-      <Name>VirtualBicycle.CoreX</Name>
+      <Name>Apoc3D.CoreX</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
