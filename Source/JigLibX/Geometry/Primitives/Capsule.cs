@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 #endregion
 
@@ -90,12 +90,12 @@ namespace JigLibX.Geometry
 
         public override float GetVolume()
         {
-            return (4.0f / 3.0f) * MathHelper.Pi * radius * radius * radius + length * MathHelper.Pi * radius * radius;
+            return (4.0f / 3.0f) * MathEx.PIf * radius * radius * radius + length * MathEx.PIf * radius * radius;
         }
 
         public override float GetSurfaceArea()
         {
-            return 4.0f * MathHelper.Pi * radius * radius + length * 2.0f * MathHelper.Pi * radius;
+            return 4.0f * MathEx.PIf * radius * radius + length * 2.0f * MathEx.PIf * radius;
         }
 
         public override void GetMassProperties(PrimitiveProperties primitiveProperties, out float mass, out Vector3 centerOfMass, out Matrix inertiaTensor)
@@ -116,7 +116,7 @@ namespace JigLibX.Geometry
 
             /// todo check solid/shell
             // first cylinder
-            float cylinderMass = mass * MathHelper.Pi * radius * radius * length / GetVolume();
+            float cylinderMass = mass * MathEx.PIf * radius * radius * length / GetVolume();
             float Ixx = 0.5f * cylinderMass * radius * radius;
             float Iyy = 0.25f * cylinderMass * radius * radius + (1.0f / 12.0f) * cylinderMass * length * length;
             float Izz = Iyy;

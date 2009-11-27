@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
 using JigLibX.Geometry;
 using JigLibX.Math;
+using VirtualBicycle.MathLib;
 #endregion
 
 namespace JigLibX.Collision
@@ -64,13 +64,13 @@ namespace JigLibX.Collision
 
                     // the start
                     {
-                        Vector3 oldCapsuleStartPos = Vector3.Transform(oldCapsule.Position, oldPlaneInvTransform);
-                        Vector3 newCapsuleStartPos = Vector3.Transform(newCapsule.Position, newPlaneInvTransform);
+                        Vector3 oldCapsuleStartPos = Vector3.TransformSimple(oldCapsule.Position, oldPlaneInvTransform);
+                        Vector3 newCapsuleStartPos = Vector3.TransformSimple(newCapsule.Position, newPlaneInvTransform);
 
                         float oldDist = Distance.PointPlaneDistance(oldCapsuleStartPos, oldPlane);
                         float newDist = Distance.PointPlaneDistance(newCapsuleStartPos, newPlane);
 
-                        if (MathHelper.Min(newDist, oldDist) < collTolerance + newCapsule.Radius)
+                        if (System.Math.Min(newDist, oldDist) < collTolerance + newCapsule.Radius)
                         {
                             float oldDepth = oldCapsule.Radius - oldDist;
                             // calc the world position based on the old position8(s)
@@ -85,8 +85,8 @@ namespace JigLibX.Collision
 
                     // the end
                     {
-                        Vector3 oldCapsuleEndPos = Vector3.Transform(oldCapsule.GetEnd(), oldPlaneInvTransform);
-                        Vector3 newCapsuleEndPos = Vector3.Transform(newCapsule.GetEnd(), newPlaneInvTransform);
+                        Vector3 oldCapsuleEndPos = Vector3.TransformSimple(oldCapsule.GetEnd(), oldPlaneInvTransform);
+                        Vector3 newCapsuleEndPos = Vector3.TransformSimple(newCapsule.GetEnd(), newPlaneInvTransform);
                         float oldDist = Distance.PointPlaneDistance(oldCapsuleEndPos, oldPlane);
                         float newDist = Distance.PointPlaneDistance(newCapsuleEndPos, newPlane);
 

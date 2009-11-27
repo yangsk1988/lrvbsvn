@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
 using JigLibX.Geometry;
 using JigLibX.Math;
+using VirtualBicycle.MathLib;
 #endregion
 
 namespace JigLibX.Collision
@@ -62,7 +62,7 @@ namespace JigLibX.Collision
                 else
                 {
                     // todo - make this not random
-                    delta = Vector3.TransformNormal(Vector3.Backward, Matrix.CreateFromAxisAngle(Vector3.Up, MathHelper.ToRadians(random.Next(360))));
+                    delta = Vector3.TransformNormal(Vector3.UnitZ, Matrix.RotationAxis(Vector3.UnitY, MathEx.Degree2Radian(random.Next(360))));
                 }
 
                 Vector3 worldPos = pos1 +

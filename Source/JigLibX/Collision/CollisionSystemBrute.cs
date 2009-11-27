@@ -1,12 +1,12 @@
 #region Using Statements
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
-using JigLibX.Physics;
 using JigLibX.Collision;
 using JigLibX.Geometry;
-using Microsoft.Xna.Framework;
-using System.Collections.ObjectModel;
+using JigLibX.Physics;
+using VirtualBicycle.MathLib;
 #endregion
 
 namespace JigLibX.Collision
@@ -221,7 +221,7 @@ namespace JigLibX.Collision
             }
 
             if (fracOut > 1.0f) return false;
-            fracOut = MathHelper.Clamp(fracOut, 0.0f, 1.0f);
+            fracOut = MathEx.Clamp(fracOut, 0.0f, 1.0f);
             return true;
         }
 

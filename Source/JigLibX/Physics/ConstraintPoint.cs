@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 #endregion
 
@@ -157,11 +157,11 @@ namespace JigLibX.Physics
             Vector3.Cross(ref R0, ref N, out v1);
             Vector3.TransformNormal(ref v1, ref body0.worldInvInertia, out v1);
             Vector3.Cross(ref v1, ref R0, out v1);
-            Vector3.Dot(ref N, ref v1, out f1);
+            f1 = Vector3.Dot(ref N, ref v1);
             Vector3.Cross(ref R1, ref N, out v1);
             Vector3.TransformNormal(ref v1, ref body1.worldInvInertia, out v1);
             Vector3.Cross(ref v1, ref R1, out v1);
-            Vector3.Dot(ref N, ref v1, out f2);
+            f2 = Vector3.Dot(ref N, ref v1);
 
             float denominator = body0.InverseMass + body1.InverseMass + f1 + f2;
             #endregion

@@ -2,9 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
 using JigLibX.Geometry;
 using JigLibX.Math;
+using VirtualBicycle.MathLib;
+using JBox = JigLibX.Geometry.Box;
 #endregion
 
 namespace JigLibX.Collision
@@ -56,8 +57,8 @@ namespace JigLibX.Collision
 
             float radius = oldCapsule.Radius;
 
-            Box oldBox = info.Skin1.GetPrimitiveOldWorld(info.IndexPrim1) as Box;
-            Box newBox = info.Skin1.GetPrimitiveNewWorld(info.IndexPrim1) as Box;
+            JBox oldBox = info.Skin1.GetPrimitiveOldWorld(info.IndexPrim1) as JBox;
+            JBox newBox = info.Skin1.GetPrimitiveNewWorld(info.IndexPrim1) as JBox;
 
             float oldSegT;
             float oldBoxT0, oldBoxT1, oldBoxT2;
@@ -66,7 +67,7 @@ namespace JigLibX.Collision
             float newBoxT0, newBoxT1, newBoxT2;
             float newDistSq = Distance.SegmentBoxDistanceSq(out newSegT, out newBoxT0, out newBoxT1, out newBoxT2,newSeg, newBox);
 
-            if (MathHelper.Min(oldDistSq, newDistSq) < ((radius + collTolerance) * (radius + collTolerance)))
+            if (System.Math.Min(oldDistSq, newDistSq) < ((radius + collTolerance) * (radius + collTolerance)))
             {
                 Vector3 segPos = oldSeg.GetPoint(oldSegT);
                 Vector3 boxPos = oldBox.GetCentre() + oldBoxT0 * oldBox.Orientation.Right +
@@ -90,7 +91,7 @@ namespace JigLibX.Collision
                 else
                 {
                     // todo - make this not random
-                    dir = Vector3.Transform(Vector3.Backward, Matrix.CreateFromAxisAngle(Vector3.Up, MathHelper.ToRadians(random.Next(360))));
+                    dir = Vector3.TransformSimple(Vector3.UnitZ, Matrix.RotationAxis(Vector3.UnitY, MathEx.Degree2Radian(random.Next(360))));
                 }
 
                 unsafe

@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
 using JigLibX.Geometry;
 using JigLibX.Math;
+using VirtualBicycle.MathLib;
 using JPlane = JigLibX.Geometry.Plane;
+using JBox = JigLibX.Geometry.Box;
 #endregion
 
 namespace JigLibX.Collision
@@ -46,14 +47,14 @@ namespace JigLibX.Collision
             Vector3 body0Pos = (info.Skin0.Owner != null) ? info.Skin0.Owner.OldPosition : Vector3.Zero;
             Vector3 body1Pos = (info.Skin1.Owner != null) ? info.Skin1.Owner.OldPosition : Vector3.Zero;
 
-            Box oldBox = info.Skin0.GetPrimitiveOldWorld(info.IndexPrim0) as Box;
-            Box newBox = info.Skin0.GetPrimitiveNewWorld(info.IndexPrim0) as Box;
+            JBox oldBox = info.Skin0.GetPrimitiveOldWorld(info.IndexPrim0) as JBox;
+            JBox newBox = info.Skin0.GetPrimitiveNewWorld(info.IndexPrim0) as JBox;
 
             JPlane oldPlane = info.Skin1.GetPrimitiveOldWorld(info.IndexPrim1) as JPlane;
             JPlane newPlane = info.Skin1.GetPrimitiveNewWorld(info.IndexPrim1) as JPlane;
 
             Matrix newPlaneInvTransform = newPlane.InverseTransformMatrix;
-            Vector3 newBoxCen = Vector3.Transform(newBox.GetCentre(), newPlaneInvTransform);
+            Vector3 newBoxCen = Vector3.TransformSimple(newBox.GetCentre(), newPlaneInvTransform);
 
             // quick check
             float centreDist = Distance.PointPlaneDistance(newBoxCen, newPlane);
@@ -80,13 +81,13 @@ namespace JigLibX.Collision
 
                     for (int i = 0; i < 8; ++i)
                     {
-                        Vector3.Transform(ref oldPts[i], ref oldPlaneInvTransform, out oldTransPts[i]);
-                        Vector3.Transform(ref newPts[i], ref newPlaneInvTransform, out newPts[i]);
+                        Vector3.TransformSimple(ref oldPts[i], ref oldPlaneInvTransform, out oldTransPts[i]);
+                        Vector3.TransformSimple(ref newPts[i], ref newPlaneInvTransform, out newPts[i]);
 
                         float oldDepth = -Distance.PointPlaneDistance(ref oldTransPts[i], oldPlane);
                         float newDepth = -Distance.PointPlaneDistance(ref newPts[i], newPlane);
 
-                        if (MathHelper.Max(oldDepth, newDepth) > -collTolerance)
+                        if (System.Math.Max(oldDepth, newDepth) > -collTolerance)
                         {
                             if (numCollPts < MaxLocalStackSCPI)
                             {

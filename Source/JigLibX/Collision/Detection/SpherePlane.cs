@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Geometry;
 using JigLibX.Math;
 #endregion
@@ -55,8 +55,8 @@ namespace JigLibX.Collision
             Matrix newPlaneInvTransform = newPlane.InverseTransformMatrix;
             Matrix oldPlaneInvTransform = oldPlane.InverseTransformMatrix;
 
-            Vector3 oldSpherePos = Vector3.Transform(oldSphere.Position, oldPlaneInvTransform);
-            Vector3 newSpherePos = Vector3.Transform(newSphere.Position, newPlaneInvTransform);
+            Vector3 oldSpherePos = Vector3.TransformSimple(oldSphere.Position, oldPlaneInvTransform);
+            Vector3 newSpherePos = Vector3.TransformSimple(newSphere.Position, newPlaneInvTransform);
 
             // consider it a contact if either old or new are touching
             float oldDist = Distance.PointPlaneDistance(oldSpherePos, oldPlane);

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 using System.Diagnostics;
 #endregion
@@ -87,15 +87,15 @@ namespace JigLibX.Geometry
 
             for (int i = 0; i < tris.Length; i++)
             {
-                triBoxes[i].Min = Vector3.Min(positions[tris[i].I0], Vector3.Min(positions[tris[i].I1], positions[tris[i].I2]));
-                triBoxes[i].Max = Vector3.Max(positions[tris[i].I0], Vector3.Max(positions[tris[i].I1], positions[tris[i].I2]));
+                triBoxes[i].Minimum = Vector3.Minimize(positions[tris[i].I0], Vector3.Minimize(positions[tris[i].I1], positions[tris[i].I2]));
+                triBoxes[i].Maximum = Vector3.Maximize(positions[tris[i].I0], Vector3.Maximize(positions[tris[i].I1], positions[tris[i].I2]));
 
                 // get size of the root box
-                rootNodeBox.Min = Vector3.Min(rootNodeBox.Min, triBoxes[i].Min);
-                rootNodeBox.Max = Vector3.Max(rootNodeBox.Max, triBoxes[i].Max);
+                rootNodeBox.Minimum = Vector3.Minimize(rootNodeBox.Minimum, triBoxes[i].Minimum);
+                rootNodeBox.Maximum = Vector3.Maximize(rootNodeBox.Maximum, triBoxes[i].Maximum);
             }
 
-            boundingBox = new AABox(rootNodeBox.Min, rootNodeBox.Max);
+            boundingBox = new AABox(rootNodeBox.Minimum, rootNodeBox.Maximum);
 
             List<BuildNode> buildNodes = new List<BuildNode>();
             buildNodes.Add(new BuildNode());
@@ -196,7 +196,7 @@ namespace JigLibX.Geometry
         /// <returns></returns>
         private BoundingBox CreateAABox(BoundingBox aabb, EChild child)
         {
-            Vector3 dims = 0.5f * (aabb.Max - aabb.Min);
+            Vector3 dims = 0.5f * (aabb.Maximum - aabb.Minimum);
             Vector3 offset = new Vector3();
 
             switch (child)
@@ -218,14 +218,14 @@ namespace JigLibX.Geometry
             }
 
             BoundingBox result = new BoundingBox();
-            result.Min = (aabb.Min + new Vector3(offset.X * dims.X, offset.Y * dims.Y, offset.Z * dims.Z));
-            result.Max = (result.Min + dims);
+            result.Minimum = (aabb.Minimum + new Vector3(offset.X * dims.X, offset.Y * dims.Y, offset.Z * dims.Z));
+            result.Maximum = (result.Minimum + dims);
 
             // expand it just a tiny bit just to be safe!
             float extra = 0.00001f;
 
-            result.Min = (result.Min - extra * dims);
-            result.Max = (result.Max + extra * dims);
+            result.Minimum = (result.Minimum - extra * dims);
+            result.Maximum = (result.Maximum + extra * dims);
 
             return result;
         }

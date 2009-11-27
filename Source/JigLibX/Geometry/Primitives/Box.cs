@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 using JigLibX.Utils;
 #endregion
@@ -265,9 +265,9 @@ namespace JigLibX.Geometry
             Vector3 up = transform.Orientation.Up;
             Vector3 back = transform.Orientation.Backward;
 
-            Vector3.Dot(ref axis, ref right, out s);
-            Vector3.Dot(ref axis, ref up, out u);
-            Vector3.Dot(ref axis, ref back, out d);
+            s = Vector3.Dot(ref axis, ref right);
+            u = Vector3.Dot(ref axis, ref up);
+            d = Vector3.Dot(ref axis, ref back);
 
             s = System.Math.Abs(s * 0.5f * sideLengths.X);
             u = System.Math.Abs(u * 0.5f * sideLengths.Y);
@@ -276,7 +276,7 @@ namespace JigLibX.Geometry
             float r = s + u + d;
             GetCentre(out right);
             float p;
-            Vector3.Dot(ref right,ref axis,out p);
+            p = Vector3.Dot(ref right, ref axis);
             min = p - r;
             max = p + r;
         }
@@ -296,9 +296,9 @@ namespace JigLibX.Geometry
             Vector3 up = transform.Orientation.Up;
             Vector3 back = transform.Orientation.Backward;
 
-            Vector3.Dot(ref axis, ref right, out s);
-            Vector3.Dot(ref axis, ref up, out u);
-            Vector3.Dot(ref axis, ref back, out d);
+            s = Vector3.Dot(ref axis, ref right);
+            u = Vector3.Dot(ref axis, ref up);
+            d = Vector3.Dot(ref axis, ref back);
 
             s = System.Math.Abs(s * 0.5f * sideLengths.X);
             u = System.Math.Abs(u * 0.5f * sideLengths.Y);
@@ -307,7 +307,7 @@ namespace JigLibX.Geometry
             float r = s + u + d;
             GetCentre(out right);
             float p;
-            Vector3.Dot(ref right, ref axis, out p);
+            p = Vector3.Dot(ref right, ref axis);
             min = p - r;
             max = p + r;
         }
@@ -566,7 +566,7 @@ namespace JigLibX.Geometry
 
             if (dir == 0)
             {
-                fracOut = MathHelper.Clamp(fracOut, 0.0f, 1.0f);
+                fracOut = MathEx.Clamp(fracOut, 0.0f, 1.0f);
                 posOut = seg.GetPoint(fracOut);
                 if (Vector3.Dot(transform.Orientation.Right, seg.Delta) > 0.0f)
                     normalOut = -transform.Orientation.Right;
@@ -575,7 +575,7 @@ namespace JigLibX.Geometry
             }
             else if (dir == 1)
             {
-                fracOut = MathHelper.Clamp(fracOut, 0.0f, 1.0f);
+                fracOut = MathEx.Clamp(fracOut, 0.0f, 1.0f);
                 posOut = seg.GetPoint(fracOut);
                 if (Vector3.Dot(transform.Orientation.Up, seg.Delta) > 0.0f)
                     normalOut = -transform.Orientation.Up;
@@ -584,7 +584,7 @@ namespace JigLibX.Geometry
             }
             else
             {
-                fracOut = MathHelper.Clamp(fracOut, 0.0f, 1.0f);
+                fracOut = MathEx.Clamp(fracOut, 0.0f, 1.0f);
                 posOut = seg.GetPoint(fracOut);
                 if (Vector3.Dot(transform.Orientation.Backward, seg.Delta) > 0.0f)
                     normalOut = -transform.Orientation.Backward;

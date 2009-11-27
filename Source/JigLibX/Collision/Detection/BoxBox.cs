@@ -1,12 +1,13 @@
 #region Using Statements
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
-using Microsoft.Xna.Framework;
 using JigLibX.Geometry;
 using JigLibX.Math;
-using System.Runtime.InteropServices;
 using JigLibX.Utils;
+using VirtualBicycle.MathLib;
+using JBox = JigLibX.Geometry.Box;
 #endregion
 
 namespace JigLibX.Collision
@@ -40,7 +41,7 @@ namespace JigLibX.Collision
         /// Disjoint Returns true if disjoint. Returns false if intersecting,
         /// and sets the overlap depth, d scaled by the axis length.
         /// </summary>
-        private static bool Disjoint(out float d, ref Vector3 axis, Box box0, Box box1, float collTolerance)
+        private static bool Disjoint(out float d, ref Vector3 axis, JigLibX.Geometry.Box box0, JigLibX.Geometry.Box box1, float collTolerance)
         {
             float min0, max0, min1, max1;
 
@@ -58,12 +59,12 @@ namespace JigLibX.Collision
             if ((max0 > max1) && (min1 > min0))
             {
                 // box1 is inside - choose the min dist to move it out
-                d = MathHelper.Min(max0 - min1, max1 - min0);
+                d = System.Math.Min(max0 - min1, max1 - min0);
             }
             else if ((max1 > max0) && (min0 > min1))
             {
                 // box0 is inside - choose the min dist to move it out
-                d = MathHelper.Min(max1 - min0, max0 - min1);
+                d = System.Math.Min(max1 - min0, max0 - min1);
             }
             else
             {
@@ -75,11 +76,11 @@ namespace JigLibX.Collision
             return false;
         }
 
-        private static void GetSupportPoint(out Vector3 p, Box box,Vector3 axis)
+        private static void GetSupportPoint(out Vector3 p, JigLibX.Geometry.Box box, Vector3 axis)
         {
             // BEN-OPTIMISATION: Replaced following inlines with actual inlined code.
             #region INLINE: Vector3 orient0 = box.Orientation.Right;
-            
+
             Vector3 orient0 = new Vector3();
             orient0.X = box.transform.Orientation.M11;
             orient0.Y = box.transform.Orientation.M12;
@@ -166,6 +167,7 @@ namespace JigLibX.Collision
                 p.Z -= orient2.Z * (0.5f * box.sideLengths.Z);
                 #endregion
             }
+
         }
 
         /// <summary>
@@ -204,7 +206,7 @@ namespace JigLibX.Collision
         /// The AABox has a corner at the origin and size sides.
         /// </summary>
         private static int GetAABox2EdgeIntersectionPoints(List<ContactPoint> pts,
-            ref Vector3 sides, Box box, ref Vector3 edgePt0, ref Vector3 edgePt1,
+            ref Vector3 sides, JBox box, ref Vector3 edgePt0, ref Vector3 edgePt1,
             ref Matrix origBoxOrient, ref Vector3 origBoxPos,
             float combinationDistanceSq)
         {
@@ -296,12 +298,12 @@ namespace JigLibX.Collision
         /// AABox frame back into the original frame.
         /// </summary>
         private static unsafe int GetAABox2BoxEdgesIntersectionPoints(List<ContactPoint> pts, ref Vector3 sides,
-            Box box, ref Matrix origBoxOrient, ref Vector3 origBoxPos, float combinationDistanceSq)
+            JBox box, ref Matrix origBoxOrient, ref Vector3 origBoxPos, float combinationDistanceSq)
         {
             int num = 0;
             Vector3[] boxPts;
             box.GetCornerPoints(out boxPts);
-            Box.Edge[] edges;
+            JBox.Edge[] edges;
             box.GetEdges(out edges);
 
             for (int iedge = 0; iedge < 12; ++iedge)
@@ -320,7 +322,7 @@ namespace JigLibX.Collision
             return num;
         }
 
-        private static Box tempBox = new Box(Vector3.Zero, Matrix.Identity, Vector3.Zero);
+        private static JBox tempBox = new JBox(Vector3.Zero, Matrix.Identity, Vector3.Zero);
        
         /// <summary>
         /// Pushes intersection points onto the back of pts. Returns the
@@ -330,7 +332,7 @@ namespace JigLibX.Collision
         /// dirToBody0 is the collision normal towards box0
         /// </summary>
         private static int GetBoxBoxIntersectionPoints(List<ContactPoint> pts,
-            Box box0, Box box1, float combinationDistance,
+            JBox box0, JBox box1, float combinationDistance,
             float collTolerance)
         {
             // first transform box1 into box0 space - there box0 has a corner
@@ -345,8 +347,8 @@ namespace JigLibX.Collision
 
             for (int ibox = 0; ibox < 2; ++ibox)
             {
-                Box boxA = (ibox != 0) ? box1 : box0;
-                Box boxB = (ibox != 0) ? box0 : box1;
+                JBox boxA = (ibox != 0) ? box1 : box0;
+                JBox boxB = (ibox != 0) ? box0 : box1;
 
                 #region REFERENCE: Matrix boxAInvOrient = Matrix.Transpose(boxA.Orientation);
                 Matrix boxAInvOrient;
@@ -364,7 +366,7 @@ namespace JigLibX.Collision
                 Matrix.Multiply(ref boxB.transform.Orientation, ref boxAInvOrient, out boxOrient);
                 #endregion
 
-                Box box = tempBox;
+                JBox box = tempBox;
                 box.Position = pos;
                 box.Orientation = boxOrient;
                 box.SideLengths = boxB.SideLengths;
@@ -394,11 +396,11 @@ namespace JigLibX.Collision
         /// <param name="collisionFunctor"></param
         public override void CollDetect(CollDetectInfo info, float collTolerance, CollisionFunctor collisionFunctor)
         {
-            Box box0 = info.Skin0.GetPrimitiveNewWorld(info.IndexPrim0) as Box;
-            Box box1 = info.Skin1.GetPrimitiveNewWorld(info.IndexPrim1) as Box;
+            JBox box0 = info.Skin0.GetPrimitiveNewWorld(info.IndexPrim0) as JBox;
+            JBox box1 = info.Skin1.GetPrimitiveNewWorld(info.IndexPrim1) as JBox;
 
-            Box oldBox0 = info.Skin0.GetPrimitiveOldWorld(info.IndexPrim0) as Box;
-            Box oldBox1 = info.Skin1.GetPrimitiveOldWorld(info.IndexPrim1) as Box;
+            JBox oldBox0 = info.Skin0.GetPrimitiveOldWorld(info.IndexPrim0) as JBox;
+            JBox oldBox1 = info.Skin1.GetPrimitiveOldWorld(info.IndexPrim1) as JBox;
 
             Matrix dirs0 = box0.Orientation;
             Matrix dirs1 = box1.Orientation;
@@ -652,10 +654,10 @@ namespace JigLibX.Collision
             if (Vector3.Dot(D, N) > 0.0f)
                 N *= -1.0f;
 
-            float minA = MathHelper.Min(box0.SideLengths.X, MathHelper.Min(box0.SideLengths.Y, box0.SideLengths.Z));
-            float minB = MathHelper.Min(box1.SideLengths.X, MathHelper.Min(box1.SideLengths.Y, box1.SideLengths.Z));
+            float minA = System.Math.Min(box0.SideLengths.X, System.Math.Min(box0.SideLengths.Y, box0.SideLengths.Z));
+            float minB = System.Math.Min(box1.SideLengths.X, System.Math.Min(box1.SideLengths.Y, box1.SideLengths.Z));
 
-            float combinationDist = 0.05f * MathHelper.Min(minA, minB);
+            float combinationDist = 0.05f * System.Math.Min(minA, minB);
 
             // the contact points
             bool contactPointsFromOld = true;
@@ -686,8 +688,7 @@ namespace JigLibX.Collision
             #endregion
 
             #region REFERENCE: float bodyDeltaLen = Vector3.Dot(bodyDelta,N);
-            float bodyDeltaLen;
-            Vector3.Dot(ref bodyDelta, ref N, out bodyDeltaLen);
+            float bodyDeltaLen = Vector3.Dot(ref bodyDelta, ref N);
             #endregion
 
             float oldDepth = depth + bodyDeltaLen;
@@ -758,14 +759,12 @@ namespace JigLibX.Collision
                                     #endregion
 
                                     #region REFERENCE: float planeD = Vector3.Dot(planeNormal, P1);
-                                    float planeD;
-                                    Vector3.Dot(ref planeNormal, ref P1, out planeD);
+                                    float planeD = Vector3.Dot(ref planeNormal, ref P1);
                                     #endregion
 
                                     // find the intersection t, where Pintersection = P0 + t*box edge dir
                                     #region REFERENCE: float div = Vector3.Dot(box0Orient, planeNormal);
-                                    float div;
-                                    Vector3.Dot(ref box0Orient, ref planeNormal, out div);
+                                    float div = Vector3.Dot(ref box0Orient, ref planeNormal);
                                     #endregion
 
                                     // plane and ray colinear, skip the intersection.

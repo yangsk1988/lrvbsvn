@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 using JigLibX.Collision;
 #endregion
@@ -53,7 +53,7 @@ namespace JigLibX.Geometry
             {
                 base.Transform = value;
                 transformMatrix = transform.Orientation;
-                transformMatrix.Translation = transform.Position;
+                transformMatrix.TranslationValue = transform.Position;
                 invTransform = Matrix.Invert(transformMatrix);
             }
         }
@@ -115,10 +115,10 @@ namespace JigLibX.Geometry
                 {
                     for (int c = 0; c < 2; c++)
                     {
-                        bbCorner.X = ((a == 0) ? bb.Min.X : bb.Max.X);
-                        bbCorner.Y = ((b == 0) ? bb.Min.Y : bb.Max.Y);
-                        bbCorner.Z = ((c == 0) ? bb.Min.Z : bb.Max.Z);
-                        bbCornerT = Vector3.Transform(bbCorner, invTransform);
+                        bbCorner.X = ((a == 0) ? bb.Minimum.X : bb.Maximum.X);
+                        bbCorner.Y = ((b == 0) ? bb.Minimum.Y : bb.Maximum.Y);
+                        bbCorner.Z = ((c == 0) ? bb.Minimum.Z : bb.Maximum.Z);
+                        bbCornerT = Vector3.TransformSimple(bbCorner, invTransform);
 
                         BoundingBoxHelper.AddPoint(ref bbCornerT, ref rotBB);
                     }
@@ -140,7 +140,7 @@ namespace JigLibX.Geometry
         public override bool SegmentIntersect(out float frac, out Vector3 pos, out Vector3 normal, Segment seg)
         {
             // move segment into octree space
-            seg.Origin = Vector3.Transform(seg.Origin, invTransform);
+            seg.Origin = Vector3.TransformSimple(seg.Origin, invTransform);
             seg.Delta = Vector3.TransformNormal(seg.Delta, invTransform);
 
 
@@ -179,7 +179,7 @@ namespace JigLibX.Geometry
                             {
                                 bestFrac = thisFrac;
                                 // re-project
-                                pos = Vector3.Transform(seg.GetPoint(thisFrac), transformMatrix);
+                                pos = Vector3.TransformSimple(seg.GetPoint(thisFrac), transformMatrix);
                                 normal = Vector3.TransformNormal(meshTriangle.Plane.Normal, transformMatrix);
                             }
                         }

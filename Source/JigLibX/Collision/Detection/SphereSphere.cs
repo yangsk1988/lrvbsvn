@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Geometry;
 using JigLibX.Math;
 #endregion
@@ -63,7 +63,7 @@ namespace JigLibX.Collision
                 else
                 {
                     // TODO - make this not random...!
-                    oldDelta = Vector3.TransformNormal(Vector3.Backward, Matrix.CreateFromAxisAngle(Vector3.Up,MathHelper.ToRadians(random.Next(360))));
+                    oldDelta = Vector3.TransformNormal(Vector3.UnitZ, Matrix.RotationAxis(Vector3.UnitY,MathEx.Degree2Radian(random.Next(360))));
                 }
 
                 Vector3 worldPos = oldSphere1.Position +

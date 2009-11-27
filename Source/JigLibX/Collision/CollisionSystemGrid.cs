@@ -7,6 +7,7 @@ using JigLibX.Collision;
 using JigLibX.Geometry;
 using JigLibX.Math;
 using JigLibX.Physics;
+using VirtualBicycle.MathLib;
 #endregion
 
 namespace JigLibX.Collision
@@ -171,7 +172,7 @@ namespace JigLibX.Collision
 
         private void CalcGridForSkin(out int i, out int j, out int k, CollisionSkin skin)
         {
-            Vector3 sides = skin.WorldBoundingBox.Max - skin.WorldBoundingBox.Min;
+            Vector3 sides = skin.WorldBoundingBox.Maximum - skin.WorldBoundingBox.Minimum;
             if ((sides.X > dx) || (sides.Y > dy) || (sides.Z > dz))
             {
                 System.Diagnostics.Debug.WriteLine("CollisionSkin too big for gridding system - putting it into overflow list.");
@@ -179,7 +180,7 @@ namespace JigLibX.Collision
                 return;
             }
 
-            Vector3 min = skin.WorldBoundingBox.Min;
+            Vector3 min = skin.WorldBoundingBox.Minimum;
 
             min.X = JiggleMath.Wrap(min.X, 0.0f, sizeX);
             min.Y = JiggleMath.Wrap(min.Y, 0.0f, sizeY);
@@ -193,7 +194,7 @@ namespace JigLibX.Collision
         public void CalcGridForSkin(out int i, out int j, out int k, out float fi,
             out float fj, out float fk, CollisionSkin skin)
         {
-            Vector3 sides = skin.WorldBoundingBox.Max - skin.WorldBoundingBox.Min;
+            Vector3 sides = skin.WorldBoundingBox.Maximum - skin.WorldBoundingBox.Minimum;
             if ((sides.X > dx) || (sides.Y > dy) || (sides.Z > dz))
             {
                 System.Diagnostics.Debug.WriteLine("CollisionSkin too big for gridding system - putting it into overflow list.");
@@ -203,7 +204,7 @@ namespace JigLibX.Collision
                 return;
             }
 
-            Vector3 min = skin.WorldBoundingBox.Min;
+            Vector3 min = skin.WorldBoundingBox.Minimum;
 
             min.X = JiggleMath.Wrap(min.X, 0.0f, sizeX);
             min.Y = JiggleMath.Wrap(min.Y, 0.0f, sizeY);
@@ -342,7 +343,7 @@ namespace JigLibX.Collision
             // always add the overflow
             entries.Add(overflowEntries);
 
-            Vector3 delta = skin.WorldBoundingBox.Max - skin.WorldBoundingBox.Min;
+            Vector3 delta = skin.WorldBoundingBox.Maximum - skin.WorldBoundingBox.Minimum;
             int maxI = 1, maxJ = 1, maxK = 1;
             if (fi + (delta.X / dx) < 1.0f)
                 maxI = 0;
@@ -539,7 +540,7 @@ namespace JigLibX.Collision
             }
 
             if (fracOut > 1.0f) return false;
-            fracOut = MathHelper.Clamp(fracOut, 0.0f, 1.0f);
+            fracOut = MathEx.Clamp(fracOut, 0.0f, 1.0f);
             return true;
         }
     }

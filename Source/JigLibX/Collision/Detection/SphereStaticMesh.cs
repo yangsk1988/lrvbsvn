@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Geometry;
 using JigLibX.Math;
 using System.Runtime.InteropServices;
+using JTriangle = JigLibX.Geometry.Triangle;
 #endregion
 
 namespace JigLibX.Collision
@@ -58,13 +59,13 @@ namespace JigLibX.Collision
                         int numTriangles = mesh.GetTrianglesIntersectingtAABox(potentialTriangles, MaxLocalStackTris, ref bb);
 
                         // Deano : get the spheres centers in triangle mesh space
-                        Vector3 newSphereCen = Vector3.Transform(newSphere.Center, mesh.InverseTransformMatrix);
-                        Vector3 oldSphereCen = Vector3.Transform(oldSphere.Center, mesh.InverseTransformMatrix);
+                        Vector3 newSphereCen = Vector3.TransformSimple(newSphere.Center, mesh.InverseTransformMatrix);
+                        Vector3 oldSphereCen = Vector3.TransformSimple(oldSphere.Center, mesh.InverseTransformMatrix);
 
                         for (int iTriangle = 0; iTriangle < numTriangles; ++iTriangle)
                         {
                             IndexedTriangle meshTriangle = mesh.GetTriangle(potentialTriangles[iTriangle]);
-                            float distToCentre = meshTriangle.Plane.DotCoordinate(newSphereCen);
+                            float distToCentre = meshTriangle.Plane[newSphereCen];
 
                             // BEN-BUG-FIX: Replaced 0.0f with -sphereTolR.
                             if (distToCentre < -sphereTolR || distToCentre > sphereTolR)
@@ -73,7 +74,7 @@ namespace JigLibX.Collision
                             int i0, i1, i2;
                             meshTriangle.GetVertexIndices(out i0, out i1, out i2);
 
-                            Triangle triangle = new Triangle(mesh.GetVertex(i0), mesh.GetVertex(i1), mesh.GetVertex(i2));
+                            JTriangle triangle = new JTriangle(mesh.GetVertex(i0), mesh.GetVertex(i1), mesh.GetVertex(i2));
 
                             float s, t;
                             float newD2 = Distance.PointTriangleDistanceSq(out s, out t, newSphereCen, triangle);
@@ -161,8 +162,8 @@ namespace JigLibX.Collision
                 BoundingBoxHelper.AddSphere(newSphere, ref bb);
 
                 // get the spheres centers in triangle mesh space
-                Vector3 newSphereCen = Vector3.Transform(newSphere.Center, mesh.InverseTransformMatrix);
-                Vector3 oldSphereCen = Vector3.Transform(oldSphere.Center, mesh.InverseTransformMatrix);
+                Vector3 newSphereCen = Vector3.TransformSimple(newSphere.Center, mesh.InverseTransformMatrix);
+                Vector3 oldSphereCen = Vector3.TransformSimple(oldSphere.Center, mesh.InverseTransformMatrix);
 
                 unsafe
                 {
@@ -188,19 +189,19 @@ namespace JigLibX.Collision
 
                                 // first test the old sphere for being on the wrong side
                                 IndexedTriangle meshTriangle = mesh.GetTriangle(potentialTriangles[iTriangle]);
-                                float distToCentreOld = meshTriangle.Plane.DotCoordinate(oldSphereCen);
+                                float distToCentreOld = meshTriangle.Plane[oldSphereCen];
                                 if (distToCentreOld <= 0.0f)
                                     continue;
                                 // now test the new sphere for being clear
 
-                                float distToCentreNew = meshTriangle.Plane.DotCoordinate(newSphereCen);
+                                float distToCentreNew = meshTriangle.Plane[newSphereCen];
                                 if (distToCentreNew > sphereTolR)
                                     continue;
 
                                 int i0, i1, i2;
                                 meshTriangle.GetVertexIndices(out i0, out i1, out i2);
 
-                                Triangle triangle = new Triangle(mesh.GetVertex(i0), mesh.GetVertex(i1), mesh.GetVertex(i2));
+                                JTriangle triangle = new JTriangle(mesh.GetVertex(i0), mesh.GetVertex(i1), mesh.GetVertex(i2));
 
                                 // If the old sphere is intersecting, just use that result
                                 float s, t;

@@ -830,6 +830,12 @@ namespace VirtualBicycle.MathLib
             result.W = vector.X * transformation.M14 + vector.Y * transformation.M24 + vector.Z * transformation.M34 + transformation.M44;
         }
 
+        public static void TransformSimple(ref Vector3 vector, ref Matrix transformation, out Vector3 result)
+        {
+            result.X = vector.X * transformation.M11 + vector.Y * transformation.M21 + vector.Z * transformation.M31 + transformation.M41;
+            result.Y = vector.X * transformation.M12 + vector.Y * transformation.M22 + vector.Z * transformation.M32 + transformation.M42;
+            result.Z = vector.X * transformation.M13 + vector.Y * transformation.M23 + vector.Z * transformation.M33 + transformation.M43;
+        }
         /// <summary>
         /// Transforms an array of 3D vectors by the given <see cref="Matrix"/>.
         /// </summary>
@@ -911,7 +917,37 @@ namespace VirtualBicycle.MathLib
 
             }
         }
+        public static void Transform(Vector3[] vectorsIn, ref Matrix transformation, Vector3[] vectorsOut, int offset, int count)
+        {
+            if (vectorsIn == null)
+            {
+                throw new ArgumentNullException("vectorsIn");
+            }
 
+            if (vectorsOut == null)
+            {
+                throw new ArgumentNullException("destinationArray");
+            }
+
+            if (count == 0)
+            {
+                count = vectorsIn.Length - offset;
+            }
+            if (vectorsOut.Length < count)
+            {
+                throw new ArgumentException("NotEnoughTargetSize");
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                float x = vectorsIn[i + offset].X;
+                float y = vectorsIn[i + offset].Y;
+                float z = vectorsIn[i + offset].Z;
+                vectorsOut[i].X = (((x * transformation.M11) + (y * transformation.M21)) + (z * transformation.M31)) + transformation.M41;
+                vectorsOut[i].Y = (((x * transformation.M12) + (y * transformation.M22)) + (z * transformation.M32)) + transformation.M42;
+                vectorsOut[i].Z = (((x * transformation.M13) + (y * transformation.M23)) + (z * transformation.M33)) + transformation.M43;
+            }
+        }
         /// <summary>
         /// Transforms an array of 3D vectors by the given <see cref="Matrix"/>.
         /// </summary>
@@ -922,7 +958,10 @@ namespace VirtualBicycle.MathLib
         {
             Transform(vectorsIn, ref transformation, vectorsOut, 0, 0);
         }
-
+        public static void TransformSimple(Vector3[] vectorsIn, ref Matrix transformation, Vector3[] vectorsOut)
+        {
+            Transform(vectorsIn, ref transformation, vectorsOut, 0, 0);
+        }
         /// <summary>
         /// Transforms an array of 3D vectors by the given <see cref="Matrix"/>.
         /// </summary>

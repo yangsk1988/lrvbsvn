@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 using JigLibX.Physics;
 using JigLibX.Geometry;
@@ -156,7 +156,7 @@ namespace JigLibX.Vehicles
                 // work out the offset relative to the middle ray
                 float distFwd = (deltaFwdStart + iRay * deltaFwd) - radius;
                 //float zOffset = mRadius * (1.0f - CosDeg(90.0f * (distFwd / mRadius)));
-                float zOffset = radius * (1.0f - (float)System.Math.Cos( MathHelper.ToRadians( 90.0f * (distFwd / radius))));
+                float zOffset = radius * (1.0f - (float)System.Math.Cos( MathEx.Degree2Radian( 90.0f * (distFwd / radius))));
 
                 segments[iRay] = wheelRay;
                 segments[iRay].Origin += distFwd * wheelFwd + zOffset * wheelUp;
@@ -208,7 +208,7 @@ namespace JigLibX.Vehicles
             Body worldBody = otherSkin.Owner;
 
             displacement = rayLen * (1.0f - frac);
-            displacement = MathHelper.Clamp(displacement, 0, travel);
+            displacement = MathEx.Clamp(displacement, 0, travel);
 
             float displacementForceMag = displacement * spring;
 
@@ -366,9 +366,9 @@ namespace JigLibX.Vehicles
                 driveTorque = 0;
 
                 float maxAngVel = 200;
-                angVel = MathHelper.Clamp(angVel, -maxAngVel, maxAngVel);
+                angVel = MathEx.Clamp(angVel, -maxAngVel, maxAngVel);
 
-                axisAngle += MathHelper.ToDegrees(dt * angVel);
+                axisAngle += MathEx.Radian2Degree(dt * angVel);
             }
         }
 

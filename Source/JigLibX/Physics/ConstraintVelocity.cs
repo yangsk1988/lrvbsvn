@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Collision;
 #endregion
 
@@ -101,8 +101,7 @@ namespace JigLibX.Physics
                         //Vector3 dir = collInfo.DirToBody0.GetNormalisedSafe();
 
                         #region REFERENCE: float dot = Vector3.Dot(vel, dir);
-                        float dot;
-                        Vector3.Dot(ref vel, ref dir, out dot);
+                        float dot = Vector3.Dot(ref vel, ref dir);
                         #endregion
 
                         if (dot < 0.0f)

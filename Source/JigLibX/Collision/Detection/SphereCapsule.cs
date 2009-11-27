@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
 using JigLibX.Geometry;
 using JigLibX.Math;
+using VirtualBicycle.MathLib;
 #endregion
 
 namespace JigLibX.Collision
@@ -66,7 +66,7 @@ namespace JigLibX.Collision
             float oldDistSq = Distance.PointSegmentDistanceSq(out oldt, oldSphere.Position, oldSeg);
             float newDistSq = Distance.PointSegmentDistanceSq(out newt, newSphere.Position, newSeg);
 
-            if (MathHelper.Min(oldDistSq, newDistSq) < (radSum + collTolerance) * (radSum + collTolerance))
+            if (System.Math.Min(oldDistSq, newDistSq) < (radSum + collTolerance) * (radSum + collTolerance))
             {
                 Vector3 segPos = oldSeg.GetPoint(oldt);
                 Vector3 delta = oldSphere.Position - segPos;
@@ -81,7 +81,7 @@ namespace JigLibX.Collision
                 else
                 {
                     // todo - make this not random
-                    delta = Vector3.TransformNormal(Vector3.Backward, Matrix.CreateFromAxisAngle(Vector3.Up, MathHelper.ToRadians(random.Next(360))));
+                    delta = Vector3.TransformNormal(Vector3.UnitZ, Matrix.RotationAxis(Vector3.UnitY, MathEx.Degree2Radian(random.Next(360))));
                 }
 
                 Vector3 worldPos = segPos +

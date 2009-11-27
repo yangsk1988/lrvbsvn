@@ -2,9 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
 using JigLibX.Geometry;
 using JigLibX.Math;
+using VirtualBicycle.MathLib;
+using JBox = JigLibX.Geometry.Box;
 #endregion
 
 namespace JigLibX.Collision
@@ -19,8 +20,8 @@ namespace JigLibX.Collision
         /// <summary>
         /// 
         /// </summary>
-        #region public CollDetectSphereBox() 
-        public CollDetectSphereBox() 
+        #region public CollDetectSphereBox()
+        public CollDetectSphereBox()
             : base("SphereBox", (int)PrimitiveType.Sphere, (int)PrimitiveType.Box)
         {
         }
@@ -35,7 +36,7 @@ namespace JigLibX.Collision
         #region public override void CollDetect(CollDetectInfo infoOrig, float collTolerance, CollisionFunctor collisionFunctor)
         public override void CollDetect(CollDetectInfo infoOrig, float collTolerance, CollisionFunctor collisionFunctor)
         {
-           // get the skins in the order that we're expecting
+            // get the skins in the order that we're expecting
             CollDetectInfo info = infoOrig;
 
             if (info.Skin0.GetPrimitiveOldWorld(info.IndexPrim0).Type == this.Type1)
@@ -55,8 +56,8 @@ namespace JigLibX.Collision
             Sphere oldSphere = info.Skin0.GetPrimitiveOldWorld(info.IndexPrim0) as Sphere;
             Sphere newSphere = info.Skin0.GetPrimitiveNewWorld(info.IndexPrim0) as Sphere;
 
-            Box oldBox = info.Skin1.GetPrimitiveOldWorld(info.IndexPrim1) as Box;
-            Box newBox = info.Skin1.GetPrimitiveNewWorld(info.IndexPrim1) as Box;
+            JBox oldBox = info.Skin1.GetPrimitiveOldWorld(info.IndexPrim1) as JBox;
+            JBox newBox = info.Skin1.GetPrimitiveNewWorld(info.IndexPrim1) as JBox;
 
             Vector3 oldBoxPoint;
             Vector3 newBoxPoint;
@@ -92,7 +93,7 @@ namespace JigLibX.Collision
                     SmallCollPointInfo collInfo = new SmallCollPointInfo(oldBoxPoint - body0Pos,
                         oldBoxPoint - body1Pos, oldDepth);
 
-                    
+
                     collisionFunctor.CollisionNotify(ref info, ref dir, &collInfo, 1);
                 }
 

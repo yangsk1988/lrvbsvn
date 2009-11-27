@@ -2,9 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
 using JigLibX.Geometry;
 using JigLibX.Math;
+using VirtualBicycle.MathLib;
+using JTriangle = JigLibX.Geometry.Triangle;
 #endregion
 
 namespace JigLibX.Collision
@@ -87,16 +88,16 @@ namespace JigLibX.Collision
                         Vector3 capsuleEnd = newCapsule.GetEnd();
                         Matrix meshInvTransform = mesh.InverseTransformMatrix;
 
-                        Vector3 meshSpaceCapsuleStart = Vector3.Transform(capsuleStart, meshInvTransform);
-                        Vector3 meshSpaceCapsuleEnd = Vector3.Transform(capsuleEnd, meshInvTransform);
+                        Vector3 meshSpaceCapsuleStart = Vector3.TransformSimple(capsuleStart, meshInvTransform);
+                        Vector3 meshSpaceCapsuleEnd = Vector3.TransformSimple(capsuleEnd, meshInvTransform);
 
                         for (int iTriangle = 0; iTriangle < numTriangles; ++iTriangle)
                         {
                             IndexedTriangle meshTriangle = mesh.GetTriangle(potentialTriangles[iTriangle]);
 
                             // we do the plane test using the capsule in mesh space
-                            float distToStart = meshTriangle.Plane.DotCoordinate(meshSpaceCapsuleStart);
-                            float distToEnd = meshTriangle.Plane.DotCoordinate(meshSpaceCapsuleEnd);
+                            float distToStart = meshTriangle.Plane[meshSpaceCapsuleStart];
+                            float distToEnd = meshTriangle.Plane[meshSpaceCapsuleEnd];
 
                             // BEN-BUG-FIX: Fixed by replacing 0.0F with -capsuleTolR.
                             if ((distToStart > capsuleTolR && distToEnd > capsuleTolR)
@@ -117,10 +118,10 @@ namespace JigLibX.Collision
 
                             // Deano move tri into world space
                             Matrix transformMatrix = mesh.TransformMatrix;
-                            Vector3.Transform(ref triVec0, ref transformMatrix, out triVec0);
-                            Vector3.Transform(ref triVec1, ref transformMatrix, out triVec1);
-                            Vector3.Transform(ref triVec2, ref transformMatrix, out triVec2);
-                            Triangle triangle = new Triangle(ref triVec0, ref triVec1, ref triVec2);
+                            Vector3.TransformSimple(ref triVec0, ref transformMatrix, out triVec0);
+                            Vector3.TransformSimple(ref triVec1, ref transformMatrix, out triVec1);
+                            Vector3.TransformSimple(ref triVec2, ref transformMatrix, out triVec2);
+                            JTriangle triangle = new JTriangle(ref triVec0, ref triVec1, ref triVec2);
 
                             Segment seg = new Segment(capsuleStart, capsuleEnd - capsuleStart);
 

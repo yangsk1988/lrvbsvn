@@ -100,7 +100,7 @@ namespace JigLibX.Geometry
             get
             {
                 Matrix trans = transform.Orientation;
-                trans.Translation = transform.Position;
+                trans.TranslationValue = transform.Position;
                 return trans;
             }
         }
@@ -110,7 +110,7 @@ namespace JigLibX.Geometry
             get
             {
                 Matrix trans = transform.Orientation;
-                trans.Translation = transform.Position;
+                trans.TranslationValue = transform.Position;
                 return Matrix.Invert(trans);
             }
         }
