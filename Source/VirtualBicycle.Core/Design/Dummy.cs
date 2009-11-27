@@ -65,7 +65,7 @@ namespace VirtualBicycle.Design
     /// .net CF不支持没有这个类型，无实际用途，为了让编译器通过用。减少使用Macro易维护。
     /// </summary>
     [AttributeUsage(AttributeTargets.All)]
-    public sealed class BrowsableAttribute : Attribute
+    public class BrowsableAttribute : Attribute
     {
         public static readonly BrowsableAttribute Default = Yes;
         public static readonly BrowsableAttribute No = new BrowsableAttribute(false);
@@ -91,11 +91,6 @@ namespace VirtualBicycle.Design
         public override int GetHashCode()
         {
             return this.browsable.GetHashCode();
-        }
-
-        public override bool IsDefaultAttribute()
-        {
-            return this.Equals(Default);
         }
 
         public bool Browsable

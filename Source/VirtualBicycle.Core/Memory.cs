@@ -11,19 +11,19 @@ namespace VirtualBicycle
     public unsafe static class Memory
     {
         #region Helper Structs
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        [StructLayout(LayoutKind.Sequential)]
         struct helper102400
         {
             public const int Size = 102400;
             fixed byte buffer[Size];
         }
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        [StructLayout(LayoutKind.Sequential)]
         struct helper10240
         {
             public const int Size = 10240;
             fixed byte buffer[Size];
         }
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        [StructLayout(LayoutKind.Sequential)]
         struct helper1024
         {
             public const int Size = 1024;
