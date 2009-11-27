@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">Xbox 360</Platform>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VirtualBicycle.RenderSystem.Xna</RootNamespace>
-    <AssemblyName>VirtualBicycle.RenderSystem.Xna</AssemblyName>
+    <RootNamespace>Apoc3D.RenderSystem.Xna</RootNamespace>
+    <AssemblyName>Apoc3D.RenderSystem.Xna</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <XnaFrameworkVersion>v3.0</XnaFrameworkVersion>
     <XnaPlatform>Xbox 360</XnaPlatform>
@@ -67,9 +67,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VirtualBicycle.Graphics\VirtualBicycle.GraphicsX.csproj">
+    <ProjectReference Include="..\VirtualBicycle.Graphics\Apoc3D.GraphicsX.csproj">
       <Project>{7538293E-884D-476E-839C-EC7E3536A43C}</Project>
-      <Name>VirtualBicycle.GraphicsX</Name>
+      <Name>Apoc3D.GraphicsX</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

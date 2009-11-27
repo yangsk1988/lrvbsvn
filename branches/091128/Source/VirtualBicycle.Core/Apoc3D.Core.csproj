@@ -8,8 +8,8 @@
     <ProjectGuid>{767AFD72-02F7-4543-B193-A2E19645A4B9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VirtualBicycle.Core</RootNamespace>
-    <AssemblyName>VirtualBicycle.Core</AssemblyName>
+    <RootNamespace>Apoc3D.Core</RootNamespace>
+    <AssemblyName>Apoc3D.Core</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

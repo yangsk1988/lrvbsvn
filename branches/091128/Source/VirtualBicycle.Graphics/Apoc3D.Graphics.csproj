@@ -8,8 +8,8 @@
     <ProjectGuid>{726180A4-EE3E-478D-A5F9-985F56393AA7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VirtualBicycle.Graphics</RootNamespace>
-    <AssemblyName>VirtualBicycle.Graphics</AssemblyName>
+    <RootNamespace>Apoc3D.Graphics</RootNamespace>
+    <AssemblyName>Apoc3D.Graphics</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -127,13 +127,13 @@
     <Compile Include="WeatherType.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VirtualBicycle.Collision\VirtualBicycle.Collision.csproj">
+    <ProjectReference Include="..\VirtualBicycle.Collision\Apoc3D.Collision.csproj">
       <Project>{ED6CFF26-7985-4156-8E04-30D01BA33655}</Project>
-      <Name>VirtualBicycle.Collision</Name>
+      <Name>Apoc3D.Collision</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VirtualBicycle.Core\VirtualBicycle.Core.csproj">
+    <ProjectReference Include="..\VirtualBicycle.Core\Apoc3D.Core.csproj">
       <Project>{767AFD72-02F7-4543-B193-A2E19645A4B9}</Project>
-      <Name>VirtualBicycle.Core</Name>
+      <Name>Apoc3D.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
