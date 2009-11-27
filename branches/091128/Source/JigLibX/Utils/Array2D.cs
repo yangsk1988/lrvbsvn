@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using JigLibX.Math;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using System.Collections;
 #endregion
 
@@ -235,8 +235,8 @@ namespace JigLibX.Utils
         /// <returns></returns>
         public float Interpolate(float fi, float fj)
         {
-            fi = MathHelper.Clamp(fi, 0.0f, (this.nx - 1.0f));
-            fj = MathHelper.Clamp(fj, 0.0f, (this.nz - 1.0f));
+            fi = MathEx.Clamp(fi, 0.0f, (this.nx - 1.0f));
+            fj = MathEx.Clamp(fj, 0.0f, (this.nz - 1.0f));
 
             int i0 = (int)(fi);
             int j0 = (int)(fj);

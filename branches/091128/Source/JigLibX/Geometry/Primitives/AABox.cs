@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 using JigLibX.Geometry;
 #endregion
@@ -276,13 +276,13 @@ namespace JigLibX.Geometry
         static public BoundingBox InitialBox = new BoundingBox( new Vector3(float.PositiveInfinity),new Vector3(float.NegativeInfinity));
         static public void AddPoint(ref Vector3 pos, ref BoundingBox bb)
         {
-            Vector3.Min(ref bb.Min, ref pos, out bb.Min);
-            Vector3.Max(ref bb.Max, ref pos, out bb.Max);
+            Vector3.Minimize(ref bb.Minimum, ref pos, out bb.Minimum);
+            Vector3.Maximize(ref bb.Maximum, ref pos, out bb.Maximum);
         }
         static public void AddPoint(Vector3 pos, ref BoundingBox bb)
         {
-            Vector3.Min(ref bb.Min, ref pos, out bb.Min);
-            Vector3.Max(ref bb.Max, ref pos, out bb.Max);
+            Vector3.Minimize(ref bb.Minimum, ref pos, out bb.Minimum);
+            Vector3.Maximize(ref bb.Maximum, ref pos, out bb.Maximum);
         }
 
         static Vector3[] pts = new Vector3[8];
@@ -309,14 +309,14 @@ namespace JigLibX.Geometry
 
         static public void AddAABox(AABox aabox, ref BoundingBox bb)
         {
-            bb.Min = Vector3.Min(aabox.MinPos, bb.Min);
-            bb.Max = Vector3.Max(aabox.MaxPos, bb.Max);
+            bb.Minimum = Vector3.Minimize(aabox.MinPos, bb.Minimum);
+            bb.Maximum = Vector3.Maximize(aabox.MaxPos, bb.Maximum);
         }
 
         static public void AddBBox(BoundingBox bbox, ref BoundingBox bb)
         {
-            bb.Min = Vector3.Min(bbox.Min, bb.Min);
-            bb.Max = Vector3.Max(bbox.Max, bb.Max);
+            bb.Minimum = Vector3.Minimize(bbox.Minimum, bb.Minimum);
+            bb.Maximum = Vector3.Maximize(bbox.Maximum, bb.Maximum);
         }
 
         static public void AddSphere(Sphere sphere, ref BoundingBox bb)
@@ -328,11 +328,11 @@ namespace JigLibX.Geometry
             Vector3.Subtract(ref minSphere, ref radius, out minSphere);
             Vector3.Add(ref maxSphere, ref radius, out maxSphere);
 
-            Vector3.Min(ref bb.Min, ref minSphere, out bb.Min);
-            Vector3.Max(ref bb.Max, ref maxSphere, out bb.Max);
+            Vector3.Minimize(ref bb.Minimum, ref minSphere, out bb.Minimum);
+            Vector3.Maximize(ref bb.Maximum, ref maxSphere, out bb.Maximum);
         }
 
-        static public void AddSphere(Microsoft.Xna.Framework.BoundingSphere sphere, ref BoundingBox bb)
+        static public void AddSphere(BoundingSphere sphere, ref BoundingBox bb)
         {
             Vector3 radius = new Vector3(sphere.Radius);
             Vector3 minSphere = sphere.Center;
@@ -341,14 +341,14 @@ namespace JigLibX.Geometry
             Vector3.Subtract(ref minSphere, ref radius, out minSphere);
             Vector3.Add(ref maxSphere, ref radius, out maxSphere);
 
-            Vector3.Min(ref bb.Min, ref minSphere, out bb.Min);
-            Vector3.Max(ref bb.Max, ref maxSphere, out bb.Max);
+            Vector3.Minimize(ref bb.Minimum, ref minSphere, out bb.Minimum);
+            Vector3.Maximize(ref bb.Maximum, ref maxSphere, out bb.Maximum);
         }
 
         static public void AddCapsule(Capsule capsule, ref BoundingBox bb)
         {
-            AddSphere(new Microsoft.Xna.Framework.BoundingSphere(capsule.Position, capsule.Radius), ref bb);
-            AddSphere(new Microsoft.Xna.Framework.BoundingSphere(capsule.Position + capsule.Length * capsule.Orientation.Backward, capsule.Radius), ref bb);
+            AddSphere(new BoundingSphere(capsule.Position, capsule.Radius), ref bb);
+            AddSphere(new BoundingSphere(capsule.Position + capsule.Length * capsule.Orientation.Backward, capsule.Radius), ref bb);
         }
 
         static public void AddPrimitive(Primitive prim, ref BoundingBox bb)
@@ -371,22 +371,22 @@ namespace JigLibX.Geometry
         }
         public static bool OverlapTest(ref BoundingBox box0, ref BoundingBox box1)
         {
-            return ((box0.Min.Z >= box1.Max.Z) ||
-                (box0.Max.Z <= box1.Min.Z) ||
-                (box0.Min.Y >= box1.Max.Y) ||
-                (box0.Max.Y <= box1.Min.Y) ||
-                (box0.Min.X >= box1.Max.X) ||
-                (box0.Max.X <= box1.Min.X)) ? false : true;
+            return ((box0.Minimum.Z >= box1.Maximum.Z) ||
+                (box0.Maximum.Z <= box1.Minimum.Z) ||
+                (box0.Minimum.Y >= box1.Maximum.Y) ||
+                (box0.Maximum.Y <= box1.Minimum.Y) ||
+                (box0.Minimum.X >= box1.Maximum.X) ||
+                (box0.Maximum.X <= box1.Minimum.X)) ? false : true;
         }
 
         public static bool OverlapTest(ref BoundingBox box0, ref BoundingBox box1, float tol)
         {
-            return ((box0.Min.Z >= box1.Max.Z + tol) ||
-                (box0.Max.Z <= box1.Min.Z - tol) ||
-                (box0.Min.Y >= box1.Max.Y + tol) ||
-                (box0.Max.Y <= box1.Min.Y - tol) ||
-                (box0.Min.X >= box1.Max.X + tol) ||
-                (box0.Max.X <= box1.Min.X - tol)) ? false : true;
+            return ((box0.Minimum.Z >= box1.Maximum.Z + tol) ||
+                (box0.Maximum.Z <= box1.Minimum.Z - tol) ||
+                (box0.Minimum.Y >= box1.Maximum.Y + tol) ||
+                (box0.Maximum.Y <= box1.Minimum.Y - tol) ||
+                (box0.Minimum.X >= box1.Maximum.X + tol) ||
+                (box0.Maximum.X <= box1.Minimum.X - tol)) ? false : true;
         }
 
 

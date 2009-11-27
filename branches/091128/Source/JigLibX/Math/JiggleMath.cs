@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Utils;
 #endregion
 
@@ -105,7 +105,7 @@ namespace JigLibX.Math
         /// Assumes dir is normalised. angle is in deg
         public static Matrix RotationMatrix(float ang, Vector3 dir)
         {
-            return Matrix.CreateFromAxisAngle(dir, MathHelper.ToRadians(ang));
+            return Matrix.RotationAxis(dir, MathEx.Degree2Radian(ang));
         }
 
         public static float Max(float a, float b, float c) 

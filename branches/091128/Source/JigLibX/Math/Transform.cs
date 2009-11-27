@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 #endregion
 
 namespace JigLibX.Math
@@ -46,7 +46,7 @@ namespace JigLibX.Math
                 Vector3.Divide(ref dir, ang, out dir);  // dir /= ang;
                 ang *= dt;
                 Matrix rot;
-                Matrix.CreateFromAxisAngle(ref dir, ang, out rot);
+                Matrix.RotationAxis(ref dir, ang, out rot);
                 Matrix.Multiply(ref Orientation, ref rot, out Orientation);
             }
 
@@ -68,7 +68,7 @@ namespace JigLibX.Math
                 Vector3.Divide(ref dir, ang, out dir);  // dir /= ang;
                 ang *= dt;
                 Matrix rot;
-                Matrix.CreateFromAxisAngle(ref dir, ang, out rot);
+                Matrix.RotationAxis(ref dir, ang, out rot);
                 Matrix.Multiply(ref Orientation, ref rot, out Orientation);
             }
 

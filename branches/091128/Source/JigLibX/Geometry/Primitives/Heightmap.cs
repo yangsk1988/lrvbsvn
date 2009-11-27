@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 using JigLibX.Utils;
 using JigLibX.Geometry;
@@ -87,8 +87,8 @@ namespace JigLibX.Geometry
         /// <returns></returns>
         public float GetHeight(int i, int j)
         {
-            i = (int)MathHelper.Clamp(i, 0, mHeights.Nx - 1);
-            j = (int)MathHelper.Clamp(j, 0, mHeights.Nz - 1);
+            i = (int)MathEx.Clamp(i, 0, mHeights.Nx - 1);
+            j = (int)MathEx.Clamp(j, 0, mHeights.Nz - 1);
 
             return mHeights[i, j];
         }
@@ -105,10 +105,10 @@ namespace JigLibX.Geometry
             int i1 = i + 1;
             int j0 = j - 1;
             int j1 = j + 1;
-            i0 = (int)MathHelper.Clamp(i0, 0, (int)mHeights.Nx - 1);
-            j0 = (int)MathHelper.Clamp(j0, 0, (int)mHeights.Nz - 1);
-            i1 = (int)MathHelper.Clamp(i1, 0, (int)mHeights.Nx - 1);
-            j1 = (int)MathHelper.Clamp(j1, 0, (int)mHeights.Nz - 1);
+            i0 = (int)MathEx.Clamp(i0, 0, (int)mHeights.Nx - 1);
+            j0 = (int)MathEx.Clamp(j0, 0, (int)mHeights.Nz - 1);
+            i1 = (int)MathEx.Clamp(i1, 0, (int)mHeights.Nx - 1);
+            j1 = (int)MathEx.Clamp(j1, 0, (int)mHeights.Nz - 1);
 
             float dx = (i1 - i0) * this.dx;
             float dz = (j1 - j0) * this.dz;
@@ -116,7 +116,7 @@ namespace JigLibX.Geometry
             if (i0 == i1) dx = 1.0f;
             if (j0 == j1) dz = 1.0f;
 
-            if (i0 == i1 && j0 == j1) return Vector3.Up;
+            if (i0 == i1 && j0 == j1) return Vector3.UnitY;
 
             float hFwd = mHeights[i1, j];
             float hBack = mHeights[i0, j];
@@ -179,19 +179,19 @@ namespace JigLibX.Geometry
             return normal;
         }
 
-        public void GetHeightAndNormal(out float h, out Vector3 normal,Vector3 point)
+        public void GetHeightAndNormal(out float h, out Vector3 normal, Vector3 point)
         {
             float x = point.X;
             float z = point.Z;
 
-            x = MathHelper.Clamp(x, xMin, xMax);
-            z = MathHelper.Clamp(z, zMin, zMax);
+            x = MathEx.Clamp(x, xMin, xMax);
+            z = MathEx.Clamp(z, zMin, zMax);
 
             int i0 = (int)((x - xMin) / dx);
             int j0 = (int)((point.Z - zMin) / dz);
 
-            i0 = (int)MathHelper.Clamp((int)i0, 0, mHeights.Nx - 1);
-            j0 = (int)MathHelper.Clamp((int)j0, 0, mHeights.Nz - 1);
+            i0 = (int)MathEx.Clamp((int)i0, 0, mHeights.Nx - 1);
+            j0 = (int)MathEx.Clamp((int)j0, 0, mHeights.Nz - 1);
 
             int i1 = i0 + 1;
             int j1 = j0 + 1;
@@ -202,8 +202,8 @@ namespace JigLibX.Geometry
             float iFrac = (x - (i0 * dx + xMin)) / dx;
             float jFrac = (z - (j0 * dz + zMin)) / dz;
 
-            iFrac = MathHelper.Clamp(iFrac, 0.0f, 1.0f);
-            jFrac = MathHelper.Clamp(jFrac, 0.0f, 1.0f);
+            iFrac = MathEx.Clamp(iFrac, 0.0f, 1.0f);
+            jFrac = MathEx.Clamp(jFrac, 0.0f, 1.0f);
 
             float h00 = mHeights[i0, j0];
             float h01 = mHeights[i0, j1];
@@ -214,18 +214,18 @@ namespace JigLibX.Geometry
             // work out the normal, then z is in the plane of this normal
             if ((i0 == i1) && (j0 == j1))
             {
-                normal = Vector3.Up;
+                normal = Vector3.UnitY;
             }
             else if (i0 == i1)
             {
-                Vector3 right = Vector3.Right;
-                normal = Vector3.Cross(new Vector3(0.0f, h01 - h00, dz),right);
+                Vector3 right = Vector3.UnitX;
+                normal = Vector3.Cross(new Vector3(0.0f, h01 - h00, dz), right);
                 normal.Normalize();
             }
 
             if (j0 == j1)
             {
-                Vector3 backw = Vector3.Backward;
+                Vector3 backw = Vector3.UnitZ;
                 normal = Vector3.Cross(backw, new Vector3(dx, h10 - h00, 0.0f));
                 normal.Normalize();
             }
@@ -240,12 +240,12 @@ namespace JigLibX.Geometry
                 normal.Normalize();
             }
 
-             // get the plane equation
-             // h00 is in all the triangles
-             JiggleMath.NormalizeSafe(ref normal);
-             Vector3 pos = new Vector3((i0 * dx + xMin), h00, (j0 * dz + zMin));
-             float d; Vector3.Dot(ref normal, ref pos, out d); d = -d;
-             h = Distance.PointPlaneDistance(ref point,ref normal, d);
+            // get the plane equation
+            // h00 is in all the triangles
+            JiggleMath.NormalizeSafe(ref normal);
+            Vector3 pos = new Vector3((i0 * dx + xMin), h00, (j0 * dz + zMin));
+            float d = Vector3.Dot(ref normal, ref pos); d = -d;
+            h = Distance.PointPlaneDistance(ref point, ref normal, d);
         }
 
         public void GetSurfacePos(out Vector3 pos, Vector3 point)
@@ -277,7 +277,7 @@ namespace JigLibX.Geometry
         {
             frac = 0;
             pos = Vector3.Zero;
-            normal = Vector3.Up;
+            normal = Vector3.UnitY;
 
             //if (seg.Delta.Y > -JiggleMath.Epsilon )
             //    return false;

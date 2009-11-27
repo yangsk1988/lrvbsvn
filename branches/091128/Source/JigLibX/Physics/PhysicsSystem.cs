@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Collision;
 using JigLibX.Geometry;
 using JigLibX.Math;
@@ -183,7 +183,7 @@ namespace JigLibX.Physics
         public PhysicsSystem()
         {
             CurrentPhysicsSystem = this;
-            Gravity = -10.0f * Vector3.Up;
+            Gravity = -10.0f * Vector3.UnitY;
 
             SetCollisionFns();
         }
@@ -521,13 +521,13 @@ namespace JigLibX.Physics
                     body0.GetVelocity(ref ptInfo.Info.R0, out v0);
                     body1.GetVelocity(ref ptInfo.Info.R1, out v1);
                     Vector3.Subtract(ref v0, ref v1, out v0);
-                    Vector3.Dot(ref v0, ref N, out normalVel);
+                    normalVel = Vector3.Dot(ref v0, ref N);
                 }
                 else
                 {
                     Vector3 v0;
                     body0.GetVelocity(ref ptInfo.Info.R0, out v0);
-                    Vector3.Dot(ref v0, ref N, out normalVel);
+                    normalVel = Vector3.Dot(ref v0, ref N);
                 }
 
                 if (normalVel > ptInfo.MinSeparationVel)
@@ -586,7 +586,7 @@ namespace JigLibX.Physics
 
                 //Vector3 tangentVel = vrNew - Vector3.Dot(vrNew, N) * N;
                 Vector3 tangentVel; float f1;
-                Vector3.Dot(ref vrNew, ref N, out f1);
+                f1 = Vector3.Dot(ref vrNew, ref N);
                 Vector3.Multiply(ref N, f1, out tangentVel);
                 Vector3.Subtract(ref vrNew, ref tangentVel, out tangentVel);
 
@@ -752,7 +752,7 @@ namespace JigLibX.Physics
                         Vector3.Cross(ref ptInfo.Info.R0, ref T, out v1);
                         Vector3.TransformNormal(ref v1, ref body0.worldInvInertia, out v1);
                         Vector3.Cross(ref v1, ref ptInfo.Info.R0, out v1);
-                        Vector3.Dot(ref T, ref v1, out f2);
+                        f2 = Vector3.Dot(ref T, ref v1);
                         denominator = body0.InverseMass + f2;
                     }
 
@@ -764,7 +764,7 @@ namespace JigLibX.Physics
                         Vector3.Cross(ref ptInfo.Info.R1, ref T, out v1);
                         Vector3.TransformNormal(ref v1, ref body1.worldInvInertia, out v1);
                         Vector3.Cross(ref v1, ref ptInfo.Info.R1, out v1);
-                        Vector3.Dot(ref T, ref v1, out f2);
+                        f2 = Vector3.Dot(ref T, ref v1);
                         denominator += body1.InverseMass + f2;
                     }
 
@@ -815,7 +815,7 @@ namespace JigLibX.Physics
                         body0.GetVelocity(ref ptInfo.Info.R0, out v0);
                         body1.GetVelocity(ref ptInfo.Info.R1, out v1);
                         Vector3.Subtract(ref v0, ref v1, out v0);
-                        Vector3.Dot(ref v0, ref N, out normalVel);
+                        normalVel = Vector3.Dot(ref v0, ref N);
                         //normalVel = Vector3.Dot(v0, N);
                     }
                     else
@@ -823,7 +823,7 @@ namespace JigLibX.Physics
                         Vector3 v0;
                         body0.GetVelocity(ref ptInfo.Info.R0, out v0);
                         //normalVel = Vector3.Dot(v0, N);
-                        Vector3.Dot(ref v0, ref N, out normalVel);
+                        normalVel = Vector3.Dot(ref v0, ref N);
                     }
 
                     // result in zero...
@@ -839,7 +839,7 @@ namespace JigLibX.Physics
                         normalImpulse = deltaVel / ptInfo.Denominator;
 
                         float origAccumulatedNormalImpulse = ptInfo.AccumulatedNormalImpulse;
-                        ptInfo.AccumulatedNormalImpulse = MathHelper.Max(ptInfo.AccumulatedNormalImpulse + normalImpulse, 0.0f);
+                        ptInfo.AccumulatedNormalImpulse = System.Math.Max(ptInfo.AccumulatedNormalImpulse + normalImpulse, 0.0f);
                         float actualImpulse = ptInfo.AccumulatedNormalImpulse - origAccumulatedNormalImpulse;
 
                         //Vector3 impulse = Vector3.Multiply(N, actualImpulse);
@@ -871,7 +871,7 @@ namespace JigLibX.Physics
                         body0.GetVelocityAux(ref ptInfo.Info.R0, out v0);
                         body1.GetVelocityAux(ref ptInfo.Info.R1, out v1);
                         Vector3.Subtract(ref v0, ref v1, out v0);
-                        Vector3.Dot(ref v0, ref N, out normalVel);
+                        normalVel = Vector3.Dot(ref v0, ref N);
                         //normalVel = Vector3.Dot(v0, N);
                         //normalVel = Vector3.Dot(body0.GetVelocityAux(ptInfo.R0) - body1.GetVelocityAux(ptInfo.R1), collision.DirToBody0);
                     }
@@ -880,7 +880,7 @@ namespace JigLibX.Physics
                         Vector3 v0;
                         body0.GetVelocityAux(ref ptInfo.Info.R0, out v0);
                         //normalVel = Vector3.Dot(v0, N);
-                        Vector3.Dot(ref v0, ref N, out normalVel);
+                        normalVel = Vector3.Dot(ref v0, ref N);
                     }
 
                     float deltaVel = -normalVel;
@@ -932,8 +932,8 @@ namespace JigLibX.Physics
                     //vrNew -= body1.GetVelocity(ptInfo.R1);
 
                     //Vector3 tangentVel = vrNew - Vector3.Dot(vrNew, N) * N;
-                    Vector3 tangentVel; float f1;
-                    Vector3.Dot(ref vrNew, ref N, out f1);
+                    Vector3 tangentVel; 
+                    float f1 = Vector3.Dot(ref vrNew, ref N);
                     Vector3.Multiply(ref N, f1, out tangentVel);
                     Vector3.Subtract(ref vrNew, ref tangentVel, out tangentVel);
 
@@ -1375,8 +1375,8 @@ namespace JigLibX.Physics
                 else
                 {
                     float approachScale = -0.1f * (ptInfo.Info.InitialPenetration - allowedPenetration) / (JiggleMath.Epsilon + allowedPenetration);
-                    approachScale = MathHelper.Clamp(approachScale, JiggleMath.Epsilon, 1.0f);
-                    ptInfo.MinSeparationVel = approachScale * (ptInfo.Info.InitialPenetration - allowedPenetration) / MathHelper.Max(dt, JiggleMath.Epsilon);
+                    approachScale = MathEx.Clamp(approachScale, JiggleMath.Epsilon, 1.0f);
+                    ptInfo.MinSeparationVel = approachScale * (ptInfo.Info.InitialPenetration - allowedPenetration) / System.Math.Max(dt, JiggleMath.Epsilon);
                 }
 
                 if (ptInfo.MinSeparationVel > maxVelMag)
@@ -1426,7 +1426,7 @@ namespace JigLibX.Physics
                     Vector3.Cross(ref ptInfo.Info.R0, ref N, out cross);
                     Vector3.TransformNormal(ref cross, ref body0.worldInvInertia, out cross);
                     Vector3.Cross(ref cross, ref ptInfo.Info.R0, out cross);
-                    Vector3.Dot(ref N, ref cross, out res);
+                    res = Vector3.Dot(ref N, ref cross);
                     ptInfo.Denominator = body0.InverseMass + res;
                 }
 
@@ -1438,7 +1438,7 @@ namespace JigLibX.Physics
                     Vector3.Cross(ref ptInfo.Info.R1, ref N, out cross);
                     Vector3.TransformNormal(ref cross, ref body1.worldInvInertia, out cross);
                     Vector3.Cross(ref cross, ref ptInfo.Info.R1, out cross);
-                    Vector3.Dot(ref N, ref cross, out res);
+                    res = Vector3.Dot(ref N, ref cross);
                     ptInfo.Denominator += body1.InverseMass + res;
                 }
 
@@ -1456,8 +1456,8 @@ namespace JigLibX.Physics
                 else
                 {
                     float approachScale = -0.1f * (ptInfo.Info.InitialPenetration - allowedPenetration) / (JiggleMath.Epsilon + allowedPenetration);
-                    approachScale = MathHelper.Clamp(approachScale, JiggleMath.Epsilon, 1.0f);
-                    ptInfo.MinSeparationVel = approachScale * (ptInfo.Info.InitialPenetration - allowedPenetration) / MathHelper.Max(dt, JiggleMath.Epsilon);
+                    approachScale = MathEx.Clamp(approachScale, JiggleMath.Epsilon, 1.0f);
+                    ptInfo.MinSeparationVel = approachScale * (ptInfo.Info.InitialPenetration - allowedPenetration) / System.Math.Max(dt, JiggleMath.Epsilon);
                 }
                 if (ptInfo.MinSeparationVel > maxVelMag)
                     ptInfo.MinSeparationVel = maxVelMag;
@@ -1540,8 +1540,8 @@ namespace JigLibX.Physics
                 else
                 {
                     float approachScale = -0.1f * (ptInfo.Info.InitialPenetration - allowedPenetration) / (JiggleMath.Epsilon + allowedPenetration);
-                    approachScale = MathHelper.Clamp(approachScale, JiggleMath.Epsilon, 1.0f);
-                    ptInfo.MinSeparationVel = approachScale * (ptInfo.Info.InitialPenetration - allowedPenetration) / MathHelper.Max(dt, JiggleMath.Epsilon);
+                    approachScale = MathEx.Clamp(approachScale, JiggleMath.Epsilon, 1.0f);
+                    ptInfo.MinSeparationVel = approachScale * (ptInfo.Info.InitialPenetration - allowedPenetration) / System.Math.Max(dt, JiggleMath.Epsilon);
                 }
 
                 ptInfo.AccumulatedNormalImpulse = 0.0f;

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 #endregion
 
@@ -76,10 +76,10 @@ namespace JigLibX.Physics
             if (hingeFwdAngle <= 150) // MAX_HINGE_ANGLE_LIMIT
             {
                 // choose a direction that is perpendicular to the hinge
-                Vector3 perpDir = Vector3.Up;
+                Vector3 perpDir = Vector3.UnitY;
 
                 if (Vector3.Dot(perpDir, hingeAxis) > 0.1f)
-                    perpDir = Vector3.Right;
+                    perpDir = Vector3.UnitX;
 
                 // now make it perpendicular to the hinge
                 Vector3 sideAxis = Vector3.Cross(hingeAxis, perpDir);
@@ -97,11 +97,11 @@ namespace JigLibX.Physics
                 // anchor point for body 2 is chosen to be in the middle of the
                 // angle range.  relative to hinge
                 float angleToMiddle = 0.5f * (hingeFwdAngle - hingeBckAngle);
-                Vector3 hingeRelAnchorPos1 = Vector3.TransformNormal(hingeRelAnchorPos0, Matrix.CreateFromAxisAngle(hingeAxis,MathHelper.ToRadians(-angleToMiddle)));
+                Vector3 hingeRelAnchorPos1 = Vector3.TransformNormal(hingeRelAnchorPos0, Matrix.RotationAxis(hingeAxis,MathEx.Degree2Radian(-angleToMiddle)));
 
                 // work out the "string" length
                 float hingeHalfAngle = 0.5f * (hingeFwdAngle + hingeBckAngle);
-                float allowedDistance = len * 2.0f * (float)System.Math.Sin(MathHelper.ToRadians(hingeHalfAngle * 0.5f));
+                float allowedDistance = len * 2.0f * (float)System.Math.Sin(MathEx.Degree2Radian(hingeHalfAngle * 0.5f));
 
                 Vector3 hingePos = body1.Position + hingePosRel0;
                 Vector3 relPos0c = hingePos + hingeRelAnchorPos0 - body0.Position;
@@ -116,7 +116,7 @@ namespace JigLibX.Physics
             if (damping <= 0.0f)
                 damping = -1.0f; // just make sure that a value of 0.0 doesn't mess up...
             else
-                damping = MathHelper.Clamp(damping, 0, 1);
+                damping = MathEx.Clamp(damping, 0, 1);
         }
 
         /// <summary>
@@ -209,10 +209,8 @@ namespace JigLibX.Physics
 
                 JiggleMath.NormalizeSafe(ref hingeAxis);
 
-                float angRot1;//
-                Vector3.Dot(ref body0.transformRate.AngularVelocity,ref hingeAxis,out angRot1);
-                float angRot2;
-                Vector3.Dot(ref body1.transformRate.AngularVelocity,ref hingeAxis,out angRot2);
+                float angRot1 = Vector3.Dot(ref body0.transformRate.AngularVelocity, ref hingeAxis);
+                float angRot2 = Vector3.Dot(ref body1.transformRate.AngularVelocity, ref hingeAxis);
 
                 float avAngRot = 0.5f * (angRot1 + angRot2);
 

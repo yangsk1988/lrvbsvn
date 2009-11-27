@@ -6,8 +6,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Microsoft.Xna.Framework;
 using JigLibX.Geometry;
+using VirtualBicycle.MathLib;
 #endregion
 
 namespace JigLibX.Collision
@@ -37,7 +37,7 @@ namespace JigLibX.Collision
             collisionSkin.CollisionSystem = this;
             skins_.Add(collisionSkin);
             dirty_ = true;
-            float dx = collisionSkin.WorldBoundingBox.Max.X - collisionSkin.WorldBoundingBox.Min.X;
+            float dx = collisionSkin.WorldBoundingBox.Maximum.X - collisionSkin.WorldBoundingBox.Minimum.X;
             if (dx > largestX_)
                 largestX_ = dx;
         }
@@ -68,9 +68,9 @@ namespace JigLibX.Collision
             MaybeSort();
             int i = bsearch(min.X - largestX_);
             float xMax = max.X;
-            while (i < skins_.Count && skins_[i].WorldBoundingBox.Min.X < xMax)
+            while (i < skins_.Count && skins_[i].WorldBoundingBox.Minimum.X < xMax)
             {
-                if (skins_[i].WorldBoundingBox.Max.X > min.X)
+                if (skins_[i].WorldBoundingBox.Maximum.X > min.X)
                     skins.Add(skins_[i]);
                 ++i;
             }
@@ -84,7 +84,7 @@ namespace JigLibX.Collision
             while (top > bot)
             {
                 int mid = (top + bot) >> 1;
-                if (skins_[mid].WorldBoundingBox.Min.X >= x)
+                if (skins_[mid].WorldBoundingBox.Minimum.X >= x)
                 {
 #if DEBUG
                     System.Diagnostics.Debug.Assert(top > mid);
@@ -102,8 +102,8 @@ namespace JigLibX.Collision
 
 #if DEBUG
             System.Diagnostics.Debug.Assert(top >= 0 && top <= skins_.Count);
-            System.Diagnostics.Debug.Assert(top == 0 || skins_[top - 1].WorldBoundingBox.Min.X < x);
-            System.Diagnostics.Debug.Assert(top == skins_.Count || skins_[top].WorldBoundingBox.Min.X >= x);
+            System.Diagnostics.Debug.Assert(top == 0 || skins_[top - 1].WorldBoundingBox.Minimum.X < x);
+            System.Diagnostics.Debug.Assert(top == skins_.Count || skins_[top].WorldBoundingBox.Minimum.X >= x);
 #endif
 
             return top;
@@ -121,7 +121,7 @@ namespace JigLibX.Collision
 
             active_.Clear();
             testing_.Clear();
-            Extract(info.Skin0.WorldBoundingBox.Min, info.Skin0.WorldBoundingBox.Max, active_);
+            Extract(info.Skin0.WorldBoundingBox.Minimum, info.Skin0.WorldBoundingBox.Maximum, active_);
 
             for (int j = 0, m = info.Skin0.NumPrimitives; j != m; ++j)
                 testing_.Add(info.Skin0.GetPrimitiveNewWorld(j));
@@ -262,7 +262,7 @@ namespace JigLibX.Collision
         void AddToActive(CollisionSkin cs, SkinTester st)
         {
             int n = active_.Count;
-            float xMin = cs.WorldBoundingBox.Min.X;
+            float xMin = cs.WorldBoundingBox.Minimum.X;
             bool active = (cs.Owner != null) && cs.Owner.IsActive;
             // BEN-OPTIMISATION: unsafe i.e. Remove array boundary checks.
             unsafe
@@ -271,7 +271,7 @@ namespace JigLibX.Collision
                 for (int i = 0; i != n; )
                 {
                     asi = active_[i];
-                    if (asi.WorldBoundingBox.Max.X < xMin)
+                    if (asi.WorldBoundingBox.Maximum.X < xMin)
                     {
                         //  prune no longer interesting boxes from potential overlaps
                         --n;
@@ -284,21 +284,21 @@ namespace JigLibX.Collision
                         //                   be removed by rearranging.
                         if (active)
                         {
-                            if (!((cs.WorldBoundingBox.Min.Z >= asi.WorldBoundingBox.Max.Z) ||
-                                    (cs.WorldBoundingBox.Max.Z <= asi.WorldBoundingBox.Min.Z) ||
-                                    (cs.WorldBoundingBox.Min.Y >= asi.WorldBoundingBox.Max.Y) ||
-                                    (cs.WorldBoundingBox.Max.Y <= asi.WorldBoundingBox.Min.Y) ||
-                                    (cs.WorldBoundingBox.Max.X <= asi.WorldBoundingBox.Min.X)))
+                            if (!((cs.WorldBoundingBox.Minimum.Z >= asi.WorldBoundingBox.Maximum.Z) ||
+                                    (cs.WorldBoundingBox.Maximum.Z <= asi.WorldBoundingBox.Minimum.Z) ||
+                                    (cs.WorldBoundingBox.Minimum.Y >= asi.WorldBoundingBox.Maximum.Y) ||
+                                    (cs.WorldBoundingBox.Maximum.Y <= asi.WorldBoundingBox.Minimum.Y) ||
+                                    (cs.WorldBoundingBox.Maximum.X <= asi.WorldBoundingBox.Minimum.X)))
                             {
                                 st.TestSkin(cs, asi);
                             }
                         }
                         else if (active_[i].Owner != null && asi.Owner.IsActive
-                                && !((cs.WorldBoundingBox.Min.Z >= asi.WorldBoundingBox.Max.Z) ||
-                                    (cs.WorldBoundingBox.Max.Z <= asi.WorldBoundingBox.Min.Z) ||
-                                    (cs.WorldBoundingBox.Min.Y >= asi.WorldBoundingBox.Max.Y) ||
-                                    (cs.WorldBoundingBox.Max.Y <= asi.WorldBoundingBox.Min.Y) ||
-                                    (cs.WorldBoundingBox.Max.X <= asi.WorldBoundingBox.Min.X)))
+                                && !((cs.WorldBoundingBox.Minimum.Z >= asi.WorldBoundingBox.Maximum.Z) ||
+                                    (cs.WorldBoundingBox.Maximum.Z <= asi.WorldBoundingBox.Minimum.Z) ||
+                                    (cs.WorldBoundingBox.Minimum.Y >= asi.WorldBoundingBox.Maximum.Y) ||
+                                    (cs.WorldBoundingBox.Maximum.Y <= asi.WorldBoundingBox.Minimum.Y) ||
+                                    (cs.WorldBoundingBox.Maximum.X <= asi.WorldBoundingBox.Minimum.X)))
                         {
                             st.TestSkin(asi, cs);
                         }
@@ -309,7 +309,7 @@ namespace JigLibX.Collision
             active_.Add(cs);
         }
 
-        public override bool SegmentIntersect(out float fracOut, out CollisionSkin skinOut, out Microsoft.Xna.Framework.Vector3 posOut, out Microsoft.Xna.Framework.Vector3 normalOut, JigLibX.Geometry.Segment seg, CollisionSkinPredicate1 collisionPredicate)
+        public override bool SegmentIntersect(out float fracOut, out CollisionSkin skinOut, out Vector3 posOut, out Vector3 normalOut, JigLibX.Geometry.Segment seg, CollisionSkinPredicate1 collisionPredicate)
         {
             fracOut = float.MaxValue;
             skinOut = null;
@@ -322,8 +322,8 @@ namespace JigLibX.Collision
             Vector3 segmentBeginning = seg.Origin;
             Vector3 segmentEnd = seg.Origin + seg.Delta;
 
-            Vector3 min = Vector3.Min(segmentBeginning, segmentEnd);
-            Vector3 max = Vector3.Max(segmentBeginning, segmentEnd);
+            Vector3 min = Vector3.Minimize(segmentBeginning, segmentEnd);
+            Vector3 max = Vector3.Maximize(segmentBeginning, segmentEnd);
 
             active_.Clear();
 
@@ -373,7 +373,7 @@ namespace JigLibX.Collision
 
         public int Compare(CollisionSkin x, CollisionSkin y)
         {
-            float f = x.WorldBoundingBox.Min.X - y.WorldBoundingBox.Min.X;
+            float f = x.WorldBoundingBox.Minimum.X - y.WorldBoundingBox.Minimum.X;
             return (f < 0) ? -1 : (f > 0) ? 1 : 0;
         }
     }

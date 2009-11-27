@@ -104,6 +104,11 @@ namespace VirtualBicycle.MathLib
             D = value.W;
         }
 
+        public float this[Vector3 point] 
+        {
+            get { return Normal.X * point.X + Normal.Y * point.Y + Normal.Z * point.Z + D; }
+        }
+
         /// <summary>
         /// Calculates the dot product of the specified vector and plane.
         /// </summary>

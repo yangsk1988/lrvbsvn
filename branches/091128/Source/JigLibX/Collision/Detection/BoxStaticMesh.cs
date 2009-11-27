@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using JigLibX.Geometry;
-using Microsoft.Xna.Framework;
 using JigLibX.Math;
+using VirtualBicycle.MathLib;
+using JBox = JigLibX.Geometry.Box;
+using JTriangle = JigLibX.Geometry.Triangle;
 #endregion
 
 namespace JigLibX.Collision
@@ -31,8 +33,8 @@ namespace JigLibX.Collision
             // note - mesh is static and its triangles are in world space
             TriangleMesh mesh = info.Skin1.GetPrimitiveNewWorld(info.IndexPrim1) as TriangleMesh;
 
-            Box oldBox = info.Skin0.GetPrimitiveOldWorld(info.IndexPrim0) as Box;
-            Box newBox = info.Skin0.GetPrimitiveNewWorld(info.IndexPrim0) as Box;
+            JBox oldBox = info.Skin0.GetPrimitiveOldWorld(info.IndexPrim0) as JBox;
+            JBox newBox = info.Skin0.GetPrimitiveNewWorld(info.IndexPrim0) as JBox;
 
             CollDetectBoxStaticMeshOverlap(oldBox, newBox, mesh, ref info, collTolerance, collisionFunctor);
         }
@@ -43,8 +45,8 @@ namespace JigLibX.Collision
             // note - mesh is static and its triangles are in world space
             TriangleMesh mesh = info.Skin1.GetPrimitiveNewWorld(info.IndexPrim1) as TriangleMesh;
 
-            Box oldBox = info.Skin0.GetPrimitiveOldWorld(info.IndexPrim0) as Box;
-            Box newBox = info.Skin0.GetPrimitiveNewWorld(info.IndexPrim0) as Box;
+            JBox oldBox = info.Skin0.GetPrimitiveOldWorld(info.IndexPrim0) as JBox;
+            JBox newBox = info.Skin0.GetPrimitiveNewWorld(info.IndexPrim0) as JBox;
 
             Vector3 oldCentre;
             oldBox.GetCentre(out oldCentre);
@@ -93,7 +95,7 @@ namespace JigLibX.Collision
 
                                 Matrix orient = Matrix.Add(Matrix.Multiply(oldBox.Orientation, 1.0f - frac), Matrix.Multiply(newBox.Orientation, frac));
 
-                                Box box = new Box(centre - 0.5f * Vector3.TransformNormal(newBox.SideLengths, orient), orient, newBox.SideLengths);
+                                JBox box = new JBox(centre - 0.5f * Vector3.TransformNormal(newBox.SideLengths, orient), orient, newBox.SideLengths);
                                 // ideally we'd break if we get one collision... but that stops us getting multiple collisions
                                 // when we enter a corner (two walls meeting) - can let us pass through
                                 CollDetectBoxStaticMeshOverlap(oldBox, box, mesh, ref info, collTolerance, collisionFunctor);
@@ -170,10 +172,10 @@ namespace JigLibX.Collision
         /// <param name="triangle"></param>
         /// <param name="combinationDistance"></param>
         /// <returns></returns>
-        private static int GetBoxTriangleIntersectionPoints(List<Vector3> pts, Box box, Triangle triangle, float combinationDistance)
+        private static int GetBoxTriangleIntersectionPoints(List<Vector3> pts, JBox box, JTriangle triangle, float combinationDistance)
         {
             // first intersect each edge of the box with the triangle
-            Box.Edge[] edges;
+            JBox.Edge[] edges;
             box.GetEdges(out edges);
             Vector3[] boxPts;
             box.GetCornerPoints(out boxPts);
@@ -187,7 +189,7 @@ namespace JigLibX.Collision
             int iEdge;
             for (iEdge = 0; iEdge < 12; ++iEdge)
             {
-                Box.Edge edge = edges[iEdge];
+                JigLibX.Geometry.Box.Edge edge = edges[iEdge];
                 Segment seg = new Segment(boxPts[(int)edge.Ind0], boxPts[(int)edge.Ind1] - boxPts[(int)edge.Ind0]);
                 if (Intersection.SegmentTriangleIntersection(out tS, out tv1, out tv2, seg, triangle))
                 {
@@ -243,7 +245,7 @@ namespace JigLibX.Collision
         /// <param name="triangle"></param>
         /// <param name="collTolerance"></param>
         /// <returns></returns>
-        private static bool Disjoint(out float d, Vector3 axis, Box box, Triangle triangle, float collTolerance)
+        private static bool Disjoint(out float d, Vector3 axis, JBox box, JTriangle triangle, float collTolerance)
         {
             float minBox, maxBox, minTri, maxTri;
 
@@ -289,7 +291,7 @@ namespace JigLibX.Collision
         /// <param name="triangle"></param>
         /// <param name="collTolerance"></param>
         /// <returns></returns>
-        private static bool Disjoint(out float d, ref Vector3 axis, Box box, ref Triangle triangle, float collTolerance)
+        private static bool Disjoint(out float d, ref Vector3 axis, JBox box, ref JTriangle triangle, float collTolerance)
         {
             float minBox, maxBox, minTri, maxTri;
 
@@ -322,8 +324,8 @@ namespace JigLibX.Collision
 
             return (false);
         }
-       
-        private static bool DoOverlapBoxTriangleTest(Box oldBox, Box newBox,
+
+        private static bool DoOverlapBoxTriangleTest(JBox oldBox, JBox newBox,
             ref IndexedTriangle triangle, TriangleMesh mesh,
             ref CollDetectInfo info, float collTolerance,
             CollisionFunctor collisionFunctor)
@@ -341,11 +343,11 @@ namespace JigLibX.Collision
 
             // Deano move tri into world space
             Matrix transformMatrix = mesh.TransformMatrix;
-            Vector3.Transform(ref triVec0, ref transformMatrix, out triVec0);
-            Vector3.Transform(ref triVec1, ref transformMatrix, out triVec1);
-            Vector3.Transform(ref triVec2, ref transformMatrix, out triVec2);
+            Vector3.TransformSimple(ref triVec0, ref transformMatrix, out triVec0);
+            Vector3.TransformSimple(ref triVec1, ref transformMatrix, out triVec1);
+            Vector3.TransformSimple(ref triVec2, ref transformMatrix, out triVec2);
 
-            Triangle tri = new Triangle(ref triVec0,ref triVec1,ref triVec2);
+            JTriangle tri = new JTriangle(ref triVec0, ref triVec1, ref triVec2);
             #endregion
 
 
@@ -619,8 +621,7 @@ namespace JigLibX.Collision
             #endregion
 
             #region REFERENCE: float oldDepth = depth + Vector3.Dot(delta, N);
-            float oldDepth;
-            Vector3.Dot(ref delta, ref N, out oldDepth);
+            float oldDepth = Vector3.Dot(ref delta, ref N);
             oldDepth += depth;
             #endregion
 
@@ -675,8 +676,8 @@ namespace JigLibX.Collision
             }
         }
 
-        private static bool CollDetectBoxStaticMeshOverlap(Box oldBox,
-                                           Box newBox,
+        private static bool CollDetectBoxStaticMeshOverlap(JBox oldBox,
+                                           JBox newBox,
                                            TriangleMesh mesh,
                                            ref CollDetectInfo info,
                                            float collTolerance,
@@ -689,7 +690,7 @@ namespace JigLibX.Collision
             newBox.GetCentre(out boxCentre);
             // Deano need to trasnform the box center into mesh space
             Matrix invTransformMatrix = mesh.InverseTransformMatrix;
-            Vector3.Transform(ref boxCentre, ref invTransformMatrix, out boxCentre);
+            Vector3.TransformSimple(ref boxCentre, ref invTransformMatrix, out boxCentre);
             #endregion
 
             BoundingBox bb = BoundingBoxHelper.InitialBox;
@@ -715,7 +716,7 @@ namespace JigLibX.Collision
                         IndexedTriangle meshTriangle = mesh.GetTriangle(potentialTriangles[iTriangle]);
 
                         // quick early test is done in mesh space
-                        float dist = meshTriangle.Plane.DotCoordinate(boxCentre);
+                        float dist = meshTriangle.Plane[boxCentre];
 
                         // BEN-BUG-FIX: Fixed by chaning 0.0F to -boxRadius.
                         if (dist > boxRadius || dist < -boxRadius)

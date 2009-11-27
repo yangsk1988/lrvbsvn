@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 using JigLibX.Geometry;
 #endregion
@@ -110,7 +110,7 @@ namespace JigLibX.Geometry
             if (t < 0.0f || t > 1.0f)
                 return false;
 
-            pt = oldSphere.Center + t * (newSphere.Center- oldSphere.Center) - MathHelper.Min(radius, oldDistToPlane) * planeNormal;
+            pt = oldSphere.Center + t * (newSphere.Center- oldSphere.Center) - System.Math.Min(radius, oldDistToPlane) * planeNormal;
             finalPenetration = radius - newDistToPlane;
             return true;
         }
@@ -123,7 +123,7 @@ namespace JigLibX.Geometry
             EdgesToTest edgesToTest, CornersToTest cornersToTest)
         {
             int i;
-            Microsoft.Xna.Framework.Plane trianglePlane = triangle.Plane;
+            Plane trianglePlane = triangle.Plane;
             N = Vector3.Zero;
 
             // Check against plane
@@ -330,7 +330,7 @@ namespace JigLibX.Geometry
             if (lambda1 > 1.0f || lambda2 < 0.0f)
                 return false;
             // intersection!
-            ts = MathHelper.Max(lambda1, 0.0f);
+            ts = System.Math.Max(lambda1, 0.0f);
             return true;
         }
         #endregion
@@ -363,8 +363,8 @@ namespace JigLibX.Geometry
             SegmentSphereIntersection(out endFrac, seg, new Sphere(capsule.GetEnd(), capsule.Radius));
 
 
-            bestFrac = MathHelper.Min(sideFrac, originFrac);
-            bestFrac = MathHelper.Min(bestFrac, endFrac);
+            bestFrac = System.Math.Min(sideFrac, originFrac);
+            bestFrac = System.Math.Min(bestFrac, endFrac);
 
             if (bestFrac <= 1.0f)
             {

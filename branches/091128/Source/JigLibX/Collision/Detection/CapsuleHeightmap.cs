@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
 using JigLibX.Geometry;
 using JigLibX.Math;
+using VirtualBicycle.MathLib;
 #endregion
 
 namespace JigLibX.Collision
@@ -70,7 +70,7 @@ namespace JigLibX.Collision
                         oldHeightmap.GetHeightAndNormal(out oldDist, out normal, oldCapsule.Position);
                         newHeightmap.GetHeightAndNormal(out newDist, out normal, newCapsule.Position);
 
-                        if (MathHelper.Min(newDist, oldDist) < collTolerance + newCapsule.Radius)
+                        if (System.Math.Min(newDist, oldDist) < collTolerance + newCapsule.Radius)
                         {
                             float oldDepth = oldCapsule.Radius - oldDist;
                             // calc the world position based on the old position(s)
@@ -93,7 +93,7 @@ namespace JigLibX.Collision
                         Vector3 normal;
                         oldHeightmap.GetHeightAndNormal(out oldDist, out normal, oldEnd);
                         newHeightmap.GetHeightAndNormal(out newDist, out normal, newEnd);
-                        if (MathHelper.Min(newDist, oldDist) < collTolerance + newCapsule.Radius)
+                        if (System.Math.Min(newDist, oldDist) < collTolerance + newCapsule.Radius)
                         {
                             float oldDepth = oldCapsule.Radius - oldDist;
                             // calc the world position based on the old position(s)

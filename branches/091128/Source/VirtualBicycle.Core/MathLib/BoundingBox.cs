@@ -77,6 +77,44 @@ namespace VirtualBicycle.MathLib
             return ContainmentType.Disjoint;
         }
 
+        public ContainmentType Contains(Vector3 vector)
+        {
+            if (Minimum.X <= vector.X && vector.X <= Maximum.X &&
+                Minimum.Y <= vector.Y && vector.Y <= Maximum.Y &&
+                Minimum.Z <= vector.Z && vector.Z <= Maximum.Z)
+            {
+                return ContainmentType.Contains;
+            }
+            return ContainmentType.Disjoint;
+        }
+        public ContainmentType Contains(BoundingBox box)
+        {
+            if (this.Maximum.X < box.Minimum.X || this.Minimum.X > box.Maximum.X)
+            {
+                return ContainmentType.Disjoint;
+            }
+            if (this.Maximum.Y < box.Minimum.Y || this.Minimum.Y > box.Maximum.Y)
+            {
+                return ContainmentType.Disjoint;
+            }
+            if (this.Maximum.Z < box.Minimum.Z || this.Minimum.Z > box.Maximum.Z)
+            {
+                return ContainmentType.Disjoint;
+            }
+            if (this.Minimum.X <= box.Minimum.X && 
+                box.Maximum.X <= this.Maximum.X && 
+                this.Minimum.Y <= box.Minimum.Y && 
+                box.Maximum.Y <= this.Maximum.Y && 
+                this.Minimum.Z <= box.Minimum.Z && 
+                box.Maximum.Z <= this.Maximum.Z)
+            {
+                return ContainmentType.Contains;
+            }
+            return ContainmentType.Intersects;
+        }
+
+ 
+
         /// <summary>
         /// Determines whether the box contains the specified sphere.
         /// </summary>

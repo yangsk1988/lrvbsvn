@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 #endregion
 
 namespace JigLibX.Vehicles
@@ -87,7 +87,7 @@ namespace JigLibX.Vehicles
             float mass = chassis.Body.Mass;
             float mass4 = 0.25f * mass;
 
-            Vector3 axis = Vector3.Up; // TODO: check this
+            Vector3 axis = Vector3.UnitY; // TODO: check this
             // set the resting position to be restingFrac * mWheelTravel
             // todo how do we get gravity before the car is registered with physics?!
             float spring = mass4 * gravity / (wheelRestingFrac * wheelTravel);
@@ -222,12 +222,12 @@ namespace JigLibX.Vehicles
 
             // update the actual values
             float dAccelerate = destAccelerate - accelerate;
-            dAccelerate = MathHelper.Clamp(dAccelerate, -deltaAccelerate, deltaAccelerate);
+            dAccelerate = MathEx.Clamp(dAccelerate, -deltaAccelerate, deltaAccelerate);
 
             accelerate += dAccelerate;
 
             float dSteering = destSteering - steering;
-            dSteering = MathHelper.Clamp(dSteering, -deltaSteering, deltaSteering); 
+            dSteering = MathEx.Clamp(dSteering, -deltaSteering, deltaSteering); 
 
             steering += dSteering;
 
@@ -281,8 +281,8 @@ namespace JigLibX.Vehicles
                 float dx = (wheels[(int)WheelId.WheelFR].Pos.X - wheels[(int)WheelId.WheelBR].Pos.X);
                 float dy = (wheels[(int)WheelId.WheelFL].Pos.Z - wheels[(int)WheelId.WheelFR].Pos.Z);
                 //beta = ATan2Deg(dy, dx + (dy / TanDeg(alpha)));
-                beta = (float)System.Math.Atan2(MathHelper.ToRadians(dy), MathHelper.ToRadians(dx + (dy / (float)System.Math.Tan(MathHelper.ToRadians(alpha)))));
-                beta = MathHelper.ToDegrees(beta);
+                beta = (float)System.Math.Atan2(MathEx.Degree2Radian(dy), MathEx.Degree2Radian(dx + (dy / (float)System.Math.Tan(MathEx.Degree2Radian(alpha)))));
+                beta = MathEx.Radian2Degree(beta);
             }
             wheels[outer].SteerAngle = (angleSgn * beta);
         }

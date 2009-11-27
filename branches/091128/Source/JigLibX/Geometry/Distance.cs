@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 using JigLibX.Geometry;
 #endregion
@@ -310,8 +310,7 @@ namespace JigLibX.Geometry
 
         public static float PointPlaneDistance(ref Vector3 pt, Plane plane)
         {
-            float num0;
-            Vector3.Dot(ref plane.normal, ref pt, out num0);
+            float num0 = Vector3.Dot(ref plane.normal, ref pt);
             return plane.D + num0;
         }
 
@@ -320,10 +319,9 @@ namespace JigLibX.Geometry
             return Vector3.Dot(planeNormal, pt) + planeD;
         }
 
-        public static float PointPlaneDistance(ref Vector3 pt,ref Vector3 planeNormal, float planeD)
+        public static float PointPlaneDistance(ref Vector3 pt, ref Vector3 planeNormal, float planeD)
         {
-            float num0;
-            Vector3.Dot(ref planeNormal,ref pt,out num0);
+            float num0 = Vector3.Dot(ref planeNormal, ref pt);
             return num0 + planeD;
         }
         #endregion
@@ -378,7 +376,7 @@ namespace JigLibX.Geometry
             float fT;
 
             Vector3.Subtract(ref pt, ref seg.Origin, out kDiff);
-            Vector3.Dot(ref kDiff, ref seg.Delta, out fT);
+            fT = Vector3.Dot(ref kDiff, ref seg.Delta);
 
             if (fT <= 0.0f)
             {
@@ -407,10 +405,9 @@ namespace JigLibX.Geometry
         public static float PointSegmentDistanceSq(Vector3 pt, Segment seg)
         {
             Vector3 kDiff;
-            float fT;
 
             Vector3.Subtract(ref pt, ref seg.Origin, out kDiff);
-            Vector3.Dot(ref kDiff, ref seg.Delta, out fT);
+            float fT = Vector3.Dot(ref kDiff, ref seg.Delta);
 
             if (fT <= 0.0f)
             {
@@ -437,10 +434,10 @@ namespace JigLibX.Geometry
         public static void PointSegmentDistanceSq(out float t, out float result, ref Vector3 pt, ref Segment seg)
         {
             Vector3 kDiff;
-            float fT;
+            
 
             Vector3.Subtract(ref pt, ref seg.Origin, out kDiff);
-            Vector3.Dot(ref kDiff, ref seg.Delta, out fT);
+            float fT = Vector3.Dot(ref kDiff, ref seg.Delta);
 
             if (fT <= 0.0f)
             {
@@ -469,10 +466,9 @@ namespace JigLibX.Geometry
         public static void PointSegmentDistanceSq(ref Vector3 pt, ref Segment seg, out float result)
         {
             Vector3 kDiff;
-            float fT;
 
             Vector3.Subtract(ref pt, ref seg.Origin, out kDiff);
-            Vector3.Dot(ref kDiff, ref seg.Delta, out fT);
+            float fT = Vector3.Dot(ref kDiff, ref seg.Delta);
 
             if (fT <= 0.0f)
             {
@@ -503,10 +499,9 @@ namespace JigLibX.Geometry
         public static float PointSegmentDistance(out float t, Vector3 pt, Segment seg)
         {
             Vector3 kDiff;
-            float fT;
 
             Vector3.Subtract(ref pt, ref seg.Origin, out kDiff);
-            Vector3.Dot(ref kDiff, ref seg.Delta, out fT);
+            float fT = Vector3.Dot(ref kDiff, ref seg.Delta);
 
             if (fT <= 0.0f)
             {
@@ -535,10 +530,9 @@ namespace JigLibX.Geometry
         public static float PointSegmentDistance(Vector3 pt, Segment seg)
         {
             Vector3 kDiff;
-            float fT;
 
             Vector3.Subtract(ref pt, ref seg.Origin, out kDiff);
-            Vector3.Dot(ref kDiff, ref seg.Delta, out fT);
+            float fT = Vector3.Dot(ref kDiff, ref seg.Delta);
 
             if (fT <= 0.0f)
             {
@@ -565,10 +559,9 @@ namespace JigLibX.Geometry
         public static void PointSegmentDistance(out float t, out float result, ref Vector3 pt, ref Segment seg)
         {
             Vector3 kDiff;
-            float fT;
 
             Vector3.Subtract(ref pt, ref seg.Origin, out kDiff);
-            Vector3.Dot(ref kDiff, ref seg.Delta, out fT);
+            float fT = Vector3.Dot(ref kDiff, ref seg.Delta);
 
             if (fT <= 0.0f)
             {
@@ -597,10 +590,9 @@ namespace JigLibX.Geometry
         public static void PointSegmentDistance(ref Vector3 pt, ref Segment seg, out float result)
         {
             Vector3 kDiff;
-            float fT;
 
             Vector3.Subtract(ref pt, ref seg.Origin, out kDiff);
-            Vector3.Dot(ref kDiff, ref seg.Delta, out fT);
+            float fT = Vector3.Dot(ref kDiff, ref seg.Delta);
 
             if (fT <= 0.0f)
             {
@@ -647,7 +639,7 @@ namespace JigLibX.Geometry
                     pfBParam1 = fBP1;// + 0.5f;
                     pfBParam2 = fBP2;// + 0.5f;
 
-                    return MathHelper.Max(fSqrDistance, 0.0f);
+                    return System.Math.Max(fSqrDistance, 0.0f);
                 }
                 else
                 {
@@ -655,7 +647,7 @@ namespace JigLibX.Geometry
                                                rkBox, out pfBParam0, out pfBParam1, out  pfBParam2);
 
                     pfLParam = 1.0f;
-                    return MathHelper.Max(fSqrDistance, 0.0f);
+                    return System.Math.Max(fSqrDistance, 0.0f);
                 }
             }
             else
@@ -664,7 +656,7 @@ namespace JigLibX.Geometry
 
                 pfLParam = 0.0f;
 
-                return MathHelper.Max(fSqrDistance, 0.0f);
+                return System.Math.Max(fSqrDistance, 0.0f);
             }
 
         }
@@ -728,7 +720,7 @@ namespace JigLibX.Geometry
             pfBParam1 = kClosest.Y;
             pfBParam2 = kClosest.Z;
 
-            return MathHelper.Max(fSqrDistance, 0.0f);
+            return System.Math.Max(fSqrDistance, 0.0f);
         }
         #endregion
 
@@ -1232,7 +1224,7 @@ namespace JigLibX.Geometry
             pfBParam1 = pnt.Y;
             pfBParam2 = pnt.Z;
 
-            return MathHelper.Max(sqrDistance, 0.0f);
+            return System.Math.Max(sqrDistance, 0.0f);
         }
 
         private static void FaceA(ref Vector3 kPnt,

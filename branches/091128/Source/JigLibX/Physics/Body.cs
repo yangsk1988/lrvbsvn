@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Collision;
 using JigLibX.Math;
 using JigLibX.Utils;
@@ -569,7 +569,7 @@ namespace JigLibX.Physics
         //    if (frac < r) return;
 
         //    float scale = 1.0f - ((frac - r) / (1.0f - r));
-        //    scale = MathHelper.Clamp(scale, 0.0f, 1.0f);
+        //    scale = MathEx.Clamp(scale, 0.0f, 1.0f);
 
         //    #region REFERENCE: transformRate.Velocity *= scale;
         //    Vector3.Multiply(ref transformRate.Velocity, scale, out transformRate.Velocity);
@@ -606,7 +606,7 @@ namespace JigLibX.Physics
             if (frac < r) return;
 
             float scale = 1.0f - ((frac - r) / (1.0f - r));
-            scale = MathHelper.Clamp(scale, 0.0f, 1.0f);
+            scale = MathEx.Clamp(scale, 0.0f, 1.0f);
 
             // the idea is to damp the body but not below the threshold for deactivation
             float frac0 = transformRate.Velocity.LengthSquared() * scale * scale / sqVelocityActivityThreshold;
@@ -652,7 +652,7 @@ namespace JigLibX.Physics
         public void SetActivityThreshold(float vel, float angVel)
         {
             sqVelocityActivityThreshold = vel * vel;
-            sqAngVelocityActivityThreshold = MathHelper.ToRadians(angVel) * MathHelper.ToRadians(angVel);
+            sqAngVelocityActivityThreshold = MathEx.Degree2Radian(angVel) * MathEx.Degree2Radian(angVel);
         }
 
         /// <summary>
@@ -738,8 +738,8 @@ namespace JigLibX.Physics
 			//float fY = System.Math.Abs(transformRate.AngularVelocity.Y) / AngVelMax;
 			//float fZ = System.Math.Abs(transformRate.AngularVelocity.Z) / AngVelMax;
 
-			//float f = MathHelper.Max(fX, fY);
-			//f = MathHelper.Max(f, fZ);
+			//float f = System.Math.Max(fX, fY);
+			//f = System.Math.Max(f, fZ);
 
 			//if (f > 1.0f)
 			//    #region REFERENCE: transformRate.AngularVelocity /= f;

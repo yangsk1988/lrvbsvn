@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Collision;
 using JigLibX.Math;
 #endregion
@@ -119,8 +119,7 @@ namespace JigLibX.Physics
                         Vector3 dir = collInfo.DirToBody0;
 
                         #region float dot = Vector3.Dot(desiredVel, dir);
-                        float dot;
-                        Vector3.Dot(ref desiredVel,ref dir,out dot);
+                        float dot = Vector3.Dot(ref desiredVel, ref dir);
                         #endregion
 
                         if (dot < 0.0f)
@@ -149,7 +148,7 @@ namespace JigLibX.Physics
             Vector3.Cross(ref R, ref N, out v1);
             Vector3.TransformNormal(ref v1, ref body.worldInvInertia, out v1);
             Vector3.Cross(ref v1, ref R, out v1);
-            Vector3.Dot(ref N, ref v1, out f1);
+            f1 = Vector3.Dot(ref N, ref v1);
 
             float denominator = body.InverseMass + f1;
             #endregion

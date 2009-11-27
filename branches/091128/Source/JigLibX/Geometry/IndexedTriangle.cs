@@ -1,9 +1,10 @@
 ﻿#region Using Statements
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.Xna.Framework;
 using System.Diagnostics;
+using System.Text;
+using VirtualBicycle.MathLib;
+using MPlane = VirtualBicycle.MathLib.Plane;
 #endregion
 
 namespace JigLibX.Geometry
@@ -21,7 +22,7 @@ namespace JigLibX.Geometry
         private int vertexIndices1;
         private int vertexIndices2;
         private int convexFlags;
-        private Microsoft.Xna.Framework.Plane plane;
+        private MPlane plane;
 
         public IndexedTriangle(int i0, int i1, int i2, List<Vector3> vertexArray)
         {
@@ -31,7 +32,7 @@ namespace JigLibX.Geometry
             vertexIndices2 = i2;
 
             convexFlags = unchecked((ushort)~0); // TODO check this
-            plane = new Microsoft.Xna.Framework.Plane(vertexArray[i0], vertexArray[i1], vertexArray[i2]);
+            plane = new MPlane(vertexArray[i0], vertexArray[i1], vertexArray[i2]);
         }
         public IndexedTriangle(int i0, int i1, int i2, Vector3[] vertexArray)
         {
@@ -42,7 +43,7 @@ namespace JigLibX.Geometry
             vertexIndices2 = i2;
 
             convexFlags = unchecked((ushort)~0); // TODO check this
-            plane = new Microsoft.Xna.Framework.Plane(vertexArray[i0], vertexArray[i1], vertexArray[i2]);
+            plane = new MPlane(vertexArray[i0], vertexArray[i1], vertexArray[i2]);
         }
 
         /// <summary>
@@ -59,7 +60,7 @@ namespace JigLibX.Geometry
             vertexIndices1 = i1;
             vertexIndices2 = i2;
 
-            plane = new Microsoft.Xna.Framework.Plane( vertexArray[i0], vertexArray[i1], vertexArray[i2]);
+            plane = new MPlane(vertexArray[i0], vertexArray[i1], vertexArray[i2]);
             
         }
         /// <summary>
@@ -76,7 +77,7 @@ namespace JigLibX.Geometry
             vertexIndices1 = i1;
             vertexIndices2 = i2;
 
-            plane = new Microsoft.Xna.Framework.Plane(vertexArray[i0], vertexArray[i1], vertexArray[i2]);
+            plane = new MPlane(vertexArray[i0], vertexArray[i1], vertexArray[i2]);
         }
         /// <summary>
         /// Get the indices into the relevant vertex array for this triangle.
@@ -110,7 +111,7 @@ namespace JigLibX.Geometry
         }
 
         /// Get the triangle plane
-        public Microsoft.Xna.Framework.Plane Plane
+        public MPlane Plane
         {
             get { return plane; }
         }

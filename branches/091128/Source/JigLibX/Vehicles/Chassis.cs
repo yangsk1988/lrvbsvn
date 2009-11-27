@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Collision;
 using JigLibX.Physics;
 using JigLibX.Geometry;
+using JBox = JigLibX.Geometry.Box;
 #endregion
 
 namespace JigLibX.Vehicles
@@ -58,7 +59,7 @@ namespace JigLibX.Vehicles
             // the bottom box
             Vector3 max1 = max;
             max1.Y -= topBotRatio * sides.Y;
-            Box box1 = new Box(min, Matrix.Identity, max1 - min);
+            JBox box1 = new JBox(min, Matrix.Identity, max1 - min);
 
             // the top box
             Vector3 min2 = min;
@@ -69,7 +70,7 @@ namespace JigLibX.Vehicles
             min2.Z *= 0.9f;
             max2.Z *= 0.9f;
 
-            Box box2 = new Box(min2, Matrix.Identity, max2 - min2);
+            JBox box2 = new JBox(min2, Matrix.Identity, max2 - min2);
 
             collisionSkin.RemoveAllPrimitives();
             collisionSkin.AddPrimitive(box1, new MaterialProperties(0.3f, 0.5f, 0.3f));

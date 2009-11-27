@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 #endregion
 
@@ -45,7 +45,7 @@ namespace JigLibX.Geometry
             float mNLen = normal.Length();
             if (mNLen < JiggleMath.Epsilon)
             {
-                this.normal = Vector3.Up;
+                this.normal = Vector3.UnitY;
                 this.d = 0.0f;
             }
             else
@@ -85,7 +85,7 @@ namespace JigLibX.Geometry
             {
                 base.Transform = value;
                 transformMatrix = transform.Orientation;
-                transformMatrix.Translation = transform.Position;
+                transformMatrix.TranslationValue = transform.Position;
                 invTransform = Matrix.Invert(transformMatrix);
             }
         }

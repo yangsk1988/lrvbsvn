@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 #endregion
 
@@ -90,12 +90,12 @@ namespace JigLibX.Geometry
 
         public override float GetVolume()
         {
-            return (4.0f / 3.0f) * MathHelper.Pi * radius * radius * radius;
+            return (4.0f / 3.0f) * MathEx.PIf * radius * radius * radius;
         }
 
         public override float GetSurfaceArea()
         {
-            return 4.0f * MathHelper.Pi * radius * radius;
+            return 4.0f * MathEx.PIf * radius * radius;
         }
 
         public Vector3 Position

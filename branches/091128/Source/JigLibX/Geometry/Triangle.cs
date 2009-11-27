@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
+using VirtualBicycle.MathLib;
 using JigLibX.Math;
 #endregion
 
@@ -190,11 +190,11 @@ namespace JigLibX.Geometry
         /// <summary>
         /// Gets the plane containing the triangle
         /// </summary>
-        public Microsoft.Xna.Framework.Plane Plane
+        public Plane Plane
         {
             get
             {
-                return new Microsoft.Xna.Framework.Plane(GetPoint(0), GetPoint(1), GetPoint(2));
+                return new Plane(GetPoint(0), GetPoint(1), GetPoint(2));
             }
         }
 

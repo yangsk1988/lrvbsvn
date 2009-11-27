@@ -2,9 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Xna.Framework;
 using JigLibX.Geometry;
 using JigLibX.Math;
+using VirtualBicycle.MathLib;
+using JBox = JigLibX.Geometry.Box;
 #endregion
 
 namespace JigLibX.Collision
@@ -46,8 +47,8 @@ namespace JigLibX.Collision
             Vector3 body1Pos = (info.Skin1.Owner != null) ? info.Skin1.Owner.OldPosition : Vector3.Zero;
 
             // todo - proper swept test
-            Box oldBox = info.Skin0.GetPrimitiveOldWorld(info.IndexPrim0) as Box;
-            Box newBox = info.Skin0.GetPrimitiveNewWorld(info.IndexPrim0) as Box;
+            JBox oldBox = info.Skin0.GetPrimitiveOldWorld(info.IndexPrim0) as JBox;
+            JBox newBox = info.Skin0.GetPrimitiveNewWorld(info.IndexPrim0) as JBox;
 
             Heightmap oldHeightmap = info.Skin1.GetPrimitiveOldWorld(info.IndexPrim1) as Heightmap;
             Heightmap newHeightmap = info.Skin1.GetPrimitiveNewWorld(info.IndexPrim1) as Heightmap;
