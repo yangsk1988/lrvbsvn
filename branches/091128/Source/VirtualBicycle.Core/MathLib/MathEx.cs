@@ -591,6 +591,14 @@ namespace VirtualBicycle.MathLib
             return ang * (PIf / 180f);
         }
 
+        public static double Radian2Degree(double rad)
+        {
+            return rad * (180f / Math.PI);
+        }
+        public static double Degree2Radian(double ang)
+        {
+            return ang * (Math.PI / 180f);
+        }
         public static float AngleDifference(float a, float b)
         {
             float minus = a - b;
