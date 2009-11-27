@@ -107,12 +107,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Game\Game.csproj">
-      <Project>{1DA1C1E6-DDD6-4F45-9CF4-7465F4931F2F}</Project>
-      <Name>Game</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="logicmodcd.cd" />
     <None Include="Logic\Competition\比赛相关说明.txt" />
   </ItemGroup>
