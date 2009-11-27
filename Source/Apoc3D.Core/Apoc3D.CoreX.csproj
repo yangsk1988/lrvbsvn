@@ -1,0 +1,188 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectGuid>{5E3D9108-7C6A-4DF0-A01A-8697645B7FF7}</ProjectGuid>
+    <ProjectTypeGuids>{2DF5C3F4-5A5F-47a9-8E94-23B4456F55E2};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Xbox 360</Platform>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Apoc3D.Core</RootNamespace>
+    <AssemblyName>Apoc3D.Core</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <XnaFrameworkVersion>v3.0</XnaFrameworkVersion>
+    <XnaPlatform>Xbox 360</XnaPlatform>
+    <XnaCrossPlatformGroupID>15815511-2894-402f-8233-1c5fcff9304a</XnaCrossPlatformGroupID>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Xbox 360' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Xbox 360\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;XBOX;XBOX360</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <XnaCompressContent>true</XnaCompressContent>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Xbox 360' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Xbox 360\Release</OutputPath>
+    <DefineConstants>TRACE;XBOX;XBOX360</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <XnaCompressContent>true</XnaCompressContent>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AsyncProcessor.cs" />
+    <Compile Include="Design\Dummy.cs" />
+    <Compile Include="DummyAttributes.cs" />
+    <Compile Include="CaseInsensitiveStringComparer.cs" />
+    <Compile Include="Collections\CollectionBase.cs" />
+    <Compile Include="Collections\CurveKeyCollection.cs" />
+    <Compile Include="Collections\ExistTable.cs" />
+    <Compile Include="Collections\FastList.cs" />
+    <Compile Include="Collections\FastQueue.cs" />
+    <Compile Include="Collections\HashHelpers.cs" />
+    <Compile Include="Collections\PlaformCollection.cs" />
+    <Compile Include="Config\BasicConfigs.cs" />
+    <Compile Include="Config\Configuration.cs" />
+    <Compile Include="Config\ConfigurationManager.cs" />
+    <Compile Include="Config\ConfigurationSection.cs" />
+    <Compile Include="Config\CustomParser.cs" />
+    <Compile Include="Config\CustomParserManager.cs" />
+    <Compile Include="Config\IConfigurable.cs" />
+    <Compile Include="Config\IniConfiguration.cs" />
+    <Compile Include="Config\IniSection.cs" />
+    <Compile Include="Config\XmlConfiguration.cs" />
+    <Compile Include="Config\XmlSection.cs" />
+    <Compile Include="Design\ArrayConverter.cs" />
+    <Compile Include="Design\IEditControl.cs" />
+    <Compile Include="Design\TypeConverters\BoundingBoxConverter.cs" />
+    <Compile Include="Design\TypeConverters\BoundingSphereConverter.cs" />
+    <Compile Include="Design\TypeConverters\Color4FConverter.cs" />
+    <Compile Include="Design\TypeConverters\ColorConverter.cs" />
+    <Compile Include="Design\TypeConverters\FieldPropertyDescriptor.cs" />
+    <Compile Include="Design\TypeConverters\MathTypeConverter.cs" />
+    <Compile Include="Design\TypeConverters\MatrixConverter.cs" />
+    <Compile Include="Design\TypeConverters\MemberPropertyDescriptor.cs" />
+    <Compile Include="Design\TypeConverters\PlaneConverter.cs" />
+    <Compile Include="Design\TypeConverters\PointConverter.cs" />
+    <Compile Include="Design\TypeConverters\QuaternionConverter.cs" />
+    <Compile Include="Design\TypeConverters\RayConverter.cs" />
+    <Compile Include="Design\TypeConverters\RectangleConverter.cs" />
+    <Compile Include="Design\TypeConverters\SizeConverter.cs" />
+    <Compile Include="Design\TypeConverters\Vector2Converter.cs" />
+    <Compile Include="Design\TypeConverters\Vector3Converter.cs" />
+    <Compile Include="Design\TypeConverters\Vector4Converter.cs" />
+    <Compile Include="EngineConsole.cs" />
+    <Compile Include="EngineTimer.cs" />
+    <Compile Include="Exceptions.cs" />
+    <Compile Include="GameClock.cs" />
+    <Compile Include="GameTime.cs" />
+    <Compile Include="GenerationTable.cs" />
+    <Compile Include="IUpdatable.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="LogManager.cs" />
+    <Compile Include="MathLib\BoundingBox.cs" />
+    <Compile Include="MathLib\BoundingFrustum.cs" />
+    <Compile Include="MathLib\BoundingSphere.cs" />
+    <Compile Include="MathLib\Box.cs" />
+    <Compile Include="MathLib\Color4F.cs" />
+    <Compile Include="MathLib\ColorValue.cs" />
+    <Compile Include="MathLib\Curve.cs" />
+    <Compile Include="MathLib\DirectDetectData.cs" />
+    <Compile Include="MathLib\Frustum.cs" />
+    <Compile Include="MathLib\LineSegment.cs" />
+    <Compile Include="MathLib\MathEx.cs" />
+    <Compile Include="MathLib\Matrix.cs" />
+    <Compile Include="MathLib\Matrix3.cs" />
+    <Compile Include="MathLib\OctreeBox.cs" />
+    <Compile Include="MathLib\PackedVector.cs" />
+    <Compile Include="MathLib\PackUtils.cs" />
+    <Compile Include="MathLib\Pair.cs" />
+    <Compile Include="MathLib\Plane.cs" />
+    <Compile Include="MathLib\Point.cs" />
+    <Compile Include="MathLib\Quaternion.cs" />
+    <Compile Include="MathLib\Random\GaussianDeviate.cs" />
+    <Compile Include="MathLib\Random\MersenneTwister.cs" />
+    <Compile Include="MathLib\Random\PerlinNoise.cs" />
+    <Compile Include="MathLib\Random\UniformDeviate.cs" />
+    <Compile Include="MathLib\Ray.cs" />
+    <Compile Include="MathLib\Rectangle.cs" />
+    <Compile Include="MathLib\Size.cs" />
+    <Compile Include="MathLib\Triangle.cs" />
+    <Compile Include="MathLib\Vector2.cs" />
+    <Compile Include="MathLib\Vector3.cs" />
+    <Compile Include="MathLib\Vector4.cs" />
+    <Compile Include="MathLib\Viewport.cs" />
+    <Compile Include="Memory.cs" />
+    <Compile Include="Network\IClient.cs" />
+    <Compile Include="Network\INetworkObject.cs" />
+    <Compile Include="Network\IServer.cs" />
+    <Compile Include="PlatformAPISupport.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Randomizer.cs" />
+    <Compile Include="Resource.cs" />
+    <Compile Include="ResourceManager.cs" />
+    <Compile Include="Singleton.cs" />
+    <Compile Include="Sound\ISample.cs" />
+    <Compile Include="Sound\ISample3D.cs" />
+    <Compile Include="StringTable.cs" />
+    <Compile Include="StringTableManager.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="Vfs\Archive.cs" />
+    <Compile Include="Vfs\BinaryData.cs" />
+    <Compile Include="Vfs\ContentBinary.cs" />
+    <Compile Include="Vfs\ContentText.cs" />
+    <Compile Include="Vfs\DefaultLocateRules.cs" />
+    <Compile Include="Vfs\Exceptions.cs" />
+    <Compile Include="Vfs\FileBase.cs" />
+    <Compile Include="Vfs\FileLocateRule.cs" />
+    <Compile Include="Vfs\FileLocateRules.cs" />
+    <Compile Include="Vfs\FileSystem.cs" />
+    <Compile Include="Vfs\IAbstractFactory.cs" />
+    <Compile Include="Vfs\Location.cs" />
+    <Compile Include="Vfs\Paths.cs" />
+    <Compile Include="Vfs\Streams.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Graphic\" />
+    <Folder Include="Input\" />
+    <Folder Include="Media\" />
+    <Folder Include="Physics\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
