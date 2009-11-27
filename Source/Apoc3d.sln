@@ -13,27 +13,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualBicycle.Ide", "Virtu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{5FF681B1-3EFA-4E08-B591-B935648CEE4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Core", "VirtualBicycle.Core\Apoc3D.Core.csproj", "{767AFD72-02F7-4543-B193-A2E19645A4B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Core", "Apoc3D.Core\Apoc3D.Core.csproj", "{767AFD72-02F7-4543-B193-A2E19645A4B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Graphics", "VirtualBicycle.Graphics\Apoc3D.Graphics.csproj", "{726180A4-EE3E-478D-A5F9-985F56393AA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Graphics", "Apoc3D.Graphics\Apoc3D.Graphics.csproj", "{726180A4-EE3E-478D-A5F9-985F56393AA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.RenderSystem.D3D", "VirtualBicycle.RenderSystem.D3D\Apoc3D.RenderSystem.D3D.csproj", "{B71B0226-0214-4A50-9F10-88F00E86A66A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.RenderSystem.D3D", "Apoc3D.RenderSystem.D3D\Apoc3D.RenderSystem.D3D.csproj", "{B71B0226-0214-4A50-9F10-88F00E86A66A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Test.ResourceManagerTest", "VirtualBicycle.Test.ResourceManagerTest\Apoc3D.Test.ResourceManagerTest.csproj", "{621F2E13-789D-4F96-BCDD-1363372AE347}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Test.ResourceManagerTest", "Apoc3D.Test.ResourceManagerTest\Apoc3D.Test.ResourceManagerTest.csproj", "{621F2E13-789D-4F96-BCDD-1363372AE347}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Test", "VirtualBicycle.Test\Apoc3D.Test.csproj", "{7D00610C-17B7-4711-8B09-2224FFBB123E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Test", "Apoc3D.Test\Apoc3D.Test.csproj", "{7D00610C-17B7-4711-8B09-2224FFBB123E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PC", "PC", "{778DBF59-440B-4317-9808-D5AC892914F3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XBox", "XBox", "{829D130D-7C4F-424A-AFB1-B9064C4320EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.CoreX", "VirtualBicycle.Core\Apoc3D.CoreX.csproj", "{5E3D9108-7C6A-4DF0-A01A-8697645B7FF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.CoreX", "Apoc3D.Core\Apoc3D.CoreX.csproj", "{5E3D9108-7C6A-4DF0-A01A-8697645B7FF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.GraphicsX", "VirtualBicycle.Graphics\Apoc3D.GraphicsX.csproj", "{7538293E-884D-476E-839C-EC7E3536A43C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.GraphicsX", "Apoc3D.Graphics\Apoc3D.GraphicsX.csproj", "{7538293E-884D-476E-839C-EC7E3536A43C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.RenderSystem.Xna.XBox", "VirtualBicycle.RenderSystem.Xna\Apoc3D.RenderSystem.Xna.XBox.csproj", "{19321CCC-6A9B-4002-9966-197F960B41D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.RenderSystem.Xna.XBox", "Apoc3D.RenderSystem.Xna\Apoc3D.RenderSystem.Xna.XBox.csproj", "{19321CCC-6A9B-4002-9966-197F960B41D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.RenderSystem.Xna.PC", "VirtualBicycle.RenderSystem.Xna\Apoc3D.RenderSystem.Xna.PC.csproj", "{AE28499E-7D28-42AC-8CE6-4F93753342AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.RenderSystem.Xna.PC", "Apoc3D.RenderSystem.Xna\Apoc3D.RenderSystem.Xna.PC.csproj", "{AE28499E-7D28-42AC-8CE6-4F93753342AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IDEPlugins", "IDEPlugins", "{28DB5D72-71E8-4E92-A1C8-2CC5F45300A9}"
 EndProject
@@ -49,9 +49,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.WorldBuilder", "IDEP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin.Common", "IDEPlugins\Plugin.Common\Plugin.Common.csproj", "{FBD89143-7A75-4EF8-B697-80446030DFD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Collision", "VirtualBicycle.Collision\Apoc3D.Collision.csproj", "{ED6CFF26-7985-4156-8E04-30D01BA33655}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Collision", "Apoc3D.Collision\Apoc3D.Collision.csproj", "{ED6CFF26-7985-4156-8E04-30D01BA33655}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.CollisionX", "VirtualBicycle.Collision\Apoc3D.CollisionX.csproj", "{F10370E7-3F24-4D01-89F3-1341917418F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.CollisionX", "Apoc3D.Collision\Apoc3D.CollisionX.csproj", "{F10370E7-3F24-4D01-89F3-1341917418F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JigLibX", "JigLibX\JigLibX.csproj", "{7C3F7EE7-7E67-462B-80C8-588331703AE9}"
 EndProject
