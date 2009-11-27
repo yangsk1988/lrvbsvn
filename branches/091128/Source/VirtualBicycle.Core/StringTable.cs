@@ -59,7 +59,7 @@ namespace VirtualBicycle
     {
         public const int CsfID = ((byte)'C' << 24) | ((byte)'S' << 16) | ((byte)'F' << 8) | (byte)' ';
 
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        [StructLayout(LayoutKind.Sequential)]
         protected struct CsfHeader
         {
             public const int LabelID = ((byte)'L' << 24) | ((byte)'B' << 16) | ((byte)'L' << 8) | (byte)' ';
@@ -138,7 +138,7 @@ namespace VirtualBicycle
                 }
             }
             else
-                throw new FileLoadException(stm.ToString());
+                throw new DataFormatException(stm.ToString());
 
             br.Close();
         }

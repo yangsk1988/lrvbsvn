@@ -44,7 +44,10 @@ namespace VirtualBicycle
 
             thread = new Thread(Update);
             thread.Name = "Timer Auto Update";
+
+#if !XBOX
             thread.SetApartmentState(ApartmentState.MTA);
+#endif
             //thread.Priority = ThreadPriority.AboveNormal;
             thread.Start();
         }
@@ -115,7 +118,7 @@ namespace VirtualBicycle
         //    return curTime - old;
         //}
 
-        private static void Update(object state)
+        private static void Update()
         {
             int loopPassed = 0;
             while (true)

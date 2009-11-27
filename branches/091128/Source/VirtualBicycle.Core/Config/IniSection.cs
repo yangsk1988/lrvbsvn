@@ -184,7 +184,7 @@ namespace VirtualBicycle.Config
             string v;
             if (this.TryGetValue(key, out v))
             {
-                v = v.ToUpperInvariant();
+                v = v.ToUpper();
                 if (v == "YES")
                     res = true;
                 else if (v == "NO")
@@ -204,7 +204,7 @@ namespace VirtualBicycle.Config
         public override bool GetBool(string key)
         {
             string v = this[key];
-            v = v.ToUpperInvariant();
+            v = v.ToUpper();
             if (v == "YES")
                 return true;
             else if (v == "NO")
@@ -221,7 +221,7 @@ namespace VirtualBicycle.Config
             string v;
             if (this.TryGetValue(key, out v))
             {
-                v = v.ToUpperInvariant();
+                v = v.ToUpper();
                 if (v == "YES")
                     return true;
                 else if (v == "NO")
@@ -285,12 +285,30 @@ namespace VirtualBicycle.Config
             string res;
             if (TryGetValue(key, out res))
             {
+#if XBOX
+                string[] arr = res.Split(ValueSepArray);
+
+                List<string> result = new List<string>(arr.Length);
+
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    arr[i] = arr[i].Trim();
+                    if (arr[i].Length > 0)
+                    {
+                        result.Add(arr[i]);
+                    }
+                }
+                return result.ToArray();
+#else
                 string[] arr = res.Split(ValueSepArray, StringSplitOptions.RemoveEmptyEntries);
+
                 for (int i = 0; i < arr.Length; i++)
                 {
                     arr[i] = arr[i].Trim();
                 }
                 return arr;
+#endif
+
             }
             return def;
         }

@@ -234,7 +234,7 @@ namespace VirtualBicycle.Vfs
 
                 if (Directory.Exists(dirName))
                 {
-                    string[] sm = Directory.GetFiles(workingDirs[i], path, SearchOption.TopDirectoryOnly);
+                    string[] sm = Directory.GetFiles(workingDirs[i], path);
                     count += sm.Length;
                     matches.Add(sm);
                 }
@@ -498,7 +498,20 @@ namespace VirtualBicycle.Vfs
 
                         try
                         {
+#if !XBOX
                             string[] locs = filePath.Split(DirSepCharArray, StringSplitOptions.RemoveEmptyEntries);
+#else
+                            string[] locs = filePath.Split(DirSepCharArray);
+                            List<string> locs2 = new List<string>(locs.Length);
+                            for (int i = 0; i < locs.Length; i++) 
+                            {
+                                if (locs[i].Length > 0) 
+                                {
+                                    locs2.Add(locs[i]);
+                                }
+                            }
+                            locs = locs2.ToArray();
+#endif
                             StringBuilder sb = new StringBuilder();
 
                             Archive entry = null;
