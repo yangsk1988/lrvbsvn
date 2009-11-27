@@ -67,7 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VirtualBicycle.Graphics\Apoc3D.GraphicsX.csproj">
+    <ProjectReference Include="..\Apoc3D.Graphics\Apoc3D.GraphicsX.csproj">
       <Project>{7538293E-884D-476E-839C-EC7E3536A43C}</Project>
       <Name>Apoc3D.GraphicsX</Name>
     </ProjectReference>

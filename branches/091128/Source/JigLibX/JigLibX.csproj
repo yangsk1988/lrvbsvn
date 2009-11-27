@@ -99,7 +99,7 @@
     <Compile Include="Vehicles\Wheel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VirtualBicycle.Core\Apoc3D.Core.csproj">
+    <ProjectReference Include="..\Apoc3D.Core\Apoc3D.Core.csproj">
       <Project>{767AFD72-02F7-4543-B193-A2E19645A4B9}</Project>
       <Name>Apoc3D.Core</Name>
     </ProjectReference>
