@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9IndexBuffer" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAACACAAAAAAAAAAAAABAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Buffer\D3D9IndexBuffer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9Surface" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAACAAAAAAAAQAAAAAAAAAAAAAIAABAAAAAAA=</HashCode>
+      <FileName>Buffer\D3D9Surface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9VertexBuffer" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAIAAACAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAg=</HashCode>
+      <FileName>Buffer\D3D9VertexBuffer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9ConstantTable" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAACAAAAAgAIAAAAAAAAAAAIAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>D3D9ConstantTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9DeviceContent" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAIAAABCAACAAAA=</HashCode>
+      <FileName>D3D9DeviceContent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9Font" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D3D9Font.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9GraphicsAPIFactory" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAIABAAAAAAAAAAAA=</HashCode>
+      <FileName>D3D9GraphicsAPI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9Line" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAACAAAAAgAAQgAAAEAEAAAAEAAAAABAAQAAAAA=</HashCode>
+      <FileName>D3D9Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9ObjectFactory" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAQAAAAAIkAAAAAAAAAAAAAAAABgQAAAQAAAQAAAAA=</HashCode>
+      <FileName>D3D9ObjectFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9PixelShader" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAABAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>D3D9PixelShader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9RenderControl" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D3D9RenderControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9RenderStateManager" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoAAAMErgMAkKmyApBwUhLEJCgIAITEFAAAogxCiJAw=</HashCode>
+      <FileName>D3D9RenderStateManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9RenderSystem" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IACAMAACCAAAAAQEAKFAEAIAACAAAIACMBADAATAgAA=</HashCode>
+      <FileName>D3D9RenderSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9RenderTarget" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAADIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D3D9RenderTarget.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9RenderWindow" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D3D9RenderWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9SamplerState" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAgQAAAAAACAFABAAAAQAAAAAAAAIA=</HashCode>
+      <FileName>D3D9SamplerState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9Sprite" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAgAAAAAABAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D3D9Sprite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9StateBlock" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAABAAAAAABAA=</HashCode>
+      <FileName>D3D9StateBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9Texture" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAIADACAAEAgAAAAAAAAAAAAEAgAAAU4BAABCAAA=</HashCode>
+      <FileName>D3D9Texture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9Utils" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAAQAAAAAEEAAAAAAAAAEAABAAACAAAABAAAIQAI=</HashCode>
+      <FileName>D3D9Utils.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9VertexDeclaration" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>D3D9VertexDeclaration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.D3D9VertexShader" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAEAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>D3D9VertexShader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VirtualBicycle.RenderSystem.D3D9.Plugin" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Plugin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>
