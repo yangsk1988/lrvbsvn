@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{60BB74E7-F34F-473F-93B9-2E8B8B14B5BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Ide", "VirtualBicycle.Ide\Apoc3D.Ide.csproj", "{AA72D449-B468-4698-A28D-926E2225FC5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Ide", "Apoc3D.Ide\Apoc3D.Ide.csproj", "{AA72D449-B468-4698-A28D-926E2225FC5A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Apoc3D.Core", "Apoc3D.Core\Apoc3D.Core.csproj", "{767AFD72-02F7-4543-B193-A2E19645A4B9}"
 EndProject
