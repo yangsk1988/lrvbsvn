@@ -15,6 +15,7 @@ namespace Apoc3D.Graphics
         /// Spotlights simulate a cone of light from a source so require position and direction, plus extra values for falloff
         Spotlight = 2
     }
+
     /// <summary>
     /// Defines a set of lighting properties.
     /// </summary>

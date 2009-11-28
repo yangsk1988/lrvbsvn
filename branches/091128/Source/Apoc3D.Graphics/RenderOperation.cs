@@ -69,7 +69,7 @@ namespace Apoc3D.Graphics
             get { return IndexBuffer != null; }
         }
        
-        public PrimitiveType PrimitiveType
+        public RenderPrimitiveType PrimitiveType
         {
             get;
             set;

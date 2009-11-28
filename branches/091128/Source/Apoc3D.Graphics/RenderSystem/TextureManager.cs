@@ -67,7 +67,7 @@ namespace Apoc3D.Graphics
             return Factory.CreateTexture(width, height, depth, surfaceCount, CreationUsage, format);
         }
         /// <remarks>以这种方式创建的资源不会被管理</remarks>
-        public Texture CreateInstance(int length, int surfaceCount, PixelFormat format)
+        public Texture CreateInstance(int length, int surfaceCount, ImagePixelFormat format)
         {
             if (Factory == null)
             {

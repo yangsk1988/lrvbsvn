@@ -97,7 +97,7 @@ namespace Apoc3D.Scene
                 float frac;
                 Vector3 p1, p2;
                 Segment seg = new Segment(ray.Position, ray.Direction * 1000);
-                if (cdMesh.SegmentIntersect(out fac, out p1, out p2, seg)) 
+                if (cdMesh.SegmentIntersect(out frac, out p1, out p2, seg)) 
                 {
                     return true;
                 }

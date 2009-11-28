@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using JigLibX.Geometry;
-using JigLibX.Physics;
 using Apoc3D.Collections;
 using Apoc3D.Collision;
 using Apoc3D.Config;
@@ -13,6 +11,9 @@ using Apoc3D.Graphics;
 using Apoc3D.Graphics.Effects;
 using Apoc3D.MathLib;
 using Apoc3D.Vfs;
+using JigLibX.Geometry;
+using JigLibX.Physics;
+using JigLibX.Utils;
 
 namespace Apoc3D.Scene
 {
@@ -131,7 +132,7 @@ namespace Apoc3D.Scene
                 elements[0] = new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position);
             }
 
-            public VertexElement[] Elements 
+            public static VertexElement[] Elements 
             {
                 get { return elements; }
             }
@@ -314,6 +315,8 @@ namespace Apoc3D.Scene
         public Terrain(RenderSystem device, float cellUnit, TerrainSettings terrData)
             : base(true)
         {
+            ObjectFactory fac = device.ObjectFactory;
+
             this.bfsQueue = new Queue<TerrainTreeNode>();
             this.opBuffer = new FastList<RenderOperation>();
 
@@ -332,8 +335,7 @@ namespace Apoc3D.Scene
 
             if (SharedVertexBuffer == null)
             {
-                SharedVertexBuffer = new VertexBuffer(device, TerrainVertex.Size * TerrainSize * TerrainSize,
-                    Usage.None, TerrainVertex.Format);
+                SharedVertexBuffer = fac.CreateVertexBuffer(TerrainSize * TerrainSize, vtxDecl, BufferUsage.Static);
 
                 TerrainVertex* pointer = (TerrainVertex*)SharedVertexBuffer.Lock(0, 0, LockMode.None).ToPointer();
 
@@ -381,7 +383,7 @@ namespace Apoc3D.Scene
                         levelPrimConut[k] = MathEx.Sqr(levelLength) * 2;
                         levelVertexCount[k] = MathEx.Sqr(levelLength + 1);
 
-                        SharedIndexBuffers[k] = new IndexBuffer(device, sizeof(int) * indexCount, BufferUsage.Static, false);
+                        SharedIndexBuffers[k] = fac.CreateIndexBuffer(IndexBufferType.Bit32, indexCount, BufferUsage.Static);
 
                         int* iptr = (int*)SharedIndexBuffers[k].Lock(0, 0, LockMode.None).ToPointer();
 
@@ -418,7 +420,7 @@ namespace Apoc3D.Scene
                         levelPrimConut[k] = indexCount / 3;
                         levelVertexCount[k] = MathEx.Sqr(levelLength + 1) + 4 * (levelLength - 1);
 
-                        SharedIndexBuffers[k] = new IndexBuffer(device, sizeof(int) * indexCount, Usage.None, Pool.Managed, false);
+                        SharedIndexBuffers[k] = fac.CreateIndexBuffer(IndexBufferType.Bit32, indexCount, BufferUsage.Static);
 
                         int* iptr = (int*)SharedIndexBuffers[k].Lock(0, 0, LockMode.None).ToPointer();
 
@@ -711,10 +713,11 @@ namespace Apoc3D.Scene
 
         VertexDeclaration GetVertexDeclaration()
         {
-            return new VertexDeclaration(device, TerrainVertex.Elements);
+            ObjectFactory fac = device.ObjectFactory;
+            return fac.CreateVertexDeclaration(TerrainVertex.Elements);
         }
 
-        protected virtual ModelEffect GetTerrainEffect()
+        protected virtual Effect GetTerrainEffect()
         {
             return EffectManager.Instance.GetModelEffect("TerrainRendering");
         }
@@ -849,14 +852,14 @@ namespace Apoc3D.Scene
 
                     GeomentryData gd = new GeomentryData(this);
                     gd.VertexDeclaration = vtxDecl;
-                    gd.Format = TerrainVertex.Format;
+
                     gd.VertexSize = TerrainVertex.Size;
                     gd.VertexBuffer = vertexBuffer;
                     gd.IndexBuffer = levelIb[0];
                     gd.PrimCount = levelPrimConut[0];// levelLengths[0] * levelLengths[0] * 2;
                     gd.VertexCount = levelVertexCount[0];// MathEx.Sqr(levelLengths[0] + 1);
 
-                    gd.PrimitiveType = PrimitiveType.TriangleList;
+                    gd.PrimitiveType = RenderPrimitiveType.TriangleList;
 
                     int x = (j == 0) ? 0 : j * BlockEdgeLen;
                     int y = (i == 0) ? 0 : i * BlockEdgeLen;
@@ -906,7 +909,7 @@ namespace Apoc3D.Scene
                     index++;
                 }
             }
-            d3ddm.UnlockRectangle(0);
+            d3ddm.Unlock(0);
 
             rootNode = new TerrainTreeNode(new FastList<TerrainBlock>(blocks), TerrainLength / 2, TerrainLength / 2, 1);
 
@@ -1225,6 +1228,11 @@ namespace Apoc3D.Scene
             if (!isPhyBuilt)
             {
                 TerrainTexture terrTex = DisplacementMap;
+
+                Array2D heights = new Array2D(TerrainSize, TerrainSize);
+
+                shape = new Heightmap(heights, 0, 0, 0, 0);
+                
                 //if (terrTex.ResourceEntity != null) 
                 //{
                 //    terrTex = (TerrainTexture)terrTex.ResourceEntity;

@@ -1170,7 +1170,7 @@ namespace Apoc3D.Graphics
                     //bufferedGm[i].Material = materials[i];
                     gd.IndexBuffer = indexBuffers[i];
                     gd.PrimCount = partPrimCount[i];
-                    gd.PrimitiveType = PrimitiveType.TriangleList;
+                    gd.PrimitiveType = RenderPrimitiveType.TriangleList;
                     gd.VertexBuffer = vertexBuffer;
                     gd.VertexCount = partVtxCount[i];
                     gd.VertexDeclaration = vtxDecl;

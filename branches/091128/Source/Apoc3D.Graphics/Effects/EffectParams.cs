@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Apoc3D.MathLib;
 
 namespace Apoc3D.Graphics.Effects
 {
@@ -23,18 +24,6 @@ namespace Apoc3D.Graphics.Effects
             get;
             set;
         }
-
-        //public static Matrix WorldTransform
-        //{
-        //    get;
-        //    set;
-        //}
-
-        //public static Matrix ViewTransform
-        //{
-        //    get;
-        //    set;
-        //}
 
         public static ICamera CurrentCamera
         {

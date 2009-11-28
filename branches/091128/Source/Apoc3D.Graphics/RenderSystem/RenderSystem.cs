@@ -111,30 +111,30 @@ namespace Apoc3D.Graphics
         /// <param name="stencil">清除蒙板缓冲后的蒙板值</param>
         public abstract void Clear(ClearFlags flags, int color, float depth, int stencil);
 
-        /// <summary>
-        ///  设置雾效参数
-        /// </summary>
-        /// <param name="mode"></param>
-        /// <param name="color"></param>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="density"></param>
-        [Obsolete()]
-        public abstract void SetFog(FogMode mode, ColorValue color, float start, float end, float density);
+        ///// <summary>
+        /////  设置雾效参数
+        ///// </summary>
+        ///// <param name="mode"></param>
+        ///// <param name="color"></param>
+        ///// <param name="start"></param>
+        ///// <param name="end"></param>
+        ///// <param name="density"></param>
+        //[Obsolete()]
+        //public abstract void SetFog(FogMode mode, ColorValue color, float start, float end, float density);
 
-        /// <summary>
-        ///  设置光源信息
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="light"></param>
-        public abstract void SetLight(int index, Light light);
+        ///// <summary>
+        /////  设置光源信息
+        ///// </summary>
+        ///// <param name="index"></param>
+        ///// <param name="light"></param>
+        //public abstract void SetLight(int index, Light light);
 
-        /// <summary>
-        ///  获取光源信息
-        /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public abstract Light GetLight(int index);
+        ///// <summary>
+        /////  获取光源信息
+        ///// </summary>
+        ///// <param name="index"></param>
+        ///// <returns></returns>
+        //public abstract Light GetLight(int index);
 
         /// <summary>
         ///  设置RenderTarget
@@ -150,12 +150,12 @@ namespace Apoc3D.Graphics
         /// <returns></returns>
         public abstract RenderTarget GetRenderTarget(int index);
 
-        /// <summary>
-        ///  设定当前纹理
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="texture"></param>
-        public abstract void SetTexture(int index, Texture texture);
+        ///// <summary>
+        /////  设定当前纹理
+        ///// </summary>
+        ///// <param name="index"></param>
+        ///// <param name="texture"></param>
+        //public abstract void SetTexture(int index, Texture texture);
 
         /// <summary>
         ///  设置蒙版测试的相关参数
@@ -188,8 +188,8 @@ namespace Apoc3D.Graphics
         /// <param name="minSize"></param>
         /// <param name="maxSize"></param>
         public virtual void SetPointParameters(float size, bool attenuationEnabled,
-          float constant, float linear, float quadratic,
-          float minSize, float maxSize)
+            float constant, float linear, float quadratic,
+            float minSize, float maxSize)
         {
             if (attenuationEnabled)
             {
@@ -239,11 +239,11 @@ namespace Apoc3D.Graphics
         //public abstract void SetSamplerState(int sampler, SamplerState type, int value);
         //public abstract void SetSamplerState(int sampler, SamplerState type, float value);
 
-        /// <summary>
-        ///  设置当前的材质
-        /// </summary>
-        /// <param name="mat"></param>
-        public abstract void SetMaterialColor(Material mat);
+        ///// <summary>
+        /////  设置当前的材质
+        ///// </summary>
+        ///// <param name="mat"></param>
+        //public abstract void SetMaterialColor(Material mat);
 
         //public abstract void SetEffect(Effect eff);
 
@@ -279,19 +279,19 @@ namespace Apoc3D.Graphics
 
         }
 
-        /// <summary>
-        ///  获取变换矩阵
-        /// </summary>
-        /// <param name="state"></param>
-        /// <returns></returns>
-        public abstract Matrix GetTransform(TransformState state);
+        ///// <summary>
+        /////  获取变换矩阵
+        ///// </summary>
+        ///// <param name="state"></param>
+        ///// <returns></returns>
+        //public abstract Matrix GetTransform(TransformState state);
 
-        /// <summary>
-        ///  设置变换矩阵
-        /// </summary>
-        /// <param name="state"></param>
-        /// <param name="matrix"></param>
-        public abstract void SetTransform(TransformState state, Matrix matrix);
+        ///// <summary>
+        /////  设置变换矩阵
+        ///// </summary>
+        ///// <param name="state"></param>
+        ///// <param name="matrix"></param>
+        //public abstract void SetTransform(TransformState state, Matrix matrix);
 
 
 

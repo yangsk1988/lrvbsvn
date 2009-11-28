@@ -18,6 +18,7 @@ namespace Apoc3D.Scene
         const int MaxInstance = 25;
 
         RenderSystem renderSystem;
+        ObjectFactory factory;
 
         /// <summary>
         ///  坐标系指示的VertexBuffer
@@ -41,21 +42,21 @@ namespace Apoc3D.Scene
 
         protected FastList<CType> visibleClusters;
 
-        /// <summary>
-        ///  按效果批次分组，一个效果批次有一个RenderOperation列表
-        /// </summary>
-        protected Dictionary<string, FastList<RenderOperation>> batchTable;
+        ///// <summary>
+        /////  按效果批次分组，一个效果批次有一个RenderOperation列表
+        ///// </summary>
+        //protected Dictionary<string, FastList<RenderOperation>> batchTable;
 
-        /// <summary>
-        ///  按效果批次名称查询效果的哈希表
-        /// </summary>
-        protected Dictionary<string, ModelEffect> effects;
+        ///// <summary>
+        /////  按效果批次名称查询效果的哈希表
+        ///// </summary>
+        //protected Dictionary<string, Effect> effects;
 
-        Dictionary<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>> instanceTable;
+        //Dictionary<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>> instanceTable;
 
         protected FastList<SceneObject> visibleObjects;
 
-        PassInfo batchHelper = new PassInfo();
+        PassInfo batchData = new PassInfo();
 
         //public ClusterTable ClusterTable
         //{
@@ -114,8 +115,8 @@ namespace Apoc3D.Scene
         /// </summary>
         public int RenderedObjectCount
         {
-            get { return batchHelper.RenderedObjectCount; }
-            protected set { batchHelper.RenderedObjectCount = value; }
+            get { return batchData.RenderedObjectCount; }
+            protected set { batchData.RenderedObjectCount = value; }
         }
 
         ///// <summary>
@@ -178,7 +179,8 @@ namespace Apoc3D.Scene
         /// </summary>
         void BuildAxis()
         {
-            axis = new VertexBuffer(renderSystem, sizeof(VertexPC) * 6, BufferUsage.None, VertexPC.Format);
+            VertexDeclaration axisDecl = factory.CreateVertexDeclaration(VertexPC.Elements);
+            axis = factory.CreateVertexBuffer(6, axisDecl, BufferUsage.Static);
             VertexPC* dst = (VertexPC*)axis.Lock(0, 0, LockMode.None);
 
             Vector3 centre = new Vector3();
@@ -201,11 +203,11 @@ namespace Apoc3D.Scene
             axisOp.Geomentry.IndexBuffer = null;
             axisOp.Material = Material.DefaultMaterial;
             axisOp.Geomentry.PrimCount = 3;
-            axisOp.Geomentry.PrimitiveType = PrimitiveType.LineList;
+            axisOp.Geomentry.PrimitiveType = RenderPrimitiveType.LineList;
             axisOp.Transformation = Matrix.Identity;
             axisOp.Geomentry.VertexBuffer = axis; ;
             axisOp.Geomentry.VertexCount = 6;
-            axisOp.Geomentry.VertexDeclaration = new VertexDeclaration(renderSystem, VertexPC.Elements);
+            axisOp.Geomentry.VertexDeclaration = axisDecl;
             axisOp.Geomentry.VertexSize = sizeof(VertexPC);
         }
 
@@ -213,6 +215,8 @@ namespace Apoc3D.Scene
         public GameSceneBase(RenderSystem device, SDType data)
         {
             this.renderSystem = device;
+            this.factory = device.ObjectFactory;
+
             //this.clusterTable = data.ClusterTable;
             this.cameraList = new List<ICamera>();
             this.Atmosphere = new Atmosphere(device, data.AtmosphereData, this.LoadSkybox);
@@ -225,17 +229,17 @@ namespace Apoc3D.Scene
             CellUnit = data.CellUnit;
 
 
-            effects = new Dictionary<string, ModelEffect>();
+            effects = new Dictionary<string, Effect>();
             batchTable = new Dictionary<string, FastList<RenderOperation>>();
             instanceTable = new Dictionary<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>>();
 
             visibleObjects = new FastList<SceneObject>();
 
 
-            batchHelper.batchTable = batchTable;
-            batchHelper.effects = effects;
-            batchHelper.instanceTable = instanceTable;
-            batchHelper.visibleObjects = visibleObjects;
+            batchData.batchTable = batchTable;
+            batchData.effects = effects;
+            batchData.instanceTable = instanceTable;
+            batchData.visibleObjects = visibleObjects;
 
             this.instancing = new Instancing(device);
 
@@ -297,17 +301,17 @@ namespace Apoc3D.Scene
 
                             if (supportsInst)
                             {
-                                ModelEffect effect;
-                                if (!batchHelper.effects.TryGetValue(desc, out effect))
+                                Effect effect;
+                                if (!batchData.effects.TryGetValue(desc, out effect))
                                 {
-                                    batchHelper.effects.Add(desc, mate.Effect);
+                                    batchData.effects.Add(desc, mate.Effect);
                                 }
 
                                 Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable;
-                                if (!batchHelper.instanceTable.TryGetValue(desc, out matTable))
+                                if (!batchData.instanceTable.TryGetValue(desc, out matTable))
                                 {
                                     matTable = new Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>();
-                                    batchHelper.instanceTable.Add(desc, matTable);
+                                    batchData.instanceTable.Add(desc, matTable);
                                 }
 
                                 Dictionary<GeomentryData, FastList<RenderOperation>> geoDataTbl;
@@ -328,18 +332,18 @@ namespace Apoc3D.Scene
                             }
                             else
                             {
-                                ModelEffect effect;
+                                Effect effect;
                                 FastList<RenderOperation> opList;
 
-                                if (!batchHelper.effects.TryGetValue(desc, out effect))
+                                if (!batchData.effects.TryGetValue(desc, out effect))
                                 {
-                                    batchHelper.effects.Add(desc, mate.Effect);
+                                    batchData.effects.Add(desc, mate.Effect);
                                 }
 
-                                if (!batchHelper.batchTable.TryGetValue(desc, out opList))
+                                if (!batchData.batchTable.TryGetValue(desc, out opList))
                                 {
                                     opList = new FastList<RenderOperation>();
-                                    batchHelper.batchTable.Add(desc, opList);
+                                    batchData.batchTable.Add(desc, opList);
                                 }
 
                                 opList.Add(ops[k]);
@@ -351,7 +355,7 @@ namespace Apoc3D.Scene
         }
         void AddAxisOperation()
         {
-            ModelEffect effect;
+            Effect effect;
             if (!effects.TryGetValue(string.Empty, out effect))
             {
                 effects.Add(string.Empty, null);
@@ -405,8 +409,8 @@ namespace Apoc3D.Scene
 
             Atmosphere.Render();
 
-            renderSystem.PixelShader = null;
-            renderSystem.VertexShader = null;
+            renderSystem.BindShader((PixelShader)null);
+            renderSystem.BindShader((VertexShader)null);
 
 
             renderSystem.SetRenderState(RenderState.AlphaBlendEnable, false);
@@ -447,7 +451,7 @@ namespace Apoc3D.Scene
                             {
                                 renderSystem.PixelShader = null;
                                 renderSystem.VertexShader = null;
-                                ModelEffect effect = effects[e2.Key];
+                                Effect effect = effects[e2.Key];
 
                                 if (effect == null)
                                 {
@@ -511,12 +515,12 @@ namespace Apoc3D.Scene
             }
             #endregion
 
-            Dictionary<string, FastList<RenderOperation>>.ValueCollection vals = batchTable.Values;
+            Dictionary<Material, FastList<RenderOperation>>.ValueCollection vals = batchData.batchTable.Values;
             foreach (FastList<RenderOperation> opList in vals)
             {
                 opList.FastClear();
             }
-            Dictionary<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>>.ValueCollection instTableVals = instanceTable.Values;
+            Dictionary<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>>.ValueCollection instTableVals = batchData.instanceTable.Values;
             foreach (Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTbl in instTableVals)
             {
                 Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>.ValueCollection matTableVals = matTbl.Values;
@@ -529,7 +533,6 @@ namespace Apoc3D.Scene
                     }
                 }
             }
-            effects.Clear();
         }
 
         void RenderList(string name, FastList<RenderOperation> opList)
@@ -538,7 +541,7 @@ namespace Apoc3D.Scene
 
             renderSystem.PixelShader = null;
             renderSystem.VertexShader = null;
-            ModelEffect effect = effects[name];
+            Effect effect = effects[name];
 
             if (effect == null)
             {
@@ -572,7 +575,7 @@ namespace Apoc3D.Scene
 
                     effect.Setup(mate, ref op);
 
-                    
+
                     renderSystem.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
                     renderSystem.VertexFormat = gm.Format;
                     renderSystem.VertexDeclaration = gm.VertexDeclaration;
@@ -595,9 +598,9 @@ namespace Apoc3D.Scene
             effect.End();
         }
 
-        void RenderSMList(string name, FastList<RenderOperation> opList) 
+        void RenderSMList(string name, FastList<RenderOperation> opList)
         {
-            ModelEffect effect = effects[name];
+            Effect effect = effects[name];
             if (effect == null)
                 effect = shadowMap.DefaultSMGen;
 
@@ -668,7 +671,7 @@ namespace Apoc3D.Scene
             VertexCount = 0;
             BatchCount = 0;
             PrimitiveCount = 0;
-            batchHelper.RenderedObjectCount = 0;
+            batchData.RenderedObjectCount = 0;
 
             EffectParams.Atmosphere = Atmosphere;
             EffectParams.TerrainHeightScale = Data.TerrainSettings.HeightScale;
@@ -682,7 +685,7 @@ namespace Apoc3D.Scene
 
                 for (int j = 0; j < visibleClusters.Count; j++)
                 {
-                    visibleClusters[j].SceneManager.PrepareVisibleObjects(EffectParams.CurrentCamera, batchHelper);
+                    visibleClusters[j].SceneManager.PrepareVisibleObjects(EffectParams.CurrentCamera, batchData);
                 }
 
                 AddAxisOperation();
@@ -726,7 +729,7 @@ namespace Apoc3D.Scene
                                 }
                                 else
                                 {
-                                    ModelEffect effect = effects[e2.Key];
+                                    Effect effect = effects[e2.Key];
 
                                     if (effect == null)
                                         effect = shadowMap.DefaultSMGen;

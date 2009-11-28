@@ -21,10 +21,12 @@ namespace Apoc3D.Graphics
             private set;
         }
 
+        [Obsolete()]
         public int IndexSize
         {
             get { return BufferType == IndexBufferType.Bit16 ? sizeof(ushort) : sizeof(uint); }
         }
+
 
         protected IndexBuffer(IndexBufferType type, int indexCount, BufferUsage usage, bool useSysMem)
             : base(usage, indexCount * ((type == IndexBufferType.Bit16) ? sizeof(ushort) : sizeof(uint)), useSysMem)

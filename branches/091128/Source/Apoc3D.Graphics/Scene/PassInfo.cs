@@ -12,17 +12,22 @@ namespace Apoc3D.Scene
     /// </summary>
     public class PassInfo
     {
-        /// <summary>
-        ///  按效果批次分组，一个效果批次有一个RenderOperation列表
-        /// </summary>
-        public Dictionary<string, FastList<RenderOperation>> batchTable;
+        ///// <summary>
+        /////  按效果批次分组，一个效果批次有一个RenderOperation列表
+        ///// </summary>
+        //public Dictionary<string, FastList<RenderOperation>> batchTable;
 
         /// <summary>
-        ///  按效果批次名称查询效果的哈希表
+        ///  按材质分组，一个材质批次有一个RenderOperation列表
         /// </summary>
-        public Dictionary<string, ModelEffect> effects;
+        public Dictionary<Material, FastList<RenderControl>> batchTable;
 
-        public Dictionary<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>> instanceTable;
+        ///// <summary>
+        /////  按效果批次名称查询效果的哈希表
+        ///// </summary>
+        //public Dictionary<string, Effect> effects;
+
+        public Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> instanceTable;
 
         public FastList<SceneObject> visibleObjects;
 

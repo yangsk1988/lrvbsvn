@@ -8,7 +8,8 @@ namespace Apoc3D.Graphics.Effects
 {
     public class IncludeHandler : Include
     {
-        static IncludeHandler singleton;
+        static volatile IncludeHandler singleton;
+        static volatile object syncHelper = new object();
 
         public static IncludeHandler Instance
         {
@@ -16,7 +17,13 @@ namespace Apoc3D.Graphics.Effects
             {
                 if (singleton == null)
                 {
-                    singleton = new IncludeHandler();
+                    lock (syncHelper)
+                    {
+                        if (singleton == null)
+                        {
+                            singleton = new IncludeHandler();
+                        }
+                    }
                 }
                 return singleton;
             }

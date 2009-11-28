@@ -6,27 +6,55 @@ using Apoc3D.Vfs;
 
 namespace Apoc3D.Graphics.Effects
 {
-    public abstract class ModelEffectFactory
+    public abstract class EffectFactory
     {
-        public abstract ModelEffect CreateInstance();
+        public abstract Effect CreateInstance();
 
-        public abstract void DestroyInstance(ModelEffect fx);
-
-    }
-    public abstract class PostEffectFactory
-    {
-        public abstract PostEffect CreateInstance();
-     
-        public abstract void DestroyInstance(PostEffect fx);
+        public abstract void DestroyInstance(Effect fx);
     }
 
-
-    public abstract class EffectBase : IDisposable
+    public abstract class Effect
     {
+        protected PixelShader pixShader;
+        protected VertexShader vtxShader;
 
-        public EffectBase(string name)
+        bool begun;
+
+        public Effect(bool supportsInstancing, string name)
         {
-            this.Name = name;
+            Name = name;
+            SupportsInstancing = supportsInstancing;
+        }
+
+        protected void LoadVertexShaders(RenderSystem rs, ResourceLocation vs, Macro[] macros, string funcName)
+        {
+            ObjectFactory fac = rs.ObjectFactory;
+
+            ContentStreamReader sr = new ContentStreamReader(vs);
+
+            string code = sr.ReadToEnd();
+            sr.Close();
+
+            vtxShader = fac.CreateVertexShader(code, macros, IncludeHandler.Instance, "vs_2_0", funcName);
+
+        }
+        protected void LoadPixelShader(RenderSystem rs, ResourceLocation vs, Macro[] macros, string funcName)
+        {
+            ObjectFactory fac = rs.ObjectFactory;
+
+            ContentStreamReader sr = new ContentStreamReader(vs);
+
+            string code = sr.ReadToEnd();
+            sr.Close();
+
+            pixShader = fac.CreatePixelShader(code, macros, IncludeHandler.Instance, "ps_2_0", funcName);
+        }
+
+        #region 属性
+        public bool SupportsInstancing
+        {
+            get;
+            protected set;
         }
 
         public string Name
@@ -34,61 +62,24 @@ namespace Apoc3D.Graphics.Effects
             get;
             private set;
         }
- 
-        public bool Disposed
+        protected bool EnableAutoParameter
         {
             get;
-            private set;
+            set;
         }
-        protected abstract void Dispose(bool disposing);
-
-        #region IDisposable 成员
-
-        public void Dispose()
-        {
-            if (!Disposed)
-            {
-                Dispose(true);
-                Disposed = true;
-            }
-            else
-                throw new ObjectDisposedException(ToString());
-        }
-
         #endregion
 
-        ~EffectBase()
+        protected void SetAutoParameter()
         {
-            if (!Disposed)
-                Dispose();
+            if (pixShader != null) 
+            {
+                pixShader.AutoSetParameters();
+            }
+            if (vtxShader != null) 
+            {
+                pixShader.AutoSetParameters();
+            }
         }
-    }
-
-    public abstract class ModelEffect : EffectBase
-    {
-
-        public static Effect LoadEffect(RenderSystem device, string filename)
-        {
-            FileLocation fl = FileSystem.Instance.Locate(FileSystem.CombinePath(Paths.Effects, filename), FileLocateRules.Default);
-            ContentStreamReader sr = new ContentStreamReader(fl);
-
-            string err;
-            string code = sr.ReadToEnd();
-
-            Effect effect = Effect.FromString(device, code, null, IncludeHandler.Instance, null, ShaderFlags.OptimizationLevel3, null, out err);
-            sr.Close();
-            return effect;
-        }
-
-        bool begun;
-        public ModelEffect(bool supportsInstancing, string name)
-            : base(name)
-        {
-            SupportsInstancing = supportsInstancing;
-        }
-
-
-        //public abstract Camera GetPassCamera(int passId);
 
         protected abstract int begin();
         protected abstract void end();
@@ -103,7 +94,13 @@ namespace Apoc3D.Graphics.Effects
             if (!begun)
             {
                 begun = true;
-                return begin();
+
+                int ret = begin();
+                if (EnableAutoParameter) 
+                {
+                    SetAutoParameter();
+                }
+                return ret;
             }
             return -1;
         }
@@ -117,7 +114,7 @@ namespace Apoc3D.Graphics.Effects
             }
         }
 
-        protected virtual int beginInst() 
+        protected virtual int beginInst()
         {
             throw new NotSupportedException();
         }
@@ -143,7 +140,7 @@ namespace Apoc3D.Graphics.Effects
             }
             return -1;
         }
-        public void EndInst() 
+        public void EndInst()
         {
             if (begun)
             {
@@ -152,14 +149,8 @@ namespace Apoc3D.Graphics.Effects
             }
         }
 
-        
-        public bool SupportsInstancing
-        {
-            get;
-            protected set;
-        }
 
-        public virtual void SetupInstancing(Material mat) 
+        public virtual void SetupInstancing(Material mat)
         {
             throw new NotSupportedException();
         }
@@ -167,12 +158,33 @@ namespace Apoc3D.Graphics.Effects
         public abstract void Setup(Material mat, ref RenderOperation op);
         public abstract void SetupShadowPass(Material mat, ref RenderOperation op);
 
-    }
+ 
+        #region IDisposable 成员
+        public bool Disposed
+        {
+            get;
+            private set;
+        }
+        protected abstract void Dispose(bool disposing);
 
-    public abstract class PostEffect : EffectBase
-    {
-        public PostEffect(string name)
-            : base(name)
-        { }
+
+        public void Dispose()
+        {
+            if (!Disposed)
+            {
+                Dispose(true);
+                Disposed = true;
+            }
+            else
+                throw new ObjectDisposedException(ToString());
+        }
+
+        #endregion
+
+        ~Effect()
+        {
+            if (!Disposed)
+                Dispose();
+        }
     }
 }

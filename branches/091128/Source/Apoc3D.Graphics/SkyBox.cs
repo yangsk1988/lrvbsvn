@@ -5,13 +5,14 @@ using Apoc3D.Config;
 using Apoc3D.Graphics.Effects;
 using Apoc3D.MathLib;
 using Apoc3D.Vfs;
+using Apoc3D.Scene;
 
 namespace Apoc3D.Graphics
 {
     /// <summary>
     ///  定义一个天空盒
     /// </summary>
-    public class SkyBox : IConfigurable, IDisposable
+    public class SkyBox : SceneObject, IConfigurable, IDisposable
     {
         struct SkyVertex
         {
@@ -27,14 +28,10 @@ namespace Apoc3D.Graphics
                 elements[1] = new VertexElement(1, VertexElementFormat.Vector3, VertexElementUsage.TextureCoordinate, 0);
             }
 
-            public VertexElement[] Elements 
+            public static VertexElement[] Elements 
             {
                 get { return elements; }
             }
-            //public static VertexFormat Format
-            //{
-            //    get { return (VertexFormat)((int)VertexFormat.Position | (int)VertexFormat.Texture1 | Utils.GetTexCoordSize3Format(0)); }
-            //}
         }
 
         bool disposed;
@@ -48,21 +45,24 @@ namespace Apoc3D.Graphics
         VertexDeclaration vtxDecl;
 
         RenderSystem renderSystem;
+        ObjectFactory factory;
 
         Effect effect;
-        EffectHandle nightAlpha;
-        EffectHandle day;
-        EffectHandle night;
+        //EffectHandle nightAlpha;
+        //EffectHandle day;
+        //EffectHandle night;
 
         public unsafe SkyBox(RenderSystem rs)
+            :base(false )
         {
             renderSystem = rs;
+            factory = rs.ObjectFactory;
 
             // sqrt(3)/3
             const float l = 1f / MathEx.Root3;
 
-            vtxDecl = new VertexDeclaration(renderSystem, SkyVertex.Elements);
-            box = new VertexBuffer(rs, sizeof(SkyVertex) * 8, Usage.WriteOnly, VertexPT1.Format, Pool.Managed);
+            vtxDecl = factory.CreateVertexDeclaration(SkyVertex.Elements);
+            box = factory.CreateVertexBuffer(8, vtxDecl, BufferUsage.WriteOnly);
 
             SkyVertex* dst = (SkyVertex*)box.Lock(0, 0, LockMode.None);
 
@@ -77,7 +77,7 @@ namespace Apoc3D.Graphics
 
             box.Unlock();
 
-            indexBuffer = new IndexBuffer(rs, sizeof(ushort) * 36, Usage.WriteOnly, Pool.Managed, true);
+            indexBuffer = factory.CreateIndexBuffer(IndexBufferType.Bit16, 36, BufferUsage.WriteOnly);
 
             ushort* ibDst = (ushort*)indexBuffer.Lock(0, 0, LockMode.None);
 
@@ -224,13 +224,13 @@ namespace Apoc3D.Graphics
         {
             if (dayTex != null)
             {
-                Matrix view = renderSystem.GetTransform(TransformState.View);
-                Matrix oldView = view;
-                view.M41 = 0;
-                view.M42 = 0;
-                view.M43 = 0;
+                //Matrix view = renderSystem.GetTransform(TransformState.View);
+                //Matrix oldView = view;
+                //view.M41 = 0;
+                //view.M42 = 0;
+                //view.M43 = 0;
 
-                renderSystem.SetTransform(TransformState.View, view);
+                //renderSystem.SetTransform(TransformState.View, view);
 
                 int passCount = effect.Begin(FX.DoNotSaveState | FX.DoNotSaveShaderState | FX.DoNotSaveSamplerState);
 
@@ -253,7 +253,7 @@ namespace Apoc3D.Graphics
                     renderSystem.VertexDeclaration = vtxDecl;
 
                     renderSystem.Indices = indexBuffer;
-                    renderSystem.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 8, 0, 12);
+                    renderSystem.DrawIndexedPrimitives(RenderPrimitiveType.TriangleList, 0, 0, 8, 0, 12);
 
                     renderSystem.SetRenderState(RenderState.ZEnable, true);
                     renderSystem.SetRenderState(RenderState.ZWriteEnable, true);
@@ -267,6 +267,19 @@ namespace Apoc3D.Graphics
             }
         }
 
+        public override RenderOperation[] GetRenderOperation()
+        {
+            throw new NotImplementedException();
+        }
+        public override void Serialize(BinaryDataWriter data)
+        {
+            base.Serialize(data);
+        }
+        public override bool IntersectsSelectionRay(ref Ray ray)
+        {
+            return false;
+        }
+        
 
         /// <summary>
         ///  从ResourceLocation加载天空盒纹理
@@ -282,7 +295,7 @@ namespace Apoc3D.Graphics
                     dayTex.Dispose();
                     dayTex = null;
                 }
-                this.dayTex = CubeTexture.FromStream(renderSystem, dayTexture.GetStream, Usage.None, Pool.Managed);
+                this.dayTex = factory.CreateTexture(dayTexture, TextureUsage.Static);
             }
             if (nightTexture != null)
             {
@@ -291,7 +304,7 @@ namespace Apoc3D.Graphics
                     nightTex.Dispose();
                     nightTex = null;
                 }
-                this.nightTex = CubeTexture.FromStream(renderSystem, nightTexture.GetStream, Usage.None, Pool.Managed);
+                this.nightTex = factory.CreateTexture(nightTexture, TextureUsage.Static);
             }
         }
 
@@ -304,7 +317,7 @@ namespace Apoc3D.Graphics
             {
                 FileLocation fl = FileSystem.Instance.Locate(dayTexFile, FileLocateRules.Default);
 
-                dayTex = CubeTexture.FromStream(renderSystem, fl.GetStream, Usage.None, Pool.Managed);
+                dayTex = factory.CreateTexture(fl, TextureUsage.Static);
             }
 
             string nightTexFile = sect.GetString("NightTexture", null);
@@ -312,7 +325,7 @@ namespace Apoc3D.Graphics
             {
                 FileLocation fl = FileSystem.Instance.Locate(nightTexFile, FileLocateRules.Default);
 
-                nightTex = CubeTexture.FromStream(renderSystem, fl.GetStream, Usage.None, Pool.Managed);
+                nightTex = factory.CreateTexture(fl, TextureUsage.Static);
             }
         }
 

@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -48,6 +49,10 @@
     <Compile Include="Collections\SamplerStateCollection.cs" />
     <Compile Include="Desgin\MeshFaceConverter.cs" />
     <Compile Include="FpsCounter.cs" />
+    <Compile Include="RenderScript.cs" />
+    <Compile Include="Scene\Lights\DirectionalLight.cs" />
+    <Compile Include="Scene\Lights\LightObject.cs" />
+    <Compile Include="TextureLibrary.cs" />
     <Compile Include="UnmanagedResource.cs" />
     <Compile Include="Scene\ObjectFactory.cs" />
     <Compile Include="Scene\ObjectTypeManager.cs" />

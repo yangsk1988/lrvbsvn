@@ -13,25 +13,25 @@ namespace Apoc3D.Scene
     {
         #region 字段
 
-        Dictionary<string, ObjectFactory> factories;
+        Dictionary<string, SceneObjectFactory> factories;
 
         #endregion
 
 
-        public void RegisterObjectType(ObjectFactory fac)
+        public void RegisterObjectType(SceneObjectFactory fac)
         {
             factories.Add(fac.TypeTag, fac);
             EngineConsole.Instance.Write("找到物体类型 " + fac.TypeTag, ConsoleMessageType.Information);
         }
 
-        public void UnregisterObjectType(ObjectFactory fac)
+        public void UnregisterObjectType(SceneObjectFactory fac)
         {
             factories.Remove(fac.TypeTag);
         }
 
         public SceneObject DeserializeObject(string typeTag, BinaryDataReader data, SceneDataBase sceneData)
         {
-            ObjectFactory fac;
+            SceneObjectFactory fac;
             if (factories.TryGetValue(typeTag, out fac))
             {
                 return fac.Deserialize(data, sceneData);
