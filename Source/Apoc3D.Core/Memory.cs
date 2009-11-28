@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace VirtualBicycle
+namespace Apoc3D
 {
     /// <summary>
     /// 提供了内存的复制,清零等操作

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace VirtualBicycle.Graphics.Animation
+namespace Apoc3D.Graphics.Animation
 {
     [Flags()]
     public enum ModelAnimationFlags

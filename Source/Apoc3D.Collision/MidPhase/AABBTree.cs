@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Vfs;
+using Apoc3D.MathLib;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Collision
+namespace Apoc3D.Collision
 {
     public class AABBTreeNode : BaseTreeNode
     {

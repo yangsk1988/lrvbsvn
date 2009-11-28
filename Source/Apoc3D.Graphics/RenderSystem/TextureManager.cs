@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Core;
-using VirtualBicycle.Vfs;
-using VirtualBicycle.Media;
+using Apoc3D.Core;
+using Apoc3D.Vfs;
+using Apoc3D.Media;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     public class TextureManager : ResourceManager
     {

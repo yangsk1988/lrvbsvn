@@ -8,7 +8,7 @@
     <ProjectGuid>{AA72D449-B468-4698-A28D-926E2225FC5A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VirtualBicycle.Ide</RootNamespace>
+    <RootNamespace>Apoc3D.Ide</RootNamespace>
     <AssemblyName>VirtualBicycle.Ide</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

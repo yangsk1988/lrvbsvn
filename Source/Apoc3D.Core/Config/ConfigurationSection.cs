@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Config
+namespace Apoc3D.Config
 {
     /// <summary>
     ///  表示配置中的配置段落

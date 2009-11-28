@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace VirtualBicycle.Vfs
+namespace Apoc3D.Vfs
 {
     /// <summary>
     ///  为文件包定义抽象基类

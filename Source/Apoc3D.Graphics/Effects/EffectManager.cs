@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Graphics.Effects
+namespace Apoc3D.Graphics.Effects
 {
     public class EffectManager : Singleton
     {

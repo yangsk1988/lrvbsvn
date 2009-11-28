@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Core;
+using Apoc3D.Core;
 
-namespace VirtualBicycle
+namespace Apoc3D
 {
     public class CaseInsensitiveStringComparer : IEqualityComparer<string>
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 
-namespace VirtualBicycle.Network
+namespace Apoc3D.Network
 {
     /// <summary>
     /// A callback/delegate function for client connection event

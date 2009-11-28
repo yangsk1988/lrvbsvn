@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Collision
+namespace Apoc3D.Collision
 {
     public enum CollisionTreeType
     {

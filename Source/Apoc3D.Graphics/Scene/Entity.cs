@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.MathLib;
+using Apoc3D.Graphics;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     /// <summary>
     ///  表示有位置信息的物体

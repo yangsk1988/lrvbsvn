@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace VirtualBicycle.Ide.Designers
+namespace Apoc3D.Ide.Designers
 {
     public partial class InputNumberDlg : Form
     {

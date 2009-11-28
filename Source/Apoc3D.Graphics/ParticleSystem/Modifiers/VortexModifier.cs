@@ -1,7 +1,7 @@
 using System;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Graphics.ParticleSystem.Modifiers
+namespace Apoc3D.Graphics.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents a modifier that applies a swirling force to particles within a given radius.

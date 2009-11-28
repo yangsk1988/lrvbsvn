@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Graphics;
+using Apoc3D.Graphics;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     ///  表示渲染目标所在的控件

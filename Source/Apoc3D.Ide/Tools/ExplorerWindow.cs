@@ -6,11 +6,11 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using VirtualBicycle.Ide.Projects;
-using VirtualBicycle.UI;
+using Apoc3D.Ide.Projects;
+using Apoc3D.UI;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace VirtualBicycle.Ide.Tools
+namespace Apoc3D.Ide.Tools
 {
     public partial class ExplorerWindow : DockContent, ITool
     {

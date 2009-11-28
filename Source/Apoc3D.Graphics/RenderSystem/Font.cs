@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Media;
-using VirtualBicycle.Vfs;
+using Apoc3D.MathLib;
+using Apoc3D.Media;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     public enum FontStyle
     {

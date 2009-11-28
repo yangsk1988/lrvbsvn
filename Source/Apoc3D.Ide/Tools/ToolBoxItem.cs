@@ -4,7 +4,7 @@ using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace VirtualBicycle.Ide.Tools
+namespace Apoc3D.Ide.Tools
 {
     public delegate void ToolBoxItemActivatedHandler();
 

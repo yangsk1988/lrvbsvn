@@ -5,9 +5,9 @@ using System.Drawing.Design;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms.Design;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Design
+namespace Apoc3D.Design
 {
     public class MatrixEditor : UITypeEditor
     {

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using VirtualBicycle;
+using Apoc3D;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     public class DevStringTable : Singleton
     {
-        static VirtualBicycle.StringTable singleton;
+        static Apoc3D.StringTable singleton;
 
-        public static VirtualBicycle.StringTable Instance
+        public static Apoc3D.StringTable Instance
         {
             get { return singleton; }
         }

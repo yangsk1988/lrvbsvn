@@ -4,7 +4,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace VirtualBicycle.Design
+namespace Apoc3D.Design
 {
     internal class FieldPropertyDescriptor : MemberPropertyDescriptor
     {

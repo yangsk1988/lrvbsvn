@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     ///  封装一个阶段网格(ProgressiveMesh)算法

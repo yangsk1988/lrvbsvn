@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Vfs
+namespace Apoc3D.Vfs
 {
 
     public class ContentBinaryReader : BinaryReader

@@ -1,7 +1,7 @@
 using System;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Graphics.ParticleSystem
+namespace Apoc3D.Graphics.ParticleSystem
 {
     /// <summary>
     /// Defines the minimum interface that must be exposed by all particle structures.

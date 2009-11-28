@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using VirtualBicycle.IO;
+using Apoc3D.IO;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace VirtualBicycle.Ide.Designers
+namespace Apoc3D.Ide.Designers
 {
     
     public interface IDocument

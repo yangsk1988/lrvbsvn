@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.Config;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.Graphics.Effects;
-using VirtualBicycle.Vfs;
-using VirtualBicycle.MathLib;
+using Apoc3D.Collections;
+using Apoc3D.Config;
+using Apoc3D.Graphics;
+using Apoc3D.Graphics.Effects;
+using Apoc3D.Vfs;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     /// <summary>
     ///  游戏中的场景

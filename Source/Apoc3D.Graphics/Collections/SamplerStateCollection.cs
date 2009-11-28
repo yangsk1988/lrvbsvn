@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Graphics;
+using Apoc3D.Graphics;
 
-namespace VirtualBicycle.Collections
+namespace Apoc3D.Collections
 {
     public class SamplerStateCollection : CollectionBase<SamplerState>
     {

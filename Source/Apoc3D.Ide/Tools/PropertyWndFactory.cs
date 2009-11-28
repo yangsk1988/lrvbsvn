@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Ide.Tools
+namespace Apoc3D.Ide.Tools
 {
     public class PropertyWndFactory : IToolAbstractFactory
     {

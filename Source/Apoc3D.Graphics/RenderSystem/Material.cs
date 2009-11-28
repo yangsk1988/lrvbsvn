@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using VirtualBicycle.Graphics.Effects;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Vfs;
+using Apoc3D.Graphics.Effects;
+using Apoc3D.MathLib;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     [Flags()]
     public enum MaterialFlags

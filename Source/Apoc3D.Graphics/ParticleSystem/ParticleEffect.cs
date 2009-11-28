@@ -1,7 +1,7 @@
 using System;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Graphics.ParticleSystem
+namespace Apoc3D.Graphics.ParticleSystem
 {
     /// <summary>
     /// Particle effects are custom vertex-based effects like exhaust steams, fire and smoke. 

@@ -6,15 +6,15 @@ using System.IO;
 using System.Text;
 using JigLibX.Geometry;
 using JigLibX.Physics;
-using VirtualBicycle.Collections;
-using VirtualBicycle.Collision;
-using VirtualBicycle.Config;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.Graphics.Effects;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Vfs;
+using Apoc3D.Collections;
+using Apoc3D.Collision;
+using Apoc3D.Config;
+using Apoc3D.Graphics;
+using Apoc3D.Graphics.Effects;
+using Apoc3D.MathLib;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     /// <summary>
     ///  表示地形。实现地形渲染。
@@ -85,10 +85,10 @@ namespace VirtualBicycle.Scene
 
             public void Update(int x, int y, int* data, float cellUnit, float heightScale)
             {
-                Update(x, y, new VirtualBicycle.MathLib.Rectangle(0, 0, BlockEdgeLen, BlockEdgeLen), data, cellUnit, heightScale);
+                Update(x, y, new Apoc3D.MathLib.Rectangle(0, 0, BlockEdgeLen, BlockEdgeLen), data, cellUnit, heightScale);
             }
 
-            public void Update(int x, int y, VirtualBicycle.MathLib.Rectangle area, int* data, float cellUnit, float heightScale)
+            public void Update(int x, int y, Apoc3D.MathLib.Rectangle area, int* data, float cellUnit, float heightScale)
             {
                 int triIndex = 0;
 
@@ -977,7 +977,7 @@ namespace VirtualBicycle.Scene
             BuildTerrainTree();
         }
 
-        public override bool IntersectsSelectionRay(ref VirtualBicycle.MathLib.Ray ray)
+        public override bool IntersectsSelectionRay(ref Apoc3D.MathLib.Ray ray)
         {
             return false;
         }

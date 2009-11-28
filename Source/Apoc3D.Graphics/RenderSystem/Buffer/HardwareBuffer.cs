@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     public abstract class HardwareBuffer : IDisposable
     {

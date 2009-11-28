@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Vfs;
-using VirtualBicycle.MathLib;
+using Apoc3D.Vfs;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Config
+namespace Apoc3D.Config
 {
     /// <summary>
     ///  表示Ini文件中的段落

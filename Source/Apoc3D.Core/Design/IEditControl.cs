@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Design
+namespace Apoc3D.Design
 {
 #if !XBOX
     using System.Windows.Forms.Design;

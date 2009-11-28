@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VirtualBicycle.MathLib
+namespace Apoc3D.MathLib
 {
     public struct PolarCoord
     {

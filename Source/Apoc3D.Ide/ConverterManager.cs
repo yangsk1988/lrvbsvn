@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Ide.Converters;
-using VirtualBicycle;
+using Apoc3D.Ide.Converters;
+using Apoc3D;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     public class ConverterManager
     {

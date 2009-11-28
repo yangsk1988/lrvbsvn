@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     /// 	This class declares the usage of a single vertex buffer as a component

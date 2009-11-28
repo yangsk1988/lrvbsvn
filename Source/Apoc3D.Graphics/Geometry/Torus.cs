@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Graphics.Geometry
+namespace Apoc3D.Graphics.Geometry
 {
     /// <summary>
     /// A torus geometry primitive constructed with PrimitiveMesh

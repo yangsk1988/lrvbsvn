@@ -6,10 +6,10 @@ using System.Text;
 using System.Xml;
 using SlimDX;
 using SlimDX.Direct3D9;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle.Graphics;
+using Apoc3D.Ide.Designers;
+using Apoc3D.Graphics;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     public static class DevUtils
     {

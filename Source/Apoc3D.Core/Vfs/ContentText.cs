@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace VirtualBicycle.Vfs
+namespace Apoc3D.Vfs
 {
 
     public class ContentStreamReader : StreamReader

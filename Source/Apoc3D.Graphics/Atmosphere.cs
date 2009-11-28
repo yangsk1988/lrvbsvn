@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using VirtualBicycle.Config;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Vfs;
+using Apoc3D.Config;
+using Apoc3D.MathLib;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     ///  提供大气效果的信息

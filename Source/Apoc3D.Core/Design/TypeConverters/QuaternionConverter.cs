@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
 using System.Text;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Design
+namespace Apoc3D.Design
 {
 #if !XBOX
     using System.ComponentModel.Design.Serialization;

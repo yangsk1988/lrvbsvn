@@ -4,7 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Collections;
 
-namespace VirtualBicycle.Collections
+namespace Apoc3D.Collections
 {
     public class ExistTable<T> : IEnumerable<T>
     {

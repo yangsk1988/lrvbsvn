@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace VirtualBicycle.Vfs
+namespace Apoc3D.Vfs
 {
     /// <summary>
     ///  定义一种由若干“键”—“值”组成的集合的存储方式  的读取器

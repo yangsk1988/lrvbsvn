@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle
+namespace Apoc3D
 {
     [Serializable]
     public class InvalidFormatException : Exception

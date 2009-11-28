@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
-using VirtualBicycle.Core;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.Vfs;
+using Apoc3D.Core;
+using Apoc3D.Graphics;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     public class TerrainTexture : Texture
     {

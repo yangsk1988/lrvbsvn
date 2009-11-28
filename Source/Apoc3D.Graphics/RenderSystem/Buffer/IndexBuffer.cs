@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     ///  表示索引缓冲

@@ -6,7 +6,7 @@ using System.Text;
 using JigLibX.Geometry;
 using JigLibX.Math;
 using JigLibX.Utils;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 using JBox = JigLibX.Geometry.Box;
 #endregion
 

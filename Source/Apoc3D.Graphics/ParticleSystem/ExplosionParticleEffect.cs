@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Graphics.ParticleSystem
+namespace Apoc3D.Graphics.ParticleSystem
 {
     /// <summary>
     /// A particle system that simulates an explosion effect.

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Config;
-using VirtualBicycle.Vfs;
+using Apoc3D.Config;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     /// <summary>
     ///  管理游戏中所有物体类型，可从二进制数据反序列化物体

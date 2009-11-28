@@ -4,12 +4,12 @@ using System.ComponentModel;
 using System.Text;
 using JigLibX.Collision;
 using JigLibX.Physics;
-using VirtualBicycle.Collections;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Vfs;
+using Apoc3D.Collections;
+using Apoc3D.Graphics;
+using Apoc3D.MathLib;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     /// <summary>
     /// 场景中的对象

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.MathLib;
+using Apoc3D.Collections;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     /// Applications use the methods of the RenderSystem to perform DrawPrimitive-based rendering, create resources,

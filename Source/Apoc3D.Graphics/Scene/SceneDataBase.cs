@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Vfs;
+using Apoc3D.Graphics;
+using Apoc3D.MathLib;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     public delegate void ProgressCallBack(int current, int total);
 

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Scene;
-using VirtualBicycle.Vfs;
+using Apoc3D.Scene;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Graphics.Effects
+namespace Apoc3D.Graphics.Effects
 {
     public abstract class ModelEffectFactory
     {

@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text;
-using VirtualBicycle.Design;
+using Apoc3D.Design;
 
-namespace VirtualBicycle.MathLib
+namespace Apoc3D.MathLib
 {
     [Serializable, StructLayout(LayoutKind.Sequential), TypeConverter(typeof(SizeConverter))]
     public struct Size

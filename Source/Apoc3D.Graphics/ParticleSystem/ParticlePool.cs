@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 
-namespace VirtualBicycle.Graphics.ParticleSystem
+namespace Apoc3D.Graphics.ParticleSystem
 {
     /// <summary>
     /// Maintains a pool of Particles, allowing the engine to fetch and retire them,

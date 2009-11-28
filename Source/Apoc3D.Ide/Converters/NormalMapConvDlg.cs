@@ -5,9 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using VirtualBicycle.UI;
+using Apoc3D.UI;
 
-namespace VirtualBicycle.Ide.Converters
+namespace Apoc3D.Ide.Converters
 {
     public partial class NormalMapConvDlg : Form
     {

@@ -7,20 +7,20 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
-using VirtualBicycle;
-using VirtualBicycle.Config;
-using VirtualBicycle.Graphics.Effects;
-using VirtualBicycle.Ide.Converters;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle.Ide.Projects;
-using VirtualBicycle.Ide.Templates;
-using VirtualBicycle.Ide.Tools;
-using VirtualBicycle.IO;
-using VirtualBicycle.Media;
-using VirtualBicycle.UI;
+using Apoc3D;
+using Apoc3D.Config;
+using Apoc3D.Graphics.Effects;
+using Apoc3D.Ide.Converters;
+using Apoc3D.Ide.Designers;
+using Apoc3D.Ide.Projects;
+using Apoc3D.Ide.Templates;
+using Apoc3D.Ide.Tools;
+using Apoc3D.IO;
+using Apoc3D.Media;
+using Apoc3D.UI;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     public partial class MainForm : Form
     {

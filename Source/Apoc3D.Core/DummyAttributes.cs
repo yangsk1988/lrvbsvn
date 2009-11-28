@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Core
+namespace Apoc3D.Core
 {
 #if XBOX
     /// <summary>

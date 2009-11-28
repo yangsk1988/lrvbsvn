@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using VirtualBicycle.Core;
+using Apoc3D.Core;
 using System.Threading;
 
-namespace VirtualBicycle.Test.ResourceManagerTest
+namespace Apoc3D.Test.ResourceManagerTest
 {
     class TestResource : Resource
     {

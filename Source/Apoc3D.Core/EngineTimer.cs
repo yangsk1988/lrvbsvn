@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-namespace VirtualBicycle
+namespace Apoc3D
 {
     public static class EngineTimer
     {

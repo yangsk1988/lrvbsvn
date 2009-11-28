@@ -2,10 +2,10 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Config;
-using VirtualBicycle.Vfs;
+using Apoc3D.Config;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.ConfigModel
+namespace Apoc3D.ConfigModel
 {
     public abstract class BasicConfigFactory
     {

@@ -1,7 +1,7 @@
 using System;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Graphics.ParticleSystem
+namespace Apoc3D.Graphics.ParticleSystem
 {
     /// <summary>
     /// Helper for objects that want to leave particles behind them as they

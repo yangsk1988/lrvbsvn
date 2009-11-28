@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace VirtualBicycle.Core
+namespace Apoc3D.Core
 {
     public abstract class ResourceOperation
     {

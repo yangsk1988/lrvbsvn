@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Media;
+using Apoc3D.MathLib;
+using Apoc3D.Media;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     public abstract class RenderStateManager
     {

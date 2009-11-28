@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Network
+namespace Apoc3D.Network
 {
     /// <summary>
     ///  表示一个可以在网络上发送的对象

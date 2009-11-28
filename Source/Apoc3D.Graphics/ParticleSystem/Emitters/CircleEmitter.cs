@@ -1,8 +1,8 @@
 using System;
 using System.Runtime.Serialization;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Graphics.ParticleSystem.Emitters
+namespace Apoc3D.Graphics.ParticleSystem.Emitters
 {
     /// <summary>
     /// Represents a particle emitter that releases particles in a circle shape.

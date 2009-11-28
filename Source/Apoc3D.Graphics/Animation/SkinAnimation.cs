@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Vfs;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Graphics.Animation
+namespace Apoc3D.Graphics.Animation
 {
     public class SkinAnimation : AnimationData
     {

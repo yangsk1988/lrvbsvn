@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.MathLib;
+using Apoc3D.Collections;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Graphics.Animation
+namespace Apoc3D.Graphics.Animation
 {
     public class Bone
     {

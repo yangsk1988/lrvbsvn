@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Collections
+namespace Apoc3D.Collections
 {
     public class PlatformCollection : CollectionBase<PlatformAPISupport>
     {

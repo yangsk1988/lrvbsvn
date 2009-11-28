@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Graphics.Geometry
+namespace Apoc3D.Graphics.Geometry
 {
     /// <summary>
     /// A disk geometry primitive constructed with PrimitiveMesh

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Vfs
+namespace Apoc3D.Vfs
 {
     /// <summary>
     ///  检查点包括若干路径

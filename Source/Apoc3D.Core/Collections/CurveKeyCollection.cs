@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using VirtualBicycle.Design;
-using VirtualBicycle.MathLib;
+using Apoc3D.Design;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Collections
+namespace Apoc3D.Collections
 {
     [Serializable, TypeConverter(typeof(ExpandableObjectConverter))]
     public class CurveKeyCollection : ICollection<CurveKey>, IEnumerable<CurveKey>, IEnumerable

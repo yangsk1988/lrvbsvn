@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Config
+namespace Apoc3D.Config
 {
     /// <summary>
     ///  提供配置的抽象接口

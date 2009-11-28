@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Core;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.Vfs;
+using Apoc3D.Core;
+using Apoc3D.Graphics;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     /// <summary>
     ///  负责管理DisplacementMap，ColorMap，NormalMap以及IndexMap

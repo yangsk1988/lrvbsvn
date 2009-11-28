@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace VirtualBicycle.Graphics.Geometry
+namespace Apoc3D.Graphics.Geometry
 {
     /// <summary>
     /// A capsule geometry primitive constructed with PrimitiveMesh

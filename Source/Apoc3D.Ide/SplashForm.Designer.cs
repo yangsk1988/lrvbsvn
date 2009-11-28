@@ -1,4 +1,4 @@
-﻿namespace VirtualBicycle.Ide
+﻿namespace Apoc3D.Ide
 {
     partial class SplashForm
     {
@@ -83,7 +83,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Fuchsia;
-            this.BackgroundImage = global::VirtualBicycle.Ide.Properties.Resources.devlogo;
+            this.BackgroundImage = global::Apoc3D.Ide.Properties.Resources.devlogo;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(450, 269);
             this.ControlBox = false;

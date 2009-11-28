@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace VirtualBicycle.Graphics.ParticleSystem.Modifiers
+namespace Apoc3D.Graphics.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents the abstract base class for all modifiers.

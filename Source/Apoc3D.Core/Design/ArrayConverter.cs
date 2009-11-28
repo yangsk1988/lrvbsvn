@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 
-namespace VirtualBicycle.Design
+namespace Apoc3D.Design
 {
 #if !XBOX
     using System.Drawing.Design;

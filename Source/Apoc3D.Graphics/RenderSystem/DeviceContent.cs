@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.Media;
+using Apoc3D.Collections;
+using Apoc3D.Media;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     ///  渲染设备的渲染目标参数

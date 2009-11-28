@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using VirtualBicycle.Core;
+using Apoc3D.Core;
 
-namespace VirtualBicycle.Vfs
+namespace Apoc3D.Vfs
 {
     /// <summary>
     ///  表示资源的位置

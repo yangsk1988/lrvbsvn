@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Core.Config
+namespace Apoc3D.Core.Config
 {
     /// <summary>
     ///  提供配置文件自定义解析器的抽象接口

@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace VirtualBicycle.Ide.Converters
+namespace Apoc3D.Ide.Converters
 {
     public partial class ProgressDlg : Form
     {

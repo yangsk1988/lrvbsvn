@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.Graphics.Effects;
+using Apoc3D.Collections;
+using Apoc3D.Graphics;
+using Apoc3D.Graphics.Effects;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     /// <summary>
     ///  渲染场景时，PassInfo对象用来从Cluster的场景管理器收集信息，并存储

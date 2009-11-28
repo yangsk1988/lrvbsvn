@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
-using VirtualBicycle.Vfs;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Config
+namespace Apoc3D.Config
 {
     /// <summary>
     ///  表示一个XML配置文件

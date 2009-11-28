@@ -4,12 +4,12 @@ using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.Graphics.Animation;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Vfs;
+using Apoc3D.Graphics;
+using Apoc3D.Graphics.Animation;
+using Apoc3D.MathLib;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     /// mesh的最小组成部分-三角形

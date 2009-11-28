@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Vfs;
-using VirtualBicycle.Graphics;
+using Apoc3D.Vfs;
+using Apoc3D.Graphics;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     public class TerrainFactory : ObjectFactory
     {

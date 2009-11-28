@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     public partial class SplashForm : Form
     {

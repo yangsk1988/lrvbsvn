@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using VirtualBicycle.Vfs;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Config
+namespace Apoc3D.Config
 {
     /// <summary>
     ///  表示一个Ini配置文件

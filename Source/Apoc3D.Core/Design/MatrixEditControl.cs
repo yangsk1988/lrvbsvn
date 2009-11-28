@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
     using System.Data;
     using System.Drawing;
     using System.Windows.Forms;
     using System.Windows.Forms.Design;
 
-namespace VirtualBicycle.Design
+namespace Apoc3D.Design
 {
     public partial class MatrixEditControl : UserControl, IEditControl<Matrix>
     {

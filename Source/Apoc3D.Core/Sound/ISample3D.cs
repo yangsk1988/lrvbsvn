@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Sound
+namespace Apoc3D.Sound
 {
     public interface ISample3D
     {

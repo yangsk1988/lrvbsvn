@@ -1,4 +1,4 @@
-﻿namespace VirtualBicycle.Ide.Editors
+﻿namespace Apoc3D.Ide.Editors
 {
     partial class ArrayView<T>
     {

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using JigLibX.Math;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 #endregion
 
 namespace JigLibX.Geometry

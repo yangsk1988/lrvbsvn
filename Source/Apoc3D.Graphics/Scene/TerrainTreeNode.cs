@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.MathLib;
+using Apoc3D.Collections;
+using Apoc3D.Graphics;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     public class TerrainBlock
     {

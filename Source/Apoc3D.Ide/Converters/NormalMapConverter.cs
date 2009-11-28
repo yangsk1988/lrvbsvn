@@ -5,9 +5,9 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using VirtualBicycle.IO;
+using Apoc3D.IO;
 
-namespace VirtualBicycle.Ide.Converters
+namespace Apoc3D.Ide.Converters
 {
     public unsafe class NormalMapConverter : ConverterBase
     {

@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace VirtualBicycle.MathLib
+namespace Apoc3D.MathLib
 {
     /// <summary>
     /// This class generates random numbers using a gaussian distribution with

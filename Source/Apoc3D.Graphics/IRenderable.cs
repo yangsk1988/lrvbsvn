@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     ///  定义一种通过 获取渲染操作(RenderOperation) 的方式 的一种便于管理的渲染方式

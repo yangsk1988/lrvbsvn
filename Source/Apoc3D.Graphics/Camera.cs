@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.MathLib;
+using Apoc3D.Graphics;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle
+namespace Apoc3D
 {
     public interface ICamera 
     {

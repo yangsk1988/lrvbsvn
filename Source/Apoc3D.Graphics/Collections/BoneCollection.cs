@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Graphics.Animation;
+using Apoc3D.Graphics.Animation;
 
-namespace VirtualBicycle.Collections
+namespace Apoc3D.Collections
 {
     public class BoneCollection : CollectionBase<Bone>, ICollection<Bone>
     {

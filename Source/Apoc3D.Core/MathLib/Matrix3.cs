@@ -1,6 +1,6 @@
 using System;
 
-namespace VirtualBicycle.MathLib
+namespace Apoc3D.MathLib
 {
     [Obsolete()]
     public struct Matrix3x3

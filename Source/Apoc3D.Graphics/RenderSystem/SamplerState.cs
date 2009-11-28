@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Media;
+using Apoc3D.MathLib;
+using Apoc3D.Media;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     ///  表示采样器的状态，可以获取或设置采样器的参数

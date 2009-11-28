@@ -6,11 +6,11 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle.Ide.Templates;
-using VirtualBicycle.UI;
+using Apoc3D.Ide.Designers;
+using Apoc3D.Ide.Templates;
+using Apoc3D.UI;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     public partial class NewFileForm : Form
     {

@@ -6,9 +6,9 @@ using System.ComponentModel.Design.Serialization;
 using System.Collections;
 using System.Globalization;
 using System.Reflection;
-using VirtualBicycle.Graphics;
+using Apoc3D.Graphics;
 
-namespace VirtualBicycle.Design
+namespace Apoc3D.Design
 {
     public class MeshFaceConverter : ExpandableObjectConverter
     {

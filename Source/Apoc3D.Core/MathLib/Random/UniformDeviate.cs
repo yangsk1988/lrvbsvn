@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace VirtualBicycle.MathLib
+namespace Apoc3D.MathLib
 {
     /// <summary>
     /// A uniformly-distributed, extremely long period (> 2.3 * 10^18)

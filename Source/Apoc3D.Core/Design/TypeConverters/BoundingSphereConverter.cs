@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace VirtualBicycle.Design
+namespace Apoc3D.Design
 {
 #if !XBOX
     using System.ComponentModel;
@@ -10,7 +10,7 @@ namespace VirtualBicycle.Design
     using System.Globalization;
     using System.Reflection;
     using System.Text;
-    using VirtualBicycle.MathLib;
+    using Apoc3D.MathLib;
 #endif
 
     public class BoundingSphereConverter : MathTypeConverter

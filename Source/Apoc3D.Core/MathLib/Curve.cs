@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.Design;
+using Apoc3D.Collections;
+using Apoc3D.Design;
 
-namespace VirtualBicycle.MathLib
+namespace Apoc3D.MathLib
 {
     public enum CurveLoopType
     {

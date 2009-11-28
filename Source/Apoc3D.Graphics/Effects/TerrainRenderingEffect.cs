@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Vfs;
-using VirtualBicycle.Scene;
+using Apoc3D.Vfs;
+using Apoc3D.Scene;
 
-namespace VirtualBicycle.Graphics.Effects
+namespace Apoc3D.Graphics.Effects
 {
     public class TerrainRenderingEffectFactory : ModelEffectFactory
     {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.Vfs;
-using VirtualBicycle.MathLib;
+using Apoc3D.Graphics;
+using Apoc3D.Vfs;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     /// <summary>
     ///  记录场景地形（全局）的参数

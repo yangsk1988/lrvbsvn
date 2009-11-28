@@ -4,7 +4,7 @@ using System.Text;
 
 using D3D = SlimDX.Direct3D9;
 
-namespace VirtualBicycle.Graphics.D3D9
+namespace Apoc3D.Graphics.D3D9
 {
     internal sealed class D3D9VertexDeclaration : VertexDeclaration
     {

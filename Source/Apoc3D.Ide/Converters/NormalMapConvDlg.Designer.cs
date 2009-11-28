@@ -1,4 +1,4 @@
-﻿namespace VirtualBicycle.Ide.Converters
+﻿namespace Apoc3D.Ide.Converters
 {
     partial class NormalMapConvDlg
     {

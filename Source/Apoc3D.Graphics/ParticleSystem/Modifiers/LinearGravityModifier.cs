@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Graphics.ParticleSystem.Modifiers
+namespace Apoc3D.Graphics.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents gravity that will affect particles in a linear manner.

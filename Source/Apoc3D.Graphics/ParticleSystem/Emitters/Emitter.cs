@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Graphics.ParticleSystem.Modifiers;
+using Apoc3D.MathLib;
+using Apoc3D.Graphics.ParticleSystem.Modifiers;
 
-namespace VirtualBicycle.Graphics.ParticleSystem.Emitters
+namespace Apoc3D.Graphics.ParticleSystem.Emitters
 {
     [Serializable]
     public class Emitter<T> where T : IParticle, new()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Collections;
 
-namespace VirtualBicycle.Collections
+namespace Apoc3D.Collections
 {
     public abstract class CollectionBase<T> : IEnumerable<T>
     {

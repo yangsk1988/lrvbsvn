@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace VirtualBicycle.Design
+namespace Apoc3D.Design
 {
 #if XBOX
     /// <summary>

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.PluginManager;
+using Apoc3D.PluginManager;
 
-namespace VirtualBicycle.Graphics.D3D9
+namespace Apoc3D.Graphics.D3D9
 {
     public class Plugin : IPlugin
     {
