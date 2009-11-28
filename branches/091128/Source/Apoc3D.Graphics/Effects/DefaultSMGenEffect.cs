@@ -5,7 +5,7 @@ using Apoc3D.Vfs;
 
 namespace Apoc3D.Graphics.Effects
 {
-    public class DefaultSMGenEffect : ModelEffect
+    public class DefaultSMGenEffect : Effect
     {
         #region Not Supported
 
@@ -36,57 +36,75 @@ namespace Apoc3D.Graphics.Effects
 
         #endregion
 
+        RenderSystem renderSys;
+        //Effect effect;
+        PixelShader pixShader;
+        VertexShader vtxShader;
 
-        Effect effect;
+        //EffectHandle ehMVP;
 
-        EffectHandle ehMVP;
-
-        public DefaultSMGenEffect(RenderSystem device)
+        public DefaultSMGenEffect(RenderSystem rs)
             : base(false, "DefaultSMGenEffect")
         {
-            FileLocation fl = FileSystem.Instance.Locate(FileSystem.CombinePath(Paths.Effects, "HardwareShadowMap.fx"), FileLocateRules.Default);
-            ContentStreamReader sr = new ContentStreamReader(fl);
+            EnableAutoParameter = true;
 
-            string err;
-            string code = sr.ReadToEnd();
-            effect = Effect.FromString(device, code, null, IncludeHandler.Instance, null, ShaderFlags.OptimizationLevel3, null, out err);
-            sr.Close();
+            FileLocation fl = FileSystem.Instance.Locate(FileSystem.CombinePath(Paths.Effects, "HardwareShadowMap.vs"), FileLocateRules.Default);
 
-            effect.Technique = new EffectHandle("GenerateShadowMap");
+            LoadVertexShader(rs, fl, null, "main");
 
-            ehMVP = new EffectHandle("mvp");
+            fl = FileSystem.Instance.Locate(FileSystem.CombinePath(Paths.Effects, "HardwareShadowMap.ps"), FileLocateRules.Default);
+
+            LoadPixelShader(rs, fl, null, "main");
+
+            renderSys = rs;
+            //string err;
+            //string code = sr.ReadToEnd();
+            //effect = Effect.FromString(device, code, null, IncludeHandler.Instance, null, ShaderFlags.OptimizationLevel3, null, out err);
+            //sr.Close();
+
+            //effect.Technique = new EffectHandle("GenerateShadowMap");
+
+            //ehMVP = new EffectHandle("mvp");
         }
 
         public override void BeginShadowPass()
         {
-            effect.Begin(FX.DoNotSaveSamplerState | FX.DoNotSaveShaderState | FX.DoNotSaveState);
-            effect.BeginPass(0);
+            renderSys.BindShader(vtxShader);
+            renderSys.BindShader(pixShader);
+
+            //effect.Begin(FX.DoNotSaveSamplerState | FX.DoNotSaveShaderState | FX.DoNotSaveState);
+            //effect.BeginPass(0);
         }
 
         public override void EndShadowPass()
         {
-            effect.EndPass();
-            effect.End();
+            //effect.EndPass();
+            //effect.End();
         }
 
 
 
         public override void SetupShadowPass(Material mat, ref RenderOperation op)
         {
-            effect.SetValue(ehMVP, op.Transformation * EffectParams.ShadowMap.ViewProj);
-
-            effect.CommitChanges();
+            //effect.SetValue(ehMVP, op.Transformation * EffectParams.ShadowMap.ViewProj);
+            
+            //effect.CommitChanges();
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            if (disposing) 
             {
-                effect.Dispose();
-                ehMVP.Dispose();
+                vtxShader.Dispose();
+                pixShader.Dispose();
             }
-            ehMVP = null;
-            effect = null;
+            //if (disposing)
+            //{
+            //    effect.Dispose();
+            //    ehMVP.Dispose();
+            //}
+            //ehMVP = null;
+            //effect = null;
         }
     }
 }

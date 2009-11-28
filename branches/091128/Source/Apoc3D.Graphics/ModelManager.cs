@@ -39,7 +39,7 @@ namespace Apoc3D.Graphics
             {
                 Model mdl = new Model(device, rl);
                 retrived = mdl;
-                base.NotifyResourceNew(mdl, CacheType.Static);
+                base.NotifyResourceNew(mdl);
             }
             else
             {

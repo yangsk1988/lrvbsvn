@@ -17,7 +17,7 @@ namespace Apoc3D.Scene
         ///  正常渲染场景
         /// </summary>
         /// <param name="target">场景渲染目标</param>
-        void RenderScenePost(BackBuffer target);
+        void RenderScenePost(RenderTarget target);
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ namespace Apoc3D.Scene
         /// </summary>
         /// <param name="renderer">实现ISceneRenderer可以渲染场景的对象</param>
         /// <param name="screenTarget">渲染目标</param>
-        void Render(ISceneRenderer renderer, BackBuffer screenTarget);
+        void Render(ISceneRenderer renderer, RenderTarget screenTarget);
     }
 
     /// <summary>
@@ -72,15 +72,15 @@ namespace Apoc3D.Scene
         BackBuffer clrRt;
         BackBuffer blmRt;
 
-        Effect bloomEffect;
-        Effect compEffect;
+        //Effect bloomEffect;
+        //Effect compEffect;
 
-        Effect gaussXBlur;
-        Effect gaussYBlur;
+        //Effect gaussXBlur;
+        //Effect gaussYBlur;
 
-        EffectHandle rtParam;
-        EffectHandle clrRtParam;
-        EffectHandle blmRtParam;
+        //EffectHandle rtParam;
+        //EffectHandle clrRtParam;
+        //EffectHandle blmRtParam;
 
         VertexDeclaration vtxDecl;
 

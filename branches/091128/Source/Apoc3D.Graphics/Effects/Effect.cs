@@ -15,9 +15,6 @@ namespace Apoc3D.Graphics.Effects
 
     public abstract class Effect
     {
-        protected PixelShader pixShader;
-        protected VertexShader vtxShader;
-
         bool begun;
 
         public Effect(bool supportsInstancing, string name)
@@ -26,7 +23,7 @@ namespace Apoc3D.Graphics.Effects
             SupportsInstancing = supportsInstancing;
         }
 
-        protected void LoadVertexShaders(RenderSystem rs, ResourceLocation vs, Macro[] macros, string funcName)
+        protected VertexShader LoadVertexShader(RenderSystem rs, ResourceLocation vs, Macro[] macros, string funcName)
         {
             ObjectFactory fac = rs.ObjectFactory;
 
@@ -35,10 +32,10 @@ namespace Apoc3D.Graphics.Effects
             string code = sr.ReadToEnd();
             sr.Close();
 
-            vtxShader = fac.CreateVertexShader(code, macros, IncludeHandler.Instance, "vs_2_0", funcName);
+            return fac.CreateVertexShader(code, macros, IncludeHandler.Instance, "vs_2_0", funcName);
 
         }
-        protected void LoadPixelShader(RenderSystem rs, ResourceLocation vs, Macro[] macros, string funcName)
+        protected PixelShader LoadPixelShader(RenderSystem rs, ResourceLocation vs, Macro[] macros, string funcName)
         {
             ObjectFactory fac = rs.ObjectFactory;
 
@@ -47,7 +44,7 @@ namespace Apoc3D.Graphics.Effects
             string code = sr.ReadToEnd();
             sr.Close();
 
-            pixShader = fac.CreatePixelShader(code, macros, IncludeHandler.Instance, "ps_2_0", funcName);
+            return fac.CreatePixelShader(code, macros, IncludeHandler.Instance, "ps_2_0", funcName);
         }
 
         #region 属性
@@ -69,13 +66,13 @@ namespace Apoc3D.Graphics.Effects
         }
         #endregion
 
-        protected void SetAutoParameter()
+        protected void SetAutoParameter(PixelShader pixShader, VertexShader vtxShader)
         {
-            if (pixShader != null) 
+            if (pixShader != null)
             {
                 pixShader.AutoSetParameters();
             }
-            if (vtxShader != null) 
+            if (vtxShader != null)
             {
                 pixShader.AutoSetParameters();
             }
@@ -95,12 +92,7 @@ namespace Apoc3D.Graphics.Effects
             {
                 begun = true;
 
-                int ret = begin();
-                if (EnableAutoParameter) 
-                {
-                    SetAutoParameter();
-                }
-                return ret;
+                return begin();
             }
             return -1;
         }

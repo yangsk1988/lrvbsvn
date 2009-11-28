@@ -266,10 +266,18 @@ namespace Apoc3D.Graphics
                 effect.End();
             }
         }
+        public override void Update(float dt)
+        {
+            
+        }
 
         public override RenderOperation[] GetRenderOperation()
         {
             throw new NotImplementedException();
+        }
+        public override bool IsSerializable
+        {
+            get { return true; }
         }
         public override void Serialize(BinaryDataWriter data)
         {
@@ -332,10 +340,10 @@ namespace Apoc3D.Graphics
         #endregion
 
         #region IDisposable 成员
-
-        public void Dispose()
+        protected override void Dispose(bool disposing)
         {
-            if (disposed)
+            base.Dispose(disposing);
+            if (disposing) 
             {
                 if (dayTex != null)
                 {
@@ -350,13 +358,9 @@ namespace Apoc3D.Graphics
                 indexBuffer.Dispose();
                 box.Dispose();
 
-                disposed = true;
-            }
-            else
-            {
-                throw new ObjectDisposedException(ToString());
             }
         }
+
 
         #endregion
     }

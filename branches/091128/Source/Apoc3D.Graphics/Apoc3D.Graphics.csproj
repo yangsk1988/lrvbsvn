@@ -35,6 +35,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -48,9 +51,16 @@
     <Compile Include="Atmosphere.cs" />
     <Compile Include="Collections\SamplerStateCollection.cs" />
     <Compile Include="Desgin\MeshFaceConverter.cs" />
+    <Compile Include="Effects\DefaultSMGenEffect.cs" />
+    <Compile Include="Effects\Post\Bloom.cs" />
+    <Compile Include="Effects\Post\GaussBlurX.cs" />
+    <Compile Include="Effects\Post\PostEffect.cs" />
+    <Compile Include="Effects\Post\GaussBlurY.cs" />
+    <Compile Include="Effects\Post\Composite.cs" />
+    <Compile Include="Effects\StandardEffect.cs" />
     <Compile Include="FpsCounter.cs" />
-    <Compile Include="RenderScript.cs" />
     <Compile Include="Scene\Lights\DirectionalLight.cs" />
+    <Compile Include="Scene\Lights\LightFactory.cs" />
     <Compile Include="Scene\Lights\LightObject.cs" />
     <Compile Include="TextureLibrary.cs" />
     <Compile Include="UnmanagedResource.cs" />
@@ -107,7 +117,6 @@
     <Compile Include="Scene\GameScene.cs" />
     <Compile Include="Scene\GameSceneBase.cs" />
     <Compile Include="Scene\IFindObjectCallBack.cs" />
-    <Compile Include="Scene\Instancing.cs" />
     <Compile Include="Scene\OctreeSceneManager.cs" />
     <Compile Include="Scene\OctreeSceneNode.cs" />
     <Compile Include="Scene\PassInfo.cs" />
@@ -120,12 +129,10 @@
     <Compile Include="Scene\StaticModelObject.cs" />
     <Compile Include="Scene\Terrain.cs" />
     <Compile Include="Scene\TerrainFactory.cs" />
-    <Compile Include="Scene\TerrainTexture.cs" />
-    <Compile Include="Scene\TerrainTextureManager.cs" />
     <Compile Include="Scene\TerrainTreeNode.cs" />
     <Compile Include="ShadowMap.cs" />
     <Compile Include="RenderSystem\VertexFormats.cs" />
-    <Compile Include="SkyBox.cs">
+    <Compile Include="Scene\SkyBox.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="WaterSurface.cs" />
@@ -144,6 +151,9 @@
       <Project>{7C3F7EE7-7E67-462B-80C8-588331703AE9}</Project>
       <Name>JigLibX</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Effects\Post\note.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />

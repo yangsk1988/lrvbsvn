@@ -14,6 +14,7 @@ namespace Apoc3D.Graphics
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class AtmosphereInfo : IConfigurable
     {
+        #region 属性
         Color4F ambientColor;
         Color4F diffuseColor;
         Color4F specularColor;
@@ -141,6 +142,7 @@ namespace Apoc3D.Graphics
         {
             get { return dayLength > 10; }
         }
+        #endregion
 
         #region IConfigurable 成员
 
@@ -301,6 +303,23 @@ namespace Apoc3D.Graphics
 
         float sunAngle;
 
+        #region 属性
+
+        /// <summary>
+        ///  获取光源信息
+        /// </summary>
+        public Light Light
+        {
+            get { return currentLight; }
+        }
+
+        /// <summary>
+        ///  获取光线方向
+        /// </summary>
+        public Vector3 LightDirection
+        {
+            get { return currentLight.Direction; }
+        }
         /// <summary>
         ///  获取或设置太阳角度
         /// </summary>
@@ -309,68 +328,6 @@ namespace Apoc3D.Graphics
             get { return sunAngle; }
             set { sunAngle = value; }
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dev"></param>
-        /// <param name="info"></param>
-        /// <param name="sblcbk">用于创建天空盒的回调函数</param>
-        public Atmosphere(RenderSystem rs, AtmosphereInfo info, SkyBoxLoadCallback sblcbk)
-        {
-            renderSystem = rs;
-            this.info = info;
-
-            //shadowMap = new ShadowMap(dev);
-
-
-            light.Ambient = info.AmbientColor;
-            light.Diffuse = info.DiffuseColor;
-            light.Specular = info.SpecularColor;
-            light.Type = LightType.Directional;
-            currentLight.Ambient = light.Ambient;
-            currentLight.Diffuse = light.Diffuse;
-            currentLight.Specular = light.Specular;
-            currentLight.Type = LightType.Directional;
-
-
-            sunAngle = 3 * MathEx.PIf / 4;
-            light.Direction = new Vector3(-(float)Math.Cos(sunAngle), -(float)Math.Sin(sunAngle), 0f);
-            currentLight.Direction = light.Direction;
-
-            fogMode = info.FogMode;
-            fogStart = info.FogStart;
-            fogEnd = info.FogEnd;
-            fogDensity = info.FogDensity;
-            fogColor = new ColorValue(info.fogColor);
-            currentFogColor = info.fogColor;
-
-            if (info.HasSky)
-            {
-                skyBox = sblcbk(info.SkyName);
-            }
-        }
-
-        public void UpdateSettings()
-        {
-            light.Ambient = info.AmbientColor;
-            light.Diffuse = info.DiffuseColor;
-            light.Specular = info.SpecularColor;
-            light.Type = LightType.Directional;
-            currentLight.Ambient = light.Ambient;
-            currentLight.Diffuse = light.Diffuse;
-            currentLight.Specular = light.Specular;
-            currentLight.Type = LightType.Directional;
-
-
-            fogMode = info.FogMode;
-            fogStart = info.FogStart;
-            fogEnd = info.FogEnd;
-            fogDensity = info.FogDensity;
-            fogColor = new ColorValue(info.fogColor);
-            currentFogColor = info.fogColor;
-        }
-
         /// <summary>
         ///  获取或设置雾的浓度
         /// </summary>
@@ -422,6 +379,69 @@ namespace Apoc3D.Graphics
             get { return currentFogColor; }
             set { currentFogColor = value; }
         }
+
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dev"></param>
+        /// <param name="info"></param>
+        /// <param name="sblcbk">用于创建天空盒的回调函数</param>
+        public Atmosphere(RenderSystem rs, AtmosphereInfo info, SkyBoxLoadCallback sblcbk)
+        {
+            this.renderSystem = rs;
+            this.info = info;
+
+            light = new Light();
+            light.Ambient = info.AmbientColor;
+            light.Diffuse = info.DiffuseColor;
+            light.Specular = info.SpecularColor;
+            light.Type = LightType.Directional;
+            currentLight.Ambient = light.Ambient;
+            currentLight.Diffuse = light.Diffuse;
+            currentLight.Specular = light.Specular;
+            currentLight.Type = LightType.Directional;
+
+
+            sunAngle = 3 * MathEx.PIf / 4;
+            light.Direction = new Vector3(-(float)Math.Cos(sunAngle), -(float)Math.Sin(sunAngle), 0f);
+            currentLight.Direction = light.Direction;
+
+            fogMode = info.FogMode;
+            fogStart = info.FogStart;
+            fogEnd = info.FogEnd;
+            fogDensity = info.FogDensity;
+            fogColor = new ColorValue(info.fogColor);
+            currentFogColor = info.fogColor;
+
+            if (info.HasSky)
+            {
+                skyBox = sblcbk(info.SkyName);
+            }
+        }
+
+        public void UpdateSettings()
+        {
+            light.Ambient = info.AmbientColor;
+            light.Diffuse = info.DiffuseColor;
+            light.Specular = info.SpecularColor;
+            light.Type = LightType.Directional;
+            currentLight.Ambient = light.Ambient;
+            currentLight.Diffuse = light.Diffuse;
+            currentLight.Specular = light.Specular;
+            currentLight.Type = LightType.Directional;
+
+
+            fogMode = info.FogMode;
+            fogStart = info.FogStart;
+            fogEnd = info.FogEnd;
+            fogDensity = info.FogDensity;
+            fogColor = new ColorValue(info.fogColor);
+            currentFogColor = info.fogColor;
+        }
+
+
 
         /// <summary>
         ///  渲染大气效果
@@ -549,26 +569,6 @@ namespace Apoc3D.Graphics
 
             //currentFogColor = currFogClr.ToArgb();
         }
-
-        /// <summary>
-        ///  获取光源信息
-        /// </summary>
-        public Light Light
-        {
-            get { return currentLight; }
-        }
-
-        /// <summary>
-        ///  获取光线方向
-        /// </summary>
-        public Vector3 LightDirection
-        {
-            get { return currentLight.Direction; }
-        }
-        //public ShadowMap ShadowMap
-        //{
-        //    get { return shadowMap; }
-        //}
 
     }
 }

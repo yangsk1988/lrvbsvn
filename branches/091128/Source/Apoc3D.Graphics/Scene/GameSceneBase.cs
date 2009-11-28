@@ -38,7 +38,7 @@ namespace Apoc3D.Scene
         ShadowMap shadowMap;
 
         IPostSceneRenderer postRenderer;
-        Instancing instancing;
+        //Instancing instancing;
 
         protected FastList<CType> visibleClusters;
 
@@ -54,9 +54,7 @@ namespace Apoc3D.Scene
 
         //Dictionary<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>> instanceTable;
 
-        protected FastList<SceneObject> visibleObjects;
-
-        PassInfo batchData = new PassInfo();
+        PassData batchData = new PassData();
 
         //public ClusterTable ClusterTable
         //{
@@ -229,17 +227,7 @@ namespace Apoc3D.Scene
             CellUnit = data.CellUnit;
 
 
-            effects = new Dictionary<string, Effect>();
-            batchTable = new Dictionary<string, FastList<RenderOperation>>();
-            instanceTable = new Dictionary<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>>();
 
-            visibleObjects = new FastList<SceneObject>();
-
-
-            batchData.batchTable = batchTable;
-            batchData.effects = effects;
-            batchData.instanceTable = instanceTable;
-            batchData.visibleObjects = visibleObjects;
 
             this.instancing = new Instancing(device);
 

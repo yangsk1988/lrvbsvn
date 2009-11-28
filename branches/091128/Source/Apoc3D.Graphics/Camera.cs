@@ -28,7 +28,7 @@ namespace Apoc3D
         Vector3 Top { get; }
         Vector3 Right { get; }
 
-        BackBuffer RenderTarget { get; }
+        RenderTarget RenderTarget { get; }
     }
 
 
@@ -57,7 +57,7 @@ namespace Apoc3D
 
         protected bool isProjDirty;
 
-        public BackBuffer RenderTarget
+        public RenderTarget RenderTarget
         {
             get;
             set;

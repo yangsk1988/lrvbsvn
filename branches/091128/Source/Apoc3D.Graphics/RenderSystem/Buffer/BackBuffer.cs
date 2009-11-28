@@ -46,7 +46,7 @@ namespace Apoc3D.Graphics
             private set;
         }
 
-        protected BackBuffer(int width, int height, BufferUsage usage, PixelFormat format)
+        protected BackBuffer(int width, int height, BufferUsage usage, ImagePixelFormat format)
             : base(usage, PixelFormat.GetMemorySize(width, height, 1, format), false)
         {
             Width = width;
@@ -54,7 +54,7 @@ namespace Apoc3D.Graphics
 
             ColorFormat = format;
         }
-
+        
         //static int[] bytesPP;
         //static int GetMemorySize(int width, int height, DepthFormat format)
         //{

@@ -367,7 +367,7 @@ namespace Apoc3D.Scene
             return result;
         }
 
-        public override void PrepareVisibleObjects(ICamera camera, PassInfo batchHelper)
+        public override void PrepareVisibleObjects(ICamera camera, PassData batchHelper)
         {
             batchHelper.visibleObjects.FastClear();
 

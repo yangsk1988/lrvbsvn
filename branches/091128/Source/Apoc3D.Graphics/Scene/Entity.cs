@@ -32,7 +32,7 @@ namespace Apoc3D.Scene
     /// <summary>
     ///  表示可以旋转的物体
     /// </summary>
-    public interface IRoatableObject
+    public interface IRotatebleObject
     {
         /// <summary>
         ///  获取或设置一个表示物体朝向的四元数
@@ -54,7 +54,7 @@ namespace Apoc3D.Scene
     /// <summary>
     ///  表示有带有的场景物体
     /// </summary>
-    public abstract class Entity : SceneObject, IUpdatable, IPositionedObject, IRoatableObject
+    public abstract class Entity : SceneObject, IUpdatable, IPositionedObject, IRotatebleObject
     {
         #region 字段
 
@@ -131,6 +131,21 @@ namespace Apoc3D.Scene
                     RigidBody.Orientation = value;
                 }
                 orientation = value;
+                isTransformDirty = true;
+            }
+        }
+
+        Quaternion IRotatebleObject.Orientation 
+        {
+            get { return Quaternion.RotationMatrix(orientation); }
+            set
+            {
+                Matrix newori = Matrix.RotationQuaternion(value);
+                if (RigidBody != null) 
+                {
+                    RigidBody.Orientation = newori;
+                }
+                orientation = newori;
                 isTransformDirty = true;
             }
         }
