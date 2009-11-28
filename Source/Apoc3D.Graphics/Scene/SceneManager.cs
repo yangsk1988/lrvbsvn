@@ -174,14 +174,14 @@ namespace Apoc3D.Scene
         /// 根据摄像机的视见体准备可见物体
         /// </summary>
         /// <param name="camera"></param>
-        public abstract void PrepareVisibleObjects(ICamera camera, PassInfo batchHelper);
+        public abstract void PrepareVisibleObjects(ICamera camera, PassData batchHelper);
 
         /// <summary>
         /// 添加可见物体，准备渲染
         /// </summary>
         /// <param name="obj">要添加的物体</param>
         /// <remarks>用于渲染批次优化</remarks>
-        protected void AddVisibleObject(SceneObject obj, PassInfo batchHelper)
+        protected void AddVisibleObject(SceneObject obj, PassData batchHelper)
         {
             batchHelper.RenderedObjectCount++;
 
@@ -204,72 +204,83 @@ namespace Apoc3D.Scene
 
                         if (mate != null)
                         {
-                            string desc;
-                            bool supportsInst;
-                            if (mate.Effect == null)
+                            FastList<RenderOperation> opList;
+
+                            if (!batchHelper.batchTable.TryGetValue(mate, out opList))
                             {
-                                desc = string.Empty;
-                                // if effect is null, instancing is supported by defualt
-                                supportsInst = true;
-                            }
-                            else
-                            {
-                                supportsInst = mate.Effect.SupportsInstancing;
-                                desc = mate.Effect.Name + "_" + mate.BatchIndex.ToString();
+                                opList = new FastList<RenderOperation>();
+                                batchHelper.batchTable.Add(mate, opList);
                             }
 
+                            //Matrix.Multiply(ref ops[k].Transformation, ref obj.Transformation, out ops[k].Transformation);
+                            //ops[k].Transformation = obj.Transformation;
+                            opList.Add(ops[k]);
 
-                            if (supportsInst && ops[k].Geomentry.UseIndices)
-                            {
-                                Effect effect;
-                                if (!batchHelper.effects.TryGetValue(desc, out effect))
-                                {
-                                    batchHelper.effects.Add(desc, mate.Effect);
-                                }
 
-                                Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable;
-                                if (!batchHelper.instanceTable.TryGetValue(desc, out matTable))
-                                {
-                                    matTable = new Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>();
-                                    batchHelper.instanceTable.Add(desc, matTable);
-                                }
+                            //if (mate.Effect == null)
+                            //{
+                            //    desc = string.Empty;
+                            //    // if effect is null, instancing is supported by defualt
+                            //    supportsInst = true;
+                            //}
+                            //else
+                            //{
+                            //    supportsInst = mate.Effect.SupportsInstancing;
+                            //    desc = mate.Effect.Name + "_" + mate.BatchIndex.ToString();
+                            //}
 
-                                Dictionary<GeomentryData, FastList<RenderOperation>> geoDataTbl;
-                                if (!matTable.TryGetValue(mate, out geoDataTbl))
-                                {
-                                    geoDataTbl = new Dictionary<GeomentryData, FastList<RenderOperation>>();
-                                    matTable.Add(mate, geoDataTbl);
-                                }
 
-                                FastList<RenderOperation> instOpList;
-                                if (!geoDataTbl.TryGetValue(geoData, out instOpList))
-                                {
-                                    instOpList = new FastList<RenderOperation>();
-                                    geoDataTbl.Add(geoData, instOpList);
-                                }
+                            //if (supportsInst && ops[k].Geomentry.UseIndices)
+                            //{
+                            //    Effect effect;
+                            //    if (!batchHelper.effects.TryGetValue(desc, out effect))
+                            //    {
+                            //        batchHelper.effects.Add(desc, mate.Effect);
+                            //    }
 
-                                instOpList.Add(ops[k]);
-                            }
-                            else
-                            {
-                                Effect effect;
-                                FastList<RenderOperation> opList;
+                            //    Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable;
+                            //    if (!batchHelper.instanceTable.TryGetValue(desc, out matTable))
+                            //    {
+                            //        matTable = new Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>();
+                            //        batchHelper.instanceTable.Add(desc, matTable);
+                            //    }
 
-                                if (!batchHelper.effects.TryGetValue(desc, out effect))
-                                {
-                                    batchHelper.effects.Add(desc, mate.Effect);
-                                }
+                            //    Dictionary<GeomentryData, FastList<RenderOperation>> geoDataTbl;
+                            //    if (!matTable.TryGetValue(mate, out geoDataTbl))
+                            //    {
+                            //        geoDataTbl = new Dictionary<GeomentryData, FastList<RenderOperation>>();
+                            //        matTable.Add(mate, geoDataTbl);
+                            //    }
 
-                                if (!batchHelper.batchTable.TryGetValue(desc, out opList))
-                                {
-                                    opList = new FastList<RenderOperation>();
-                                    batchHelper.batchTable.Add(desc, opList);
-                                }
+                            //    FastList<RenderOperation> instOpList;
+                            //    if (!geoDataTbl.TryGetValue(geoData, out instOpList))
+                            //    {
+                            //        instOpList = new FastList<RenderOperation>();
+                            //        geoDataTbl.Add(geoData, instOpList);
+                            //    }
 
-                                //Matrix.Multiply(ref ops[k].Transformation, ref obj.Transformation, out ops[k].Transformation);
-                                //ops[k].Transformation = obj.Transformation;
-                                opList.Add(ops[k]);
-                            }
+                            //    instOpList.Add(ops[k]);
+                            //}
+                            //else
+                            //{
+                            //    Effect effect;
+                            //    FastList<RenderOperation> opList;
+
+                            //    if (!batchHelper.effects.TryGetValue(desc, out effect))
+                            //    {
+                            //        batchHelper.effects.Add(desc, mate.Effect);
+                            //    }
+
+                            //    if (!batchHelper.batchTable.TryGetValue(desc, out opList))
+                            //    {
+                            //        opList = new FastList<RenderOperation>();
+                            //        batchHelper.batchTable.Add(desc, opList);
+                            //    }
+
+                            //    //Matrix.Multiply(ref ops[k].Transformation, ref obj.Transformation, out ops[k].Transformation);
+                            //    //ops[k].Transformation = obj.Transformation;
+                            //    opList.Add(ops[k]);
+                            //}
                         }
                     }
                 }
@@ -417,7 +428,7 @@ namespace Apoc3D.Scene
             return result;
         }
 
-        public override void PrepareVisibleObjects(ICamera camera, PassInfo batchHelper)
+        public override void PrepareVisibleObjects(ICamera camera, PassData batchHelper)
         {
             batchHelper.visibleObjects.FastClear();
             for (int i = 0; i < sceneNodes.Count; i++)

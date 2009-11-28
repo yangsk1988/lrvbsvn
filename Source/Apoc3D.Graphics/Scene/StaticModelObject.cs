@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using JigLibX.Geometry;
-using JigLibX.Physics;
 using Apoc3D.Graphics;
 using Apoc3D.MathLib;
+using JigLibX.Geometry;
+using JigLibX.Physics;
 
 namespace Apoc3D.Scene
 {
@@ -39,7 +39,7 @@ namespace Apoc3D.Scene
             : base(hasSubObjects)
         {
             base.position = position;
-            base.orientation = orientation;
+            base.orientation = Matrix.RotationQuaternion(orientation);
 
             base.UpdateTransform();
         }

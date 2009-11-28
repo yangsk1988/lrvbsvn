@@ -69,6 +69,7 @@ namespace Apoc3D.Graphics
         }
 
         public abstract void SetValue<T>(string paramName, T value) where T : struct;
+        public abstract void SetTexture(string paramName, Texture tex);
 
         public abstract void AutoSetParameters();
 

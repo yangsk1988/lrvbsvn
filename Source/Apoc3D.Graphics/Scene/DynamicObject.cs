@@ -29,7 +29,7 @@ namespace Apoc3D.Scene
         {
             if (RigidBody != null)
             {
-                position = RigidBody.CenterOfMassPosition;
+                position = RigidBody.Position;
                 orientation = RigidBody.Orientation;
 
                 isTransformDirty = true;

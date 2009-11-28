@@ -66,7 +66,7 @@ namespace Apoc3D.Graphics
         WordBreak = 16
     }
 
-    public unsafe class FontBase<T>
+    public abstract unsafe class FontBase<T>
         where T : class
     {
         public const int Id = 'S' << 24 | 'F' << 16 | 'N' << 8 | 'T';

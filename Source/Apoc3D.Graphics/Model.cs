@@ -28,7 +28,7 @@ namespace Apoc3D.Graphics
         //protected Animation animation;
         protected RenderSystem renderSystem;
 
-        AnimationInstance animInstance;
+        protected AnimationInstance animInstance;
 
         //TransformAnimationInstance transAnim;
         //SkinAnimationInstance skinAnim;
@@ -114,8 +114,8 @@ namespace Apoc3D.Graphics
                 br.Close();
             }
 
-            ModelAnimationFlags flags = (ModelAnimationFlags)data.GetDataInt32(AnimationFlagTag);
-            BinaryDataReader animData;
+            //ModelAnimationFlags flags = (ModelAnimationFlags)data.GetDataInt32(AnimationFlagTag);
+            //BinaryDataReader animData;
 
             //if ((flags & ModelAnimationFlags.EntityTransform) == ModelAnimationFlags.EntityTransform)
             //{
@@ -218,16 +218,16 @@ namespace Apoc3D.Graphics
             }
         }
 
-        public override void ReadCacheData(Stream stream)
-        {
-            ReadData(new BinaryDataReader(new VirtualStream(stream)));
-        }
-        public override void WriteCacheData(Stream stream)
-        {
-            BinaryDataWriter data = new BinaryDataWriter();
-            WriteData(data);
-            data.Save(new VirtualStream(stream));
-        }
+        //public override void ReadCacheData(Stream stream)
+        //{
+        //    ReadData(new BinaryDataReader(new VirtualStream(stream)));
+        //}
+        //public override void WriteCacheData(Stream stream)
+        //{
+        //    BinaryDataWriter data = new BinaryDataWriter();
+        //    WriteData(data);
+        //    data.Save(new VirtualStream(stream));
+        //}
     }
 
     /// <summary>
@@ -403,7 +403,7 @@ namespace Apoc3D.Graphics
                         renderOpEntId[dstIdx + j] = i;
                         //opBuffer[dstIdx + j].Geomentry = entOps[i][j];
                         //animation.GetTransform(i, out  opBuffer[dstIdx + j].Transformation);
-                        opBuffer[i].Transformation = TransformAnim.GetTransform(renderOpEntId[i]);
+                        opBuffer[i].Transformation =  TransformAnim.GetTransform(renderOpEntId[i]);
                     }
 
                     dstIdx += entOps[i].Length;
@@ -450,14 +450,11 @@ namespace Apoc3D.Graphics
 
         public void Update(float dt)
         {
-            if (TransformAnim != null)
+            if (animInstance != null) 
             {
-                TransformAnim.Update(dt);
+                animInstance.Update(dt);
             }
-            if (SkinAnim != null)
-            {
-                SkinAnim.Update(dt);
-            }
+
             if (entities != null)
             {
                 for (int i = 0; i < entities.Length; i++)

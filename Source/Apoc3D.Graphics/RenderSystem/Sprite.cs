@@ -8,7 +8,7 @@ using Apoc3D.MathLib;
 
 namespace Apoc3D.Graphics
 {
-    public class Sprite : IDisposable
+    public class Sprite : IDisposable, IRenderable
     {
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         struct SpriteVertex
@@ -64,7 +64,7 @@ namespace Apoc3D.Graphics
 
                 buffer = fac.CreateVertexBuffer(5, SpriteVertex.Declaration, BufferUsage.Dynamic | BufferUsage.WriteOnly);
 
-                material = new Material();
+                material = new Material(rs);
                 material.Ambient = new Color4F(1, 1, 1, 1);
 
                 geoData = new GeomentryData(spr);
@@ -155,7 +155,7 @@ namespace Apoc3D.Graphics
 
         #endregion
 
-        public void Begin()        
+        public void Begin()
         {
             bufferedOp.Clear();
             curIndex = 0;
@@ -185,11 +185,11 @@ namespace Apoc3D.Graphics
             }
 
             buf.SetVertex(new Vector3(x, y, 0),
-                new Vector3(x + texture.Width, y, 0), 
+                new Vector3(x + texture.Width, y, 0),
                 new Vector3(x, y + texture.Height, 0),
                 new Vector3(x + texture.Width, y + texture.Height, 0));
             buf.Material.SetTexture(0, texture);
-            
+
             curIndex++;
 
             RenderOperation op;

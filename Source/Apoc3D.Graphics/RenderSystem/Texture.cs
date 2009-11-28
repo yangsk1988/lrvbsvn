@@ -4,6 +4,8 @@ using System.Text;
 using Apoc3D.Core;
 using Apoc3D.Media;
 using Apoc3D.MathLib;
+using Apoc3D.Vfs;
+using System.IO;
 
 namespace Apoc3D.Graphics
 {
@@ -23,12 +25,12 @@ namespace Apoc3D.Graphics
             convTable[(int)ImageType.Image3D] = TextureType.Texture3D;
         }
 
-
         protected static TextureType ConvertEnum(ImageType type)
         {
             return convTable[(int)type];
         }
 
+        #region 属性
 
         public RenderSystem RenderSystem
         {
@@ -36,130 +38,11 @@ namespace Apoc3D.Graphics
             private set;
         }
 
-        //ImageLoader imageLoader;
-
-        protected Texture(RenderSystem rs)
+        protected ResourceLocation ResourceLocation
         {
-            this.RenderSystem = rs;
+            get;
+            private set;
         }
-
-        protected Texture(RenderSystem rs, BackBuffer[] surface, TextureUsage usage)
-        {
-            this.RenderSystem = rs;
-            this.SurfaceCount = surface.Length;
-            this.Width = surface[0].Width;
-            this.Height = surface[0].Height;
-            this.Depth = 1;
-
-            this.Type = TextureType.Texture2D;
-            this.Format = surface[0].ColorFormat;
-            //this.BytesPerPixel = Image.GetBytesPerPixel(Format);
-            this.ContentSize = PixelFormat.GetMemorySize(Width, Height, 1, Format);
-
-            this.Usage = usage;
-
-
-        }
-
-        //protected Texture(RenderSystem rs, System.Drawing.Bitmap bitmap, TextureUsage usage)
-        //{
-        //    this.RenderSystem = rs;
-        //    this.Width = bitmap.Width;
-        //    this.Height = bitmap.Height;
-        //    this.SurfaceCount = 1;
-        //    this.Depth = 1;
-        //    this.Type = TextureType.Texture2D;
-        //    this.Format = PixelFormat.A8R8G8B8;
-        //    this.BytesPerPixel = 4;
-        //    this.ContentSize = Width * Height * 4;
-        //    this.Usage = usage;
-        //}
-
-        protected Texture(RenderSystem rs, int width, int height, int depth, int surfaceCount, ImagePixelFormat format, TextureUsage usage)
-        {
-            this.RenderSystem = rs;
-            this.SurfaceCount = surfaceCount;
-            this.Width = width;
-            this.Height = height;
-            this.Depth = depth;
-            this.Usage = usage;
-            this.Format = format;
-
-            //this.BytesPerPixel = Image.GetBytesPerPixel(format);
-
-            if (depth == 1)
-            {
-                if (width == 1 || height == 1)
-                {
-                    this.Type = TextureType.Texture1D;
-                }
-                else
-                {
-                    this.Type = TextureType.Texture2D;
-                }
-            }
-            else
-            {
-                this.Type = TextureType.Texture3D;
-            }
-            this.ContentSize = PixelFormat.GetMemorySize(width, height, 1, format);
-        }
-
-        protected Texture(RenderSystem rs, int length, int levelCount, TextureUsage usage, ImagePixelFormat format)
-        {
-            this.RenderSystem = rs;
-            this.SurfaceCount = levelCount;
-            this.Width = length;
-            this.Height = length;
-            this.Depth = 1;
-            this.Usage = usage;
-            this.Format = format;
-            this.Type = TextureType.CubeTexture;
-
-            //this.BytesPerPixel = Image.GetBytesPerPixel(format);
-
-            this.ContentSize = 6 * PixelFormat.GetMemorySize(length, length, 1, format);
-        }
-
-        //protected Texture(RenderSystem rs, ImageLoader image, TextureUsage usage)
-        //    : base(TextureManager.Instance, image.GetHashCode())
-        //{
-        //    this.Usage = usage;
-        //    this.imageLoader = image;
-        //}
-
-        //protected Texture(RenderSystem rs, Texture resourceEntity)
-        //    : base(TextureManager.Instance, resourceEntity)
-        //{
-        //    this.BytesPerPixel = resourceEntity.BytesPerPixel;
-        //    this.ContentSize = resourceEntity.ContentSize;
-
-        //    this.Type = resourceEntity.Type;
-        //    this.Usage = resourceEntity.Usage;
-
-        //    this.Width = resourceEntity.Width;
-        //    this.Height = resourceEntity.Height;
-        //    this.Format = resourceEntity.Format;
-        //    this.SurfaceCount = resourceEntity.SurfaceCount;
-        //}
-
-        //protected Texture(RenderSystem rs, Image image, TextureUsage usage)
-        //    : base()
-        //{
-        //    this.SurfaceCount = image.MipmapCount;
-        //    this.Width = image.Width;
-        //    this.Height = image.Height;
-        //    this.Depth = image.Depth;
-        //    this.Usage = usage;
-        //    this.Format = image.Format;
-        //    this.Type = ConvertEnum(image.Type);
-
-        //    this.BytesPerPixel = Image.GetBytesPerPixel(Format);
-
-        //    this.ContentSize = image.SizeInBytes;
-        //    LoadImage(image);
-        //}
-
         public TextureType Type
         {
             get;
@@ -217,32 +100,89 @@ namespace Apoc3D.Graphics
             get;
             private set;
         }
+        #endregion
 
+        #region 构造函数
+        protected Texture(RenderSystem rs, ResourceLocation rl)
+            : base(TextureManager.Instance, rl.Name)
+        {
+            this.RenderSystem = rs;
+            this.ResourceLocation = rl;
+        }
+
+        protected Texture(RenderSystem rs, BackBuffer[] surface, TextureUsage usage)
+        {
+            this.RenderSystem = rs;
+            this.SurfaceCount = surface.Length;
+            this.Width = surface[0].Width;
+            this.Height = surface[0].Height;
+            this.Depth = 1;
+
+            this.Type = TextureType.Texture2D;
+            this.Format = surface[0].ColorFormat;
+            //this.BytesPerPixel = Image.GetBytesPerPixel(Format);
+            this.ContentSize = PixelFormat.GetMemorySize(Width, Height, 1, Format);
+
+            this.Usage = usage;
+
+
+        }
+
+        protected Texture(RenderSystem rs, int width, int height, int depth, int surfaceCount, ImagePixelFormat format, TextureUsage usage)
+        {
+            this.RenderSystem = rs;
+            this.SurfaceCount = surfaceCount;
+            this.Width = width;
+            this.Height = height;
+            this.Depth = depth;
+            this.Usage = usage;
+            this.Format = format;
+
+            //this.BytesPerPixel = Image.GetBytesPerPixel(format);
+
+            if (depth == 1)
+            {
+                if (width == 1 || height == 1)
+                {
+                    this.Type = TextureType.Texture1D;
+                }
+                else
+                {
+                    this.Type = TextureType.Texture2D;
+                }
+            }
+            else
+            {
+                this.Type = TextureType.Texture3D;
+            }
+            this.ContentSize = PixelFormat.GetMemorySize(width, height, 1, format);
+        }
+
+        protected Texture(RenderSystem rs, int length, int levelCount, TextureUsage usage, ImagePixelFormat format)
+        {
+            this.RenderSystem = rs;
+            this.SurfaceCount = levelCount;
+            this.Width = length;
+            this.Height = length;
+            this.Depth = 1;
+            this.Usage = usage;
+            this.Format = format;
+            this.Type = TextureType.CubeTexture;
+
+            //this.BytesPerPixel = Image.GetBytesPerPixel(format);
+
+            this.ContentSize = 6 * PixelFormat.GetMemorySize(length, length, 1, format);
+        }
+        #endregion
 
         public override int GetSize()
         {
             return ContentSize;
         }
-       
 
-        //protected abstract void LoadImage(Image image);
-       
+        public abstract void Save(Stream stm);               
 
-        //protected override void load()
-        //{
-            //Image image = imageLoader.Load();
-            //SurfaceCount = image.MipmapCount;
-            //Width = image.Width;
-            //Height = image.Height;
-            //Depth = image.Depth;
-            //Format = image.Format;
-            //Type = ConvertEnum(image.Type);
-            //BytesPerPixel = image.BytesPerPixel;
-            //ContentSize = image.SizeInBytes;
-
-            //LoadImage(image);
-        //}
-
+        #region locks
         protected abstract DataRectangle @lock(int surface, LockMode mode, Rectangle rect);
         protected abstract DataBox @lock(int surface, LockMode mode, Box box);
         protected abstract DataRectangle @lock(int surface, CubeMapFace cubemapFace, LockMode mode, Rectangle rect);
@@ -289,7 +229,6 @@ namespace Apoc3D.Graphics
             throw new InvalidOperationException();
         }
 
-
         public DataBox Lock(int surface, LockMode mode, Box box)
         {
             if (!IsLocked)
@@ -300,6 +239,30 @@ namespace Apoc3D.Graphics
             }
             throw new InvalidOperationException();
         }
+        protected abstract void unlock(int surface);
+
+        protected abstract void unlock(CubeMapFace cubemapFace, int surface);
+
+        public void Unlock(int surface)
+        {
+            if (IsLocked)
+            {
+                unlock(surface);
+                IsLocked = false;
+            }
+            throw new InvalidOperationException();
+        }
+        public void Unlock(CubeMapFace cubemapFace, int surface)
+        {
+            if (IsLocked)
+            {
+                unlock(cubemapFace, surface);
+                IsLocked = false;
+            }
+            throw new InvalidOperationException();
+        }
+        #endregion
+
         //public unsafe DataStream LockStream(int surface, LockMode mode, CubeMapFace cubemapFace, Rectangle rect)
         //{
         //    if (!IsLocked)
@@ -429,27 +392,7 @@ namespace Apoc3D.Graphics
         //    throw new InvalidOperationException();
         //}
 
-        protected abstract void unlock(int surface);
-
-        protected abstract void unlock(CubeMapFace cubemapFace, int surface);
-
-        public void Unlock(int surface)
-        {
-            if (IsLocked)
-            {
-                unlock(surface);
-                IsLocked = false;
-            }
-            throw new InvalidOperationException();
-        }
-        public void Unlock(CubeMapFace cubemapFace, int surface) 
-        {
-            if (IsLocked )
-            {
-                unlock(cubemapFace, surface);
-                IsLocked = false;
-            }
-            throw new InvalidOperationException();
-        }
+       
+        
     }
 }

@@ -387,8 +387,8 @@ namespace Apoc3D.Core
         //    cacheMem = new CacheMemory();
         //}
 
-        protected abstract void ReadCacheData(Stream stream);
-        protected abstract void WriteCacheData(Stream stream);
+        //protected abstract void ReadCacheData(Stream stream);
+        //protected abstract void WriteCacheData(Stream stream);
         #endregion
 
         /// <summary>

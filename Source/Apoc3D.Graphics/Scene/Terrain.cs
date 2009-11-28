@@ -211,10 +211,10 @@ namespace Apoc3D.Scene
 
         protected Material material;
 
-        TerrainTexture displacementMap;
-        TerrainTexture colorMap;
-        TerrainTexture normalMap;
-        TerrainTexture indexMap;
+        Texture displacementMap;
+        Texture colorMap;
+        Texture normalMap;
+        Texture indexMap;
 
         protected Texture[] detailMaps = new Texture[DetailLayerCount];
         protected Texture[] detailNrmMaps = new Texture[DetailLayerCount];
@@ -287,22 +287,22 @@ namespace Apoc3D.Scene
             get { return collBlocks != null; }
         }
 
-        public TerrainTexture DisplacementMap
+        public Texture DisplacementMap
         {
             get { return displacementMap; }
             protected set { displacementMap = value; }
         }
-        public TerrainTexture ColorMap
+        public Texture ColorMap
         {
             get { return colorMap; }
             protected set { colorMap = value; }
         }
-        public TerrainTexture NormalMap
+        public Texture NormalMap
         {
             get { return normalMap; }
             protected set { normalMap = value; }
         }
-        public TerrainTexture IndexMap
+        public Texture IndexMap
         {
             get { return indexMap; }
             protected set { indexMap = value; }
@@ -312,15 +312,15 @@ namespace Apoc3D.Scene
 
         #region 构造函数
 
-        public Terrain(RenderSystem device, float cellUnit, TerrainSettings terrData)
+        public Terrain(RenderSystem rs, float cellUnit, TerrainSettings terrData)
             : base(true)
         {
-            ObjectFactory fac = device.ObjectFactory;
+            ObjectFactory fac = rs.ObjectFactory;
 
             this.bfsQueue = new Queue<TerrainTreeNode>();
             this.opBuffer = new FastList<RenderOperation>();
 
-            this.device = device;
+            this.device = rs;
 
             this.terrainSettings = terrData;
 
@@ -691,7 +691,7 @@ namespace Apoc3D.Scene
 
             worldTrans = Matrix.Identity;
 
-            material = new Material(device);
+            material = new Material(rs);
             material.CullMode = CullMode.CounterClockwise;
 
             material.Ambient = terrData.MaterialAmbient;
@@ -1227,7 +1227,7 @@ namespace Apoc3D.Scene
         {
             if (!isPhyBuilt)
             {
-                TerrainTexture terrTex = DisplacementMap;
+                Texture terrTex = DisplacementMap;
 
                 Array2D heights = new Array2D(TerrainSize, TerrainSize);
 
