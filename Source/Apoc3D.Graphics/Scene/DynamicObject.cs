@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.CollisionModel;
-using VirtualBicycle.CollisionModel.Shapes;
-using VirtualBicycle.Physics;
-using VirtualBicycle.Physics.Dynamics;
-using PM = VirtualBicycle.Physics.MathLib;
+using JigLibX.Physics;
 
 namespace VirtualBicycle.Scene
 {
@@ -57,22 +53,21 @@ namespace VirtualBicycle.Scene
         {
             get { return true; }
         }
-        public override void BuildPhysicsModel(DynamicsWorld world)
+        public override void BuildPhysicsModel(PhysicsSystem world)
         {
             UpdateTransform();
+            //BoxShape shape = new BoxShape(new Vector3(1));
+            //MotionState motionState = new DefaultMotionState(Transformation);
 
-            BoxShape shape = new BoxShape(new Vector3(1));
-            MotionState motionState = new DefaultMotionState(Transformation);
+            //PM.Vector3 inertia;
+            //shape.CalculateLocalInertia(1, out inertia);
 
-            PM.Vector3 inertia;
-            shape.CalculateLocalInertia(1, out inertia);
+            //RigidBody = new RigidBody(1, motionState, shape, inertia, 0, 0, 0.5f, 0.5f);
 
-            RigidBody = new RigidBody(1, motionState, shape, inertia, 0, 0, 0.5f, 0.5f);
-
-            if (world != null)
-            {
-                world.AddRigidBody(RigidBody);
-            }
+            //if (world != null)
+            //{
+            //    world.AddRigidBody(RigidBody);
+            //}
         }
 
         #endregion

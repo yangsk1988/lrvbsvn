@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using JigLibX.Collision;
+using JigLibX.Physics;
 using VirtualBicycle.Collections;
-using VirtualBicycle.CollisionModel.Dispatch;
-using VirtualBicycle.CollisionModel.Shapes;
 using VirtualBicycle.Graphics;
-using VirtualBicycle.Vfs;
 using VirtualBicycle.MathLib;
-using VirtualBicycle.Physics;
-using VirtualBicycle.Physics.Dynamics;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Scene
 {
@@ -20,16 +18,17 @@ namespace VirtualBicycle.Scene
     {
         #region 物理相关
 
-        /// <summary>
-        ///  【见方法】
-        /// </summary>
-        RigidBody rigidBody;
+        ///// <summary>
+        /////  【见方法】
+        ///// </summary>
+        //RigidBody rigidBody;
+        Body rigidBody;
 
         /// <summary>
         ///  获取该物体在物理引擎中的的刚体对象
         /// </summary>
         [Browsable(false)]
-        public RigidBody RigidBody
+        public Body RigidBody
         {
             get { return rigidBody; }
             protected set { rigidBody = value; }
@@ -49,87 +48,21 @@ namespace VirtualBicycle.Scene
         ///  加载该物体所有与物体有关的资源，当场景中所有物体均被加载后，引擎才会开始调用该方法。
         /// </summary>
         /// <param name="world"></param>
-        public virtual void BuildPhysicsModel(DynamicsWorld world)
+        public virtual void BuildPhysicsModel(PhysicsSystem world)
         {
             throw new NotSupportedException();
         }
 
-        /// <summary>
-        ///  【无信息】物理引擎未提供信息。可能是刚体所受的力矩回乘上这个比率。
-        /// </summary>
-        public float AngularFactor
+        public CollisionSkin CollisionShape 
         {
-            get
+            get 
             {
-                if (RigidBody == null)
-                    return 0;
-                return rigidBody.AngularFactor;
+                if (rigidBody == null) 
+                {
+                    return null;
+                }
+                return rigidBody.CollisionSkin;
             }
-            set { rigidBody.AngularFactor = value; }
-        }
-
-        /// <summary>
-        ///  【无信息】物理引擎未提供信息。
-        /// </summary>
-        public ContactSolverType FrictionSolverType
-        {
-            get
-            {
-                if (RigidBody == null)
-                    return ContactSolverType.Default;
-                return rigidBody.FrictionSolverType;
-            }
-            set { rigidBody.FrictionSolverType = value; }
-        }
-
-        /// <summary>
-        ///  【无信息】物理引擎未提供信息。
-        /// </summary>
-        public ContactSolverType ContactSolverType
-        {
-            get
-            {
-                if (RigidBody == null)
-                    return ContactSolverType.Default;
-                return RigidBody.ContactSolverType;
-            }
-            set { rigidBody.ContactSolverType = value; }
-        }
-
-        /// <summary>
-        ///  【无信息】物理引擎未提供信息。获取或设置一个浮点数，表示刚体碰撞时的恢复系数。
-        /// </summary>
-        public float Restitution
-        {
-            get
-            {
-                if (RigidBody == null)
-                    return 0;
-                return RigidBody.Restitution;
-            }
-            set { RigidBody.Restitution = value; }
-        }
-        /// <summary>
-        ///  【无信息】物理引擎未提供信息。获取或设置一个浮点数，表示刚体碰撞或接触时受到的摩擦因数。
-        /// </summary>
-        public float Friction
-        {
-            get
-            {
-                if (RigidBody == null)
-                    return 0; 
-                return RigidBody.Friction;
-            }
-            set { RigidBody.Friction = value; }
-        }
-        /// <summary>
-        ///  【无信息】物理引擎未提供信息。设置刚体运动的阻尼
-        /// </summary>
-        /// <param name="linDamping">线性运动阻尼</param>
-        /// <param name="angDamping">角运动阻尼</param>
-        public void SetDamping(float linDamping, float angDamping)
-        {
-            RigidBody.SetDamping(linDamping, angDamping);
         }
 
         #endregion
