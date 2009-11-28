@@ -630,7 +630,7 @@ namespace Apoc3D.Graphics
         Zero = 1
     }
 
-    public enum PrimitiveType
+    public enum RenderPrimitiveType
     {
         /// <summary>
         ///		Render the vertices as individual points.
@@ -746,7 +746,7 @@ namespace Apoc3D.Graphics
         Texture5 = 21,
         Texture6 = 22,
         Texture7 = 23,
-        
+
         World = 256,
         World1 = 257,
         World2 = 258,

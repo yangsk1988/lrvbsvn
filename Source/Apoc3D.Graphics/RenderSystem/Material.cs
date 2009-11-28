@@ -65,7 +65,7 @@ namespace Apoc3D.Graphics
     ///  定义材质的基本结构
     /// </summary>
     /// <typeparam name="TexType"></typeparam>
-    public abstract class MeshMaterialBase<TexType> : MaterialBase, IDisposable 
+    public abstract class MeshMaterialBase<TexType> : MaterialBase, IDisposable
         where TexType : class
     {
         #region Constants
@@ -129,8 +129,8 @@ namespace Apoc3D.Graphics
             get { return power; }
             set { power = value; }
         }
-        
-        public ModelEffect Effect
+
+        public Effect Effect
         {
             get;
             protected set;
@@ -161,7 +161,7 @@ namespace Apoc3D.Graphics
         }
 
 
-        public void SetEffect(ModelEffect eff)
+        public void SetEffect(Effect eff)
         {
             Effect = eff;
         }
@@ -183,7 +183,7 @@ namespace Apoc3D.Graphics
         protected abstract void DestroyTexture(TexType tex);
 
         protected abstract void SaveTexture(ContentBinaryWriter bw, TexType tex, bool isEmbeded, int index);
-        protected abstract ModelEffect LoadEffect(string name);
+        protected abstract Effect LoadEffect(string name);
         #endregion
 
         #region Methods
@@ -197,7 +197,28 @@ namespace Apoc3D.Graphics
             Flags = (MaterialFlags)data.GetDataInt32(MaterialFlagTag);
 
             br = data.GetData(MaterialColorTag);
-            br.ReadMaterial(out mat);
+            ambient.Alpha = br.ReadSingle();
+            ambient.Red = br.ReadSingle();
+            ambient.Green = br.ReadSingle();
+            ambient.Blue = br.ReadSingle();
+
+            diffuse.Alpha = br.ReadSingle();
+            diffuse.Red = br.ReadSingle();
+            diffuse.Green = br.ReadSingle();
+            diffuse.Blue = br.ReadSingle();
+
+            specular.Alpha = br.ReadSingle();
+            specular.Red = br.ReadSingle();
+            specular.Green = br.ReadSingle();
+            specular.Blue = br.ReadSingle();
+
+            emissive.Alpha = br.ReadSingle();
+            emissive.Red = br.ReadSingle();
+            emissive.Green = br.ReadSingle();
+            emissive.Blue = br.ReadSingle();
+
+            power = br.ReadSingle();
+
             br.Close();
 
 
@@ -257,7 +278,28 @@ namespace Apoc3D.Graphics
             bw.Close();
 
             bw = data.AddEntry(MaterialColorTag);
-            bw.Write(ref mat);
+            bw.Write(ambient.Alpha);
+            bw.Write(ambient.Red);
+            bw.Write(ambient.Green);
+            bw.Write(ambient.Blue);
+
+            bw.Write(diffuse.Alpha);
+            bw.Write(diffuse.Red);
+            bw.Write(diffuse.Green);
+            bw.Write(diffuse.Blue);
+
+            bw.Write(specular.Alpha);
+            bw.Write(specular.Red);
+            bw.Write(specular.Green);
+            bw.Write(specular.Blue);
+
+            bw.Write(emissive.Alpha);
+            bw.Write(emissive.Red);
+            bw.Write(emissive.Green);
+            bw.Write(emissive.Blue);
+
+            bw.Write(power);
+
             bw.Close();
 
 
@@ -290,6 +332,11 @@ namespace Apoc3D.Graphics
 
         #region IDisposable 成员
 
+        public bool Disposed
+        {
+            get { return disposed; }
+        }
+
         public void Dispose()
         {
             if (!disposed)
@@ -314,11 +361,6 @@ namespace Apoc3D.Graphics
 
         #endregion
 
-        public bool Disposed
-        {
-            get { return disposed; }
-        }
-
         ~MeshMaterialBase()
         {
             if (!disposed)
@@ -326,6 +368,7 @@ namespace Apoc3D.Graphics
                 Dispose();
             }
         }
+
     }
 
     /// <summary>
@@ -335,11 +378,6 @@ namespace Apoc3D.Graphics
     {
         #region Constants
 
-        /// <summary>
-        ///  获取默认的材质颜色
-        /// </summary>
-        public readonly static Material DefaultMatColor;
-
         public static Material DefaultMaterial
         {
             get;
@@ -348,28 +386,28 @@ namespace Apoc3D.Graphics
 
         #endregion
 
-        #region Constructors
+        #region 构造函数
         static Material()
         {
+            DefaultMaterial = new Material(null);
+
             Color4F clr;
             clr.Alpha = 1;
             clr.Blue = 1;
             clr.Green = 1;
             clr.Red = 1;
 
-            DefaultMatColor.Ambient = clr;
-            DefaultMatColor.Diffuse = clr;
-            DefaultMatColor.Power = 0;
+            DefaultMaterial.Ambient = clr;
+            DefaultMaterial.Diffuse = clr;
+            DefaultMaterial.Power = 0;
             clr.Alpha = 0;
             clr.Red = 0;
             clr.Green = 0;
             clr.Blue = 0;
-            DefaultMatColor.Emissive = clr;
-            DefaultMatColor.Specular = clr;
+            DefaultMaterial.Emissive = clr;
+            DefaultMaterial.Specular = clr;
 
-            DefaultMaterial = new Material(null);
             DefaultMaterial.CullMode = CullMode.None;
-            DefaultMaterial.mat = DefaultMatColor;
         }
 
         public Material(RenderSystem dev)
@@ -378,7 +416,7 @@ namespace Apoc3D.Graphics
         }
         #endregion
 
-        #region Fields
+        #region 字段
 
         protected RenderSystem device;
         #endregion
@@ -392,7 +430,7 @@ namespace Apoc3D.Graphics
 
         #endregion
 
-        #region Methods
+        #region 方法
 
         /// <summary>
         ///  重写以适应不同环境下的使用
@@ -439,7 +477,7 @@ namespace Apoc3D.Graphics
             bw.WriteStringUnicode(textureFiles[index]);
         }
 
-        protected override ModelEffect LoadEffect(string name)
+        protected override Effect LoadEffect(string name)
         {
             return EffectManager.Instance.GetModelEffect(name);
         }

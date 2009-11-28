@@ -5,7 +5,7 @@ using Apoc3D.Vfs;
 
 namespace Apoc3D.Scene
 {
-    public abstract class ObjectFactory
+    public abstract class SceneObjectFactory
     {
         #region 字段
 
@@ -15,7 +15,7 @@ namespace Apoc3D.Scene
 
         #region 构造函数
 
-        protected ObjectFactory(ObjectTypeManager mgr)
+        protected SceneObjectFactory(ObjectTypeManager mgr)
         {
             manager = mgr;
         }

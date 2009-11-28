@@ -68,7 +68,9 @@ namespace Apoc3D.Graphics
             private set;
         }
 
-        public abstract void SetValue<T>(string paramName, T value) where T : struct; 
+        public abstract void SetValue<T>(string paramName, T value) where T : struct;
+
+        public abstract void AutoSetParameters();
 
         #region IDisposable 成员
 
@@ -106,6 +108,8 @@ namespace Apoc3D.Graphics
         }
         #endregion
     }
+
+    
 
     /// <summary>
     ///  表示顶点Shader

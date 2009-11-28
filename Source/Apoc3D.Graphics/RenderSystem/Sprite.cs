@@ -72,7 +72,7 @@ namespace Apoc3D.Graphics
                 geoData.VertexSize = SpriteVertex.Size;
                 geoData.VertexDeclaration = SpriteVertex.vtxDecl;
                 geoData.VertexCount = 5;
-                geoData.PrimitiveType = PrimitiveType.TriangleStrip;
+                geoData.PrimitiveType = RenderPrimitiveType.TriangleStrip;
                 geoData.PrimCount = 2;
             }
 

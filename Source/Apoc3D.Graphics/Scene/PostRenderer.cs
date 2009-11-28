@@ -137,7 +137,7 @@ namespace Apoc3D.Scene
             device.Indices = indexBuffer;
             device.VertexDeclaration = vtxDecl;
 
-            device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 4, 0, 2);
+            device.DrawIndexedPrimitives(RenderPrimitiveType.TriangleList, 0, 0, 4, 0, 2);
         }
         void DrawSmallQuad()
         {
@@ -145,7 +145,7 @@ namespace Apoc3D.Scene
             device.VertexFormat = RectVertex.Format;
             device.VertexDeclaration = vtxDecl;
             device.Indices = indexBuffer;
-            device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 4, 0, 2);
+            device.DrawIndexedPrimitives(RenderPrimitiveType.TriangleList, 0, 0, 4, 0, 2);
         }
 
         /// <summary>

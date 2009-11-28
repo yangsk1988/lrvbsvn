@@ -221,7 +221,7 @@ namespace Apoc3D.Scene
 
                             if (supportsInst && ops[k].Geomentry.UseIndices)
                             {
-                                ModelEffect effect;
+                                Effect effect;
                                 if (!batchHelper.effects.TryGetValue(desc, out effect))
                                 {
                                     batchHelper.effects.Add(desc, mate.Effect);
@@ -252,7 +252,7 @@ namespace Apoc3D.Scene
                             }
                             else
                             {
-                                ModelEffect effect;
+                                Effect effect;
                                 FastList<RenderOperation> opList;
 
                                 if (!batchHelper.effects.TryGetValue(desc, out effect))

@@ -6,7 +6,7 @@ using Apoc3D.Graphics;
 
 namespace Apoc3D.Scene
 {
-    public class TerrainFactory : ObjectFactory
+    public class TerrainFactory : SceneObjectFactory
     {
         #region 常量
 
