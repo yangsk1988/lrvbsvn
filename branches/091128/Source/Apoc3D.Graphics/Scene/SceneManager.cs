@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Collections;
-using VirtualBicycle.CollisionModel.Shapes;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.Graphics.Effects;
 using VirtualBicycle.MathLib;

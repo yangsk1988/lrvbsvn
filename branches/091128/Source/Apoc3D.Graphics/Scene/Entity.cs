@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using VirtualBicycle.CollisionModel;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.MathLib;
-using VirtualBicycle.Physics;
-using VirtualBicycle.Physics.Dynamics;
-using PM = VirtualBicycle.Physics.MathLib;
 
 namespace VirtualBicycle.Scene
 {
@@ -70,7 +66,7 @@ namespace VirtualBicycle.Scene
         /// <summary>
         ///  物体的朝向
         /// </summary>
-        protected Quaternion orientation = Quaternion.Identity;
+        protected Matrix orientation = Matrix.Identity;
 
         /// <summary>
         ///  变换矩阵是否需要重新计算
@@ -125,7 +121,7 @@ namespace VirtualBicycle.Scene
         /// <summary>
         ///  获取一个四元数，表示物体的朝向
         /// </summary>
-        public Quaternion Orientation
+        public Matrix Orientation
         {
             get { return orientation; }
             set
@@ -153,7 +149,7 @@ namespace VirtualBicycle.Scene
 
                 if (RigidBody != null)
                 {
-                    RigidBody.Translate((PM.Vector3)value - RigidBody.CenterOfMassPosition);
+                    RigidBody.Position = value;
                 }
                 isTransformDirty = true;
             }
@@ -272,12 +268,8 @@ namespace VirtualBicycle.Scene
         {
             // T = r * t
 
-            Matrix rotation;
-            Matrix.RotationQuaternion(ref orientation, out rotation);
-
             Matrix.Translation(ref position, out Transformation);
-            Matrix.Multiply(ref rotation, ref Transformation, out Transformation);
-
+            Matrix.Multiply(ref orientation, ref Transformation, out Transformation);
 
             RequiresUpdate = true;
 

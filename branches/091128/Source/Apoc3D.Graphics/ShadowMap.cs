@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using VirtualBicycle.Graphics.Effects;
 using VirtualBicycle.MathLib;
+using VirtualBicycle.Media;
 using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Graphics
@@ -20,6 +21,11 @@ namespace VirtualBicycle.Graphics
 
             static readonly VertexElement[] elements;
 
+            public static VertexElement[] Elements 
+            {
+                get { return elements; }
+            }
+
             static TestVertex ()
             {
                 elements = new VertexElement[2];
@@ -31,15 +37,17 @@ namespace VirtualBicycle.Graphics
         Texture shadowDepthMap;
         Texture shadowRt;
 
-        BackBuffer shadowRtSurface;
-        BackBuffer shadowDepSurface;
+        RenderTarget shadowRtSurface;
 
         public const int ShadowMapLength = 1024;
 
         VertexBuffer pip;
 
         Viewport smVp;
-        RenderSystem device;
+        RenderSystem renderSys;
+        ObjectFactory factory;
+
+        VertexDeclaration pipDecl;
 
         public DefaultSMGenEffect DefaultSMGen
         {
@@ -49,8 +57,8 @@ namespace VirtualBicycle.Graphics
 
         public unsafe ShadowMap(RenderSystem dev)
         {
-            device = dev;
-
+            renderSys = dev;
+            factory = dev.ObjectFactory;
             //FileLocation fl = FileSystem.Instance.Locate(FileSystem.CombinePath(Paths.Effects, "StandardShadow.fx"), FileLocateRules.Default);
             //ContentStreamReader sr = new ContentStreamReader(fl);
             //string code = sr.ReadToEnd();
@@ -75,8 +83,8 @@ namespace VirtualBicycle.Graphics
             smVp.X = 0;
             smVp.Y = 0;
 
-
-            pip = new VertexBuffer(dev, sizeof(TestVertex) * 4, Usage.None, TestVertex.Format, Pool.Managed);
+            pipDecl = factory.CreateVertexDeclaration(TestVertex.Elements);
+            pip = factory.CreateVertexBuffer(4, pipDecl, BufferUsage.Static);
 
             TestVertex* ptr = (TestVertex*)pip.Lock(0, 0, LockMode.None);
             ptr[0] = new TestVertex { pos = new Vector3(0, 0, 0), tex1 = new Vector2(0, 0), dummy = 0 };
@@ -87,12 +95,10 @@ namespace VirtualBicycle.Graphics
             pip.Unlock();
 
 
-            DefaultSMGen = new DefaultSMGenEffect(device);
+            DefaultSMGen = new DefaultSMGenEffect(renderSys);
         }
 
-
-        BackBuffer stdDepth;
-        BackBuffer stdRenderTarget;
+        RenderTarget stdRenderTarget;
         Viewport stdVp;
 
         public Matrix LightProjection;
@@ -101,29 +107,24 @@ namespace VirtualBicycle.Graphics
 
         public void End()
         {
-            //effect.EndPass();
-            //effect.End();
 
-            device.DepthStencilSurface = stdDepth;
-            stdDepth = null;
-            device.SetRenderTarget(0, stdRenderTarget);
+            renderSys.SetRenderTarget(0, stdRenderTarget);
             stdRenderTarget = null;
-            device.Viewport = stdVp;
+            
+
+            renderSys.Viewport = stdVp;
         }
         public void Begin(Vector3 lightDir, ICamera cam)
         {
-            stdVp = device.Viewport;
+            stdVp = renderSys.Viewport;
 
-            device.Viewport = smVp;
+            renderSys.Viewport = smVp;
 
-            stdDepth = device.DepthStencilSurface;
-            stdRenderTarget = device.GetRenderTarget(0);
+            stdRenderTarget = renderSys.GetRenderTarget(0);
 
+            renderSys.SetRenderTarget(0, shadowRtSurface);
 
-            device.SetRenderTarget(0, shadowRtSurface);
-            device.DepthStencilSurface = shadowDepSurface;
-
-            device.Clear(ClearFlags.Target | ClearFlags.ZBuffer, -1, 1, 0);
+            renderSys.Clear(ClearFlags.Target | ClearFlags.DepthBuffer, -1, 1, 0);
 
 
             //effect.Begin(FX.DoNotSaveSamplerState | FX.DoNotSaveShaderState | FX.DoNotSaveState);
@@ -193,11 +194,12 @@ namespace VirtualBicycle.Graphics
 
         protected override void loadUnmanagedResources()
         {
-            shadowDepthMap = new Texture(device, ShadowMapLength, ShadowMapLength, 1, Usage.DepthStencil, Format.D24X8, Pool.Default);
-            shadowRt = new Texture(device, ShadowMapLength, ShadowMapLength, 1, Usage.RenderTarget, Format.R32F, Pool.Default);
+            shadowDepthMap = new Texture(renderSys, ShadowMapLength, ShadowMapLength, 1, Usage.DepthStencil, Format.D24X8, Pool.Default);
+            shadowRt = new Texture(renderSys, ShadowMapLength, ShadowMapLength, 1, Usage.RenderTarget, Format.R32F, Pool.Default);
 
             shadowRtSurface = shadowRt.GetSurfaceLevel(0);
             shadowDepSurface = shadowDepthMap.GetSurfaceLevel(0);
+
         }
 
         protected override void unloadUnmanagedResources()

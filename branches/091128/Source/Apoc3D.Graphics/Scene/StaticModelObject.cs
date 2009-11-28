@@ -2,46 +2,40 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using VirtualBicycle.CollisionModel;
-using VirtualBicycle.CollisionModel.Dispatch;
-using VirtualBicycle.CollisionModel.Shapes;
+using JigLibX.Geometry;
+using JigLibX.Physics;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.MathLib;
-using VirtualBicycle.Physics;
-using VirtualBicycle.Physics.Dynamics;
-using PM = VirtualBicycle.Physics.MathLib;
 
 namespace VirtualBicycle.Scene
 {
     /// <summary>
     ///  表示静态物体
     /// </summary>
-    public abstract class StaticObject : Entity
+    public abstract class StaticModelObject : Entity
     {
         #region 字段
 
-        DefaultMotionState motionState;
-
         bool isPhyBuilt;
 
-        CollisionMesh cdMesh;
+        TriangleMesh cdMesh;
 
         #endregion
 
         #region 构造函数
 
-        public StaticObject()
+        public StaticModelObject()
             : base(false)
         {
         }
 
-        public StaticObject(bool hasSubObjects)
+        public StaticModelObject(bool hasSubObjects)
             : base(hasSubObjects)
         {
 
         }
 
-        public StaticObject(Vector3 position, Quaternion orientation, bool hasSubObjects)
+        public StaticModelObject(Vector3 position, Quaternion orientation, bool hasSubObjects)
             : base(hasSubObjects)
         {
             base.position = position;
@@ -96,41 +90,54 @@ namespace VirtualBicycle.Scene
         {
             get { return true; }
         }
+        public override bool IntersectsSelectionRay(ref VirtualBicycle.MathLib.Ray ray)
+        {
+            if (cdMesh != null) 
+            {
+                float frac;
+                Vector3 p1, p2;
+                Segment seg = new Segment(ray.Position, ray.Direction * 1000);
+                if (cdMesh.SegmentIntersect(out fac, out p1, out p2, seg)) 
+                {
+                    return true;
+                }
+            }
+            return base.IntersectsSelectionRay(ref ray);
+        }
 
-
-        public unsafe override void BuildPhysicsModel(DynamicsWorld world)
+        public unsafe override void BuildPhysicsModel(PhysicsSystem world)
         {
             if (!isPhyBuilt)
             {
-                UpdateTransform();
+                //UpdateTransform();
 
-                Matrix trans = Transformation;
-                trans.M41 = 0;
-                trans.M42 = 0;
-                trans.M43 = 0;
+                //Matrix trans = Transformation;
+                //trans.M41 = 0;
+                //trans.M42 = 0;
+                //trans.M43 = 0;
 
-                cdMesh = CollisionMeshManager.Instance.CreateInstance(ModelL0, trans);
-                BvhTriMeshResShape shape = new BvhTriMeshResShape(cdMesh);
+                //cdMesh = CollisionMeshManager.Instance.CreateInstance(ModelL0, trans);
+                //BvhTriMeshResShape shape = new BvhTriMeshResShape(cdMesh);
 
 
-                motionState = new DefaultMotionState(Matrix.Translation(position));
+                //motionState = new DefaultMotionState(Matrix.Translation(position));
 
-                RigidBody = new RigidBody(0, motionState, shape);
-                RigidBody.CollisionFlags |= CollisionOptions.StaticObject;
+                //RigidBody = new RigidBody(0, motionState, shape);
+                //RigidBody.CollisionFlags |= CollisionOptions.StaticObject;
 
-                PM.Vector3 aabbMin;
-                PM.Vector3 aabbMax;
-                shape.GetAabb(PM.Matrix.Identity, out aabbMin, out aabbMax);
+                //PM.Vector3 aabbMin;
+                //PM.Vector3 aabbMax;
+                //shape.GetAabb(PM.Matrix.Identity, out aabbMin, out aabbMax);
 
-                float rad = PM.Vector3.Distance(aabbMin, aabbMax) * 0.5f;
+                //float rad = PM.Vector3.Distance(aabbMin, aabbMax) * 0.5f;
 
-                BoundingSphereOffset = 0.5f * (aabbMin + aabbMax);
-                BoundingSphere.Radius = rad;
+                //BoundingSphereOffset = 0.5f * (aabbMin + aabbMax);
+                //BoundingSphere.Radius = rad;
 
-                if (world != null)
-                {
-                    world.AddRigidBody(RigidBody);
-                }
+                //if (world != null)
+                //{
+                //    world.AddRigidBody(RigidBody);
+                //}
                 isPhyBuilt = true;
             }
         }
@@ -139,10 +146,10 @@ namespace VirtualBicycle.Scene
         {
             base.Dispose(disposing);
 
-            if (disposing)
-            {
-                CollisionMeshManager.Instance.DestoryInstance(cdMesh);
-            }
+            //if (disposing)
+            //{
+            //    CollisionMeshManager.Instance.DestoryInstance(cdMesh);
+            //}
             cdMesh = null;
         }
         #endregion

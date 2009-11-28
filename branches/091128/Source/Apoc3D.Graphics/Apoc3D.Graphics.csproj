@@ -57,7 +57,6 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Collections\BoneCollection.cs" />
     <Compile Include="Collections\EntityNodeCollection.cs" />
-    <Compile Include="Effects\DefaultSMGenEffect.cs" />
     <Compile Include="Effects\Effect.cs" />
     <Compile Include="Effects\EffectManager.cs" />
     <Compile Include="Effects\EffectParams.cs" />
@@ -112,7 +111,7 @@
     <Compile Include="Scene\SceneManager.cs" />
     <Compile Include="Scene\SceneNode.cs" />
     <Compile Include="Scene\SceneObject.cs" />
-    <Compile Include="Scene\StaticObject.cs" />
+    <Compile Include="Scene\StaticModelObject.cs" />
     <Compile Include="Scene\Terrain.cs" />
     <Compile Include="Scene\TerrainFactory.cs" />
     <Compile Include="Scene\TerrainTexture.cs" />
@@ -134,6 +133,10 @@
     <ProjectReference Include="..\Apoc3D.Core\Apoc3D.Core.csproj">
       <Project>{767AFD72-02F7-4543-B193-A2E19645A4B9}</Project>
       <Name>Apoc3D.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JigLibX\JigLibX.csproj">
+      <Project>{7C3F7EE7-7E67-462B-80C8-588331703AE9}</Project>
+      <Name>JigLibX</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

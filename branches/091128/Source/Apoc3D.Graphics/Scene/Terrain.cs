@@ -4,16 +4,15 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using JigLibX.Geometry;
+using JigLibX.Physics;
 using VirtualBicycle.Collections;
-using VirtualBicycle.CollisionModel;
-using VirtualBicycle.CollisionModel.Shapes;
+using VirtualBicycle.Collision;
 using VirtualBicycle.Config;
 using VirtualBicycle.Graphics;
 using VirtualBicycle.Graphics.Effects;
-using VirtualBicycle.Vfs;
 using VirtualBicycle.MathLib;
-using VirtualBicycle.Physics;
-using VirtualBicycle.Physics.Dynamics;
+using VirtualBicycle.Vfs;
 
 namespace VirtualBicycle.Scene
 {
@@ -86,10 +85,10 @@ namespace VirtualBicycle.Scene
 
             public void Update(int x, int y, int* data, float cellUnit, float heightScale)
             {
-                Update(x, y, new Rectangle(0, 0, BlockEdgeLen, BlockEdgeLen), data, cellUnit, heightScale);
+                Update(x, y, new VirtualBicycle.MathLib.Rectangle(0, 0, BlockEdgeLen, BlockEdgeLen), data, cellUnit, heightScale);
             }
 
-            public void Update(int x, int y, Rectangle area, int* data, float cellUnit, float heightScale)
+            public void Update(int x, int y, VirtualBicycle.MathLib.Rectangle area, int* data, float cellUnit, float heightScale)
             {
                 int triIndex = 0;
 
@@ -978,7 +977,7 @@ namespace VirtualBicycle.Scene
             BuildTerrainTree();
         }
 
-        public override bool IntersectsSelectionRay(ref Ray ray)
+        public override bool IntersectsSelectionRay(ref VirtualBicycle.MathLib.Ray ray)
         {
             return false;
         }
@@ -1209,36 +1208,37 @@ namespace VirtualBicycle.Scene
 
         #region 物理相关
 
-        DefaultMotionState motionState;
+        //DefaultMotionState motionState;
 
         [Browsable(false)]
         public override bool HasPhysicsModel
         {
             get { return true; }
         }
-        ClusterTerrainShape shape;
+
+        Heightmap shape;
 
         bool isPhyBuilt;
 
-        public override void BuildPhysicsModel(DynamicsWorld world)
+        public override void BuildPhysicsModel(PhysicsSystem world)
         {
             if (!isPhyBuilt)
             {
                 TerrainTexture terrTex = DisplacementMap;
-                if (terrTex.ResourceEntity != null) 
-                {
-                    terrTex = (TerrainTexture)terrTex.ResourceEntity;
-                }
+                //if (terrTex.ResourceEntity != null) 
+                //{
+                //    terrTex = (TerrainTexture)terrTex.ResourceEntity;
+                //}
 
-                shape = new ClusterTerrainShape(CellUnit, HeightScale, terrTex);
-                motionState = new DefaultMotionState(Matrix.Translation(Terrain.TerrainSize * 0.5f, 0, Terrain.TerrainSize * 0.5f));
+                //shape = new ClusterTerrainShape(CellUnit, HeightScale, terrTex);
+                //motionState = new DefaultMotionState(Matrix.Translation(Terrain.TerrainSize * 0.5f, 0, Terrain.TerrainSize * 0.5f));
 
-                RigidBody = new RigidBody(0, motionState, shape);
+                //RigidBody = new RigidBody(0, motionState, shape);
 
-                if (world != null)
-                {
-                    world.AddRigidBody(RigidBody);
-                }
+                //if (world != null)
+                //{
+                //    world.AddRigidBody(RigidBody);
+                //}
                 isPhyBuilt = true;
             }
         }
