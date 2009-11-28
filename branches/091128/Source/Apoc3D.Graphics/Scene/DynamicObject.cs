@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using JigLibX.Physics;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     public abstract class DynamicObject : Entity
     {

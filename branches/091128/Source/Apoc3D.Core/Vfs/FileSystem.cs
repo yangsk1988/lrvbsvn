@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
-using VBC = VirtualBicycle.Core;
+using VBC = Apoc3D.Core;
 
-namespace VirtualBicycle.Vfs
+namespace Apoc3D.Vfs
 {
     public sealed class FileNameTokens : Singleton
     {

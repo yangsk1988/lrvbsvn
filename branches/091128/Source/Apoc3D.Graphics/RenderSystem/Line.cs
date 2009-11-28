@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Media;
-using VirtualBicycle.Graphics;
+using Apoc3D.Collections;
+using Apoc3D.MathLib;
+using Apoc3D.Media;
+using Apoc3D.Graphics;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     public class Line : IRenderable
     {

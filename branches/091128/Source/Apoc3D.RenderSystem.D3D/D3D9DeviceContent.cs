@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using SlimDX.Direct3D9;
-using VirtualBicycle.Collections;
+using Apoc3D.Collections;
 using SD = System.Drawing;
 using D3D = SlimDX.Direct3D9;
 
-namespace VirtualBicycle.Graphics.D3D9
+namespace Apoc3D.Graphics.D3D9
 {
     internal sealed class D3D9DeviceContent : DeviceContent
     {

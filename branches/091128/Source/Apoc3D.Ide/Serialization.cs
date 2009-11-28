@@ -4,7 +4,7 @@ using System.Text;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     public static class Serialization
     {

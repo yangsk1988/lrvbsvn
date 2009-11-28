@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Ide.Tools;
+using Apoc3D.Ide.Tools;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     public class ToolManager
     {

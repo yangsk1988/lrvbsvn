@@ -1,9 +1,9 @@
 using System;
 using System.Runtime.Serialization;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Collections;
+using Apoc3D.MathLib;
+using Apoc3D.Collections;
 
-namespace VirtualBicycle.Graphics.ParticleSystem
+namespace Apoc3D.Graphics.ParticleSystem
 {
     /// <summary>
     /// Represents a pre-calculated curve.

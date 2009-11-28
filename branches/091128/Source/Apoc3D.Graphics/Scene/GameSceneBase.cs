@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.Config;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.Graphics.Effects;
-using VirtualBicycle.Vfs;
-using VirtualBicycle.MathLib;
+using Apoc3D.Collections;
+using Apoc3D.Config;
+using Apoc3D.Graphics;
+using Apoc3D.Graphics.Effects;
+using Apoc3D.Vfs;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     public unsafe abstract class GameSceneBase<CType, SDType> : IDisposable, ISceneRenderer
         where CType : Cluster
@@ -159,7 +159,7 @@ namespace VirtualBicycle.Scene
         SkyBox LoadSkybox(string configName)
         {
             FileLocation fl = FileSystem.Instance.Locate(Path.Combine(Paths.Configs, "skyboxes.ini"), FileLocateRules.Default);
-            VirtualBicycle.Config.Configuration config = ConfigurationManager.Instance.CreateInstance(fl);
+            Apoc3D.Config.Configuration config = ConfigurationManager.Instance.CreateInstance(fl);
 
             ConfigurationSection sect = config[configName];
 

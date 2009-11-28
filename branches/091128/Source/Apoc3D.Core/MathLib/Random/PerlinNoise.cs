@@ -4,7 +4,7 @@ using System;
 
 #endregion
 
-namespace VirtualBicycle.MathLib
+namespace Apoc3D.MathLib
 {
     /// <summary>
     /// A class to compute the perlin noise

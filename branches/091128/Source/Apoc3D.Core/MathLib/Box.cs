@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace VirtualBicycle.MathLib
+namespace Apoc3D.MathLib
 {
     /// <summary>
     /// Defines a volume.

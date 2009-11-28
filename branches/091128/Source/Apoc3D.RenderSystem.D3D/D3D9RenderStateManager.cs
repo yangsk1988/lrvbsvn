@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Media;
+using Apoc3D.Media;
 using SlimDX.Direct3D9;
 using D3D = SlimDX.Direct3D9;
 
 
-namespace VirtualBicycle.Graphics.D3D9
+namespace Apoc3D.Graphics.D3D9
 {
     internal sealed class D3D9RenderStateManager : RenderStateManager
     {

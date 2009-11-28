@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
-using VirtualBicycle.Core;
-using VirtualBicycle.Graphics.Animation;
-using VirtualBicycle.Vfs;
+using Apoc3D.Core;
+using Apoc3D.Graphics.Animation;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     ///  定义3D模型提供基础结构

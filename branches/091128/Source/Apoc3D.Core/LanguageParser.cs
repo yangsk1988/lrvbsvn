@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle;
+using Apoc3D;
 
-namespace VirtualBicycle
+namespace Apoc3D
 {
     using System.Windows.Forms;
 

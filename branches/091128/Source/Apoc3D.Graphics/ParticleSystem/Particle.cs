@@ -1,8 +1,8 @@
 using System;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 
 
-namespace VirtualBicycle.Graphics.ParticleSystem
+namespace Apoc3D.Graphics.ParticleSystem
 {
     public class Particle : IParticle
     {

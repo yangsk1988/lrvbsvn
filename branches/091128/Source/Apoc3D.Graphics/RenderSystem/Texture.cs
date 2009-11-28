@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Core;
-using VirtualBicycle.Media;
-using VirtualBicycle.MathLib;
+using Apoc3D.Core;
+using Apoc3D.Media;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     ///  表示纹理贴图。可以是1-3维的或者是立方贴图

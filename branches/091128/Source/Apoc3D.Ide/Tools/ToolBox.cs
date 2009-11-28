@@ -5,10 +5,10 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using VirtualBicycle.UI;
+using Apoc3D.UI;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace VirtualBicycle.Ide.Tools
+namespace Apoc3D.Ide.Tools
 {
     public partial class ToolBox : DockContent, ITool
     {

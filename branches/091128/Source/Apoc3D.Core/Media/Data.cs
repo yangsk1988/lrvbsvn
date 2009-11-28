@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Media
+namespace Apoc3D.Media
 {
     public struct DataRectangle
     {

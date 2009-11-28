@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     public interface IPlugin
     {

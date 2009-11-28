@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     [AttributeUsage(AttributeTargets.All)]
     public sealed class LocalizedDescriptionAttribute : DescriptionAttribute

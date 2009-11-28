@@ -1,4 +1,4 @@
-﻿namespace VirtualBicycle.Design
+﻿namespace Apoc3D.Design
 {
     partial class MatrixEditControl
     {

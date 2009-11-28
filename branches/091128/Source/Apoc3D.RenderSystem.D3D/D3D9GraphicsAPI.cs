@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Collections;
+using Apoc3D.Collections;
 
-namespace VirtualBicycle.Graphics.D3D9
+namespace Apoc3D.Graphics.D3D9
 {
     internal sealed class D3D9GraphicsAPIFactory : GraphicsAPIFactory
     {

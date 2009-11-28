@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Vfs;
+using Apoc3D.Collections;
+using Apoc3D.MathLib;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Graphics.Animation
+namespace Apoc3D.Graphics.Animation
 {
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class TransformAnimationInstance : AnimationInstance

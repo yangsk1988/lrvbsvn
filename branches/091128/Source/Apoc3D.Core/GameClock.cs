@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace VirtualBicycle
+namespace Apoc3D
 {
     class GameClock
     {

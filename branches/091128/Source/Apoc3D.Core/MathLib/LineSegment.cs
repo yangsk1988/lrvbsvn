@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.MathLib
+namespace Apoc3D.MathLib
 {
     /// <summary>
     ///  定义线段

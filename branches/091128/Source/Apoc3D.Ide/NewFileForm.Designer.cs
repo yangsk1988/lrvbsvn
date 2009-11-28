@@ -1,4 +1,4 @@
-﻿namespace VirtualBicycle.Ide
+﻿namespace Apoc3D.Ide
 {
     partial class NewFileForm
     {

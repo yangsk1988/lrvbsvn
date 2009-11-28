@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     public class ClusterTableBase<CType> : IEnumerable<CType>
          where CType : Cluster

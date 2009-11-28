@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace VirtualBicycle
+namespace Apoc3D
 {
     public partial class EngineConsole
     {

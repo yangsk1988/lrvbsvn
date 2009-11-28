@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Test
+namespace Apoc3D.Test
 {
     public class Class1
     {

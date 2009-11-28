@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-using VirtualBicycle.MathLib;
-using MPlane = VirtualBicycle.MathLib.Plane;
+using Apoc3D.MathLib;
+using MPlane = Apoc3D.MathLib.Plane;
 #endregion
 
 namespace JigLibX.Geometry

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace VirtualBicycle
+namespace Apoc3D
 {
     public class Log : IDisposable
     {

@@ -1,4 +1,4 @@
-﻿namespace VirtualBicycle.Ide.Designers
+﻿namespace Apoc3D.Ide.Designers
 {
     partial class InputNumberDlg
     {

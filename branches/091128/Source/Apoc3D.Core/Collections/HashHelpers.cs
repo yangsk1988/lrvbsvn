@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 //using System.Runtime.ConstrainedExecution;
 
-namespace VirtualBicycle.Collections
+namespace Apoc3D.Collections
 {
     internal static class HashHelpers
     {

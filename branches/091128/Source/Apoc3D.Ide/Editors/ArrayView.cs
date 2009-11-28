@@ -5,10 +5,10 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using VirtualBicycle.UI;
+using Apoc3D.UI;
 
 
-namespace VirtualBicycle.Ide.Editors
+namespace Apoc3D.Ide.Editors
 {
     public partial class ArrayView<T> : Form
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Vfs
+namespace Apoc3D.Vfs
 {
     public interface IAbstractFactory<T, S> where S : ResourceLocation
     {

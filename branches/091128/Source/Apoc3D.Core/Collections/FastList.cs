@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
-using VirtualBicycle.Core;
+using Apoc3D.Core;
 
-namespace VirtualBicycle.Collections
+namespace Apoc3D.Collections
 {
     internal sealed class Mscorlib_CollectionDebugView<T>
     {

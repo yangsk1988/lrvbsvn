@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle;
-using VirtualBicycle.IO;
+using Apoc3D.Ide.Designers;
+using Apoc3D;
+using Apoc3D.IO;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     public class DesignerManager
     {

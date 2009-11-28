@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Ide.Templates;
-using VirtualBicycle.Ide.Designers;
+using Apoc3D.Ide.Templates;
+using Apoc3D.Ide.Designers;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     public class TemplateManager
     {

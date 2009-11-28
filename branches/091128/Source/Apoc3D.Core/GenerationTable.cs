@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using VirtualBicycle.Collections;
+using Apoc3D.Collections;
 
-namespace VirtualBicycle.Core
+namespace Apoc3D.Core
 {
     /// <summary>
     ///  资源分代管理，代数越小，资源使用越频繁

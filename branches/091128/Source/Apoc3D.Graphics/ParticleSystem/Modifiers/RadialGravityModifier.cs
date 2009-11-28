@@ -1,6 +1,6 @@
 using System;
-using VirtualBicycle.MathLib;
-namespace VirtualBicycle.Graphics.ParticleSystem.Modifiers
+using Apoc3D.MathLib;
+namespace Apoc3D.Graphics.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents a radial gravity source.

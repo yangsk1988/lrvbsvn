@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.Graphics.Effects;
-using VirtualBicycle.MathLib;
+using Apoc3D.Collections;
+using Apoc3D.Graphics;
+using Apoc3D.Graphics.Effects;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     /// <summary>
     ///  为场景管理器提供抽象基类

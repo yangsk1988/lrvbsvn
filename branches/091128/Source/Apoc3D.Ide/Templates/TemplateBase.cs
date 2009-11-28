@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle.Ide.Projects;
+using Apoc3D.Ide.Designers;
+using Apoc3D.Ide.Projects;
 
-namespace VirtualBicycle.Ide.Templates
+namespace Apoc3D.Ide.Templates
 {
     /// <summary>
     /// 模板控制着文档和项目的创建。Factory method

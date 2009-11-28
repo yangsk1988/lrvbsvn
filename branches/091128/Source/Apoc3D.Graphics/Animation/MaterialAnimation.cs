@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Graphics.Animation
+namespace Apoc3D.Graphics.Animation
 {
     public class MaterialAnimation : AnimationData
     {

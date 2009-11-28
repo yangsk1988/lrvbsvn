@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
-using VirtualBicycle.Core;
+using Apoc3D.Core;
 
-namespace VirtualBicycle.Collections
+namespace Apoc3D.Collections
 {
     internal sealed class System_QueueDebugView<T>
     {

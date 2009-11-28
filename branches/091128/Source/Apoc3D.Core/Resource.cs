@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.Design;
-using VirtualBicycle.Vfs;
+using Apoc3D.Collections;
+using Apoc3D.Design;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Core
+namespace Apoc3D.Core
 {
     /// <summary>
     ///  定义一个资源的状态

@@ -4,11 +4,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using VirtualBicycle.Ide.Tools;
-using VirtualBicycle.IO;
+using Apoc3D.Ide.Tools;
+using Apoc3D.IO;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace VirtualBicycle.Ide.Designers
+namespace Apoc3D.Ide.Designers
 {
     public delegate void PropertyUpdateHandler(object sender, object[] allObjects);
     public delegate void SaveStateChangedHandler(object sender);

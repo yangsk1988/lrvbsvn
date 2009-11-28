@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Graphics;
+using Apoc3D.MathLib;
+using Apoc3D.Graphics;
 
-namespace VirtualBicycle.Graphics.Geometry
+namespace Apoc3D.Graphics.Geometry
 {
     /// <summary>
     /// A box geometry primitive constructed with PrimitiveMesh

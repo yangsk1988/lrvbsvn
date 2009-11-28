@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Graphics.Effects;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Media;
-using VirtualBicycle.Vfs;
+using Apoc3D.Graphics.Effects;
+using Apoc3D.MathLib;
+using Apoc3D.Media;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     ///  定义 Shadow Mapping 所需要的阴影贴图

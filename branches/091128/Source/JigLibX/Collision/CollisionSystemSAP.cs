@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using JigLibX.Geometry;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 #endregion
 
 namespace JigLibX.Collision

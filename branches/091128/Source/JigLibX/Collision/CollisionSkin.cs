@@ -5,7 +5,7 @@ using System.Text;
 using JigLibX.Geometry;
 using JigLibX.Math;
 using JigLibX.Physics;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 #endregion
 
 namespace JigLibX.Collision

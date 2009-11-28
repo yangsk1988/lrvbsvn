@@ -1,4 +1,4 @@
-﻿namespace VirtualBicycle.Ide.Tools
+﻿namespace Apoc3D.Ide.Tools
 {
     partial class ExplorerWindow
     {

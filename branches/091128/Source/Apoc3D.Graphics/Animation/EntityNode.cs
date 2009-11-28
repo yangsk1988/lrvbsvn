@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.Design;
-using VirtualBicycle.MathLib;
+using Apoc3D.Collections;
+using Apoc3D.Design;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Graphics.Animation
+namespace Apoc3D.Graphics.Animation
 {
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class EntityNode

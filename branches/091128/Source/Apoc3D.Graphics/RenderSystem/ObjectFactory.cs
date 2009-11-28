@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Media;
-using VirtualBicycle.Vfs;
+using Apoc3D.Media;
+using Apoc3D.Vfs;
 
-namespace VirtualBicycle.Graphics
+namespace Apoc3D.Graphics
 {
     /// <summary>
     ///  创建图形API资源的抽象工厂。可以创建纹理，Shader，缓冲等等。

@@ -4,10 +4,10 @@ using System.ComponentModel;
 using System.Text;
 using JigLibX.Geometry;
 using JigLibX.Physics;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.MathLib;
+using Apoc3D.Graphics;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 {
     /// <summary>
     ///  表示静态物体
@@ -90,7 +90,7 @@ namespace VirtualBicycle.Scene
         {
             get { return true; }
         }
-        public override bool IntersectsSelectionRay(ref VirtualBicycle.MathLib.Ray ray)
+        public override bool IntersectsSelectionRay(ref Apoc3D.MathLib.Ray ray)
         {
             if (cdMesh != null) 
             {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using JigLibX.Geometry;
 using JigLibX.Math;
-using VirtualBicycle.MathLib;
+using Apoc3D.MathLib;
 using JBox = JigLibX.Geometry.Box;
 using JTriangle = JigLibX.Geometry.Triangle;
 #endregion

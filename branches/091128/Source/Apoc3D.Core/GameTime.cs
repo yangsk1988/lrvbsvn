@@ -1,4 +1,4 @@
-﻿namespace VirtualBicycle
+﻿namespace Apoc3D
 {
     /// <summary>
     /// Contains the current timing state of the game.

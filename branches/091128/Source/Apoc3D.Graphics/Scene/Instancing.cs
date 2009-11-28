@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using VirtualBicycle.Collections;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.MathLib;
+using Apoc3D.Collections;
+using Apoc3D.Graphics;
+using Apoc3D.MathLib;
 
-namespace VirtualBicycle.Scene
+namespace Apoc3D.Scene
 { 
     /// <summary>
     ///  表示几何体实例化渲染所用的顶点缓冲中的顶点格式

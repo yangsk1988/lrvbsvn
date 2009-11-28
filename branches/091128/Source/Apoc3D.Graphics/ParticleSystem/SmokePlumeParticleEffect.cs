@@ -1,6 +1,6 @@
 using System;
 
-namespace VirtualBicycle.Graphics.ParticleSystem
+namespace Apoc3D.Graphics.ParticleSystem
 {
     /// <summary>
     /// A particle system that simulates a smoke effect.

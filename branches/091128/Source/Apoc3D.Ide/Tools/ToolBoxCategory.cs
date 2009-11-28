@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 
-namespace VirtualBicycle.Ide.Tools
+namespace Apoc3D.Ide.Tools
 {
     public abstract class ToolBoxCategory
     {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using VirtualBicycle.IO;
+using Apoc3D.IO;
 
-namespace VirtualBicycle.Ide.Designers
+namespace Apoc3D.Ide.Designers
 {
     public class GeneralDocumentBase : DocumentBase
     {

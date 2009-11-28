@@ -1,8 +1,8 @@
 using System;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Media;
+using Apoc3D.MathLib;
+using Apoc3D.Media;
 
-namespace VirtualBicycle.Graphics.ParticleSystem.Modifiers
+namespace Apoc3D.Graphics.ParticleSystem.Modifiers
 {
     /// <summary>
     /// Represents a modifier that interpolates the color of a particle over its lifetime.

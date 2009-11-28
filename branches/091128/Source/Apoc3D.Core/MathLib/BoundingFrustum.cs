@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Text;
-using VirtualBicycle.Design;
+using Apoc3D.Design;
 
-namespace VirtualBicycle.MathLib
+namespace Apoc3D.MathLib
 {
     [Serializable]
     internal class Gjk

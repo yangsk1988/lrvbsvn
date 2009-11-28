@@ -48,6 +48,7 @@
     <Compile Include="Collections\SamplerStateCollection.cs" />
     <Compile Include="Desgin\MeshFaceConverter.cs" />
     <Compile Include="FpsCounter.cs" />
+    <Compile Include="UnmanagedResource.cs" />
     <Compile Include="Scene\ObjectFactory.cs" />
     <Compile Include="Scene\ObjectTypeManager.cs" />
     <Compile Include="RenderSystem\Buffer\HardwareBuffer.cs" />

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle.IO;
+using Apoc3D.Ide.Designers;
+using Apoc3D.IO;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     public unsafe class DevFileLocation : FileLocation
     {

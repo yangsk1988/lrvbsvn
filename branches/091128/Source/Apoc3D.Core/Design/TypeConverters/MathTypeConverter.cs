@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 
-namespace VirtualBicycle.Design
+namespace Apoc3D.Design
 {
 #if !XBOX
     using System.ComponentModel.Design.Serialization;

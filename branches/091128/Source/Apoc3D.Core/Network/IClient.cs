@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Network
+namespace Apoc3D.Network
 {
     /// <summary>
     ///  服务器连接事件的委派类型

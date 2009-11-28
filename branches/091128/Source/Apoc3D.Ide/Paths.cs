@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace VirtualBicycle.Ide
+namespace Apoc3D.Ide
 {
     public static class Paths
     {
