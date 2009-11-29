@@ -4,8 +4,8 @@ using System.Text;
 using Apoc3D.Config;
 using Apoc3D.Graphics.Effects;
 using Apoc3D.MathLib;
-using Apoc3D.Vfs;
 using Apoc3D.Scene;
+using Apoc3D.Vfs;
 
 namespace Apoc3D.Graphics
 {
@@ -21,14 +21,14 @@ namespace Apoc3D.Graphics
 
             static readonly VertexElement[] elements;
 
-            static SkyVertex() 
+            static SkyVertex()
             {
                 elements = new VertexElement[2];
                 elements[0] = new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position);
                 elements[1] = new VertexElement(1, VertexElementFormat.Vector3, VertexElementUsage.TextureCoordinate, 0);
             }
 
-            public static VertexElement[] Elements 
+            public static VertexElement[] Elements
             {
                 get { return elements; }
             }
@@ -47,13 +47,15 @@ namespace Apoc3D.Graphics
         RenderSystem renderSystem;
         ObjectFactory factory;
 
-        Effect effect;
+        //VertexShader vtxShader;
+        PixelShader pixShader;
+        //Effect effect;
         //EffectHandle nightAlpha;
         //EffectHandle day;
         //EffectHandle night;
 
         public unsafe SkyBox(RenderSystem rs)
-            :base(false )
+            : base(false)
         {
             renderSystem = rs;
             factory = rs.ObjectFactory;
@@ -81,133 +83,39 @@ namespace Apoc3D.Graphics
 
             ushort* ibDst = (ushort*)indexBuffer.Lock(0, 0, LockMode.None);
 
-            ibDst[0] = 0;
-            ibDst[1] = 1;
-            ibDst[2] = 3;
+            ibDst[0] = 0; ibDst[1] = 1; ibDst[2] = 3;
+            ibDst[3] = 0; ibDst[4] = 3; ibDst[5] = 2;
 
-            ibDst[3] = 0;
-            ibDst[4] = 3;
-            ibDst[5] = 2;
+            ibDst[6] = 0; ibDst[7] = 4; ibDst[8] = 5;
+            ibDst[9] = 0; ibDst[10] = 5; ibDst[11] = 1;
 
+            ibDst[12] = 2; ibDst[13] = 6; ibDst[14] = 4;
+            ibDst[15] = 2; ibDst[16] = 4; ibDst[17] = 0;
 
-            ibDst[6] = 0;
-            ibDst[7] = 4;
-            ibDst[8] = 5;
+            ibDst[18] = 3; ibDst[19] = 7; ibDst[20] = 6;
+            ibDst[21] = 3; ibDst[22] = 6; ibDst[23] = 2;
 
-            ibDst[9] = 0;
-            ibDst[10] = 5;
-            ibDst[11] = 1;
+            ibDst[24] = 1; ibDst[25] = 5; ibDst[26] = 7;
+            ibDst[27] = 1; ibDst[28] = 7; ibDst[29] = 3;
 
-
-
-            ibDst[12] = 2;
-            ibDst[13] = 6;
-            ibDst[14] = 4;
-
-            ibDst[15] = 2;
-            ibDst[16] = 4;
-            ibDst[17] = 0;
-
-
-            ibDst[18] = 3;
-            ibDst[19] = 7;
-            ibDst[20] = 6;
-
-            ibDst[21] = 3;
-            ibDst[22] = 6;
-            ibDst[23] = 2;
-
-
-            ibDst[24] = 1;
-            ibDst[25] = 5;
-            ibDst[26] = 7;
-
-            ibDst[27] = 1;
-            ibDst[28] = 7;
-            ibDst[29] = 3;
-
-
-            ibDst[30] = 6;
-            ibDst[31] = 7;
-            ibDst[32] = 5;
-
-            ibDst[33] = 6;
-            ibDst[34] = 5;
-            ibDst[35] = 4;
-
-            //ibDst[0] = 0;
-            //ibDst[1] = 1;
-            //ibDst[2] = 3;
-
-            //ibDst[3] = 0;
-            //ibDst[4] = 2;
-            //ibDst[5] = 3;
-
-
-            //ibDst[6] = 4;
-            //ibDst[7] = 5;
-            //ibDst[8] = 7;
-
-            //ibDst[9] = 4;
-            //ibDst[10] = 6;
-            //ibDst[11] = 7;
-
-
-
-            //ibDst[12] = 0;
-            //ibDst[13] = 1;
-            //ibDst[14] = 4;
-
-            //ibDst[15] = 1;
-            //ibDst[16] = 4;
-            //ibDst[17] = 5;
-
-
-            //ibDst[18] = 0;
-            //ibDst[19] = 4;
-            //ibDst[20] = 2;
-
-            //ibDst[21] = 4;
-            //ibDst[22] = 6;
-            //ibDst[23] = 2;
-
-
-            //ibDst[24] = 1;
-            //ibDst[25] = 3;
-            //ibDst[26] = 5;
-
-            //ibDst[27] = 5;
-            //ibDst[28] = 7;
-            //ibDst[29] = 3;
-
-
-            //ibDst[30] = 2;
-            //ibDst[31] = 3;
-            //ibDst[32] = 6;
-
-            //ibDst[33] = 2;
-            //ibDst[34] = 7;
-            //ibDst[35] = 3;
+            ibDst[30] = 6; ibDst[31] = 7; ibDst[32] = 5;
+            ibDst[33] = 6; ibDst[34] = 5; ibDst[35] = 4;
 
             indexBuffer.Unlock();
 
 
-
-
-
-
-            FileLocation fl = FileSystem.Instance.Locate(FileSystem.CombinePath(Paths.Effects, "DayNight.fx"), FileLocateRules.Default);
+            FileLocation fl = FileSystem.Instance.Locate(FileSystem.CombinePath(Paths.Effects, "DayNight.ps"), FileLocateRules.Default);
             ContentStreamReader sr = new ContentStreamReader(fl);
             string code = sr.ReadToEnd();
             string err;
-            effect = Effect.FromString(renderSystem, code, null, IncludeHandler.Instance, null, ShaderFlags.None, null, out err);
 
-            effect.Technique = new EffectHandle("DayNight");
+            pixShader = PixelShader.FromResource(factory, fl, null, "main");
 
-            nightAlpha = new EffectHandle("nightAlpha");
+            //effect = Effect.FromString(renderSystem, code, null, IncludeHandler.Instance, null, ShaderFlags.None, null, out err);
 
-            day = new EffectHandle("Day");
-            night = new EffectHandle("Night");
+
+            //nightAlpha = new EffectHandle("nightAlpha");
+
 
         }
 
@@ -232,18 +140,18 @@ namespace Apoc3D.Graphics
 
                 //renderSystem.SetTransform(TransformState.View, view);
 
-                int passCount = effect.Begin(FX.DoNotSaveState | FX.DoNotSaveShaderState | FX.DoNotSaveSamplerState);
+                //int passCount = effect.Begin(FX.DoNotSaveState | FX.DoNotSaveShaderState | FX.DoNotSaveSamplerState);
+                renderSystem.BindShader(pixShader);
+                renderSystem.BindShader((VertexShader)null);
 
+                pixShader.SetTexture("day", dayTex);
 
                 effect.SetTexture(day, dayTex);
                 effect.SetTexture(night, nightTex);
                 effect.SetValue(nightAlpha, DayNightLerpParam);
                 effect.CommitChanges();
-      
-                for (int i = 0; i < passCount; i++)
-                {
-                    effect.BeginPass(i);
 
+                
                     renderSystem.SetRenderState(RenderState.ZEnable, false);
                     renderSystem.SetRenderState(RenderState.ZWriteEnable, false);
                     renderSystem.SetRenderState<Cull>(RenderState.CullMode, Cull.None);
@@ -260,15 +168,12 @@ namespace Apoc3D.Graphics
 
                     renderSystem.SetTransform(TransformState.View, oldView);
 
-                    effect.EndPass();
-                }
-
                 effect.End();
             }
         }
         public override void Update(float dt)
         {
-            
+
         }
 
         public override RenderOperation[] GetRenderOperation()
@@ -287,7 +192,7 @@ namespace Apoc3D.Graphics
         {
             return false;
         }
-        
+
 
         /// <summary>
         ///  从ResourceLocation加载天空盒纹理
@@ -343,7 +248,7 @@ namespace Apoc3D.Graphics
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            if (disposing) 
+            if (disposing)
             {
                 if (dayTex != null)
                 {

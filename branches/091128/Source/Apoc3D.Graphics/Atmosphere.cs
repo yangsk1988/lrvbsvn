@@ -284,9 +284,9 @@ namespace Apoc3D.Graphics
     /// </summary>
     public class Atmosphere
     {
-        public delegate SkyBox SkyBoxLoadCallback(string name);
+        //public delegate SkyBox SkyBoxLoadCallback(string name);
 
-        SkyBox skyBox;
+        //SkyBox skyBox;
         AtmosphereInfo info;
         RenderSystem renderSystem;
 
@@ -388,7 +388,7 @@ namespace Apoc3D.Graphics
         /// <param name="dev"></param>
         /// <param name="info"></param>
         /// <param name="sblcbk">用于创建天空盒的回调函数</param>
-        public Atmosphere(RenderSystem rs, AtmosphereInfo info, SkyBoxLoadCallback sblcbk)
+        public Atmosphere(RenderSystem rs, AtmosphereInfo info)
         {
             this.renderSystem = rs;
             this.info = info;
@@ -415,10 +415,10 @@ namespace Apoc3D.Graphics
             fogColor = new ColorValue(info.fogColor);
             currentFogColor = info.fogColor;
 
-            if (info.HasSky)
-            {
-                skyBox = sblcbk(info.SkyName);
-            }
+            //if (info.HasSky)
+            //{
+            //    skyBox = sblcbk(info.SkyName);
+            //}
         }
 
         public void UpdateSettings()

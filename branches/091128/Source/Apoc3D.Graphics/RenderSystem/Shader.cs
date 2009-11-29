@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Apoc3D.Graphics.Effects;
+using Apoc3D.Vfs;
 
 namespace Apoc3D.Graphics
 {
@@ -121,6 +123,15 @@ namespace Apoc3D.Graphics
             : base(rs)
         {
         }
+        public static VertexShader FromResource(ObjectFactory fac, ResourceLocation rl, Macro[] macros, string funcName)
+        {
+            ContentStreamReader sr = new ContentStreamReader(rl);
+
+            string code = sr.ReadToEnd();
+            sr.Close();
+
+            return fac.CreateVertexShader(code, macros, IncludeHandler.Instance, "vs_2_0", funcName);
+        }
     }
 
     /// <summary>
@@ -131,6 +142,15 @@ namespace Apoc3D.Graphics
         protected PixelShader(RenderSystem rs)
             : base(rs)
         {
+        }
+        public static PixelShader FromResource(ObjectFactory fac, ResourceLocation rl, Macro[] macros, string funcName)
+        {
+            ContentStreamReader sr = new ContentStreamReader(rl);
+
+            string code = sr.ReadToEnd();
+            sr.Close();
+
+            return fac.CreatePixelShader(code, macros, IncludeHandler.Instance, "ps_2_0", funcName);
         }
     }
 }

@@ -187,7 +187,7 @@ namespace Apoc3D.Graphics
 
         public Texture ShadowColorMap
         {
-            get { return shadowRt; }
+            get { return shadowRt.GetColorBufferTexture(); }
         }
 
         protected override void loadUnmanagedResources()

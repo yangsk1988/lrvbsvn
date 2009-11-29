@@ -135,47 +135,47 @@ namespace Apoc3D.Graphics
             get;
             set;
         }
-        public abstract ColorValue FogColor
-        {
-            get;
-            set;
-        }
-        public abstract float FogDensity
-        {
-            get;
-            set;
-        }
-        public abstract bool FogEnable
-        {
-            get;
-            set;
-        }
-        public abstract float FogEnd
-        {
-            get;
-            set;
-        }
-        public abstract float FogStart
-        {
-            get;
-            set;
-        }
-        public abstract FogMode FogTableMode
-        {
-            get;
-            set;
-        }
-        public abstract FogMode FogVertexMode
-        {
-            get;
-            set;
-        }
+        //public abstract ColorValue FogColor
+        //{
+        //    get;
+        //    set;
+        //}
+        //public abstract float FogDensity
+        //{
+        //    get;
+        //    set;
+        //}
+        //public abstract bool FogEnable
+        //{
+        //    get;
+        //    set;
+        //}
+        //public abstract float FogEnd
+        //{
+        //    get;
+        //    set;
+        //}
+        //public abstract float FogStart
+        //{
+        //    get;
+        //    set;
+        //}
+        //public abstract FogMode FogTableMode
+        //{
+        //    get;
+        //    set;
+        //}
+        //public abstract FogMode FogVertexMode
+        //{
+        //    get;
+        //    set;
+        //}
 
-        public abstract bool Lighting
-        {
-            get;
-            set;
-        }
+        //public abstract bool Lighting
+        //{
+        //    get;
+        //    set;
+        //}
         public abstract bool MultiSampleAntiAlias
         {
             get;

@@ -22,29 +22,16 @@ namespace Apoc3D.Graphics.Effects
             Name = name;
             SupportsInstancing = supportsInstancing;
         }
-
+       
         protected VertexShader LoadVertexShader(RenderSystem rs, ResourceLocation vs, Macro[] macros, string funcName)
         {
             ObjectFactory fac = rs.ObjectFactory;
-
-            ContentStreamReader sr = new ContentStreamReader(vs);
-
-            string code = sr.ReadToEnd();
-            sr.Close();
-
-            return fac.CreateVertexShader(code, macros, IncludeHandler.Instance, "vs_2_0", funcName);
-
+            return VertexShader.FromResource(fac, vs, macros, funcName);
         }
-        protected PixelShader LoadPixelShader(RenderSystem rs, ResourceLocation vs, Macro[] macros, string funcName)
+        protected PixelShader LoadPixelShader(RenderSystem rs, ResourceLocation ps, Macro[] macros, string funcName)
         {
             ObjectFactory fac = rs.ObjectFactory;
-
-            ContentStreamReader sr = new ContentStreamReader(vs);
-
-            string code = sr.ReadToEnd();
-            sr.Close();
-
-            return fac.CreatePixelShader(code, macros, IncludeHandler.Instance, "ps_2_0", funcName);
+            return PixelShader.FromResource(fac, ps, macros, funcName);
         }
 
         #region 属性
