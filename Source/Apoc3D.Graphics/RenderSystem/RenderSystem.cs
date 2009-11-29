@@ -261,7 +261,7 @@ namespace Apoc3D.Graphics
 
         /// <summary>
         ///  执行RenderOperation，渲染图形
-        ///  渲染的时候必须有Shader使用，否则会引发异常
+        ///  渲染的时候必须有Pixel Shader使用，否则会引发异常
         /// </summary>
         /// <param name="op"></param>
         public virtual void Render(RenderOperation[] op)
@@ -276,8 +276,20 @@ namespace Apoc3D.Graphics
                 primitiveCount += op[i].Geomentry.PrimCount;
                 vertexCount += op[i].Geomentry.VertexCount;
             }
+        }
 
-
+        public virtual void Render(RenderOperation[] op, int count)
+        {
+            if (op == null)
+            {
+                return;
+            }
+            for (int i = 0; i < count; i++)
+            {
+                batchCount++;
+                primitiveCount += op[i].Geomentry.PrimCount;
+                vertexCount += op[i].Geomentry.VertexCount;
+            }
         }
 
         public abstract Viewport Viewport { get; set; }

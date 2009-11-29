@@ -155,21 +155,21 @@ namespace Apoc3D.Scene
             get { return shadowMap; }
         }
 
-        SkyBox LoadSkybox(string configName)
-        {
-            FileLocation fl = FileSystem.Instance.Locate(Path.Combine(Paths.Configs, "skyboxes.ini"), FileLocateRules.Default);
-            Apoc3D.Config.Configuration config = ConfigurationManager.Instance.CreateInstance(fl);
+        //SkyBox LoadSkybox(string configName)
+        //{
+        //    FileLocation fl = FileSystem.Instance.Locate(Path.Combine(Paths.Configs, "skyboxes.ini"), FileLocateRules.Default);
+        //    Apoc3D.Config.Configuration config = ConfigurationManager.Instance.CreateInstance(fl);
 
-            ConfigurationSection sect = config[configName];
+        //    ConfigurationSection sect = config[configName];
 
-            SkyBox result = new SkyBox(renderSystem);
+        //    SkyBox result = new SkyBox(renderSystem);
 
-            FileLocation day = FileSystem.Instance.Locate(Path.Combine(Paths.DataSkybox, sect["DayTexture"]), FileLocateRules.Default);
-            FileLocation night = FileSystem.Instance.Locate(Path.Combine(Paths.DataSkybox, sect["NightTexture"]), FileLocateRules.Default);
-            result.LoadTexture(day, night);
+        //    FileLocation day = FileSystem.Instance.Locate(Path.Combine(Paths.DataSkybox, sect["DayTexture"]), FileLocateRules.Default);
+        //    FileLocation night = FileSystem.Instance.Locate(Path.Combine(Paths.DataSkybox, sect["NightTexture"]), FileLocateRules.Default);
+        //    result.LoadTexture(day, night);
 
-            return result;
-        }
+        //    return result;
+        //}
 
 
         /// <summary>
@@ -217,7 +217,7 @@ namespace Apoc3D.Scene
 
             //this.clusterTable = data.ClusterTable;
             this.cameraList = new List<ICamera>();
-            this.Atmosphere = new Atmosphere(device, data.AtmosphereData, this.LoadSkybox);
+            this.Atmosphere = new Atmosphere(device, data.AtmosphereData);
             this.Data = data;
 
             visibleClusters = new FastList<CType>();
@@ -395,28 +395,27 @@ namespace Apoc3D.Scene
         /// <param name="target"></param>
         void ISceneRenderer.RenderScenePost(RenderTarget target)
         {
+            RenderStateManager states = renderSystem.RenderStates;
+
             renderSystem.SetRenderTarget(0, target);
 
             renderSystem.Clear(ClearFlags.DepthBuffer | ClearFlags.Target, 0, 1, 0);
 
 
-            renderSystem.SetTransform(TransformState.Projection, EffectParams.CurrentCamera.ProjectionMatrix);
-            renderSystem.SetTransform(TransformState.World, Matrix.Identity);
-            renderSystem.SetTransform(TransformState.View, EffectParams.CurrentCamera.ViewMatrix);
+            //renderSystem.SetTransform(TransformState.Projection, EffectParams.CurrentCamera.ProjectionMatrix);
+            //renderSystem.SetTransform(TransformState.World, Matrix.Identity);
+            //renderSystem.SetTransform(TransformState.View, EffectParams.CurrentCamera.ViewMatrix);
 
 
             Atmosphere.Render();
 
-            renderSystem.BindShader((PixelShader)null);
-            renderSystem.BindShader((VertexShader)null);
 
 
-            renderSystem.SetRenderState(RenderState.AlphaBlendEnable, false);
-            renderSystem.SetRenderState(RenderState.Lighting, false);
-            renderSystem.SetTexture(0, null);
+            states.AlphaBlendEnable = false;
+            //states.Lighting = false;
 
             #region 处理一般的Op
-            foreach (KeyValuePair<string, FastList<RenderOperation>> e1 in batchTable)
+            foreach (KeyValuePair<Material, FastList<RenderOperation>> e1 in batchTable)
             {
                 FastList<RenderOperation> opList = e1.Value;
 
@@ -428,89 +427,89 @@ namespace Apoc3D.Scene
             #endregion
 
             #region 处理Instancing
-            foreach (KeyValuePair<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>> e2 in instanceTable)
-            {
-                Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable = e2.Value;
-                foreach (KeyValuePair<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> e3 in matTable)
-                {
-                    Dictionary<GeomentryData, FastList<RenderOperation>> geoTable = e3.Value;
-                    foreach (KeyValuePair<GeomentryData, FastList<RenderOperation>> e4 in geoTable)
-                    {
-                        FastList<RenderOperation> opList = e4.Value;
-                        GeomentryData gm = e4.Key;
+            //foreach (KeyValuePair<string, Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>> e2 in instanceTable)
+            //{
+            //    Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable = e2.Value;
+            //    foreach (KeyValuePair<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> e3 in matTable)
+            //    {
+            //        Dictionary<GeomentryData, FastList<RenderOperation>> geoTable = e3.Value;
+            //        foreach (KeyValuePair<GeomentryData, FastList<RenderOperation>> e4 in geoTable)
+            //        {
+            //            FastList<RenderOperation> opList = e4.Value;
+            //            GeomentryData gm = e4.Key;
 
-                        if (gm != null)
-                        {
-                            if (opList.Count < 50 || gm.VertexCount > 20)
-                            {
-                                RenderList(e2.Key, opList);
-                            }
-                            else
-                            {
-                                renderSystem.PixelShader = null;
-                                renderSystem.VertexShader = null;
-                                Effect effect = effects[e2.Key];
+            //            if (gm != null)
+            //            {
+            //                if (opList.Count < 50 || gm.VertexCount > 20)
+            //                {
+            //                    RenderList(e2.Key, opList);
+            //                }
+            //                else
+            //                {
+            //                    renderSystem.PixelShader = null;
+            //                    renderSystem.VertexShader = null;
+            //                    Effect effect = effects[e2.Key];
 
-                                if (effect == null)
-                                {
-                                    effect = EffectManager.Instance.GetModelEffect(StandardEffectFactory.Name);
-                                }
+            //                    if (effect == null)
+            //                    {
+            //                        effect = EffectManager.Instance.GetModelEffect(StandardEffectFactory.Name);
+            //                    }
 
-                                Material mate = e3.Key;
-                                if (mate == null)
-                                    mate = Material.DefaultMaterial;
+            //                    Material mate = e3.Key;
+            //                    if (mate == null)
+            //                        mate = Material.DefaultMaterial;
 
-                                if (gm.VertexCount == 0)
-                                    continue;
+            //                    if (gm.VertexCount == 0)
+            //                        continue;
 
-                                renderSystem.SetRenderState(RenderState.AlphaTestEnable, mate.IsTransparent);
-                                renderSystem.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
+            //                    renderSystem.SetRenderState(RenderState.AlphaTestEnable, mate.IsTransparent);
+            //                    renderSystem.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
 
-                                int passCount = effect.BeginInst();
+            //                    int passCount = effect.BeginInst();
 
-                                for (int p = 0; p < passCount; p++)
-                                {
-                                    effect.BeginPassInst(p);
+            //                    for (int p = 0; p < passCount; p++)
+            //                    {
+            //                        effect.BeginPassInst(p);
 
-                                    int remainingInst = opList.Count;
-                                    int index = 0;
-                                    while (remainingInst > 0)
-                                    {
-                                        BatchCount++;
-                                        PrimitiveCount += gm.PrimCount;
-                                        VertexCount += gm.VertexCount;
+            //                        int remainingInst = opList.Count;
+            //                        int index = 0;
+            //                        while (remainingInst > 0)
+            //                        {
+            //                            BatchCount++;
+            //                            PrimitiveCount += gm.PrimCount;
+            //                            VertexCount += gm.VertexCount;
 
-                                        //device.SetRenderState(RenderState.ZWriteEnable, !mate.IsTransparent);
+            //                            //device.SetRenderState(RenderState.ZWriteEnable, !mate.IsTransparent);
 
-                                        effect.SetupInstancing(mate);
+            //                            effect.SetupInstancing(mate);
 
-                                        renderSystem.VertexFormat = gm.Format;
-                                        renderSystem.VertexDeclaration = instancing.GetInstancingDecl(gm.VertexDeclaration);
+            //                            renderSystem.VertexFormat = gm.Format;
+            //                            renderSystem.VertexDeclaration = instancing.GetInstancingDecl(gm.VertexDeclaration);
 
-                                        int rendered = instancing.Setup(opList, index);
-                                        renderSystem.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
-                                        renderSystem.SetStreamSourceFrequency(0, rendered, StreamSource.IndexedData);
+            //                            int rendered = instancing.Setup(opList, index);
+            //                            renderSystem.SetStreamSource(0, gm.VertexBuffer, 0, gm.VertexSize);
+            //                            renderSystem.SetStreamSourceFrequency(0, rendered, StreamSource.IndexedData);
 
-                                        remainingInst -= rendered;
-                                        index += rendered;
+            //                            remainingInst -= rendered;
+            //                            index += rendered;
 
-                                        renderSystem.Indices = gm.IndexBuffer;
-                                        renderSystem.DrawIndexedPrimitives(gm.PrimitiveType,
-                                            gm.BaseVertex, 0,
-                                            gm.VertexCount, gm.BaseIndexStart,
-                                            gm.PrimCount);
+            //                            renderSystem.Indices = gm.IndexBuffer;
+            //                            renderSystem.DrawIndexedPrimitives(gm.PrimitiveType,
+            //                                gm.BaseVertex, 0,
+            //                                gm.VertexCount, gm.BaseIndexStart,
+            //                                gm.PrimCount);
 
-                                    }
+            //                        }
 
-                                    effect.EndPassInst();
-                                }
-                                effect.EndInst();
-                            } // if (opList.Count > 10)
+            //                        effect.EndPassInst();
+            //                    }
+            //                    effect.EndInst();
+            //                } // if (opList.Count > 10)
 
-                        }
-                    }
-                }
-            }
+            //            }
+            //        }
+            //    }
+            //}
             #endregion
 
             Dictionary<Material, FastList<RenderOperation>>.ValueCollection vals = batchData.batchTable.Values;
@@ -533,18 +532,18 @@ namespace Apoc3D.Scene
             }
         }
 
-        void RenderList(string name, FastList<RenderOperation> opList)
+        void RenderList(Material material, FastList<RenderOperation> opList)
         {
             RenderStateManager states = renderSystem.RenderStates;
+            renderSystem.BindShader((PixelShader)null);
+            renderSystem.BindShader((VertexShader)null);
 
-            renderSystem.PixelShader = null;
-            renderSystem.VertexShader = null;
-            Effect effect = effects[name];
+            //Effect effect = effects[name];
 
-            if (effect == null)
-            {
-                effect = EffectManager.Instance.GetModelEffect(StandardEffectFactory.Name);
-            }
+            //if (effect == null)
+            //{
+            //    effect = EffectManager.Instance.GetModelEffect(StandardEffectFactory.Name);
+            //}
 
             int passCount = effect.Begin();
             for (int p = 0; p < passCount; p++)

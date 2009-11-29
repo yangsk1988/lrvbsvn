@@ -163,7 +163,7 @@ namespace Apoc3D.Scene
             renderSys.SetRenderTarget(0, blmRt);
 
             bloomEff.Begin();
-            bloomEff.SetTexture("rt", colorTarget);
+            bloomEff.SetTexture("rt", clrRt.GetColorBufferTexture());
 
             DrawSmallQuad();
 
@@ -172,7 +172,7 @@ namespace Apoc3D.Scene
 
             #region 高斯X
             gaussXBlur.Begin();
-            gaussXBlur.SetTexture("rt", bloom);
+            gaussXBlur.SetTexture("rt", blmRt.GetColorBufferTexture());
 
             DrawSmallQuad();
 
@@ -181,7 +181,7 @@ namespace Apoc3D.Scene
 
             #region 高斯Y
             gaussYBlur.Begin();
-            gaussYBlur.SetTexture("rt", bloom);
+            gaussYBlur.SetTexture("rt", blmRt.GetColorBufferTexture());
 
             DrawSmallQuad();
 
@@ -214,8 +214,8 @@ namespace Apoc3D.Scene
 
 
             compEff.Begin();
-            compEff.SetTexture("rt", colorTarget);
-            compEff.SetTexture("blmRt", bloom);
+            compEff.SetTexture("rt", clrRt.GetColorBufferTexture());
+            compEff.SetTexture("blmRt", blmRt.GetColorBufferTexture());
 
             DrawBigQuad();
 
@@ -283,8 +283,8 @@ namespace Apoc3D.Scene
 
         protected override void unloadUnmanagedResources()
         {
-            colorTarget.Dispose();
-            bloom.Dispose();
+            clrRt.Dispose();
+            blmRt.Dispose();
 
             indexBuffer.Dispose();
             quad.Dispose();
@@ -296,8 +296,8 @@ namespace Apoc3D.Scene
 
             clrRt = null;
             blmRt = null;
-            colorTarget = null;
-            bloom = null;
+            //colorTarget = null;
+            //bloom = null;
         }
     }
 }

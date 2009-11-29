@@ -8,7 +8,7 @@ namespace Apoc3D.Graphics
     /// <summary>
     ///  表示渲染目标
     /// </summary>
-    public abstract class RenderTarget
+    public abstract class RenderTarget : IDisposable
     {
         protected BackBuffer colorBuffer;
         protected DepthBuffer depthStencilBuffer;
@@ -55,5 +55,30 @@ namespace Apoc3D.Graphics
             private set;
         }
 
+
+        #region IDisposable 成员
+
+        protected virtual void Dispose(bool disposing) { }
+
+        public bool Disposed
+        {
+            get;
+            private set;
+        }
+
+        public void Dispose()
+        {
+            if (!Disposed)
+            {
+                Dispose(true);
+                Disposed = true;
+            }
+            else 
+            {
+                throw new ObjectDisposedException(ToString());
+            }
+        }
+
+        #endregion
     }
 }
