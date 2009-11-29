@@ -5,6 +5,7 @@ using Apoc3D.Graphics;
 using Apoc3D.Graphics.Effects;
 using Apoc3D.MathLib;
 using Apoc3D.Vfs;
+using Apoc3D.Media;
 
 namespace Apoc3D.Scene
 {
@@ -69,14 +70,16 @@ namespace Apoc3D.Scene
         Texture colorTarget;
         Texture bloom;
 
-        BackBuffer clrRt;
-        BackBuffer blmRt;
+        RenderTarget clrRt;
+        RenderTarget blmRt;
 
-        //Effect bloomEffect;
-        //Effect compEffect;
+        Bloom bloomEff;
+        Composite compEff;
 
-        //Effect gaussXBlur;
-        //Effect gaussYBlur;
+        GaussBlurX gaussXBlur;
+        GaussBlurY gaussYBlur;
+
+
 
         //EffectHandle rtParam;
         //EffectHandle clrRtParam;
@@ -87,45 +90,42 @@ namespace Apoc3D.Scene
         IndexBuffer indexBuffer;
         VertexBuffer quad;
         VertexBuffer smallQuad;
+        ObjectFactory factory;
+        //Sprite spr;
 
-        Sprite spr;
+        //Effect LoadEffect(string fileName) 
+        //{
+        //    FileLocation fl = FileSystem.Instance.Locate(FileSystem.CombinePath(Paths.Effects, fileName), FileLocateRules.Default);
+        //    ContentStreamReader sr = new ContentStreamReader(fl);
+        //    string code = sr.ReadToEnd();
+        //    string err;
+        //    Effect effect = Effect.FromString(device, code, null, IncludeHandler.Instance, null, ShaderFlags.OptimizationLevel3, null, out err);
+        //    sr.Close();
 
-        Effect LoadEffect(string fileName) 
+        //    return effect;
+        //}
+
+        public PostRenderer(RenderSystem rs)
         {
-            FileLocation fl = FileSystem.Instance.Locate(FileSystem.CombinePath(Paths.Effects, fileName), FileLocateRules.Default);
-            ContentStreamReader sr = new ContentStreamReader(fl);
-            string code = sr.ReadToEnd();
-            string err;
-            Effect effect = Effect.FromString(device, code, null, IncludeHandler.Instance, null, ShaderFlags.OptimizationLevel3, null, out err);
-            sr.Close();
+            this.factory = rs.ObjectFactory;
 
-            return effect;
-        }
+            this.device = rs;
 
-        public PostRenderer(RenderSystem device)
-        {
-            this.device = device;
-
-            bloomEffect = LoadEffect("bloom.fx");
-            compEffect = LoadEffect("composite.fx");
-            gaussXBlur = LoadEffect("gaussXBlur.fx");
-            gaussYBlur = LoadEffect("gaussYBlur.fx");
-
-            bloomEffect.Technique = new EffectHandle("Bloom");
-            compEffect.Technique = new EffectHandle("Composite");
-            gaussXBlur.Technique = new EffectHandle("GaussX");
-            gaussYBlur.Technique = new EffectHandle("GaussY");
+            bloomEff = new Bloom(rs);
+            compEff = new Composite(rs);
+            gaussXBlur = new GaussBlurX(rs);
+            gaussYBlur = new GaussBlurY(rs);
 
 
-            rtParam = new EffectHandle("rt");
-            clrRtParam = new EffectHandle("clrRt");
-            blmRtParam = new EffectHandle("blmRt");
+            //rtParam = new EffectHandle("rt");
+            //clrRtParam = new EffectHandle("clrRt");
+            //blmRtParam = new EffectHandle("blmRt");
 
-            VertexElement[] elems = new VertexElement[3];
-            elems[0] = new VertexElement(0, 0, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, 0);
-            elems[1] = new VertexElement(0, (short)Vector4.SizeInBytes, DeclarationType.Float2, DeclarationMethod.Default, DeclarationUsage.TextureCoordinate, 0);
-            elems[2] = VertexElement.VertexDeclarationEnd;
-            vtxDecl = new VertexDeclaration(device, elems);
+            //VertexElement[] elems = new VertexElement[3];
+            //elems[0] = new VertexElement(0, 0, DeclarationType.Float4, DeclarationMethod.Default, DeclarationUsage.PositionTransformed, 0);
+            //elems[1] = new VertexElement(0, (short)Vector4.SizeInBytes, DeclarationType.Float2, DeclarationMethod.Default, DeclarationUsage.TextureCoordinate, 0);
+            //elems[2] = VertexElement.VertexDeclarationEnd;
+            vtxDecl = factory.CreateVertexDeclaration(RectVertex.Elements);
 
             LoadUnmanagedResources();
         }
@@ -164,38 +164,29 @@ namespace Apoc3D.Scene
             #region 分离高光
             device.SetRenderTarget(0, blmRt);
 
-            bloomEffect.Begin(FX.DoNotSaveState | FX.DoNotSaveShaderState | FX.DoNotSaveSamplerState);
-            bloomEffect.SetTexture(rtParam, colorTarget);
-            bloomEffect.CommitChanges();
-            bloomEffect.BeginPass(0);
+            bloomEff.Begin();
+            bloomEff.SetTexture("rt", colorTarget);
 
             DrawSmallQuad();
 
-            bloomEffect.EndPass();
-            bloomEffect.End();
+            bloomEff.End();
             #endregion
 
             #region 高斯X
-            gaussXBlur.Begin(FX.DoNotSaveState | FX.DoNotSaveShaderState | FX.DoNotSaveSamplerState);
-            gaussXBlur.SetTexture(rtParam, bloom);
-            gaussXBlur.CommitChanges();
-            gaussXBlur.BeginPass(0);
+            gaussXBlur.Begin();
+            gaussXBlur.SetTexture("rt", bloom);
 
             DrawSmallQuad();
 
-            gaussXBlur.EndPass();
             gaussXBlur.End();
             #endregion
 
             #region 高斯Y
-            gaussYBlur.Begin(FX.DoNotSaveState | FX.DoNotSaveShaderState | FX.DoNotSaveSamplerState);
-            gaussYBlur.SetTexture(rtParam, bloom);
-            gaussYBlur.CommitChanges();
-            gaussYBlur.BeginPass(0);
+            gaussYBlur.Begin();
+            gaussYBlur.SetTexture("rt", bloom);
 
             DrawSmallQuad();
 
-            gaussYBlur.EndPass();
             gaussYBlur.End();
             #endregion
 
@@ -205,35 +196,32 @@ namespace Apoc3D.Scene
             device.SetRenderTarget(0, screenTarget);
 
             
-            device.VertexShader = null;
-            device.PixelShader = null;
+            //device.VertexShader = null;
+            //device.PixelShader = null;
 
-            spr.Transform = Matrix.Identity;
+            //spr.Transform = Matrix.Identity;
 
-            spr.Begin(SpriteFlags.DoNotSaveState);
-            spr.Draw(colorTarget, -1);
-            spr.End();
+            //spr.Begin(SpriteFlags.DoNotSaveState);
+            //spr.Draw(colorTarget, -1);
+            //spr.End();
 
-            states.AlphaBlendEnable = true;
-            states.BlendFunction = BlendFunction.Add;
+            //states.AlphaBlendEnable = true;
+            //states.BlendFunction = BlendFunction.Add;
             
-            states.DestinationBlend = Blend.One;
-            states.DestinationBlendAlpha = Blend.One;
-            states.SourceBlend = Blend.One;
-            states.SourceBlendAlpha = Blend.One;
+            //states.DestinationBlend = Blend.One;
+            //states.DestinationBlendAlpha = Blend.One;
+            //states.SourceBlend = Blend.One;
+            //states.SourceBlendAlpha = Blend.One;
 
 
 
-            compEffect.Begin(FX.DoNotSaveState | FX.DoNotSaveShaderState | FX.DoNotSaveSamplerState);
-            //compEffect.SetTexture(clrRtParam, colorTarget);
-            compEffect.SetTexture(blmRtParam, bloom);
-            compEffect.CommitChanges();
-            compEffect.BeginPass(0);
+            compEff.Begin();
+            compEff.SetTexture("rt", colorTarget);
+            compEff.SetTexture("blmRt", bloom);
 
             DrawBigQuad();
 
-            compEffect.EndPass();
-            compEffect.End();
+            compEff.End();
 
             states.AlphaBlendEnable = false;
 
@@ -243,24 +231,18 @@ namespace Apoc3D.Scene
 
         protected unsafe override void loadUnmanagedResources()
         {
-            BackBuffer s = device.GetBackBuffer(0, 0);
-            SurfaceDescription desc = s.Description;
+            RenderTarget s = device.GetRenderTarget(0);
 
             Size blmSize = new Size(512, 512);
-            Size scrnSize = new Size(desc.Width, desc.Height);
+            Size scrnSize = new Size(s.Width, s.Height);
             //s.Dispose();
 
             //colorTarget = TextureLoader.LoadUITexture(device, new FileLocation(@"E:\Desktop\123.png"));
-            colorTarget = new Texture(device, scrnSize.Width, scrnSize.Height, 1, Usage.RenderTarget, Format.X8R8G8B8, Pool.Default);
-            bloom = new Texture(device, blmSize.Width, blmSize.Height, 1, Usage.RenderTarget, Format.R32F, Pool.Default);
-
-            spr = new Sprite(device);
-
-            clrRt = colorTarget.GetSurfaceLevel(0);
-            blmRt = bloom.GetSurfaceLevel(0);
+            clrRt = factory.CreateRenderTarget(scrnSize.Width, scrnSize.Height, ImagePixelFormat.X8R8G8B8);
+            blmRt = factory.CreateRenderTarget(blmSize.Width, blmSize.Width, ImagePixelFormat.R32F);
 
 
-            quad = new VertexBuffer(device, RectVertex.Size * 4, Usage.None, RectVertex.Format);
+            quad = factory.CreateVertexBuffer(4, vtxDecl, BufferUsage.Static);
 
             RectVertex* vdst = (RectVertex*)quad.Lock(0, 0, LockMode.None);
             vdst[0].Position = new Vector4(0, 0, 0, 1);
@@ -274,7 +256,7 @@ namespace Apoc3D.Scene
             quad.Unlock();
 
 
-            smallQuad = new VertexBuffer(device, RectVertex.Size * 4, Usage.None, RectVertex.Format);
+            smallQuad = factory.CreateVertexBuffer(4, vtxDecl, BufferUsage.Static);
             vdst = (RectVertex*)smallQuad.Lock(0, 0, LockMode.None);
             vdst[0].Position = new Vector4(0, 0, 0, 1);
             vdst[0].TexCoord = new Vector2(0, 0);
@@ -287,7 +269,7 @@ namespace Apoc3D.Scene
             smallQuad.Unlock();
 
 
-            indexBuffer = new IndexBuffer(device, sizeof(int) * 6, Usage.None, Pool.Managed, false);
+            indexBuffer = factory.CreateIndexBuffer(IndexBufferType.Bit32, 6, BufferUsage.Static);
             int* idst = (int*)indexBuffer.Lock(0, 0, LockMode.None);
 
             idst[0] = 0;
@@ -303,13 +285,8 @@ namespace Apoc3D.Scene
 
         protected override void unloadUnmanagedResources()
         {
-            spr.Dispose();
-
             colorTarget.Dispose();
             bloom.Dispose();
-
-            clrRt.Dispose();
-            blmRt.Dispose();
 
             indexBuffer.Dispose();
             quad.Dispose();
