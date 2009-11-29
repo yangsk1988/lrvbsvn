@@ -34,10 +34,10 @@ namespace Apoc3D.Graphics
             }
         }
 
-        Texture shadowDepthMap;
-        Texture shadowRt;
+        //Texture shadowDepthMap;
+        RenderTarget shadowRt;
 
-        RenderTarget shadowRtSurface;
+        //RenderTarget shadowRtSurface;
 
         public const int ShadowMapLength = 1024;
 
@@ -107,11 +107,9 @@ namespace Apoc3D.Graphics
 
         public void End()
         {
-
             renderSys.SetRenderTarget(0, stdRenderTarget);
             stdRenderTarget = null;
             
-
             renderSys.Viewport = stdVp;
         }
         public void Begin(Vector3 lightDir, ICamera cam)
@@ -122,7 +120,7 @@ namespace Apoc3D.Graphics
 
             stdRenderTarget = renderSys.GetRenderTarget(0);
 
-            renderSys.SetRenderTarget(0, shadowRtSurface);
+            renderSys.SetRenderTarget(0, shadowRt);
 
             renderSys.Clear(ClearFlags.Target | ClearFlags.DepthBuffer, -1, 1, 0);
 
@@ -194,21 +192,21 @@ namespace Apoc3D.Graphics
 
         protected override void loadUnmanagedResources()
         {
-            shadowDepthMap = new Texture(renderSys, ShadowMapLength, ShadowMapLength, 1, Usage.DepthStencil, Format.D24X8, Pool.Default);
-            shadowRt = new Texture(renderSys, ShadowMapLength, ShadowMapLength, 1, Usage.RenderTarget, Format.R32F, Pool.Default);
+            //shadowDepthMap = new Texture(renderSys, ShadowMapLength, ShadowMapLength, 1, Usage.DepthStencil, Format.D24X8, Pool.Default);
+            shadowRt = factory.CreateRenderTarget(ShadowMapLength, ShadowMapLength, ImagePixelFormat.R32F, DepthFormat.Depth24X8);
 
-            shadowRtSurface = shadowRt.GetSurfaceLevel(0);
-            shadowDepSurface = shadowDepthMap.GetSurfaceLevel(0);
+            //shadowRtSurface = shadowRt.GetSurfaceLevel(0);
+            //shadowDepSurface = shadowDepthMap.GetSurfaceLevel(0);
 
         }
 
         protected override void unloadUnmanagedResources()
         {
-            shadowDepthMap.Dispose();
+            //shadowDepthMap.Dispose();
             shadowRt.Dispose();
 
-            shadowRtSurface.Dispose();
-            shadowDepSurface.Dispose();
+            //shadowRtSurface.Dispose();
+            //shadowDepSurface.Dispose();
         }
 
         protected override void Dispose(bool disposing)

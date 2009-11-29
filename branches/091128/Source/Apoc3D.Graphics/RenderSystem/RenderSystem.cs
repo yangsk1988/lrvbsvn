@@ -261,6 +261,7 @@ namespace Apoc3D.Graphics
 
         /// <summary>
         ///  执行RenderOperation，渲染图形
+        ///  渲染的时候必须有Shader使用，否则会引发异常
         /// </summary>
         /// <param name="op"></param>
         public virtual void Render(RenderOperation[] op)
@@ -278,6 +279,8 @@ namespace Apoc3D.Graphics
 
 
         }
+
+        public abstract Viewport Viewport { get; set; }
 
         ///// <summary>
         /////  获取变换矩阵

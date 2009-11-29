@@ -229,7 +229,7 @@ namespace Apoc3D.Scene
 
 
 
-            this.instancing = new Instancing(device);
+            //this.instancing = new Instancing(device);
 
             this.shadowMap = new ShadowMap(device);
             this.postRenderer = new PostRenderer(device);
@@ -273,69 +273,79 @@ namespace Apoc3D.Scene
 
                         if (mate != null)
                         {
-                            string desc;
-                            bool supportsInst;
-                            if (mate.Effect == null)
+                            FastList<RenderOperation> opList;
+
+                            if (!batchData.batchTable.TryGetValue(mate, out opList))
                             {
-                                desc = string.Empty;
-                                // if effect is null, instancing is supported by defualt
-                                supportsInst = true;
-                            }
-                            else
-                            {
-                                supportsInst = mate.Effect.SupportsInstancing;
-                                desc = mate.Effect.Name + "_" + mate.BatchIndex.ToString();
+                                opList = new FastList<RenderOperation>();
+                                batchData.batchTable.Add(mate, opList);
                             }
 
-                            if (supportsInst)
-                            {
-                                Effect effect;
-                                if (!batchData.effects.TryGetValue(desc, out effect))
-                                {
-                                    batchData.effects.Add(desc, mate.Effect);
-                                }
+                            opList.Add(ops[k]);
 
-                                Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable;
-                                if (!batchData.instanceTable.TryGetValue(desc, out matTable))
-                                {
-                                    matTable = new Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>();
-                                    batchData.instanceTable.Add(desc, matTable);
-                                }
+                            //string desc;
+                            //bool supportsInst;
+                            //if (mate.Effect == null)
+                            //{
+                            //    desc = string.Empty;
+                            //    // if effect is null, instancing is supported by defualt
+                            //    supportsInst = true;
+                            //}
+                            //else
+                            //{
+                            //    supportsInst = mate.Effect.SupportsInstancing;
+                            //    desc = mate.Effect.Name + "_" + mate.BatchIndex.ToString();
+                            //}
 
-                                Dictionary<GeomentryData, FastList<RenderOperation>> geoDataTbl;
-                                if (!matTable.TryGetValue(mate, out geoDataTbl))
-                                {
-                                    geoDataTbl = new Dictionary<GeomentryData, FastList<RenderOperation>>();
-                                    matTable.Add(mate, geoDataTbl);
-                                }
+                            //if (supportsInst)
+                            //{
+                            //    Effect effect;
+                            //    if (!batchData.effects.TryGetValue(desc, out effect))
+                            //    {
+                            //        batchData.effects.Add(desc, mate.Effect);
+                            //    }
 
-                                FastList<RenderOperation> instOpList;
-                                if (!geoDataTbl.TryGetValue(geoData, out instOpList))
-                                {
-                                    instOpList = new FastList<RenderOperation>();
-                                    geoDataTbl.Add(geoData, instOpList);
-                                }
+                            //    Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>> matTable;
+                            //    if (!batchData.instanceTable.TryGetValue(desc, out matTable))
+                            //    {
+                            //        matTable = new Dictionary<Material, Dictionary<GeomentryData, FastList<RenderOperation>>>();
+                            //        batchData.instanceTable.Add(desc, matTable);
+                            //    }
 
-                                instOpList.Add(ops[k]);
-                            }
-                            else
-                            {
-                                Effect effect;
-                                FastList<RenderOperation> opList;
+                            //    Dictionary<GeomentryData, FastList<RenderOperation>> geoDataTbl;
+                            //    if (!matTable.TryGetValue(mate, out geoDataTbl))
+                            //    {
+                            //        geoDataTbl = new Dictionary<GeomentryData, FastList<RenderOperation>>();
+                            //        matTable.Add(mate, geoDataTbl);
+                            //    }
 
-                                if (!batchData.effects.TryGetValue(desc, out effect))
-                                {
-                                    batchData.effects.Add(desc, mate.Effect);
-                                }
+                            //    FastList<RenderOperation> instOpList;
+                            //    if (!geoDataTbl.TryGetValue(geoData, out instOpList))
+                            //    {
+                            //        instOpList = new FastList<RenderOperation>();
+                            //        geoDataTbl.Add(geoData, instOpList);
+                            //    }
 
-                                if (!batchData.batchTable.TryGetValue(desc, out opList))
-                                {
-                                    opList = new FastList<RenderOperation>();
-                                    batchData.batchTable.Add(desc, opList);
-                                }
+                            //    instOpList.Add(ops[k]);
+                            //}
+                            //else
+                            //{
+                            //    Effect effect;
+                            //    FastList<RenderOperation> opList;
 
-                                opList.Add(ops[k]);
-                            }
+                            //    if (!batchData.effects.TryGetValue(desc, out effect))
+                            //    {
+                            //        batchData.effects.Add(desc, mate.Effect);
+                            //    }
+
+                            //    if (!batchData.batchTable.TryGetValue(desc, out opList))
+                            //    {
+                            //        opList = new FastList<RenderOperation>();
+                            //        batchData.batchTable.Add(desc, opList);
+                            //    }
+
+                            //    opList.Add(ops[k]);
+                            //}
                         }
                     }
                 }
@@ -343,17 +353,17 @@ namespace Apoc3D.Scene
         }
         void AddAxisOperation()
         {
-            Effect effect;
-            if (!effects.TryGetValue(string.Empty, out effect))
-            {
-                effects.Add(string.Empty, null);
-            }
-
+            //Effect effect;
+            //if (!effects.TryGetValue(string.Empty, out effect))
+            //{
+            //    effects.Add(string.Empty, null);
+            //}
+            
             FastList<RenderOperation> opList;
-            if (!batchTable.TryGetValue(string.Empty, out opList))
+            if (!batchData.batchTable.TryGetValue(axisOp.Material, out opList))
             {
                 opList = new FastList<RenderOperation>();
-                batchTable.Add(string.Empty, opList);
+                batchData.batchTable.Add(axisOp.Material, opList);
             }
             opList.Add(axisOp);
 

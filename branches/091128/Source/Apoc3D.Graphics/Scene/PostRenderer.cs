@@ -65,10 +65,8 @@ namespace Apoc3D.Scene
                 get { return Vector4.SizeInBytes + Vector2.SizeInBytes; }
             }
         }
-        RenderSystem device;
 
-        Texture colorTarget;
-        Texture bloom;
+        RenderSystem renderSys;
 
         RenderTarget clrRt;
         RenderTarget blmRt;
@@ -80,17 +78,17 @@ namespace Apoc3D.Scene
         GaussBlurY gaussYBlur;
 
 
-
-        //EffectHandle rtParam;
-        //EffectHandle clrRtParam;
-        //EffectHandle blmRtParam;
-
         VertexDeclaration vtxDecl;
 
         IndexBuffer indexBuffer;
         VertexBuffer quad;
         VertexBuffer smallQuad;
         ObjectFactory factory;
+
+
+        RenderOperation quadOp;
+        RenderOperation smQuadOp;
+
         //Sprite spr;
 
         //Effect LoadEffect(string fileName) 
@@ -109,7 +107,7 @@ namespace Apoc3D.Scene
         {
             this.factory = rs.ObjectFactory;
 
-            this.device = rs;
+            this.renderSys = rs;
 
             bloomEff = new Bloom(rs);
             compEff = new Composite(rs);
@@ -132,20 +130,20 @@ namespace Apoc3D.Scene
 
         void DrawBigQuad()
         {
-            device.SetStreamSource(0, quad, 0, RectVertex.Size);
-            device.VertexFormat = RectVertex.Format;
-            device.Indices = indexBuffer;
-            device.VertexDeclaration = vtxDecl;
+            //renderSys.SetStreamSource(0, quad, 0, RectVertex.Size);
+            //renderSys.VertexFormat = RectVertex.Format;
+            //renderSys.Indices = indexBuffer;
+            //renderSys.VertexDeclaration = vtxDecl;
 
-            device.DrawIndexedPrimitives(RenderPrimitiveType.TriangleList, 0, 0, 4, 0, 2);
+            //renderSys.DrawIndexedPrimitives(RenderPrimitiveType.TriangleList, 0, 0, 4, 0, 2);
         }
         void DrawSmallQuad()
         {
-            device.SetStreamSource(0, smallQuad, 0, RectVertex.Size);
-            device.VertexFormat = RectVertex.Format;
-            device.VertexDeclaration = vtxDecl;
-            device.Indices = indexBuffer;
-            device.DrawIndexedPrimitives(RenderPrimitiveType.TriangleList, 0, 0, 4, 0, 2);
+            //renderSys.SetStreamSource(0, smallQuad, 0, RectVertex.Size);
+            //renderSys.VertexFormat = RectVertex.Format;
+            //renderSys.VertexDeclaration = vtxDecl;
+            //renderSys.Indices = indexBuffer;
+            //renderSys.DrawIndexedPrimitives(RenderPrimitiveType.TriangleList, 0, 0, 4, 0, 2);
         }
 
         /// <summary>
@@ -155,14 +153,14 @@ namespace Apoc3D.Scene
         /// <param name="screenTarget"></param>
         public void Render(ISceneRenderer renderer, RenderTarget screenTarget)
         {
-            RenderStateManager states = device.RenderStates;
+            RenderStateManager states = renderSys.RenderStates;
 
             renderer.RenderScenePost(clrRt);
 
             states.CullMode = CullMode.None;
 
             #region 分离高光
-            device.SetRenderTarget(0, blmRt);
+            renderSys.SetRenderTarget(0, blmRt);
 
             bloomEff.Begin();
             bloomEff.SetTexture("rt", colorTarget);
@@ -193,7 +191,7 @@ namespace Apoc3D.Scene
             #region 合成
 
 
-            device.SetRenderTarget(0, screenTarget);
+            renderSys.SetRenderTarget(0, screenTarget);
 
             
             //device.VertexShader = null;
@@ -231,7 +229,7 @@ namespace Apoc3D.Scene
 
         protected unsafe override void loadUnmanagedResources()
         {
-            RenderTarget s = device.GetRenderTarget(0);
+            RenderTarget s = renderSys.GetRenderTarget(0);
 
             Size blmSize = new Size(512, 512);
             Size scrnSize = new Size(s.Width, s.Height);
