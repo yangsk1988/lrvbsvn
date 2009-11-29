@@ -45,6 +45,7 @@ namespace Apoc3D.Graphics
 
 
         public abstract RenderTarget CreateRenderTarget(int width, int height, ImagePixelFormat clrFmt, DepthFormat depthFmt);
+        public abstract RenderTarget CreateRenderTarget(int width, int height, ImagePixelFormat clrFmt);
         public abstract RenderTarget CreateRenderTarget(BackBuffer backBuffer, DepthBuffer depthBuffer, int width, int height);
 
         //public abstract Sprite CreateSprite();

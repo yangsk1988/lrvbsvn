@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Apoc3D.Vfs;
 
-namespace Apoc3D.Graphics.Effects.Post
+namespace Apoc3D.Graphics.Effects
 {
     class GaussBlurX : PostEffect
     {

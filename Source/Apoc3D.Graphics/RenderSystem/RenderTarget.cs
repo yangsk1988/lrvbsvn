@@ -21,7 +21,14 @@ namespace Apoc3D.Graphics
             ColorBufferFormat = clrBufFormat;
             DepthBufferFormat = depBufFmt;
         }
-
+        protected RenderTarget(RenderSystem renderSystem, int width, int height,
+                  ImagePixelFormat clrBufFormat)
+        {
+            Width = width;
+            Height = height;
+            ColorBufferFormat = clrBufFormat;
+            DepthBufferFormat = DepthFormat.Count;
+        }
 
         public abstract Texture GetColorBufferTexture();
         public abstract Texture GetDepthBufferTexture();       
