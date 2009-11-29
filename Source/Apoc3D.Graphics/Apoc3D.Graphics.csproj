@@ -119,7 +119,7 @@
     <Compile Include="Scene\IFindObjectCallBack.cs" />
     <Compile Include="Scene\OctreeSceneManager.cs" />
     <Compile Include="Scene\OctreeSceneNode.cs" />
-    <Compile Include="Scene\PassInfo.cs" />
+    <Compile Include="Scene\PassData.cs" />
     <Compile Include="Scene\PostRenderer.cs" />
     <Compile Include="Scene\SceneData.cs" />
     <Compile Include="Scene\SceneDataBase.cs" />
