@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="euc-kr"?>
+	<Body>
+		<Info>
+			<Filename>lamppost3.max</Filename>
+			<ObjectCount>2</ObjectCount>
+			<MeshCount>1</MeshCount>
+			<AnimationStart>0f</AnimationStart>
+			<AnimationEnd>100f</AnimationEnd>
+			<KeyType>Keyframe</KeyType>
+			<Object>
+				<Value ID="0">NULL</Value>
+				<Value ID="1">lamppost3_L0</Value>
+			</Object>
+			<Bone>
+				<Value BoneID="0" ID="0">NULL</Value>
+			</Bone>
+		</Info>
+		<Material>
+			<Slot Index="0">
+				<Diffuse>(color 149.94 149.94 149.94)</Diffuse>
+				<Ambient>(color 149.94 149.94 149.94)</Ambient>
+				<Specular>(color 229.5 229.5 229.5)</Specular>
+				<Emissive>(color 0 0 0)</Emissive>
+				<Opacity>100.0</Opacity>
+				<Power>0.0</Power>
+			</Slot>
+		</Material>
+		<Object ID="0" Name="NULL" Class="Dummy">
+			<Parent ID="-1" Name="undefined">
+			</Parent>
+			<LocalTM>
+				<Value>[1.0,0.0,0.0,0.0]</Value>
+				<Value>[0.0,1.0,0.0,0.0]</Value>
+				<Value>[0.0,0.0,1.0,0.0]</Value>
+				<Value>[0.0,0.0,0.0,1.0]</Value>
+			</LocalTM>
+			<WorldTM>
+				<Value>[1.0,0.0,0.0,0.0]</Value>
+				<Value>[0.0,1.0,0.0,0.0]</Value>
+				<Value>[0.0,0.0,1.0,0.0]</Value>
+				<Value>[0.0,0.0,0.0,1.0]</Value>
+			</WorldTM>
+			<BoundingBox>
+				<Max>[5,5,5]</Max>
+				<Min>[-5,-5,-5]</Min>
+				<Center>[0,0,0]</Center>
+			</BoundingBox>
+		</Object>
+		<Object ID="1" Name="lamppost3_L0" Class="Editable_mesh">
+			<Parent ID="-1" Name="undefined">
+			</Parent>
+			<LocalTM>
+				<Value>[1.0,0.0,0.0,0.0]</Value>
+				<Value>[0.0,1.0,0.0,0.0]</Value>
+				<Value>[0.0,0.0,1.0,0.0]</Value>
+				<Value>[-1.10068,3.93485,-1.71998e-007,1.0]</Value>
+			</LocalTM>
+			<WorldTM>
+				<Value>[1.0,0.0,0.0,0.0]</Value>
+				<Value>[0.0,1.0,0.0,0.0]</Value>
+				<Value>[0.0,0.0,1.0,0.0]</Value>
+				<Value>[-1.10068,3.93485,-1.71998e-007,1.0]</Value>
+			</WorldTM>
+			<BoundingBox>
+				<Max>[1.25108,3.87442,0.324923]</Max>
+				<Min>[-1.63356,-3.87442,-0.012447]</Min>
+				<Center>[-0.191245,-2.38419e-007,0.156238]</Center>
+			</BoundingBox>
+			<Vertex>
+				<Value Index="0">[1.04832,-3.43444,0.161853]</Value>
+				<Value Index="1">[1.04832,-3.43444,0.161853]</Value>
+				<Value Index="2">[1.20543,-3.43444,0.071143]</Value>
+				<Value Index="3">[1.20543,-3.43444,0.071143]</Value>
+				<Value Index="4">[1.20543,-3.43444,0.071143]</Value>
+				<Value Index="5">[1.20543,-3.43444,0.252553]</Value>
+				<Value Index="6">[1.20543,-3.43444,0.252553]</Value>
+				<Value Index="7">[1.09218,2.4314,0.161853]</Value>
+				<Value Index="8">[1.09218,2.4314,0.161853]</Value>
+				<Value Index="9">[1.1835,2.44855,0.109123]</Value>
+				<Value Index="10">[1.1835,2.44855,0.109123]</Value>
+				<Value Index="11">[1.1835,2.44855,0.214573]</Value>
+				<Value Index="12">[1.1835,2.44855,0.214573]</Value>
+				<Value Index="13">[0.432805,3.31897,0.161853]</Value>
+				<Value Index="14">[0.432805,3.31897,0.161853]</Value>
+				<Value Index="15">[0.494835,3.39584,0.112373]</Value>
+				<Value Index="16">[0.494835,3.39584,0.112373]</Value>
+				<Value Index="17">[0.494835,3.39584,0.211323]</Value>
+				<Value Index="18">[0.494835,3.39584,0.211323]</Value>
+				<Value Index="19">[-0.400205,3.68555,0.161853]</Value>
+				<Value Index="20">[-0.400205,3.68555,0.161853]</Value>
+				<Value Index="21">[-0.393365,3.76542,0.115693]</Value>
+				<Value Index="22">[-0.393365,3.76542,0.115693]</Value>
+				<Value Index="23">[-0.393365,3.76542,0.208013]</Value>
+				<Value Index="24">[-0.393365,3.76542,0.208013]</Value>
+				<Value Index="25">[-1.47066,3.81771,0.161853]</Value>
+				<Value Index="26">[-1.47066,3.81771,0.161853]</Value>
+				<Value Index="27">[-1.47066,3.81771,0.161853]</Value>
+				<Value Index="28">[-1.46997,3.87442,0.129113]</Value>
+				<Value Index="29">[-1.46997,3.87442,0.129113]</Value>
+				<Value Index="30">[-1.46997,3.87442,0.129113]</Value>
+				<Value Index="31">[-1.46997,3.87442,0.194593]</Value>
+				<Value Index="32">[-1.46997,3.87442,0.194593]</Value>
+				<Value Index="33">[-1.46997,3.87442,0.194593]</Value>
+				<Value Index="34">[0.981295,-3.43578,0.156243]</Value>
+				<Value Index="35">[0.981295,-3.43578,0.156243]</Value>
+				<Value Index="36">[0.981295,-3.43578,0.156243]</Value>
+				<Value Index="37">[1.23986,-3.43578,0.305513]</Value>
+				<Value Index="38">[1.23986,-3.43578,0.305513]</Value>
+				<Value Index="39">[1.23986,-3.43578,0.305513]</Value>
+				<Value Index="40">[1.23986,-3.43578,0.00696298]</Value>
+				<Value Index="41">[1.23986,-3.43578,0.00696298]</Value>
+				<Value Index="42">[1.23986,-3.43578,0.00696298]</Value>
+				<Value Index="43">[0.958895,-3.87442,0.156243]</Value>
+				<Value Index="44">[0.958895,-3.87442,0.156243]</Value>
+				<Value Index="45">[0.958895,-3.87442,0.156243]</Value>
+				<Value Index="46">[1.25108,-3.87442,0.324923]</Value>
+				<Value Index="47">[1.25108,-3.87442,0.324923]</Value>
+				<Value Index="48">[1.25108,-3.87442,0.324923]</Value>
+				<Value Index="49">[1.25108,-3.87442,-0.012447]</Value>
+				<Value Index="50">[1.25108,-3.87442,-0.012447]</Value>
+				<Value Index="51">[1.25108,-3.87442,-0.012447]</Value>
+				<Value Index="52">[-0.878415,3.63433,0.101903]</Value>
+				<Value Index="53">[-0.878415,3.63433,0.101903]</Value>
+				<Value Index="54">[-0.878415,3.63433,0.101903]</Value>
+				<Value Index="55">[-0.878415,3.63433,0.227783]</Value>
+				<Value Index="56">[-0.878415,3.63433,0.227783]</Value>
+				<Value Index="57">[-0.878415,3.63433,0.227783]</Value>
+				<Value Index="58">[-1.63356,3.72193,0.101903]</Value>
+				<Value Index="59">[-1.63356,3.72193,0.101903]</Value>
+				<Value Index="60">[-1.63356,3.72193,0.101903]</Value>
+				<Value Index="61">[-1.63356,3.72193,0.227783]</Value>
+				<Value Index="62">[-1.63356,3.72193,0.227783]</Value>
+				<Value Index="63">[-1.63356,3.72193,0.227783]</Value>
+				<Value Index="64">[-0.923735,3.75234,0.109453]</Value>
+				<Value Index="65">[-0.923735,3.75234,0.109453]</Value>
+				<Value Index="66">[-0.923735,3.75234,0.109453]</Value>
+				<Value Index="67">[-0.923735,3.75234,0.220233]</Value>
+				<Value Index="68">[-0.923735,3.75234,0.220233]</Value>
+				<Value Index="69">[-0.923735,3.75234,0.220233]</Value>
+				<Value Index="70">[-1.58825,3.83994,0.109453]</Value>
+				<Value Index="71">[-1.58825,3.83994,0.109453]</Value>
+				<Value Index="72">[-1.58825,3.83994,0.109453]</Value>
+				<Value Index="73">[-1.58825,3.83994,0.220233]</Value>
+				<Value Index="74">[-1.58825,3.83994,0.220233]</Value>
+				<Value Index="75">[-1.58825,3.83994,0.220233]</Value>
+			</Vertex>
+			<VertexNormal>
+				<Value Index="0">[-0.416189,-0.554129,0.720921]</Value>
+				<Value Index="1">[-0.500013,0.00372719,-0.86601]</Value>
+				<Value Index="2">[0,-1,0]</Value>
+				<Value Index="3">[0.999993,0.0037277,0]</Value>
+				<Value Index="4">[-0.500006,0.003727,-0.866014]</Value>
+				<Value Index="5">[0.999993,0.0037277,0]</Value>
+				<Value Index="6">[-0.416189,-0.554146,0.720909]</Value>
+				<Value Index="7">[-0.468711,-0.169304,0.866975]</Value>
+				<Value Index="8">[-0.468161,-0.164006,-0.86829]</Value>
+				<Value Index="9">[0.950729,0.310024,0]</Value>
+				<Value Index="10">[-0.474974,-0.141359,-0.868572]</Value>
+				<Value Index="11">[-0.472062,-0.143325,0.869836]</Value>
+				<Value Index="12">[0.950729,0.310024,0]</Value>
+				<Value Index="13">[-0.283058,-0.349307,0.893231]</Value>
+				<Value Index="14">[-0.277139,-0.353869,-0.893292]</Value>
+				<Value Index="15">[0.620051,0.784562,0]</Value>
+				<Value Index="16">[-0.279534,-0.352928,-0.892918]</Value>
+				<Value Index="17">[-0.283396,-0.349308,0.893124]</Value>
+				<Value Index="18">[0.62005,0.784562,0]</Value>
+				<Value Index="19">[-0.137803,-0.484812,0.863694]</Value>
+				<Value Index="20">[-0.142501,-0.486154,-0.862176]</Value>
+				<Value Index="21">[-0.127392,-0.485962,-0.864646]</Value>
+				<Value Index="22">[0.245807,0.969319,0]</Value>
+				<Value Index="23">[-0.125129,-0.488459,0.863568]</Value>
+				<Value Index="24">[0.245806,0.969319,0]</Value>
+				<Value Index="25">[-0.0612437,-0.498331,0.864821]</Value>
+				<Value Index="26">[-0.0615416,-0.498471,-0.864719]</Value>
+				<Value Index="27">[-0.999926,0.0121659,0]</Value>
+				<Value Index="28">[-0.0615092,-0.498305,-0.864817]</Value>
+				<Value Index="29">[0.100729,0.994914,0]</Value>
+				<Value Index="30">[-0.999926,0.0121659,0]</Value>
+				<Value Index="31">[-0.0612473,-0.498483,0.864733]</Value>
+				<Value Index="32">[0.100729,0.994914,0]</Value>
+				<Value Index="33">[-0.999926,0.0121659,0]</Value>
+				<Value Index="34">[-0.499838,0.0255253,-0.865743]</Value>
+				<Value Index="35">[0,1,0]</Value>
+				<Value Index="36">[-0.499813,0.0255251,0.865757]</Value>
+				<Value Index="37">[-0.499812,0.0255257,0.865757]</Value>
+				<Value Index="38">[0.999673,0.0255709,0]</Value>
+				<Value Index="39">[0,1,0]</Value>
+				<Value Index="40">[0.999673,0.0255709,0]</Value>
+				<Value Index="41">[-0.499837,0.025525,-0.865743]</Value>
+				<Value Index="42">[0,1,0]</Value>
+				<Value Index="43">[0,-1,0]</Value>
+				<Value Index="44">[-0.499837,0.0255248,-0.865743]</Value>
+				<Value Index="45">[-0.499814,0.0255241,0.865756]</Value>
+				<Value Index="46">[0,-1,0]</Value>
+				<Value Index="47">[-0.499814,0.0255247,0.865757]</Value>
+				<Value Index="48">[0.999673,0.0255709,0]</Value>
+				<Value Index="49">[0.999673,0.0255709,0]</Value>
+				<Value Index="50">[0,-1,0]</Value>
+				<Value Index="51">[-0.499837,0.0255245,-0.865744]</Value>
+				<Value Index="52">[-0.115231,-0.993339,0]</Value>
+				<Value Index="53">[0.933527,0.358507,0]</Value>
+				<Value Index="54">[0.00775009,0.066809,-0.997736]</Value>
+				<Value Index="55">[-0.115231,-0.993339,0]</Value>
+				<Value Index="56">[0.00859202,0.0663005,0.997763]</Value>
+				<Value Index="57">[0.933527,0.358507,0]</Value>
+				<Value Index="58">[0.00798091,0.0615054,-0.998075]</Value>
+				<Value Index="59">[-0.115231,-0.993339,0]</Value>
+				<Value Index="60">[-0.933553,0.358438,0]</Value>
+				<Value Index="61">[-0.933553,0.358438,0]</Value>
+				<Value Index="62">[-0.115231,-0.993339,0]</Value>
+				<Value Index="63">[0.00709171,0.0611335,0.998104]</Value>
+				<Value Index="64">[0.933527,0.358507,0]</Value>
+				<Value Index="65">[0.130694,0.991423,0]</Value>
+				<Value Index="66">[0.0077722,0.0663012,-0.997769]</Value>
+				<Value Index="67">[0.00886312,0.0672341,0.997698]</Value>
+				<Value Index="68">[0.933527,0.358507,0]</Value>
+				<Value Index="69">[0.130694,0.991423,0]</Value>
+				<Value Index="70">[0.130694,0.991423,0]</Value>
+				<Value Index="71">[0.00801242,0.0607808,-0.998119]</Value>
+				<Value Index="72">[-0.933553,0.358438,0]</Value>
+				<Value Index="73">[-0.933553,0.358438,0]</Value>
+				<Value Index="74">[0.00724005,0.0616444,0.998072]</Value>
+				<Value Index="75">[0.130694,0.991423,0]</Value>
+			</VertexNormal>
+			<TriIndex MaterialCount="0">
+			</TriIndex>
+			<TexVertex>
+				<Value Index="0">[0.94085,0.499972]</Value>
+				<Value Index="1">[0.94085,0.499972]</Value>
+				<Value Index="2">[0.999501,0.000499487]</Value>
+				<Value Index="3">[0.999501,0.999501]</Value>
+				<Value Index="4">[0.999501,0.999501]</Value>
+				<Value Index="5">[0.999501,0.000499487]</Value>
+				<Value Index="6">[0.999501,0.000499487]</Value>
+				<Value Index="7">[0.957223,0.499972]</Value>
+				<Value Index="8">[0.957223,0.499972]</Value>
+				<Value Index="9">[0.991314,0.79035]</Value>
+				<Value Index="10">[0.991314,0.79035]</Value>
+				<Value Index="11">[0.991314,0.20965]</Value>
+				<Value Index="12">[0.991314,0.20965]</Value>
+				<Value Index="13">[0.711077,0.499971]</Value>
+				<Value Index="14">[0.711077,0.499971]</Value>
+				<Value Index="15">[0.734233,0.772451]</Value>
+				<Value Index="16">[0.734233,0.772451]</Value>
+				<Value Index="17">[0.734233,0.227547]</Value>
+				<Value Index="18">[0.734233,0.227547]</Value>
+				<Value Index="19">[0.400109,0.49997]</Value>
+				<Value Index="20">[0.400109,0.49997]</Value>
+				<Value Index="21">[0.402662,0.754167]</Value>
+				<Value Index="22">[0.402662,0.754167]</Value>
+				<Value Index="23">[0.402662,0.245773]</Value>
+				<Value Index="24">[0.402662,0.245773]</Value>
+				<Value Index="25">[0.000499517,0.499969]</Value>
+				<Value Index="26">[0.000499517,0.499969]</Value>
+				<Value Index="27">[0.000499517,0.499969]</Value>
+				<Value Index="28">[0.000757098,0.680264]</Value>
+				<Value Index="29">[0.000757098,0.680264]</Value>
+				<Value Index="30">[0.000757098,0.680264]</Value>
+				<Value Index="31">[0.000757098,0.319674]</Value>
+				<Value Index="32">[0.000757098,0.319674]</Value>
+				<Value Index="33">[0.000757098,0.319674]</Value>
+				<Value Index="34">[0.0770876,0.000499547]</Value>
+				<Value Index="35">[0.0770876,0.499985]</Value>
+				<Value Index="36">[0.922912,0.000499547]</Value>
+				<Value Index="37">[0.0388621,0.000499547]</Value>
+				<Value Index="38">[0.942025,0.000499547]</Value>
+				<Value Index="39">[0.961138,0.0579753]</Value>
+				<Value Index="40">[0.0579753,0.000499547]</Value>
+				<Value Index="41">[0.961138,0.000499547]</Value>
+				<Value Index="42">[0.961138,0.942025]</Value>
+				<Value Index="43">[0.000499517,0.999501]</Value>
+				<Value Index="44">[0.000499517,0.999501]</Value>
+				<Value Index="45">[0.999501,0.999501]</Value>
+				<Value Index="46">[0.000499517,0.999501]</Value>
+				<Value Index="47">[0.000499547,0.999501]</Value>
+				<Value Index="48">[0.999501,0.999501]</Value>
+				<Value Index="49">[0.000499487,0.999501]</Value>
+				<Value Index="50">[0.9995,0.999501]</Value>
+				<Value Index="51">[0.9995,0.999501]</Value>
+				<Value Index="52">[0,1]</Value>
+				<Value Index="53">[0,1]</Value>
+				<Value Index="54">[0.02,1]</Value>
+				<Value Index="55">[0,0.999]</Value>
+				<Value Index="56">[0,1]</Value>
+				<Value Index="57">[0.02,1]</Value>
+				<Value Index="58">[0,1]</Value>
+				<Value Index="59">[0.02,1]</Value>
+				<Value Index="60">[0.02,1]</Value>
+				<Value Index="61">[0,1]</Value>
+				<Value Index="62">[0.02,0.999]</Value>
+				<Value Index="63">[0.02,1]</Value>
+				<Value Index="64">[0,0.999]</Value>
+				<Value Index="65">[0,1]</Value>
+				<Value Index="66">[0.02,0.999]</Value>
+				<Value Index="67">[0,0.999]</Value>
+				<Value Index="68">[0.02,0.999]</Value>
+				<Value Index="69">[0.02,1]</Value>
+				<Value Index="70">[0,0.999]</Value>
+				<Value Index="71">[0,0.999]</Value>
+				<Value Index="72">[0.02,0.999]</Value>
+				<Value Index="73">[0,0.999]</Value>
+				<Value Index="74">[0.02,0.999]</Value>
+				<Value Index="75">[0.02,0.999]</Value>
+			</TexVertex>
+			<TexIndex MaterialCount="0">
+			</TexIndex>
+		</Object>
+	</Body>
