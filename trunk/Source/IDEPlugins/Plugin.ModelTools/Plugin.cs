@@ -18,6 +18,8 @@ namespace Plugin.ModelTools
 
             Engine.Initialize(GraphicsDevice.Instance.Device);
 
+            DesignerManager.Instance.RegisterDesigner(new ModelDesignerFactory());
+
             ConverterManager.Instance.Register(new XText2ModelConverter());
 
             ConverterManager.Instance.Register(new Xml2ModelConverter());

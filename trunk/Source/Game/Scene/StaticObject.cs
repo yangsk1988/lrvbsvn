@@ -102,7 +102,7 @@ namespace VirtualBicycle.Scene
 
         public unsafe override void BuildPhysicsModel(DynamicsWorld world)
         {
-            if (!isPhyBuilt)
+            if (!isPhyBuilt && ModelL0 !=null)
             {
                 UpdateTransform();
 
