@@ -15,11 +15,11 @@ namespace Plugin.CsfTools
 
         public void Load()
         {
-            if (csfDesigner != null)
+            if (csfDesigner == null)
             {
                 csfDesigner = new CsfDesignerFactory();
             }
-            if (csfTemplate != null)
+            if (csfTemplate == null)
             {
                 csfTemplate = new CsfTemplate();
             }
