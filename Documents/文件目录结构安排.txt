@@ -1,8 +1,0 @@
-bin放外面
-/maps
-/models(同texture)
-/effects
-/sounds
-/data/ui
-/data/skybox
-/data/particles

@@ -137,8 +137,6 @@ namespace VirtualBicycle.Ide
         public string GetFilter()
         {
             Dictionary<string, DesignerAbstractFactory>.ValueCollection val = factories.Values;
-            if (factories.Count == 0)
-                return string.Empty;
 
             //List<Pair<string, string>> fmts = new List<Pair<string, string>>();
             StringBuilder flt = new StringBuilder(val.Count * 4 + 4);

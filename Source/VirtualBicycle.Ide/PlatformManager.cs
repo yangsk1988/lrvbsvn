@@ -9,9 +9,7 @@ namespace VirtualBicycle.Ide
         public const int VirtualBike = 1;
         public const int YurisRevenge = 1 << 1;
         public const int Ra2Reload = 1 << 2;
-      
-        public const int All = -1;
-    
+
 
         public static string VirtualBikeName
         {

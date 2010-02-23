@@ -7,7 +7,7 @@ using VirtualBicycle;
 
 namespace VirtualBicycle.Ide
 {
-    public class DevStringTable : Singleton
+    class DevStringTable : Singleton
     {
         static VirtualBicycle.StringTable singleton;
 
@@ -30,7 +30,7 @@ namespace VirtualBicycle.Ide
         }
     }
 
-    public static class Program
+    static class Program
     {
         static Icon defaultIcon;
         //static StringTable strTable;
