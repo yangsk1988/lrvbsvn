@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Release" />
+	<File name="Source\Application.c" open="1" top="0" tabpos="1">
+		<Cursor position="9542" topLine="248" />
+	</File>
+	<File name="Source\Utils.c" open="0" top="0" tabpos="1">
+		<Cursor position="7457" topLine="207" />
+	</File>
+	<File name="Source\Utils.h" open="0" top="0" tabpos="0">
+		<Cursor position="3429" topLine="60" />
+	</File>
+	<File name="Source\config.h" open="0" top="0" tabpos="0">
+		<Cursor position="2637" topLine="65" />
+	</File>
+</CodeBlocks_layout_file>
