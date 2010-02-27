@@ -121,7 +121,7 @@ namespace VirtualBicycle.Ide.Designers
 
             Device dev = GraphicsDevice.Instance.Device;
 
-            dev.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.DarkBlue, 1, 0);
+            dev.Clear(ClearFlags.Target | ClearFlags.ZBuffer, Color.Black, 1, 0);
             dev.BeginScene();
 
             dev.SetRenderState<FillMode>(RenderState.FillMode, fillMode);

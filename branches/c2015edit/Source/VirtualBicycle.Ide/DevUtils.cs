@@ -163,13 +163,25 @@ namespace VirtualBicycle.Ide
 
         public static void SetMaterial(Device dev, EditableMeshMaterial mate)
         {
-            dev.SetRenderState(RenderState.ZWriteEnable, !mate.IsTransparent);
+            dev.SetRenderState(RenderState.ZWriteEnable, mate.ZWriteEnabled);
+            dev.SetRenderState(RenderState.ZEnable, mate.ZEnabled);
+            dev.SetRenderState(RenderState.AlphaTestEnable, mate.AlphaRef >= 0);
+
+            if (mate.AlphaRef >= 0)
+            {
+                dev.SetRenderState(RenderState.AlphaFunc, (int)Compare.GreaterEqual);
+                dev.SetRenderState(RenderState.AlphaRef, (int)(mate.AlphaRef * byte.MaxValue));
+            }
+
             dev.SetRenderState<Cull>(RenderState.CullMode, mate.CullMode);
 
             dev.Material = mate.D3DMaterial;
 
             for (int j = 0; j < MaterialBase.MaxTexLayers; j++)
             {
+                dev.SetSamplerState(0, SamplerState.AddressU, TextureAddress.Wrap);
+                dev.SetSamplerState(0, SamplerState.AddressV, TextureAddress.Wrap);
+
                 dev.SetTexture(j, mate.GetTexture(j));
             }
         }
