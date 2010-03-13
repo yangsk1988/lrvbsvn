@@ -573,6 +573,7 @@ namespace VirtualBicycle.Logic
         private void ProcessOutput(float dt)
         {
             float k1=0.5,k2=0.1,rollingFriction=1;
+            float Gain = 100;//currant gain 10000mA for 100Newton;
             float m = this.mass;
             Vector3 v=this.RigidBody.LinearVelocity;
             Vector3 G=this.RigidBody.Gravity;
@@ -582,9 +583,15 @@ namespace VirtualBicycle.Logic
             
             float g_vertical =  cos_sita*G.Length();//方向与速度反方向的重力分量
             Vector3 a =(RigidBody.LinearVelocity - lastLinearVel )/dt;
-            float force = k2 * v.Length() * v.Length() +k1 * v.Length() +  rollingFriction + Vector3.Dot(RigidBody.Gravity,v_nor);
-            string str = force.ToString();
-            this.SerialOutProcessor.Sent(str);
+            float drag_force = k2 * v.Length() * v.Length() +k1 * v.Length() +  rollingFriction + Vector3.Dot(RigidBody.Gravity,v_nor);
+            float drag_force_out = -1*Gain * drag_force;//-1表示反方向,产生阻力
+            string str = drag_force_out.ToString();
+            
+            
+            this.SerialOutProcessor.Sent("F");//伺服驱动器的指令，F表示力矩控制模式,
+            this.SerialOutProcessor.Sent(str);//发送参数
+            this.SerialOutProcessor.GetPort().Write(0x0d);
+            
         }
         #endregion
 
