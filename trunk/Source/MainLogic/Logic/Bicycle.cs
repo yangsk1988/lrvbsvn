@@ -15,6 +15,7 @@ using VirtualBicycle.Physics.Dynamics;
 using VirtualBicycle.Scene;
 using PM = VirtualBicycle.Physics.MathLib;
 
+
 namespace VirtualBicycle.Logic
 {
     public enum BicycleColor 
@@ -32,6 +33,7 @@ namespace VirtualBicycle.Logic
 
         Vector3 force;
         PM.Vector3 lastLinearVel;
+        SerialPortOutputProcessor SerialOutProcessor = new SerialPortOutputProcessor(InputManager.Instance); 
 
         public enum BicycleOwner
         {
@@ -266,7 +268,7 @@ namespace VirtualBicycle.Logic
             }
             FileLocation fl = FileSystem.Instance.Locate(Path.Combine(VirtualBicycle.IO.Paths.Models, fileName), FileLocateRules.Default);
             ModelL0 = ModelManager.Instance.CreateInstance(device, fl);
-            mass = 70;
+            mass = 70;//kilogram
         } 
 
         public Bicycle(Device device, BicycleOwner owner)
@@ -563,7 +565,26 @@ namespace VirtualBicycle.Logic
 
             ProcessInput(dt);
 
+            ProcessOutput(dt);
+
             UpdateMotion(dt);
+        }
+
+        private void ProcessOutput(float dt)
+        {
+            float k1=0.5,k2=0.1,rollingFriction=1;
+            float m = this.mass;
+            Vector3 v=this.RigidBody.LinearVelocity;
+            Vector3 G=this.RigidBody.Gravity;
+            Vector3 G_nor = G.Normalize();
+            Vector3 v_nor = v.Normalize();
+            float cos_sita = Vector3.Dot(v_nor,G_nor);
+            
+            float g_vertical =  cos_sita*G.Length();//方向与速度反方向的重力分量
+            Vector3 a =(RigidBody.LinearVelocity - lastLinearVel )/dt;
+            float force = k2 * v.Length() * v.Length() +k1 * v.Length() +  rollingFriction + Vector3.Dot(RigidBody.Gravity,v_nor);
+            string str = force.ToString();
+            this.SerialOutProcessor.Sent(str);
         }
         #endregion
 
