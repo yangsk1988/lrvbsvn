@@ -160,7 +160,7 @@ namespace VirtualBicycle
             FileInfo fi = new FileInfo(path);
             if (!fi.Exists)
             {
-                EngineConsole.Instance.Write("缓存文件丢失。重新建立……", ConsoleMessageType.Exclamation);
+                EngineConsole.Instance.Write("缓存文件丢失。重新建立...", ConsoleMessageType.Exclamation);
 
                 FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
                 fs.SetLength(CacheMemoryTable.TotalMemory);
@@ -168,7 +168,7 @@ namespace VirtualBicycle
             }
             else if (fi.Length != CacheMemoryTable.TotalMemory)
             {
-                EngineConsole.Instance.Write("缓存文件损坏了。重新建立……", ConsoleMessageType.Exclamation);
+                EngineConsole.Instance.Write("缓存文件损坏了。重新建立...", ConsoleMessageType.Exclamation);
                 FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
                 fs.SetLength(CacheMemoryTable.TotalMemory);
                 fs.Close();
@@ -239,8 +239,8 @@ namespace VirtualBicycle
                             table.UseMemoryC(i, chunkCount);
 
                             double totalMem = Math.Round(CacheMemoryTable.TotalMemory / 1048576.0, 2);
-                            EngineConsole.Instance.Write("分配静态缓存空间中。 " +
-                                Math.Round(table.MemoryUsed / 1048576.0, 2).ToString() + "MB / " + totalMem.ToString() + "MB 已经使用。", ConsoleMessageType.Information);
+                            EngineConsole.Instance.Write("分配静态缓存空间... " +
+                                Math.Round(table.MemoryUsed / 1048576.0, 2).ToString() + "MB / " + totalMem.ToString() + "MB 已使用。", ConsoleMessageType.Information);
                             return result;
                         }
                     }

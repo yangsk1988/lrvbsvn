@@ -110,9 +110,10 @@ namespace VirtualBicycle.Input
         SerialPort SelectPort()
         {
             string[] ports = SerialPort.GetPortNames();
+            
             for (int i = 0; i < ports.Length; i++)
             {
-                SerialPort p = new SerialPort(ports[i], 19200, Parity.None, 8, StopBits.One);
+                SerialPort p = new SerialPort(ports[i], 9600, Parity.None, 8, StopBits.One);
 
                 p.NewLine = EndOfDataTrunk.ToString();
                 p.ReadTimeout = 70;
@@ -123,14 +124,14 @@ namespace VirtualBicycle.Input
                 {
                     p.Open();
                     
-                    p.Write("GVER");//发送设备识别码
-                    p.Write(0x0D);//指令结构以0D结尾
+                    p.Write("GVER\n");//发送设备识别码//指令结构以0D结尾
+                   
 
                     try
                     {
                         string str = p.ReadLine();
 
-                        if (String.Compare(str,0,"#MLDS3810,V1.24",0,9)//返回识别码,比较前9 位
+                        if (String.Compare(str, 0, "#MLDS3810,V1.24", 0, 9)!=0);//返回识别码,比较前9 位
                         {
                             return p;
                         }
@@ -145,18 +146,7 @@ namespace VirtualBicycle.Input
             return null;
         }
 
-        public SerialPortOutputProcessor()
-            : base(manager)
-        {
-            port = SelectPort();
-
-            if (port != null)
-            {
-                port.ReadTimeout = 1;
-
-                //port.Write(ResetDataTag);
-            }
-        }
+        
 
         public SerialPortOutputProcessor(InputManager manager)
             : base(manager)
@@ -218,17 +208,7 @@ namespace VirtualBicycle.Input
             }
         }
 
-        void SentData(byte[] sentBuf)
-        {
-            try
-            {
-                port.Write(recvBuf);               
-            }
-            catch (TimeoutException)
-            {
-            }
-        }
-
+        
         public override void Update(float dt)
         {
             if (port != null)
@@ -241,6 +221,84 @@ namespace VirtualBicycle.Input
 
                 dataDt += dt;
             }
+        }
+
+        public void WriteLine(string str)
+        {
+            if (this.port != null)
+            {
+                try
+                {
+                    this.port.WriteLine(str);
+
+                }
+                catch (TimeoutException)
+                {
+                }
+
+            }            
+        }
+        public void Write(string str)
+        {
+            if (this.port != null)
+            {
+                try
+                {
+                    this.port.Write(str);
+
+                }
+                catch (TimeoutException)
+                {
+                }
+
+            }
+        }
+        public void Write(byte[] buffer, int offset, int count)
+        {
+            if (this.port != null)
+            {
+                try
+                {
+                    this.port.Write(buffer, offset, count);
+                }
+                catch (TimeoutException)
+                {
+                }
+
+            }
+        }
+        public void Sent(string str)
+        {
+            if(this.port != null)
+            {
+                try
+                {
+                    this.port.Write(str);
+                    
+                }
+                catch (TimeoutException)
+                {
+                }
+                
+            }
+        }
+        
+      
+        public void SentData(byte[] sentBuf, int offset, int count)
+        {
+            try
+            {
+                port.Write(sentBuf, offset, count);
+            }
+            catch (TimeoutException)
+            {
+            }
+        }
+
+        public SerialPort GetPort()
+        {
+
+            return this.port;
         }
 
         #region IDisposable Members
@@ -266,5 +324,7 @@ namespace VirtualBicycle.Input
         }
 
         #endregion
+
+        
     }
 }
