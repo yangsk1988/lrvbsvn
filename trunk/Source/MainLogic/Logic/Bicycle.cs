@@ -48,7 +48,7 @@ namespace VirtualBicycle.Logic
             get { return mass; }
         }
 
-        //最大的前插旋转角速度
+        //最大的前叉旋转角速度
         public const float maxForkAngularV = MathEx.PiOver2 * 4;
 
         //最大的自行车速度
@@ -110,7 +110,7 @@ namespace VirtualBicycle.Logic
         /// <summary>
         /// 前后轮轴心之间的距离
         /// </summary>
-        public const float Wheelbase = 1.25f;
+        public const float Wheelbase = 1.1f;
 
         /// <summary>
         /// 转弯的时候的半径
@@ -132,7 +132,7 @@ namespace VirtualBicycle.Logic
         /// <summary>
         /// 计算静摩擦力的时候的因子
         /// </summary>
-        public const float StaticFrictionFactor = 1.5f;
+        public const float StaticFrictionFactor = 2.0f;
 
         /// <summary>
         /// 车身的倾斜角
@@ -495,6 +495,8 @@ namespace VirtualBicycle.Logic
         /// <summary>
         /// 预计算一些内容
         /// </summary>
+        /// 
+        float sllipingFriction = 1.5f, rollingFriction = 0.05f;
         public void PreCaculate(float dt)
         {
             //MotionState    motionState = (DefaultMotionState)RigidBody.MotionState;
@@ -546,7 +548,7 @@ namespace VirtualBicycle.Logic
             IsFreeFalling = (force.Y <= 0.2f * RigidBody.Gravity.Y);
             IsOutOfControl = flag;
 
-            this.Friction = IsOutOfControl ? 1.0f : 0.1f;
+            this.Friction = IsOutOfControl ? sllipingFriction : rollingFriction;
 
             pwrUpdateDuration += dt;
             //lastCtrlState = flag1;
@@ -572,25 +574,47 @@ namespace VirtualBicycle.Logic
 
         private void ProcessOutput(float dt)
         {
-            float k1=0.5,k2=0.1,rollingFriction=1;
-            float Gain = 100;//currant gain 10000mA for 100Newton;
+            //this function will caculate the force feedback and output the singnal to motor driver
+            //计算力反馈，从串口输出信号到驱动器
+
+            const float rou = 1.29f,//density of air ,in kg/m^3             
+            A = 0.5f,//area of wind resistance, in m^2
+            Cw = 0.5f,//wind resistance coefficient
+            k2 = 0.5f * rou * A * Cw,// coefficient of v^2
+            k1 = 0.01f,// coefecience of v
+            miu = 0.01f,//rolling friction coeffition
+            Gain = 100;//currant gain 10000mA for 100Newton;
+
             float m = this.mass;
-            Vector3 v=this.RigidBody.LinearVelocity;
-            Vector3 G=this.RigidBody.Gravity;
-            Vector3 G_nor = G.Normalize();
-            Vector3 v_nor = v.Normalize();
-            float cos_sita = Vector3.Dot(v_nor,G_nor);
-            
-            float g_vertical =  cos_sita*G.Length();//方向与速度反方向的重力分量
+            Vector3 v = this.RigidBody.LinearVelocity;
+            Vector3 G = this.RigidBody.Gravity;
+
+            float v_len = v.Length();
+            float v_len_kph = v_len * 3.6f;
+            float G_len = G.Length();
+            Vector3 G_nor = Vector3.Normalize(G);
+            Vector3 v_nor = Vector3.Normalize(v);
+
+            //float cos_sita = Vector3.Dot(v_nor,G_nor);
+
+            float g_vertical = Vector3.Dot(RigidBody.Gravity, v_nor);//在速度方向上的重力分量，方向与速度方向相同
+            float wind_resistance = k2 * v.LengthSquared();
+            float viscous_resistance = k1 * v.Length();
+            float rollingFriction = 1.0f + RigidBody.Gravity.Length()*miu;
             Vector3 a =(RigidBody.LinearVelocity - lastLinearVel )/dt;
-            float drag_force = k2 * v.Length() * v.Length() +k1 * v.Length() +  rollingFriction + Vector3.Dot(RigidBody.Gravity,v_nor);
-            float drag_force_out = -1*Gain * drag_force;//-1表示反方向,产生阻力
-            string str = drag_force_out.ToString();
             
             
-            this.SerialOutProcessor.Sent("F");//伺服驱动器的指令，F表示力矩控制模式,
-            this.SerialOutProcessor.Sent(str);//发送参数
-            this.SerialOutProcessor.GetPort().Write(0x0d);
+            //需要的牵引力(跟速度方向相同)= 风阻力 + 粘性阻力 + 固定的滚动阻力 + 跟重量相关的滚动阻力 - 重力分量。
+            Vector3 drag_force = (wind_resistance + viscous_resistance + rollingFriction - g_vertical)*v_nor;
+            //Vector3 drag_force = k2 * v * v.Length() + k1 * v + rollingFriction * v_nor +  RigidBody.Gravity.Length() * miu*v_nor + -1 * Vector3.Dot(RigidBody.Gravity, v_nor) * v_nor;
+            float power = drag_force.Length() * v_len;
+            
+            float drag_force_out = Gain * drag_force.Length();//表示反方向,产生阻力
+            
+            string str = drag_force_out.ToString();  
+            this.SerialOutProcessor.Write("F");//伺服驱动器的指令，F表示力矩控制模式,
+            
+            this.SerialOutProcessor.WriteLine(str);
             
         }
         #endregion
@@ -652,9 +676,9 @@ namespace VirtualBicycle.Logic
         /// <returns></returns>
         private bool CheckIsFall()
         {
-            const float maxDot = 0.5f;
-            //如果身体和地面的夹角小于30度了,则认为摔倒了
-            if (Vector3.Dot(up, Vector3.UnitY) < maxDot)
+            static float maxDot =  (float)Math.Cos(75.0 / 180.0 * Math.PI);
+            //如果身体和地面的夹角小于15度了,则认为摔倒了
+            if (Vector3.Dot(up, -Vector3.Normalize(RigidBody.Gravity)) < maxDot)
             {
                 //修改摩擦系数
                 return true;

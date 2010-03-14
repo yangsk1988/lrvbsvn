@@ -404,6 +404,7 @@
     <Compile Include="Input\InputProcessor.cs" />
     <Compile Include="Input\KeyboardInputProcessor.cs" />
     <Compile Include="Input\SerialPortInputProcessor.cs" />
+    <Compile Include="Input\SerialPortOutputProcessor.cs" />
     <Compile Include="Input\WirelessInputProcessor.cs" />
     <Compile Include="IUnmanagedResource.cs" />
     <Compile Include="Logic\Traffic\Junction.cs" />
