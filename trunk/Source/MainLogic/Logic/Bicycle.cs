@@ -609,11 +609,10 @@ namespace VirtualBicycle.Logic
             //Vector3 drag_force = k2 * v * v.Length() + k1 * v + rollingFriction * v_nor +  RigidBody.Gravity.Length() * miu*v_nor + -1 * Vector3.Dot(RigidBody.Gravity, v_nor) * v_nor;
             float power = drag_force.Length() * v_len;
             
-            float drag_force_out = Gain * drag_force.Length();//表示反方向,产生阻力
-            
+            double drag_force_out = Gain * drag_force.Length();//表示反方向,产生阻力
+            drag_force_out = Math.Round(drag_force_out);
             string str = drag_force_out.ToString();  
-            this.SerialOutProcessor.Write("F");//伺服驱动器的指令，F表示力矩控制模式,
-            
+            this.SerialOutProcessor.Write("F");//伺服驱动器的指令，F表示力矩控制模式,            
             this.SerialOutProcessor.WriteLine(str);
             
         }
@@ -676,7 +675,7 @@ namespace VirtualBicycle.Logic
         /// <returns></returns>
         private bool CheckIsFall()
         {
-            static float maxDot =  (float)Math.Cos(75.0 / 180.0 * Math.PI);
+            const float maxDot = 0.25f; //(float)Math.Cos(75.0 / 180.0 * Math.PI);
             //如果身体和地面的夹角小于15度了,则认为摔倒了
             if (Vector3.Dot(up, -Vector3.Normalize(RigidBody.Gravity)) < maxDot)
             {
