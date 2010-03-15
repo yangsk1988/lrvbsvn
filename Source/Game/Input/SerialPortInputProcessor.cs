@@ -111,6 +111,7 @@ namespace VirtualBicycle.Input
             string[] ports = SerialPort.GetPortNames();
             for (int i = 0; i < ports.Length; i++)
             {
+                
                 SerialPort p = new SerialPort(ports[i], 19200, Parity.None, 8, StopBits.One);
 
                 p.NewLine = EndOfDataTrunk.ToString();
@@ -120,7 +121,10 @@ namespace VirtualBicycle.Input
 
                 try
                 {
-                    p.Open();
+                    if (p.IsOpen)
+                        continue;
+                    else
+                        p.Open();
 
                     p.Write("R");
 
@@ -136,6 +140,7 @@ namespace VirtualBicycle.Input
                     catch (TimeoutException) { }
 
                     p.Close();
+                    p.Dispose();
                 }
                 catch { }
 
