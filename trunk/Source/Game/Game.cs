@@ -198,6 +198,7 @@ namespace VirtualBicycle
                 {
                     InputManager.Instance.Processor = seip;
                     EngineConsole.Instance.Write("使用串口输入", ConsoleMessageType.Information);
+                    //InputManager.Instance.Processor_bak = new KeyboardInputProcessor(InputManager.Instance);
                 }
                 else
                 {

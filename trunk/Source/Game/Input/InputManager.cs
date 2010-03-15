@@ -92,6 +92,11 @@ namespace VirtualBicycle.Input
             get;
             set;
         }
+        public InputProcessor Processor_bak
+        {
+            get;
+            set;
+        }
 
         public void OnReset()
         {
@@ -175,6 +180,11 @@ namespace VirtualBicycle.Input
             {
                 Processor.Update(dt);
             }
+            //if use two processor together, cause running slow 
+            //if (Processor_bak != null)
+            //{
+            //    Processor_bak.Update(dt);
+            //}
         }
     }
 }
