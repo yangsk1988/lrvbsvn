@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using VirtualBicycle.MathLib;
+ 
 
 namespace VirtualBicycle.Input
 {
@@ -42,7 +43,7 @@ namespace VirtualBicycle.Input
         const char ButtonDataTagC = 'S';
         const char DataRequestTagC = 'D';
 
-        const char EndOfDataTrunk = '#';
+        const char EndOfDataTrunk = '\n';
 
         // 操纵盒按钮
         // f7 fd
@@ -109,36 +110,42 @@ namespace VirtualBicycle.Input
 
         SerialPort SelectPort()
         {
-            string[] ports = SerialPort.GetPortNames();
+            string[] ports2 = SerialPort.GetPortNames();
             
-            for (int i = 0; i < ports.Length; i++)
+            for (int i = 0; i < ports2.Length; i++)
             {
-                SerialPort p = new SerialPort(ports[i], 9600, Parity.None, 8, StopBits.One);
+                SerialPort p2 = new SerialPort(ports2[i], 19200, Parity.None, 8, StopBits.One);
 
-                p.NewLine = EndOfDataTrunk.ToString();
-                p.ReadTimeout = 70;
-                p.WriteTimeout = 70;
-                p.Encoding = Encoding.ASCII;
-
+                p2.NewLine = "\r\n".ToString();
+                p2.ReadTimeout = 50;
+                p2.WriteTimeout = 50;
+                p2.Encoding = Encoding.ASCII;
+                
                 try
                 {
-                    p.Open();
+                    if (p2.IsOpen)
+                        continue;
+                    else
+                        p2.Open();
                     
-                    p.Write("GVER\n");//发送设备识别码//指令结构以0D结尾
+                    p2.Write("GVER");//发送设备识别码//指令结构以0D结尾
+                    p2.Write("\r");
                    
 
                     try
                     {
-                        string str = p.ReadLine();
-
+                        string str = p2.ReadLine();
+                        
+                        
                         if (String.Compare(str, 0, "#MLDS3810,V1.24", 0, 9)!=0);//返回识别码,比较前9 位
                         {
-                            return p;
+                            return p2;
                         }
                     }
                     catch (TimeoutException) { }
 
-                    p.Close();
+                    p2.Close();
+                    p2.Dispose();
                 }
                 catch { }
 
@@ -223,7 +230,29 @@ namespace VirtualBicycle.Input
             }
         }
 
-        public void WriteLine(string str)
+        public string ReadLine()
+        {
+            if (this.port != null)
+            {
+                try
+                {
+                    return this.port.ReadLine();
+
+                }
+                catch (TimeoutException)
+                {
+                }
+
+            }
+            else
+            {
+               // this.port = SelectPort();
+            }
+            return null;
+ 
+        }
+
+        public void SentLine(string str)
         {
             if (this.port != null)
             {
@@ -236,9 +265,12 @@ namespace VirtualBicycle.Input
                 {
                 }
 
-            }            
+            }
+            else {
+                //this.port = SelectPort();
+            }
         }
-        public void Write(string str)
+        public void Sent(string str)
         {
             if (this.port != null)
             {
@@ -253,7 +285,7 @@ namespace VirtualBicycle.Input
 
             }
         }
-        public void Write(byte[] buffer, int offset, int count)
+        public void Sent(byte[] buffer, int offset, int count)
         {
             if (this.port != null)
             {
@@ -266,24 +298,8 @@ namespace VirtualBicycle.Input
                 }
 
             }
-        }
-        public void Sent(string str)
-        {
-            if(this.port != null)
-            {
-                try
-                {
-                    this.port.Write(str);
-                    
-                }
-                catch (TimeoutException)
-                {
-                }
-                
-            }
-        }
-        
-      
+        }      
+              
         public void SentData(byte[] sentBuf, int offset, int count)
         {
             try
