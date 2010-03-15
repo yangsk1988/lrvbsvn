@@ -270,10 +270,7 @@ namespace VirtualBicycle.Logic
             FileLocation fl = FileSystem.Instance.Locate(Path.Combine(VirtualBicycle.IO.Paths.Models, fileName), FileLocateRules.Default);
             ModelL0 = ModelManager.Instance.CreateInstance(device, fl);
             mass = 70;//kilogram
-            if (this.ownerType == BicycleOwner.Player)
-            {
-                this.SerialOutProcessor = new SerialPortOutputProcessor(InputManager.Instance);
-            }
+           
         }
 
         public Bicycle(Device device, BicycleOwner owner)
@@ -282,10 +279,7 @@ namespace VirtualBicycle.Logic
             ModelL0 = ModelManager.Instance.CreateInstance(device, fl);
             mass = 70;
             ownerType = owner;
-            if (this.ownerType == BicycleOwner.Player)
-            {
-                this.SerialOutProcessor = new SerialPortOutputProcessor(InputManager.Instance);
-            }
+            
         }
         #endregion
 
@@ -578,86 +572,131 @@ namespace VirtualBicycle.Logic
 
             ProcessOutput(dt);
 
+
             UpdateMotion(dt);
         }
 
         float g_vertical_old = 0;
+        Vector3 v = Vector3.Zero;
         private void ProcessOutput(float dt)
         {
+            Vector3 drag_force = Vector3.Zero;
+            if (this.ownerType != BicycleOwner.Player)
+                return;
             
-            if (this.ownerType == BicycleOwner.Player)
+            if (this.SerialOutProcessor == null)
             {
-                if (this.SerialOutProcessor == null)
-                {
-                    SerialOutProcessor = new SerialPortOutputProcessor(InputManager.Instance);
-                }
-                //this function will caculate the force feedback and output the singnal to motor driver
-                //计算力反馈，从串口输出信号到驱动器
-
-                const float rou = 1.29f,//density of air ,in kg/m^3             
-                A = 0.5f,//area of wind resistance, in m^2
-                Cw = 0.5f,//wind resistance coefficient
-                k2 = 0.5f * rou * A * Cw,// coefficient of v^2
-                k1 = 0.01f,// coefecience of v
-                miu = 0.01f,//rolling friction coeffition
-                Gain = 10;//currant gain 10000mA for 500Newton;
-
-                float m = this.mass;
-                Vector3 v = this.RigidBody.LinearVelocity;
-                Vector3 G = this.RigidBody.Gravity;
-
-                float v_len = v.Length();
-                float v_len_kph = v_len * 3.6f;
-                float G_len = G.Length();
-                Vector3 G_nor = Vector3.Normalize(G);
-                Vector3 v_nor = Vector3.Normalize(v);
-
-                //float cos_sita = Vector3.Dot(v_nor,G_nor);
-
-                float g_vertical_new = Vector3.Dot(RigidBody.Gravity, v_nor);//在速度方向上的重力分量，方向与速度方向相同
-                this.g_vertical_old = g_vertical_old * 0.9f + g_vertical_new * 0.1f;//digital IFR filter, 平滑一下。
-                float g_vertical = g_vertical_old;//updata the number
- 
-                float wind_resistance = k2 * v.LengthSquared();
-                float viscous_resistance = k1 * v.Length();
-                float rollingFriction = 1.0f + RigidBody.Gravity.Length() * miu;
-                Vector3 a = (RigidBody.LinearVelocity - lastLinearVel) / dt;
-
-               
-                this.SerialOutProcessor.SentLine("GV");//get volosity;
-               
-                Vector3 drag_force = new Vector3();  
-
-                drag_force = (wind_resistance + viscous_resistance + rollingFriction - g_vertical) * v_nor;
-                 
-                //string str_v = this.SerialOutProcessor.ReadLine();                
-                //if(str_v != null)
-                //{
-                //    bool direction = str_v.Contains("-");//go forward, motor go counterclockwise
-                //    //需要的牵引力(跟速度方向相同)= 风阻力 + 粘性阻力 + 固定的滚动阻力 + 跟重量相关的滚动阻力 - 重力分量。
-                     
-                //    if (!direction)
-                //    {     
-                //        drag_force = Vector3.Zero;
-                //    }
-                //}
-                
-                
-                float power = drag_force.Length() * v_len;
-
-                double drag_force_out = Gain * drag_force.Length();//表示反方向,产生阻力
-                drag_force_out = Math.Round(drag_force_out);
-
-                if (drag_force_out > 1000)// 2000mA maximum motor current
-                    drag_force_out = 1000;
-                else if (drag_force_out < -1000)
-                    drag_force_out = -1000;
-                string str = drag_force_out.ToString();
-                //this.SerialOutProcessor.Sent("F");           
-                this.SerialOutProcessor.SentLine(String.Concat("F",str));//伺服驱动器的指令，F表示力矩控制模式, 
+                SerialOutProcessor = new SerialPortOutputProcessor(InputManager.Instance);
             }
             
-        }
+            string str_v = this.SerialOutProcessor.ReadLine();
+            this.SerialOutProcessor.SentLine("GV");//get volosity;
+            if (string.IsNullOrEmpty( str_v))
+            { }
+            else 
+            {
+                str_v = str_v.Substring(1);//discard the first #
+                int int_v = 0;
+                if (Char.IsDigit(str_v, 0) || str_v.StartsWith("-")) 
+                {
+                     int_v = Int32.Parse(str_v);//negetive <-> go forward
+                    int_v = int_v*int_v/5000;
+                     
+                }
+                int direction = Math.Sign(int_v);
+
+                this.SerialOutProcessor.SentLine(String.Concat("F", int_v.ToString()));//伺服驱动器的指令，F表示力矩控制模式,
+            }
+            
+            //if (this.ownerType == BicycleOwner.Player)
+            //{
+            //    if (this.SerialOutProcessor == null)
+            //    {
+            //        SerialOutProcessor = new SerialPortOutputProcessor(InputManager.Instance);
+            //    }
+            //    //this function will caculate the force feedback and output the singnal to motor driver
+            //    //计算力反馈，从串口输出信号到驱动器
+
+            //    const float rou = 1.29f,//density of air ,in kg/m^3             
+            //    A = 0.5f,//area of wind resistance, in m^2
+            //    Cw = 0.5f,//wind resistance coefficient
+            //    k2 = 0.5f * rou * A * Cw,// coefficient of v^2
+            //    k1 = 0.01f,// coefecience of v
+            //    miu = 0.01f,//rolling friction coeffition
+            //    Gain = 10;//currant gain 10000mA for 500Newton;
+
+            //    float m = this.mass;
+                 
+            //    Vector3 v_new = this.RigidBody.LinearVelocity;
+            //    v = 0.8f * v + 0.2f * v_new;//IFR Filter,smoothing.
+                
+            //    Vector3 G = this.RigidBody.Gravity;
+
+            //    float v_len = v.Length();
+            //    float v_len_kph = v_len * 3.6f;
+            //    float G_len = G.Length();
+            //    Vector3 G_nor = Vector3.Normalize(G);
+            //    Vector3 v_nor = Vector3.Normalize(v);
+
+            //    float g_vertical  = Vector3.Dot(RigidBody.Gravity, v_nor);//在速度方向上的重力分量，方向与速度方向相同
+
+            //    //float cos_sita = Vector3.Dot(v_nor,G_nor);
+            //    //float g_vertical_new = Vector3.Dot(RigidBody.Gravity, v_nor);//在速度方向上的重力分量，方向与速度方向相同
+            //    //this.g_vertical_old = g_vertical_old * 0.7f + g_vertical_new * 0.3f;//digital IFR filter, 平滑一下。
+            //    //float g_vertical = g_vertical_old;//updata the number
+ 
+            //    float wind_resistance = k2 * v.LengthSquared();
+            //    float viscous_resistance = k1 * v.Length();
+            //    float rollingFriction = 1.0f + RigidBody.Gravity.Length() * miu;
+            //    Vector3 a = (RigidBody.LinearVelocity - lastLinearVel) / dt; 
+
+
+            //    string str_v = this.SerialOutProcessor.ReadLine();
+            //    Vector3 drag_force = Vector3.Zero;
+
+            //    if (string.IsNullOrEmpty( str_v))
+            //    { }
+            //    else 
+            //    {
+            //        str_v = str_v.Substring(1);//discard the first #
+            //        int int_v = 0;
+            //        if (Char.IsDigit(str_v, 0) || str_v.StartsWith("-")) 
+            //        {
+            //             int_v = Int32.Parse(str_v);//negetive <-> go forward
+            //        }
+            //        int direction = Math.Sign(int_v);
+
+                    
+            //        if (direction == -1)//在前进时
+            //        {
+            //            //电机反馈的力(跟速度方向相反)= 风阻力 + 粘性阻力 + 固定的滚动阻力 + 跟重量相关的滚动阻力 - 重力分量。
+            //            drag_force = (-wind_resistance - viscous_resistance - rollingFriction + g_vertical) * v_nor;//
+            //        }
+            //        else if (direction == 1)//后退时
+            //        {
+            //            drag_force = (-wind_resistance - viscous_resistance - rollingFriction + g_vertical) * v_nor;
+            //        }
+            //        double drag_force_out = direction * Gain * drag_force.Length();//表示反方向,产生阻力
+                
+                 
+            //    this.SerialOutProcessor.SentLine("GV");//get volosity;
+
+            //    float power = drag_force.Length() * v_len;
+
+                
+            //    drag_force_out = Math.Round(drag_force_out);
+
+            //    if (drag_force_out > 1000)// 2000mA maximum motor current
+            //        drag_force_out = 1000;
+            //    else if (drag_force_out < -1000)
+            //        drag_force_out = -1000;
+            //    string str = drag_force_out.ToString();
+                
+            //    //this.SerialOutProcessor.Sent("F");           
+            //    this.SerialOutProcessor.SentLine(String.Concat("F", str));//伺服驱动器的指令，F表示力矩控制模式, 
+            }
+            
+
         #endregion
 
         #region 物理的一些判读
