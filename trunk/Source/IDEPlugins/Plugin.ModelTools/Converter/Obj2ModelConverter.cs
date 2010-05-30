@@ -4,17 +4,15 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using SlimDX;
-using SlimDX.Direct3D9;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.Ide;
-using VirtualBicycle.Ide.Converters;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle.Ide.Editors;
-using VirtualBicycle.IO;
-using VirtualBicycle.MathLib;
+using Apoc3D.Graphics;
+using Apoc3D.Ide;
+using Apoc3D.Ide.Converters;
+using Apoc3D.Ide.Designers;
+using Apoc3D.Ide.Editors;
+using Apoc3D.MathLib;
+using DX = SlimDX.Direct3D9;
 
-namespace Plugin.ModelTools
+namespace Plugin.DXBased
 {
     [Obsolete ()]
     class Obj2ModelConverter : ConverterBase

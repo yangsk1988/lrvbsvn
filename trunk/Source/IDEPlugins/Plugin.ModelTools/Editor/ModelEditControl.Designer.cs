@@ -1,4 +1,4 @@
-﻿namespace Plugin.ModelTools
+﻿namespace Plugin.DXBased
 {
     partial class ModelEditControl
     {

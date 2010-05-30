@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace Plugin.ModelTools
+namespace Plugin.DXBased
 {
     public class MeshMaterialConverter : ExpandableObjectConverter
     {

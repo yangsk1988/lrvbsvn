@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
-using VirtualBicycle.Ide;
-using VirtualBicycle;
+using Apoc3D;
+using Apoc3D.Ide;
 
-namespace Plugin.ModelTools
+namespace Plugin.DXBased
 {
     public class Plugin : IPlugin
     {
@@ -16,14 +16,11 @@ namespace Plugin.ModelTools
         {
             GraphicsDevice.Initialize(Program.MainForm);
 
-            Engine.Initialize(GraphicsDevice.Instance.Device);
+            //Engine.Initialize(GraphicsDevice.Instance.Device);
 
             DesignerManager.Instance.RegisterDesigner(new ModelDesignerFactory());
 
             ConverterManager.Instance.Register(new XText2ModelConverter());
-
-            ConverterManager.Instance.Register(new Xml2ModelConverter());
-            ConverterManager.Instance.Register(new Xml2ModelConverter2());
         }
 
         public void Unload()
@@ -33,7 +30,7 @@ namespace Plugin.ModelTools
 
         public string Name
         {
-            get { return "Model Plugin"; }
+            get { return "DX Based Plugin"; }
         }
 
         public Icon PluginIcon

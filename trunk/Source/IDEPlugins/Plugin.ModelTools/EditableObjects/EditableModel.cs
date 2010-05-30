@@ -4,16 +4,17 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.IO;
 using System.Text;
-using SlimDX;
-using SlimDX.Direct3D9;
-using VirtualBicycle.Design;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.Graphics.Animation;
-using VirtualBicycle.Ide.Converters;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle.IO;
+using Apoc3D.Design;
+using Apoc3D.Graphics;
+using Apoc3D.Graphics.Animation;
+using Apoc3D.Ide.Converters;
+using Apoc3D.Ide.Designers;
+using Apoc3D.MathLib;
+using Apoc3D.Vfs;
+using DX = SlimDX.Direct3D9;
+using Plugin.Common;
 
-namespace Plugin.ModelTools
+namespace Plugin.DXBased
 {
     [TypeConverter(typeof(ExpandableObjectConverter))]
     [Editor(typeof(ModelEditor), typeof(UITypeEditor))]
@@ -21,7 +22,7 @@ namespace Plugin.ModelTools
     public class EditableModel : ModelBase<EditableMesh>, IDisposable
     {
         public EditableModel()
-            : base(GraphicsDevice.Instance.Device)
+            : base()
         { }
 
 
@@ -82,24 +83,26 @@ namespace Plugin.ModelTools
 
         public void Render()
         {
+            DX.Device device = GraphicsDevice.Instance.Device;
+
             if (entities != null && TransformAnim != null)
             {
-                device.SetRenderState(RenderState.NormalizeNormals, true);
+                device.SetRenderState(DX.RenderState.NormalizeNormals, true);
                 device.VertexShader = null;
                 device.PixelShader = null;
 
-                if (TransformAnim != null)
-                {
-                    TransformAnim.Update(0.025f);
-                }
-                if (SkinAnim != null)
-                {
-                    SkinAnim.Update(0.025f);
-                }
+                //if (TransformAnim != null)
+                //{
+                //    TransformAnim.Update(0.025f);
+                //}
+                //if (SkinAnim != null)
+                //{
+                //    SkinAnim.Update(0.025f);
+                //}
 
                 for (int i = 0; i < entities.Length; i++)
                 {
-                    device.SetTransform(TransformState.World, TransformAnim.GetTransform(i));
+                    device.SetTransform(DX.TransformState.World, TransformAnim.GetTransform(i));
 
                     entities[i].Render();
                 }
@@ -109,6 +112,7 @@ namespace Plugin.ModelTools
 
         public void Render(Matrix trans)
         {
+            DX.Device device = GraphicsDevice.Instance.Device;
             if (entities != null && TransformAnim != null)
             {
                 device.SetRenderState(RenderState.NormalizeNormals, true);
@@ -125,21 +129,13 @@ namespace Plugin.ModelTools
                 }
                 for (int i = 0; i < entities.Length; i++)
                 {
-                    device.SetTransform(TransformState.World, TransformAnim.GetTransform(i) * trans);
+                    device.SetTransform(DX.TransformState.World, TransformAnim.GetTransform(i) * trans);
  
                     entities[i].Render();
                 }
             }
         }
 
-        public void SetSkinAnimInst(SkinAnimationInstance inst)
-        {
-            base.SkinAnim = inst;
-        }
-        public void SetTransformAnimInst(TransformAnimationInstance inst)
-        {
-            base.TransformAnim = inst;
-        }
 
 
         protected override EditableMesh LoadMesh(BinaryDataReader data)

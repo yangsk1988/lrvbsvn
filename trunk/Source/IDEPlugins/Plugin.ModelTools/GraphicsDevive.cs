@@ -4,15 +4,15 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using SlimDX;
-using SlimDX.Direct3D9;
-using VirtualBicycle.Ide.Properties;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.Graphics.Animation;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.Ide;
 
-namespace Plugin.ModelTools
+using DX = SlimDX.Direct3D9;
+using Apoc3D.Ide.Properties;
+using Apoc3D.Graphics;
+using Apoc3D.Graphics.Animation;
+using Apoc3D.MathLib;
+using Apoc3D.Ide;
+
+namespace Plugin.DXBased
 {
     public delegate void ViewChangedHandler();
 
@@ -337,14 +337,14 @@ namespace Plugin.ModelTools
             ball = Mesh.CreateSphere(dev, 1, 10, 10);
             ball.ComputeNormals();
 
-            VirtualBicycle.Graphics.MeshData meshData = new VirtualBicycle.Graphics.MeshData(dev);
+            Apoc3D.Graphics.MeshData meshData = new Apoc3D.Graphics.MeshData(dev);
 
             MeshMaterial[][] mats = new MeshMaterial[1][];
             mats[0] = new MeshMaterial[1];
             mats[0][0] = new MeshMaterial(dev);
             mats[0][0].D3DMaterial = MeshMaterial.DefaultMatColor;
 
-            VirtualBicycle.Graphics.MeshData.BuildFromMesh(ball, meshData, mats);
+            Apoc3D.Graphics.MeshData.BuildFromMesh(ball, meshData, mats);
 
             //meshData.Texture1 = new Vector2[meshData.Positions.Length];
             //meshData.Normals = new Vector3[meshData.Positions.Length];

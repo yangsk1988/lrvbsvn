@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Text;
 using System.Windows.Forms.Design;
-using SlimDX.Direct3D9;
+using DX = SlimDX.Direct3D9;
 
-namespace Plugin.ModelTools
+namespace Plugin.DXBased
 {
     public class TextureEditor : UITypeEditor
     {

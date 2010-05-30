@@ -6,16 +6,16 @@ using System.Drawing;
 using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
-using SlimDX;
-using SlimDX.Direct3D9;
-using VirtualBicycle;
-using VirtualBicycle.Graphics;
-using VirtualBicycle.Ide;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.UI;
 
-namespace Plugin.ModelTools
+using DX = SlimDX.Direct3D9;
+using VirtualBicycle;
+using Apoc3D.Graphics;
+using Apoc3D.Ide;
+using Apoc3D.Ide.Designers;
+using Apoc3D.MathLib;
+using Apoc3D.UI;
+
+namespace Plugin.DXBased
 {
     public partial class MeshSimpDlg : Form
     {
