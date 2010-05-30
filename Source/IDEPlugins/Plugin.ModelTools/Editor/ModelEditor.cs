@@ -5,7 +5,7 @@ using System.Drawing.Design;
 using System.Text;
 using System.Windows.Forms.Design;
 
-namespace Plugin.ModelTools
+namespace Plugin.DXBased
 {
     /// <summary>
     /// 为模型添加实体，导入 等功能

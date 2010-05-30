@@ -1,4 +1,4 @@
-﻿namespace Plugin.ModelTools
+﻿namespace Plugin.DXBased
 {
     partial class EmbeddedMeshDocument
     {
@@ -149,7 +149,7 @@
             // optimizeTool
             // 
             this.optimizeTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.optimizeTool.Image = global::Plugin.ModelTools.Properties.Resources.CheckGrammarHS;
+            this.optimizeTool.Image = global::Plugin.DXBased.Properties.Resources.CheckGrammarHS;
             this.optimizeTool.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.optimizeTool.Name = "optimizeTool";
             this.optimizeTool.Size = new System.Drawing.Size(23, 22);

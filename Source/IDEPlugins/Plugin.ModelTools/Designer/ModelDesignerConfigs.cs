@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using SlimDX;
-using VirtualBicycle.Ide;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle.MathLib;
+using Apoc3D.Ide;
+using Apoc3D.Ide.Designers;
+using Apoc3D.MathLib;
 
-namespace Plugin.ModelTools
+
+namespace Plugin.DXBased
 {
     [Serializable()]
     public class ModelDesignerConfigs : DocumentConfigBase

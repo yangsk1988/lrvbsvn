@@ -5,17 +5,17 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using SlimDX;
-using SlimDX.Direct3D9;
-using VirtualBicycle.Ide;
-using VirtualBicycle.Ide.Converters;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle.IO;
-using VirtualBicycle.MathLib;
-using VirtualBicycle.UI;
+using Apoc3D.Ide;
+using Apoc3D.Ide.Converters;
+using Apoc3D.Ide.Designers;
+using Apoc3D.Vfs;
+using Apoc3D.MathLib;
+using Apoc3D.UI;
+
+using DX = SlimDX.Direct3D9;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace Plugin.ModelTools
+namespace Plugin.DXBased
 {
     public partial class ModelDesigner : GeneralDocumentBase
     {

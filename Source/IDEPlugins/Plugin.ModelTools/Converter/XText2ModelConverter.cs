@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using SlimDX;
-using SlimDX.Direct3D9;
-using VirtualBicycle.Graphics.Animation;
-using VirtualBicycle.Ide;
-using VirtualBicycle.Ide.Converters;
-using VirtualBicycle.Ide.Designers;
-using VirtualBicycle.Ide.Editors;
-using VirtualBicycle.IO;
-using VirtualBicycle.MathLib;
+using Apoc3D.Ide;
+using Apoc3D.Ide.Converters;
+using Apoc3D.Ide.Designers;
+using Apoc3D.Ide.Editors;
 
-namespace Plugin.ModelTools
+using DX = SlimDX.Direct3D9;
+
+namespace Plugin.DXBased
 {
     public class XText2ModelConverter : ConverterBase
     {

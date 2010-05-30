@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过下列属性集
 // 控制。更改这些属性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Plugin.ModelTools")]
+[assembly: AssemblyTitle("Plugin.DXBased")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Lenovo")]
-[assembly: AssemblyProduct("Plugin.ModelTools")]
+[assembly: AssemblyProduct("Plugin.DXBased")]
 [assembly: AssemblyCopyright("Copyright © Lenovo 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
