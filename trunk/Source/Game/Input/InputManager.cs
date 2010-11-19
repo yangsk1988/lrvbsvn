@@ -92,11 +92,14 @@ namespace VirtualBicycle.Input
             get;
             set;
         }
-        public InputProcessor Processor_bak
+
+
+        public void ForceFeedback(float f)
         {
-            get;
-            set;
+            if (Processor != null)
+                Processor.Feedback(f);
         }
+
 
         public void OnReset()
         {
