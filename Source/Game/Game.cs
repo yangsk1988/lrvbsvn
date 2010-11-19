@@ -193,7 +193,7 @@ namespace VirtualBicycle
                 FMOD.Factory.System_Create(ref sndSystem);
                 sndSystem.init(8, FMOD.INITFLAG.NORMAL, IntPtr.Zero);
 
-                SerialPortInputProcessor seip = new SerialPortInputProcessor(InputManager.Instance);
+                SerialPortIO seip = new SerialPortIO(InputManager.Instance);
                 if (seip.IsValid)
                 {
                     InputManager.Instance.Processor = seip;

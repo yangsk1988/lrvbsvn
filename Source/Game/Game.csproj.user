@@ -6,6 +6,6 @@
     <StartArguments>"-resDir ..\..\..\Content" -win</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <StartArguments>"-resDir ..\..\..\Content"</StartArguments>
+    <StartArguments>"-resDir ..\..\..\Content" -win</StartArguments>
   </PropertyGroup>
 </Project>

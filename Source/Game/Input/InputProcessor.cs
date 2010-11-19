@@ -17,6 +17,8 @@ namespace VirtualBicycle.Input
             Manager = mgr;
         }
 
+        public virtual void Feedback(float f) { }
+
         public abstract void Update(float dt);
     }
 }
