@@ -421,7 +421,7 @@ namespace VirtualBicycle.Logic
 
                 RigidBody.AngularVelocity = -((frontVLen / steeringRadius * Math.Sign(steeringAngle)) * up);
                 Vector3 linearV = CalcLinearVelocity();
-                RigidBody.LinearVelocity = linearV;
+                RigidBody.LinearVelocity = linearV * LinearVelRatio;
 
                 frontWheelAngV = Vector3.Dot(front, linearV);
                 backWheelAngV = frontWheelAngV;
@@ -553,13 +553,15 @@ namespace VirtualBicycle.Logic
             up.Normalize();
             right.Normalize();
 
-            frontVelocity = Vector3.Dot(RigidBody.LinearVelocity, front) * front;
-            upVelocity = Vector3.Dot(RigidBody.LinearVelocity, up) * up;
-            rightVelocity = Vector3.Dot(RigidBody.LinearVelocity, right) * right;
+            Vector3 linV = RigidBody.LinearVelocity / LinearVelRatio;
+            frontVelocity = Vector3.Dot(linV, front) * front;
+            upVelocity = Vector3.Dot(linV, up) * up;
+            rightVelocity = Vector3.Dot(linV, right) * right;
 
             if (dt > float.Epsilon)
             {
-                force = (Mass / dt) * (RigidBody.LinearVelocity - lastLinearVel);
+                PM.Vector3 linV2 = linV;
+                force = (Mass / dt) * (linV2 - lastLinearVel);
             }
 
             bool flag = CheckIsFall() | CheckIsSliped();
@@ -595,7 +597,7 @@ namespace VirtualBicycle.Logic
 
             pwrUpdateDuration += dt;
             //lastCtrlState = flag1;
-            lastLinearVel = RigidBody.LinearVelocity;
+            lastLinearVel = linV;
 
             isMovingFront = GetIsMovingFront();
         }
@@ -636,6 +638,8 @@ namespace VirtualBicycle.Logic
             return false;
         }
 
+
+        public const float LinearVelRatio = 3.5f;
         /// <summary>
         /// 处理线速度
         /// </summary>
@@ -644,9 +648,11 @@ namespace VirtualBicycle.Logic
         {
             //const float maxUpVelocity = 18.2f;
 
-            frontVelocity = Vector3.Dot(RigidBody.LinearVelocity, front) * front;
-            upVelocity = Vector3.Dot(RigidBody.LinearVelocity, up) * up;
-            rightVelocity = Vector3.Dot(RigidBody.LinearVelocity, right) * right;
+            Vector3 linV = RigidBody.LinearVelocity / LinearVelRatio;
+
+            frontVelocity = Vector3.Dot(linV, front) * front;
+            upVelocity = Vector3.Dot(linV, up) * up;
+            rightVelocity = Vector3.Dot(linV, right) * right;
 
             Vector4 vec4 = Vector3.Transform(frontVelocity, Quaternion.RotationAxis(up, -deltaSteeringAngle));
             frontVelocity = new Vector3(vec4.X, vec4.Y, vec4.Z);
