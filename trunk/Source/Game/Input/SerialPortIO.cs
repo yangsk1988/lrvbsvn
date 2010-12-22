@@ -14,6 +14,13 @@ namespace VirtualBicycle.Input
         const byte EndOfPack = 0xFE;
         const byte PackHeader = 0xff;
 
+        const int EnterBtnMask = 0x01;
+        const int ExitBtnMask = 0x02;
+        const int ResetBtnMask = 0x04;
+        const int ViewBtnMask = 0x08;
+        const int HeartBtnMask = 0x10;
+
+
         enum PackType : byte
         {
             Recv,
@@ -333,8 +340,8 @@ namespace VirtualBicycle.Input
 
                     if (i==0)
                     {
-                         int flag = (pack.Btn1 >> 6) & 1;
-                         if (flag != 0)
+                         int flag; //= pack.Btn1 & EnterBtnMask;// (pack.Btn1 >> 6) & 1;
+                         if (pack.Btn1 == EnterBtnMask)
                          {
                              if (!isEnterPressed)
                              {
@@ -347,8 +354,8 @@ namespace VirtualBicycle.Input
                              isEnterPressed = false;
                          }
 
-                         flag = (pack.Btn1 >> 5) & 1;
-                         if (flag!=0)
+                         flag = pack.Btn1 & ResetBtnMask;// (pack.Btn1 >> 5) & 1;
+                         if (flag == ResetBtnMask)
                          {
                              if (!isResetPressed)
                              {
@@ -361,8 +368,8 @@ namespace VirtualBicycle.Input
                              isResetPressed = false;
                          }
 
-                         flag = (pack.Btn1 >> 4) & 1;
-                         if (flag != 0)
+                         //flag = pack.Btn1 & ExitBtnMask;// (pack.Btn1 >> 4) & 1;
+                         if (pack.Btn1 == ExitBtnMask)
                          {
                              if (!isEscPressed)
                              {
@@ -375,8 +382,8 @@ namespace VirtualBicycle.Input
                              isEscPressed = false;
                          }
 
-                         flag = (pack.Btn1 >> 3) & 1;
-                         if (flag != 0)
+                         flag = pack.Btn1 & ViewBtnMask;// (pack.Btn1 >> 3) & 1;
+                         if (flag == ViewBtnMask)
                          {
                              if (!isVPressed)
                              {
@@ -389,8 +396,8 @@ namespace VirtualBicycle.Input
                              isVPressed = false;
                          }
 
-                         flag = (pack.Btn1 >> 2) & 1;
-                         if (flag != 0)
+                         flag = pack.Btn1 & HeartBtnMask;// (pack.Btn1 >> 2) & 1;
+                         if (flag == HeartBtnMask)
                          {
                              if (!lastHeartState)
                              {

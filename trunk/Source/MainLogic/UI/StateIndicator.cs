@@ -112,34 +112,37 @@ namespace VirtualBicycle.UI
                 time.Minutes.ToString("D2") + ":" +
                 time.Seconds.ToString("D2");
 
-            float v = CurrectBicycle.RigidBody.LinearVelocity.Length();
-            qVelocity.Enqueue(v);
+
+            {
+                float v = CurrectBicycle.RigidBody.LinearVelocity.Length() / Bicycle.LinearVelRatio;
+                qVelocity.Enqueue(v);
 
 
-            float v2;
-            while (qVelocity.Count > 10)
-            {
-                qVelocity.Dequeue();
-            }
-            if (qVelocity.Count > 0)
-            {
-                v2 = 0;
-                foreach (float lean in qVelocity)
+                float v2;
+                while (qVelocity.Count > 10)
                 {
-                    v2 += lean;
+                    qVelocity.Dequeue();
                 }
-                v2 /= qVelocity.Count;
-            }
-            else
-            {
-                v2 = v;
-            }
+                if (qVelocity.Count > 0)
+                {
+                    v2 = 0;
+                    foreach (float lean in qVelocity)
+                    {
+                        v2 += lean;
+                    }
+                    v2 /= qVelocity.Count;
+                }
+                else
+                {
+                    v2 = v;
+                }
 
-            if (velTimeElasped > 0.5f)
-            {
-                velocity = v2;
+                if (velTimeElasped > 0.5f)
+                {
+                    velocity = v2;
 
-                velTimeElasped = 0;
+                    velTimeElasped = 0;
+                }
             }
 
             string speedText = (velocity * 3600 / 1000).ToString("F01");
