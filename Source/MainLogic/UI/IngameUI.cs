@@ -14,6 +14,7 @@ using VirtualBicycle.Logic.Mod;
 using VirtualBicycle.MathLib;
 using VirtualBicycle.Physics.Dynamics;
 using VirtualBicycle.Sound;
+using VirtualBicycle.Collections;
 
 namespace VirtualBicycle.UI
 {
@@ -51,6 +52,8 @@ namespace VirtualBicycle.UI
 
         float heartTime;
         float heartRate;
+
+        FastList<float> smoothedHeartRate = new FastList<float>(5);
 
         public bool IsMenuShown
         {
@@ -161,7 +164,7 @@ namespace VirtualBicycle.UI
 
                     heartPic.Render(sprite);
 
-
+                    
                     if (heartRate > 90 && heartRate < 120)
                     {
                         float lerp = (120 - heartRate) / 30;
@@ -302,6 +305,41 @@ namespace VirtualBicycle.UI
             heartInterval = 0;
             heartTime = 0;
             this.heartPic.SetCurrentPara(0);
+
+            float oldVal = 0;
+            if (smoothedHeartRate.Count > 0)
+            {
+                for (int i = 0; i < smoothedHeartRate.Count; i++)
+                {
+                    oldVal += smoothedHeartRate[i];
+                }
+                oldVal /= smoothedHeartRate.Count;
+            }
+
+
+
+            if (heartRate < 200)
+                //&& (oldVal < 30 || Math.Abs((heartRate - oldVal) / oldVal) < 0.25f))
+            {
+                smoothedHeartRate.Add(heartRate);
+
+                if (smoothedHeartRate.Count > 5)
+                {
+                    smoothedHeartRate.RemoveRange(0, smoothedHeartRate.Count - 5);
+                }
+            }
+
+
+
+            heartRate = 0;
+            if (smoothedHeartRate.Count > 0)
+            {
+                for (int i = 0; i < smoothedHeartRate.Count; i++)
+                {
+                    heartRate += smoothedHeartRate[i];
+                }
+                heartRate /= smoothedHeartRate.Count;
+            }
         }
 
         protected override void load()
