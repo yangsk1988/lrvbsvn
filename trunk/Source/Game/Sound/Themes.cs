@@ -140,7 +140,11 @@ namespace VirtualBicycle.Sound
                 {
                     if (sound != null)
                     {
-                        sound.release();
+                        try { sound.release(); }
+                        catch
+                        {
+
+                        }
                     }
                     sndSystem = null;
                     themes = null;
