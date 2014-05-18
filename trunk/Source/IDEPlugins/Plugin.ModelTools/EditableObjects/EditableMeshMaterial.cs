@@ -6,17 +6,17 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Plugin.Common;
-
-using DX = SlimDX.Direct3D9;
+using SlimDX;
+using SlimDX.Direct3D9;
 using VirtualBicycle;
-using Apoc3D.Graphics;
-using Apoc3D.Graphics.Effects;
-using Apoc3D.Ide;
-using Apoc3D.Ide.Designers;
-using Apoc3D.Ide.Editors;
-using Apoc3D.Vfs;
+using VirtualBicycle.Graphics;
+using VirtualBicycle.Graphics.Effects;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Editors;
+using VirtualBicycle.IO;
 
-namespace Plugin.DXBased
+namespace Plugin.ModelTools
 {
     public delegate void EditObjChangedHandler();
     [TypeConverter(typeof(MeshMaterialConverter))]

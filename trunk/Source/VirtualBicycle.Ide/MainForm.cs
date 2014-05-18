@@ -77,7 +77,7 @@ namespace VirtualBicycle.Ide
             }
 
             FileSystem.Instance.AddWorkingDir(Application.StartupPath);
-            FileSystem.Instance.AddWorkingDir(@"..\..\..\Content");
+            FileSystem.Instance.AddWorkingDir(Path.Combine(Application.StartupPath, @"..\..\..\Content"));
             PlatformManager.Instance.RegisterPlatform(PresetedPlatform.VirtualBike, PresetedPlatform.VirtualBikeName);
 
             PluginManager.Initiailze(null, splash.PluginProgressCallBack);

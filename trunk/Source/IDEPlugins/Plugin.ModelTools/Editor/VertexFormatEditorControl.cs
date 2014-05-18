@@ -6,10 +6,10 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using DX = SlimDX.Direct3D9;
-using Apoc3D.Design;
+using SlimDX.Direct3D9;
+using VirtualBicycle.Design;
 
-namespace Plugin.DXBased
+namespace Plugin.ModelTools
 {
     public partial class VertexFormatEditorControl : UserControl, IEditControl<VertexFormat>
     {

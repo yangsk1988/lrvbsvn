@@ -16,12 +16,12 @@ namespace Plugin.WorldBuilder
 
         public void Load()
         {
-
             DesignerManager.Instance.RegisterDesigner(new WorldDesignerFactory());
 
             TemplateManager.Instance.RegisterTemplate(new WorldTemplate());
 
             IdeLogicModManager.Initialize();
+
 
             EffectManager.Instance.RegisterModelEffectType(TerrainRenderingEditEffectFactory.Name,
                 new TerrainRenderingEditEffectFactory(GraphicsDevice.Instance.Device));

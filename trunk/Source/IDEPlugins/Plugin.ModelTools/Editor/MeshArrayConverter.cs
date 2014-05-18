@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Text;
 
-namespace Plugin.DXBased
+namespace Plugin.ModelTools
 {
     [Obsolete()]
     public class MeshArrayConverter : TypeConverter
