@@ -1,4 +1,4 @@
-﻿namespace Plugin.DXBased
+﻿namespace Plugin.ModelTools
 {
     partial class MeshSimpLvlDlg
     {

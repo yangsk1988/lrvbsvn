@@ -7,15 +7,15 @@ using System.Drawing.Imaging;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-
-using DX = SlimDX.Direct3D9;
+using SlimDX;
+using SlimDX.Direct3D9;
 using VirtualBicycle;
-using Apoc3D.Design;
-using Apoc3D.Ide;
-using Apoc3D.Ide.Designers;
-using Apoc3D.UI;
+using VirtualBicycle.Design;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.UI;
 
-namespace Plugin.DXBased
+namespace Plugin.ModelTools
 {
     public partial class TextureEditControl : UserControl, IEditControl<Texture>
     {

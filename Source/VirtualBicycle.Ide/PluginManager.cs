@@ -30,10 +30,10 @@ namespace VirtualBicycle.Ide
         {
             singleton = new PluginManager();
 
-            string pluginPath = Path.Combine(Application.StartupPath, Paths.PluginPath);
+            string pluginPath = Application.StartupPath;// Path.Combine(Application.StartupPath, Paths.PluginPath);
             if (Directory.Exists(pluginPath))
             {
-                string[] files = Directory.GetFiles(pluginPath, "*.dll", SearchOption.TopDirectoryOnly);
+                string[] files = Directory.GetFiles(pluginPath, "Plugin.*.dll", SearchOption.TopDirectoryOnly);
 
                 Type iplugin = typeof(IPlugin);
 
@@ -68,6 +68,7 @@ namespace VirtualBicycle.Ide
                                         {
                                             errcbk(obj, e);
                                         }
+                                        Console.Write(e.ToString());
                                     }
 
                                     singleton.plugins.Add(obj.Name, obj);
@@ -76,14 +77,6 @@ namespace VirtualBicycle.Ide
                                 }
                             }
                         }
-                    }
-                    //catch (FileLoadException)
-                    //{
-
-                    //}
-                    catch (BadImageFormatException)
-                    {
-
                     }
                     catch (Exception e)
                     {

@@ -5,10 +5,10 @@ using System.Drawing.Design;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using Apoc3D.Ide;
-using Apoc3D.Ide.Designers;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Designers;
 
-namespace Plugin.DXBased
+namespace Plugin.ModelTools
 {
     public class EmbededMeshEditor : UITypeEditor
     {

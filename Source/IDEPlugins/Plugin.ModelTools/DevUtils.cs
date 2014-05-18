@@ -4,12 +4,12 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Xml;
+using SlimDX;
+using SlimDX.Direct3D9;
+using VirtualBicycle.Graphics;
+using VirtualBicycle.Ide.Designers;
 
-using DX = SlimDX.Direct3D9;
-using Apoc3D.Graphics;
-using Apoc3D.Ide.Designers;
-
-namespace Plugin.DXBased
+namespace Plugin.ModelTools
 {
     public static class PlgUtils
     {

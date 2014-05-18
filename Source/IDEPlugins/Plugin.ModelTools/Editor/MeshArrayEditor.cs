@@ -5,7 +5,7 @@ using System.Drawing.Design;
 using System.Text;
 using System.Windows.Forms.Design;
 
-namespace Plugin.DXBased
+namespace Plugin.ModelTools
 {
     /// <summary>
     /// 编辑entities列表用

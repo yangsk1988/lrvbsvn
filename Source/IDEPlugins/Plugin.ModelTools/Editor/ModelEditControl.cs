@@ -6,12 +6,12 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using Apoc3D.Design;
-using Apoc3D.Ide;
-using Apoc3D.Ide.Converters;
-using Apoc3D.Vfs;
+using VirtualBicycle.Design;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Converters;
+using VirtualBicycle.IO;
 
-namespace Plugin.DXBased
+namespace Plugin.ModelTools
 {
     public partial class ModelEditControl : UserControl, IEditControl<EditableModel>
     {

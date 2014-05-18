@@ -5,22 +5,23 @@ using System.Diagnostics;
 using System.Drawing.Design;
 using System.IO;
 using System.Text;
-using Apoc3D;
-using Apoc3D.Graphics;
-using Apoc3D.Graphics.Animation;
-using Apoc3D.Ide.Converters;
-using Apoc3D.Ide.Designers;
-using Apoc3D.Vfs;
-using Apoc3D.MathLib;
-using DX = SlimDX.Direct3D9;
+using SlimDX;
+using SlimDX.Direct3D9;
+using VirtualBicycle;
+using VirtualBicycle.Graphics;
+using VirtualBicycle.Graphics.Animation;
+using VirtualBicycle.Ide.Converters;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.IO;
+using VirtualBicycle.MathLib;
 
-namespace Plugin.DXBased
+namespace Plugin.ModelTools
 {
     public unsafe class EditableMesh : MeshData<EditableMeshMaterial>, IDisposable
     {
         bool disposed;
 
-        DX.Mesh mesh;
+        Mesh mesh;
 
         int[] texCoordOffset = new int[8];
         int[] texCoordDemi = new int[8];
@@ -29,11 +30,11 @@ namespace Plugin.DXBased
 
         public bool HasPosition
         {
-            get { return (Format & DX.VertexFormat.Position) == DX.VertexFormat.Position; }
+            get { return (Format & VertexFormat.Position) == VertexFormat.Position; }
         }
         public bool HasNormal
         {
-            get { return (Format & DX.VertexFormat.Normal) == DX.VertexFormat.Normal; }
+            get { return (Format & VertexFormat.Normal) == VertexFormat.Normal; }
         }
 
         public int PositionOffset
@@ -58,29 +59,29 @@ namespace Plugin.DXBased
         {
             byte* srcData = (byte*)Data.ToPointer();
 
-            DX.VertexElement[] newElems = DX.D3DX.DeclaratorFromFVF(Format);
-            int newVtxSize = Apoc3D.Graphics.MeshData.ComputeVertexSize(VertexElements);
+            VertexElement[] newElems = D3DX.DeclaratorFromFVF(Format);
+            int newVtxSize = VirtualBicycle.Graphics.MeshData.ComputeVertexSize(VertexElements);
 
             for (int i = 0; i < newElems.Length; i++)
             {
-                if (newElems[i].Type != DX.DeclarationType.Unused)
+                if (newElems[i].Type != DeclarationType.Unused)
                 {
                     switch (newElems[i].Usage)
                     {
-                        case DX.DeclarationUsage.Position:
+                        case DeclarationUsage.Position:
                             PositionOffset = newElems[i].Offset;
-                            if (newElems[i].Type == DX.DeclarationType.Float3)
+                            if (newElems[i].Type == DeclarationType.Float3)
                                 PositionDemi = 3;
-                            else if (newElems[i].Type == DX.DeclarationType.Float4)
+                            else if (newElems[i].Type == DeclarationType.Float4)
                                 PositionDemi = 4;
 
                             break;
-                        case DX.DeclarationUsage.Normal:
+                        case DeclarationUsage.Normal:
                             NormalOffset = newElems[i].Offset;
                             break;
-                        case DX.DeclarationUsage.TextureCoordinate:
+                        case DeclarationUsage.TextureCoordinate:
                             texCoordOffset[newElems[i].UsageIndex] = newElems[i].Offset;
-                            texCoordDemi[newElems[i].UsageIndex] = VertexElement.GetTypeCount(newElems[i].Type);
+                            texCoordDemi[newElems[i].UsageIndex] = VirtualBicycle.Graphics.MeshData.GetVertexElementSize(newElems[i]) / sizeof(float);
 
                             break;
                     }
@@ -92,7 +93,7 @@ namespace Plugin.DXBased
 
         [Editor(typeof(VertexFormatEditor), typeof(UITypeEditor))]
         [TypeConverter(typeof(VertexFormatConverter))]
-        public DX.VertexFormat Format
+        public new VertexFormat Format
         {
             get { return base.Format; }
             set
@@ -103,29 +104,30 @@ namespace Plugin.DXBased
 
                     byte* srcData = (byte*)Data.ToPointer();
 
-                    VertexElement[] newElems = DX.D3DX.DeclaratorFromFVF(Format);
-                    int newVtxSize = Apoc3D.Graphics.MeshData.ComputeVertexSize(VertexElements);
+                    VertexElement[] newElems = D3DX.DeclaratorFromFVF(Format);
+                    int newVtxSize = VirtualBicycle.Graphics.MeshData.ComputeVertexSize(VertexElements);
 
                     for (int i = 0; i < newElems.Length; i++)
                     {
-                        if (newElems[i].Type != DX.DeclarationType.Unused)
+                        if (newElems[i].Type != DeclarationType.Unused)
                         {
                             switch (newElems[i].Usage)
                             {
-                                case DX.DeclarationUsage.Position:
+                                case DeclarationUsage.Position:
                                     PositionOffset = newElems[i].Offset;
-                                    if (newElems[i].Type == DX.DeclarationType.Float3)
+                                    if (newElems[i].Type == DeclarationType.Float3)
                                         PositionDemi = 3;
-                                    else if (newElems[i].Type == DX.DeclarationType.Float4)
+                                    else if (newElems[i].Type == DeclarationType.Float4)
                                         PositionDemi = 4;
 
                                     break;
-                                case DX.DeclarationUsage.Normal:
+                                case DeclarationUsage.Normal:
                                     NormalOffset = newElems[i].Offset;
                                     break;
-                                case DX.DeclarationUsage.TextureCoordinate:
+                                case DeclarationUsage.TextureCoordinate:
                                     texCoordOffset[newElems[i].UsageIndex] = newElems[i].Offset;
-                                    texCoordDemi[newElems[i].UsageIndex] = VertexElement.GetTypeCount(newElems[i].Type);
+                                    texCoordDemi[newElems[i].UsageIndex] = VirtualBicycle.Graphics.MeshData.GetVertexElementSize(newElems[i]) / sizeof(float);
+
                                     break;
                             }
                         }
@@ -147,7 +149,7 @@ namespace Plugin.DXBased
 
                                 for (int k = 0; k < newElems.Length; k++)
                                 {
-                                    if (newElems[k].Semantic == VertexElements[j].Semantic &&
+                                    if (newElems[k].Usage == VertexElements[j].Usage &&
                                         newElems[k].UsageIndex == VertexElements[j].UsageIndex)
                                     {
                                         found = true;
@@ -159,8 +161,8 @@ namespace Plugin.DXBased
                                 if (found)
                                 {
                                     int size = Math.Min(
-                                        Apoc3D.Graphics.MeshData.GetVertexElementSize(targetElement),
-                                        Apoc3D.Graphics.MeshData.GetVertexElementSize(VertexElements[i]));
+                                        VirtualBicycle.Graphics.MeshData.GetVertexElementSize(targetElement),
+                                        VirtualBicycle.Graphics.MeshData.GetVertexElementSize(VertexElements[i]));
 
                                     Memory.Copy(srcData + vtxSrcOfs + VertexElements[i].Offset, dstData + vtxDstOfs + targetElement.Offset, size);
                                 }

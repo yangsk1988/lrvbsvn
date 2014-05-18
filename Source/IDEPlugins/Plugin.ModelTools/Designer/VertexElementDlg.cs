@@ -5,9 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using DX = SlimDX.Direct3D9;
+using SlimDX.Direct3D9;
 
-namespace Plugin.DXBased
+namespace Plugin.ModelTools
 {
     public partial class VertexElementDlg : Form
     {

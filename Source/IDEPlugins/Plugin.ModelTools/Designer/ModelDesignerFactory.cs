@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Apoc3D.Ide;
-using Apoc3D.Ide.Designers;
-using Apoc3D.Vfs;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.IO;
 
-namespace Plugin.DXBased
+namespace Plugin.ModelTools
 {
     public class ModelDesignerFactory : DesignerAbstractFactory
     {

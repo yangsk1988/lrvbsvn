@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -8,10 +8,30 @@
     <ProjectGuid>{78198102-0C5B-4F8A-A001-CF55747DC044}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Plugin.DXBased</RootNamespace>
-    <AssemblyName>Plugin.DXBased</AssemblyName>
+    <RootNamespace>Plugin.ModelTools</RootNamespace>
+    <AssemblyName>Plugin.ModelTools</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>发布\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,6 +42,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,11 +52,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SlimDX, Version=2.0.9.42, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
+    <Reference Include="SlimDX, Version=2.0.5.39, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\SlimDX.dll</HintPath>
+      <HintPath>..\..\SlimDX.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -136,6 +158,9 @@
     <Compile Include="Editor\VertexFormatEditorControl.Designer.cs">
       <DependentUpon>VertexFormatEditorControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Converter\Xml2ModelConverter.cs" />
+    <Compile Include="Converter\Xml2ModelConverter2.cs" />
+    <Compile Include="Converter\XMLModelParser.cs" />
     <Compile Include="Converter\XText2ModelConverter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -186,17 +211,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\apoc3d\Source\Apoc3D.Core\Apoc3D.Core.csproj">
-      <Project>{767AFD72-02F7-4543-B193-A2E19645A4B9}</Project>
-      <Name>Apoc3D.Core</Name>
+    <ProjectReference Include="..\..\Game\Game.csproj">
+      <Project>{1DA1C1E6-DDD6-4F45-9CF4-7465F4931F2F}</Project>
+      <Name>Game</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\apoc3d\Source\Apoc3D.Graphics\Apoc3D.Graphics.csproj">
-      <Project>{726180A4-EE3E-478D-A5F9-985F56393AA7}</Project>
-      <Name>Apoc3D.Graphics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\apoc3d\Source\Apoc3D.Ide\Apoc3D.Ide.csproj">
+    <ProjectReference Include="..\..\VirtualBicycle.Ide\VirtualBicycle.Ide.csproj">
       <Project>{AA72D449-B468-4698-A28D-926E2225FC5A}</Project>
-      <Name>Apoc3D.Ide</Name>
+      <Name>VirtualBicycle.Ide</Name>
     </ProjectReference>
     <ProjectReference Include="..\Plugin.Common\Plugin.Common.csproj">
       <Project>{FBD89143-7A75-4EF8-B697-80446030DFD7}</Project>
@@ -205,6 +226,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CheckGrammarHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -215,8 +248,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>Copy $(TargetPath) ..\..\..\..\..\..\apoc3d\Source\Apoc3D.Ide\bin\Plugins\$(TargetFileName)
-
-Copy $(TargetDir)$(TargetName)".pdb" ..\..\..\..\..\..\apoc3d\Source\Apoc3D.Ide\bin\Plugins\$(TargetName)".pdb"</PostBuildEvent>
+    <PostBuildEvent>Copy $(TargetPath) $(SolutionDir)VirtualBicycle.Ide\bin\$(TargetFileName)
+Copy $(TargetDir)$(TargetName).pdb $(SolutionDir)VirtualBicycle.Ide\bin\$(TargetName).pdb
+</PostBuildEvent>
   </PropertyGroup>
 </Project>

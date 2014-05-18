@@ -6,13 +6,13 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using Apoc3D.Design;
-using Apoc3D.Ide;
-using Apoc3D.Ide.Designers;
-using Apoc3D.Ide.Editors;
-using Apoc3D.UI;
+using VirtualBicycle.Design;
+using VirtualBicycle.Ide;
+using VirtualBicycle.Ide.Designers;
+using VirtualBicycle.Ide.Editors;
+using VirtualBicycle.UI;
 
-namespace Plugin.DXBased
+namespace Plugin.ModelTools
 {
     public partial class MeshArrayEditControl : UserControl, IEditControl<EditableMesh[]>
     {
