@@ -112,6 +112,7 @@ namespace VirtualBicycle
             }
         }
 
+        bool useMouseDirection;
 
         void CreateD3D()
         {
@@ -158,6 +159,10 @@ namespace VirtualBicycle
                 {
                     Windowed = true;
                 }
+                else if (CaseInsensitiveStringComparer.Compare(args[i].name, "-mouse"))
+                {
+                    useMouseDirection = true;
+                }
             }
             FileSystem.Instance.AddWorkingDir(Application.StartupPath);
             ConfigurationManager.Initialize();
@@ -202,7 +207,7 @@ namespace VirtualBicycle
                 }
                 else
                 {
-                    InputManager.Instance.Processor = new KeyboardInputProcessor(InputManager.Instance);
+                    InputManager.Instance.Processor = new KeyboardInputProcessor(InputManager.Instance, this, useMouseDirection);
                 }
 
                 Themes.Initialize(sndSystem, (AudioConfigs)BasicConfigs.Instance[AudioConfigFacotry.AudioConfigName]);
