@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using VirtualBicycle.MathLib;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace VirtualBicycle.Input
 {
@@ -173,11 +175,14 @@ namespace VirtualBicycle.Input
 
         float handlebarAngle;
 
+        Game game;
+        bool usesMouseDirection;
 
-
-        public KeyboardInputProcessor(InputManager mgr)
+        public KeyboardInputProcessor(InputManager mgr, Game game, bool usesMouseDirection)
             : base(mgr)
         {
+            this.game = game;
+            this.usesMouseDirection = usesMouseDirection;
         }
 
         public override void Update(float dt)
@@ -187,29 +192,66 @@ namespace VirtualBicycle.Input
                 Manager.OnReset();
             }
 
-            if (GetAsyncKeyState(VKeys.VK_A) || GetAsyncKeyState(VKeys.VK_LEFT))
+            if (usesMouseDirection)
             {
-                handlebarAngle -= 0.005f;
+                int width = game.Window.Width;
+                Point pos = game.Window.PointToClient(Control.MousePosition);
 
-                if (handlebarAngle < -MathEx.PiOver2)
+                float xratio = (pos.X / (float)width);
+                xratio = MathEx.Clamp(0, 1, xratio); 
+
+                int dir = xratio < 0.5f ? -1 : 1;
+
+                xratio = xratio * 2 - 1;
+
+                float angle = 1 - (float)Math.Sqrt(1 - xratio * xratio); //inv sphere
+
+                angle = angle * 0.5f * dir * MathEx.PIf;
+
+                float da = angle - handlebarAngle;
+
+                if (da != 0)
                 {
-                    handlebarAngle = -MathEx.PiOver2;                
+                    Manager.OnHandlebarRotated(angle, da);
+
+                    handlebarAngle = angle;
                 }
 
-                Manager.OnItemMoveLeft();
-                Manager.OnHandlebarRotated(handlebarAngle, -0.005f);
+                if (GetAsyncKeyState(VKeys.VK_A) || GetAsyncKeyState(VKeys.VK_LEFT))
+                {
+                    Manager.OnItemMoveLeft();
+                }
+                if (GetAsyncKeyState(VKeys.VK_D) || GetAsyncKeyState(VKeys.VK_RIGHT))
+                {
+                    Manager.OnItemMoveRight();
+                }
             }
-
-            if (GetAsyncKeyState(VKeys.VK_D) || GetAsyncKeyState(VKeys.VK_RIGHT))
+            else
             {
-                handlebarAngle += 0.005f;
-                if (handlebarAngle > MathEx.PiOver2)
+                if (GetAsyncKeyState(VKeys.VK_A) || GetAsyncKeyState(VKeys.VK_LEFT))
                 {
-                    handlebarAngle = MathEx.PiOver2;
+                    handlebarAngle -= 0.005f;
+
+                    if (handlebarAngle < -MathEx.PiOver2)
+                    {
+                        handlebarAngle = -MathEx.PiOver2;
+                    }
+
+                    Manager.OnItemMoveLeft();
+                    Manager.OnHandlebarRotated(handlebarAngle, -0.005f);
                 }
 
-                Manager.OnItemMoveRight();
-                Manager.OnHandlebarRotated(handlebarAngle, 0.005f);
+                if (GetAsyncKeyState(VKeys.VK_D) || GetAsyncKeyState(VKeys.VK_RIGHT))
+                {
+                    handlebarAngle += 0.005f;
+                    if (handlebarAngle > MathEx.PiOver2)
+                    {
+                        handlebarAngle = MathEx.PiOver2;
+                    }
+
+                    Manager.OnItemMoveRight();
+                    Manager.OnHandlebarRotated(handlebarAngle, 0.005f);
+                }
             }
 
             if (GetAsyncKeyState(VKeys.VK_W) || GetAsyncKeyState(VKeys.VK_UP))
